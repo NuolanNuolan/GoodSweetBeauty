@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A2E09EEE0211A6ACCFEA81FC /* libPods-GoodSweetBeauty.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D9E78C5DD548AFD7E4F0D26 /* libPods-GoodSweetBeauty.a */; };
 		EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60C1E80D3CD0050BA8B /* main.m */; };
 		EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */; };
 		EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6121E80D3CD0050BA8B /* ViewController.m */; };
@@ -15,6 +16,7 @@
 		EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */; };
 		EA9CF6261E80D3CD0050BA8B /* GoodSweetBeautyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6251E80D3CD0050BA8B /* GoodSweetBeautyTests.m */; };
 		EA9CF6311E80D3CD0050BA8B /* GoodSweetBeautyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6301E80D3CD0050BA8B /* GoodSweetBeautyUITests.m */; };
+		EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6471E80F3020050BA8B /* LPActionSheet.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		56C84516CE68F8AE23B46AD7 /* Pods-GoodSweetBeauty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodSweetBeauty.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoodSweetBeauty/Pods-GoodSweetBeauty.release.xcconfig"; sourceTree = "<group>"; };
+		5D9E78C5DD548AFD7E4F0D26 /* libPods-GoodSweetBeauty.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoodSweetBeauty.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C98951ED82DD8E11B40A258 /* Pods-GoodSweetBeauty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoodSweetBeauty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoodSweetBeauty/Pods-GoodSweetBeauty.debug.xcconfig"; sourceTree = "<group>"; };
 		EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodSweetBeauty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9CF60C1E80D3CD0050BA8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -51,6 +56,9 @@
 		EA9CF62C1E80D3CD0050BA8B /* GoodSweetBeautyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodSweetBeautyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9CF6301E80D3CD0050BA8B /* GoodSweetBeautyUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodSweetBeautyUITests.m; sourceTree = "<group>"; };
 		EA9CF6321E80D3CD0050BA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA9CF6401E80D9430050BA8B /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		EA9CF6461E80F3020050BA8B /* LPActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPActionSheet.h; sourceTree = "<group>"; };
+		EA9CF6471E80F3020050BA8B /* LPActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPActionSheet.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2E09EEE0211A6ACCFEA81FC /* libPods-GoodSweetBeauty.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4BAE8CB36ABE95D685625B60 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9C98951ED82DD8E11B40A258 /* Pods-GoodSweetBeauty.debug.xcconfig */,
+				56C84516CE68F8AE23B46AD7 /* Pods-GoodSweetBeauty.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		A020200C6E504BE2ED592B29 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5D9E78C5DD548AFD7E4F0D26 /* libPods-GoodSweetBeauty.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EA9CF5FF1E80D3CD0050BA8B = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +111,8 @@
 				EA9CF6241E80D3CD0050BA8B /* GoodSweetBeautyTests */,
 				EA9CF62F1E80D3CD0050BA8B /* GoodSweetBeautyUITests */,
 				EA9CF6091E80D3CD0050BA8B /* Products */,
+				4BAE8CB36ABE95D685625B60 /* Pods */,
+				A020200C6E504BE2ED592B29 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -101,15 +129,8 @@
 		EA9CF60A1E80D3CD0050BA8B /* GoodSweetBeauty */ = {
 			isa = PBXGroup;
 			children = (
-				EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */,
-				EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */,
-				EA9CF6111E80D3CD0050BA8B /* ViewController.h */,
-				EA9CF6121E80D3CD0050BA8B /* ViewController.m */,
-				EA9CF6141E80D3CD0050BA8B /* Main.storyboard */,
-				EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */,
-				EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */,
-				EA9CF61C1E80D3CD0050BA8B /* Info.plist */,
-				EA9CF60B1E80D3CD0050BA8B /* Supporting Files */,
+				EA9CF63E1E80D8B70050BA8B /* Tool */,
+				EA9CF63F1E80D8D00050BA8B /* Until */,
 			);
 			path = GoodSweetBeauty;
 			sourceTree = "<group>";
@@ -140,6 +161,40 @@
 			path = GoodSweetBeautyUITests;
 			sourceTree = "<group>";
 		};
+		EA9CF63E1E80D8B70050BA8B /* Tool */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */,
+				EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */,
+				EA9CF6111E80D3CD0050BA8B /* ViewController.h */,
+				EA9CF6121E80D3CD0050BA8B /* ViewController.m */,
+				EA9CF6141E80D3CD0050BA8B /* Main.storyboard */,
+				EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */,
+				EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */,
+				EA9CF61C1E80D3CD0050BA8B /* Info.plist */,
+				EA9CF6401E80D9430050BA8B /* PrefixHeader.pch */,
+				EA9CF60B1E80D3CD0050BA8B /* Supporting Files */,
+			);
+			name = Tool;
+			sourceTree = "<group>";
+		};
+		EA9CF63F1E80D8D00050BA8B /* Until */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF6451E80F2EC0050BA8B /* LPActionSheet */,
+			);
+			name = Until;
+			sourceTree = "<group>";
+		};
+		EA9CF6451E80F2EC0050BA8B /* LPActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF6461E80F3020050BA8B /* LPActionSheet.h */,
+				EA9CF6471E80F3020050BA8B /* LPActionSheet.m */,
+			);
+			name = LPActionSheet;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -147,9 +202,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EA9CF6351E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeauty" */;
 			buildPhases = (
+				763AB870CE4FC3FA97DF8810 /* [CP] Check Pods Manifest.lock */,
 				EA9CF6041E80D3CD0050BA8B /* Sources */,
 				EA9CF6051E80D3CD0050BA8B /* Frameworks */,
 				EA9CF6061E80D3CD0050BA8B /* Resources */,
+				7AB7A30E886C127030C8F4E9 /* [CP] Embed Pods Frameworks */,
+				66BD2C62A5C2006DB127ABD9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -271,12 +329,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		66BD2C62A5C2006DB127ABD9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoodSweetBeauty/Pods-GoodSweetBeauty-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		763AB870CE4FC3FA97DF8810 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		7AB7A30E886C127030C8F4E9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoodSweetBeauty/Pods-GoodSweetBeauty-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		EA9CF6041E80D3CD0050BA8B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
+				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
 			);
@@ -423,10 +530,14 @@
 		};
 		EA9CF6361E80D3CD0050BA8B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C98951ED82DD8E11B40A258 /* Pods-GoodSweetBeauty.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodSweetBeauty/PrefixHeader.pch";
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.goodsweetbeauty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -435,10 +546,14 @@
 		};
 		EA9CF6371E80D3CD0050BA8B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 56C84516CE68F8AE23B46AD7 /* Pods-GoodSweetBeauty.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodSweetBeauty/PrefixHeader.pch";
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.goodsweetbeauty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,6 +629,7 @@
 				EA9CF6371E80D3CD0050BA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA9CF6381E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +638,7 @@
 				EA9CF63A1E80D3CD0050BA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EA9CF63B1E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +647,7 @@
 				EA9CF63D1E80D3CD0050BA8B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
