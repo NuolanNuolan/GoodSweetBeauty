@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60C1E80D3CD0050BA8B /* main.m */; };
+		EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */; };
+		EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6121E80D3CD0050BA8B /* ViewController.m */; };
+		EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF6141E80D3CD0050BA8B /* Main.storyboard */; };
+		EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */; };
+		EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */; };
+		EA9CF6261E80D3CD0050BA8B /* GoodSweetBeautyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6251E80D3CD0050BA8B /* GoodSweetBeautyTests.m */; };
+		EA9CF6311E80D3CD0050BA8B /* GoodSweetBeautyUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6301E80D3CD0050BA8B /* GoodSweetBeautyUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA9CF6221E80D3CD0050BA8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA9CF6001E80D3CD0050BA8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA9CF6071E80D3CD0050BA8B;
+			remoteInfo = GoodSweetBeauty;
+		};
+		EA9CF62D1E80D3CD0050BA8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA9CF6001E80D3CD0050BA8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA9CF6071E80D3CD0050BA8B;
+			remoteInfo = GoodSweetBeauty;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodSweetBeauty.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA9CF60C1E80D3CD0050BA8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		EA9CF6111E80D3CD0050BA8B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		EA9CF6121E80D3CD0050BA8B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		EA9CF6151E80D3CD0050BA8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EA9CF61A1E80D3CD0050BA8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EA9CF61C1E80D3CD0050BA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA9CF6211E80D3CD0050BA8B /* GoodSweetBeautyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodSweetBeautyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA9CF6251E80D3CD0050BA8B /* GoodSweetBeautyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodSweetBeautyTests.m; sourceTree = "<group>"; };
+		EA9CF6271E80D3CD0050BA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA9CF62C1E80D3CD0050BA8B /* GoodSweetBeautyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoodSweetBeautyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA9CF6301E80D3CD0050BA8B /* GoodSweetBeautyUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoodSweetBeautyUITests.m; sourceTree = "<group>"; };
+		EA9CF6321E80D3CD0050BA8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA9CF6051E80D3CD0050BA8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF61E1E80D3CD0050BA8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF6291E80D3CD0050BA8B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA9CF5FF1E80D3CD0050BA8B = {
+			isa = PBXGroup;
+			children = (
+				EA9CF60A1E80D3CD0050BA8B /* GoodSweetBeauty */,
+				EA9CF6241E80D3CD0050BA8B /* GoodSweetBeautyTests */,
+				EA9CF62F1E80D3CD0050BA8B /* GoodSweetBeautyUITests */,
+				EA9CF6091E80D3CD0050BA8B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA9CF6091E80D3CD0050BA8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */,
+				EA9CF6211E80D3CD0050BA8B /* GoodSweetBeautyTests.xctest */,
+				EA9CF62C1E80D3CD0050BA8B /* GoodSweetBeautyUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA9CF60A1E80D3CD0050BA8B /* GoodSweetBeauty */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */,
+				EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */,
+				EA9CF6111E80D3CD0050BA8B /* ViewController.h */,
+				EA9CF6121E80D3CD0050BA8B /* ViewController.m */,
+				EA9CF6141E80D3CD0050BA8B /* Main.storyboard */,
+				EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */,
+				EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */,
+				EA9CF61C1E80D3CD0050BA8B /* Info.plist */,
+				EA9CF60B1E80D3CD0050BA8B /* Supporting Files */,
+			);
+			path = GoodSweetBeauty;
+			sourceTree = "<group>";
+		};
+		EA9CF60B1E80D3CD0050BA8B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF60C1E80D3CD0050BA8B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EA9CF6241E80D3CD0050BA8B /* GoodSweetBeautyTests */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF6251E80D3CD0050BA8B /* GoodSweetBeautyTests.m */,
+				EA9CF6271E80D3CD0050BA8B /* Info.plist */,
+			);
+			path = GoodSweetBeautyTests;
+			sourceTree = "<group>";
+		};
+		EA9CF62F1E80D3CD0050BA8B /* GoodSweetBeautyUITests */ = {
+			isa = PBXGroup;
+			children = (
+				EA9CF6301E80D3CD0050BA8B /* GoodSweetBeautyUITests.m */,
+				EA9CF6321E80D3CD0050BA8B /* Info.plist */,
+			);
+			path = GoodSweetBeautyUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA9CF6071E80D3CD0050BA8B /* GoodSweetBeauty */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA9CF6351E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeauty" */;
+			buildPhases = (
+				EA9CF6041E80D3CD0050BA8B /* Sources */,
+				EA9CF6051E80D3CD0050BA8B /* Frameworks */,
+				EA9CF6061E80D3CD0050BA8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoodSweetBeauty;
+			productName = GoodSweetBeauty;
+			productReference = EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA9CF6201E80D3CD0050BA8B /* GoodSweetBeautyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA9CF6381E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyTests" */;
+			buildPhases = (
+				EA9CF61D1E80D3CD0050BA8B /* Sources */,
+				EA9CF61E1E80D3CD0050BA8B /* Frameworks */,
+				EA9CF61F1E80D3CD0050BA8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA9CF6231E80D3CD0050BA8B /* PBXTargetDependency */,
+			);
+			name = GoodSweetBeautyTests;
+			productName = GoodSweetBeautyTests;
+			productReference = EA9CF6211E80D3CD0050BA8B /* GoodSweetBeautyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA9CF62B1E80D3CD0050BA8B /* GoodSweetBeautyUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA9CF63B1E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyUITests" */;
+			buildPhases = (
+				EA9CF6281E80D3CD0050BA8B /* Sources */,
+				EA9CF6291E80D3CD0050BA8B /* Frameworks */,
+				EA9CF62A1E80D3CD0050BA8B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA9CF62E1E80D3CD0050BA8B /* PBXTargetDependency */,
+			);
+			name = GoodSweetBeautyUITests;
+			productName = GoodSweetBeautyUITests;
+			productReference = EA9CF62C1E80D3CD0050BA8B /* GoodSweetBeautyUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA9CF6001E80D3CD0050BA8B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = YLL;
+				TargetAttributes = {
+					EA9CF6071E80D3CD0050BA8B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = EFW772SY3Z;
+						ProvisioningStyle = Automatic;
+					};
+					EA9CF6201E80D3CD0050BA8B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = EFW772SY3Z;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EA9CF6071E80D3CD0050BA8B;
+					};
+					EA9CF62B1E80D3CD0050BA8B = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = EFW772SY3Z;
+						ProvisioningStyle = Automatic;
+						TestTargetID = EA9CF6071E80D3CD0050BA8B;
+					};
+				};
+			};
+			buildConfigurationList = EA9CF6031E80D3CD0050BA8B /* Build configuration list for PBXProject "GoodSweetBeauty" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA9CF5FF1E80D3CD0050BA8B;
+			productRefGroup = EA9CF6091E80D3CD0050BA8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA9CF6071E80D3CD0050BA8B /* GoodSweetBeauty */,
+				EA9CF6201E80D3CD0050BA8B /* GoodSweetBeautyTests */,
+				EA9CF62B1E80D3CD0050BA8B /* GoodSweetBeautyUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA9CF6061E80D3CD0050BA8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
+				EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */,
+				EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF61F1E80D3CD0050BA8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF62A1E80D3CD0050BA8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA9CF6041E80D3CD0050BA8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
+				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
+				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF61D1E80D3CD0050BA8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9CF6261E80D3CD0050BA8B /* GoodSweetBeautyTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA9CF6281E80D3CD0050BA8B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA9CF6311E80D3CD0050BA8B /* GoodSweetBeautyUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA9CF6231E80D3CD0050BA8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA9CF6071E80D3CD0050BA8B /* GoodSweetBeauty */;
+			targetProxy = EA9CF6221E80D3CD0050BA8B /* PBXContainerItemProxy */;
+		};
+		EA9CF62E1E80D3CD0050BA8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA9CF6071E80D3CD0050BA8B /* GoodSweetBeauty */;
+			targetProxy = EA9CF62D1E80D3CD0050BA8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		EA9CF6141E80D3CD0050BA8B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA9CF6151E80D3CD0050BA8B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EA9CF61A1E80D3CD0050BA8B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EA9CF6331E80D3CD0050BA8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		EA9CF6341E80D3CD0050BA8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EA9CF6361E80D3CD0050BA8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.goodsweetbeauty;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		EA9CF6371E80D3CD0050BA8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.goodsweetbeauty;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		EA9CF6391E80D3CD0050BA8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeautyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.GoodSweetBeautyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoodSweetBeauty.app/GoodSweetBeauty";
+			};
+			name = Debug;
+		};
+		EA9CF63A1E80D3CD0050BA8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeautyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.GoodSweetBeautyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoodSweetBeauty.app/GoodSweetBeauty";
+			};
+			name = Release;
+		};
+		EA9CF63C1E80D3CD0050BA8B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeautyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.GoodSweetBeautyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoodSweetBeauty;
+			};
+			name = Debug;
+		};
+		EA9CF63D1E80D3CD0050BA8B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = EFW772SY3Z;
+				INFOPLIST_FILE = GoodSweetBeautyUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.huaji.GoodSweetBeautyUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoodSweetBeauty;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA9CF6031E80D3CD0050BA8B /* Build configuration list for PBXProject "GoodSweetBeauty" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9CF6331E80D3CD0050BA8B /* Debug */,
+				EA9CF6341E80D3CD0050BA8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA9CF6351E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeauty" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9CF6361E80D3CD0050BA8B /* Debug */,
+				EA9CF6371E80D3CD0050BA8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EA9CF6381E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9CF6391E80D3CD0050BA8B /* Debug */,
+				EA9CF63A1E80D3CD0050BA8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		EA9CF63B1E80D3CD0050BA8B /* Build configuration list for PBXNativeTarget "GoodSweetBeautyUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA9CF63C1E80D3CD0050BA8B /* Debug */,
+				EA9CF63D1E80D3CD0050BA8B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EA9CF6001E80D3CD0050BA8B /* Project object */;
+}
