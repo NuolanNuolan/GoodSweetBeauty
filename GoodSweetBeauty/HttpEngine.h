@@ -10,4 +10,9 @@
 
 @interface HttpEngine : NSObject
 
+
+//测试网络请求
++(void)TestNetWorkcomplete:(void(^)(id responseObject))complete;
+
+
 @end
