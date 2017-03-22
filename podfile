@@ -9,7 +9,9 @@ pod 'WHC_Debuger'
 pod 'IQKeyboardManager'
 pod 'TZImagePickerController'
 pod 'PYSearch'
-
+pod 'WHC_Model'
+pod 'PPNetworkHelper'
+#pod 'PYPhotoBrowser'
 
 
 

@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PPNetworkHelper.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PYSearch.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -54,6 +59,16 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>WHC_Model.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>YYCache.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -62,22 +77,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0518BD118E8535ED21F58A16122C8B6A</key>
+		<key>16C9C3A4CD09DB50D0E1F8649405CD5A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>14E181F1CADC9E2058DA9A1741FEA5B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>181D922557C47EAF1ED643C8F7AF1FA6</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>28458735B710ECCC70E27B84F211F9A6</key>
+		<key>327C9714A93B76E3FC7B7D4795786FFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,7 +92,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>67A6A6E7177A9A50DE4F96EC4DA27977</key>
+		<key>73AFDDABC3EC932227D642F39F3DBADD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>784F6675914044FB4663E50ADE14A73E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7C6976A59C54F71BE1BD884972C147D4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7DE31947E35751FF8F20ADDD8E74EDBD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>83E06EB01F3E66E61A089E0B09E101CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,7 +127,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DE58C7F04156F845E4E423B34633EA9A</key>
+		<key>A67E5DE6FE6F81FC74A933F92AB60340</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AC25FCDF7C299C209F8B129B6DB5B2F5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
