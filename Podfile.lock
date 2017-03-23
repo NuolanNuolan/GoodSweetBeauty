@@ -14,8 +14,10 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - CocoaAsyncSocket (7.6.0)
   - IQKeyboardManager (4.0.8)
-  - MBProgressHUD (1.0.0)
+  - Masonry (1.0.2)
+  - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.12)
   - PPNetworkHelper (0.7.0):
     - AFNetworking
@@ -38,8 +40,10 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - CocoaAsyncSocket
   - IQKeyboardManager
-  - MBProgressHUD
+  - Masonry
+  - MBProgressHUD (~> 0.9.1)
   - MJRefresh
   - PPNetworkHelper
   - PYSearch
@@ -51,8 +55,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
   IQKeyboardManager: 1a8189fa153bf09044355ee0ad36826f6767e7f7
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   PPNetworkHelper: b1edf88d6d018c7d9ec9887127e01186c773320b
   PYSearch: 4ab6ff658298cec6b7ef83d6aa1d51c867c2c46d
@@ -63,6 +69,6 @@ SPEC CHECKSUMS:
   WHC_Model: f9311a0a976be1fce7c419d484def3f67dbfb1c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: eb2009896f948cd7ae7b1cb154be8e501518e802
+PODFILE CHECKSUM: c163a6d2019b78ed1eec371e7a8834e40a19f8d3
 
 COCOAPODS: 1.2.1.beta.1

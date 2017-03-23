@@ -1,7 +1,7 @@
 platform :ios, '8.0'
 target 'GoodSweetBeauty' do
 pod 'AFNetworking'
-pod 'MBProgressHUD'
+pod 'MBProgressHUD', '~> 0.9.1'
 pod 'MJRefresh'
 pod 'SDWebImage'
 pod 'ReactiveCocoa', '~> 2.5'
@@ -11,8 +11,8 @@ pod 'TZImagePickerController'
 pod 'PYSearch'
 pod 'WHC_Model'
 pod 'PPNetworkHelper'
-#pod 'PYPhotoBrowser'
-
+pod 'Masonry'
+pod 'CocoaAsyncSocket'
 
 
 

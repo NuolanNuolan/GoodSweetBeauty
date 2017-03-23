@@ -72,6 +72,9 @@
 		EA9CF7601E825BA60050BA8B /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF75E1E825BA60050BA8B /* DALabeledCircularProgressView.m */; };
 		EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF7681E825C5B0050BA8B /* NSString+MD5.m */; };
 		EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */; };
+		EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76F1E82BDA30050BA8B /* HJViewController.m */; };
+		EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E641E82CEDA0083D7DD /* BWCommon.m */; };
+		EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E671E8363ED0083D7DD /* MainTabbarController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -226,6 +229,12 @@
 		EA9CF7681E825C5B0050BA8B /* NSString+MD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5.m"; sourceTree = "<group>"; };
 		EA9CF76B1E825E4F0050BA8B /* HttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpEngine.h; sourceTree = "<group>"; };
 		EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
+		EA9CF76E1E82BDA30050BA8B /* HJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJViewController.h; sourceTree = "<group>"; };
+		EA9CF76F1E82BDA30050BA8B /* HJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJViewController.m; sourceTree = "<group>"; };
+		EADF1E631E82CEDA0083D7DD /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
+		EADF1E641E82CEDA0083D7DD /* BWCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCommon.m; sourceTree = "<group>"; };
+		EADF1E661E8363ED0083D7DD /* MainTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
+		EADF1E671E8363ED0083D7DD /* MainTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabbarController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +345,10 @@
 				EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */,
 				EA9CF6111E80D3CD0050BA8B /* ViewController.h */,
 				EA9CF6121E80D3CD0050BA8B /* ViewController.m */,
+				EA9CF76E1E82BDA30050BA8B /* HJViewController.h */,
+				EA9CF76F1E82BDA30050BA8B /* HJViewController.m */,
+				EADF1E661E8363ED0083D7DD /* MainTabbarController.h */,
+				EADF1E671E8363ED0083D7DD /* MainTabbarController.m */,
 				EA9CF6141E80D3CD0050BA8B /* Main.storyboard */,
 				EA9CF6171E80D3CD0050BA8B /* Assets.xcassets */,
 				EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */,
@@ -349,6 +362,7 @@
 		EA9CF63F1E80D8D00050BA8B /* Until */ = {
 			isa = PBXGroup;
 			children = (
+				EADF1E621E82CECE0083D7DD /* BWCommon */,
 				EA9CF76A1E825E420050BA8B /* HttpEngine */,
 				EA9CF7651E825C4E0050BA8B /* Encryption */,
 				EA9CF72A1E825B900050BA8B /* PYPhotoBrowser */,
@@ -570,6 +584,15 @@
 			name = HttpEngine;
 			sourceTree = "<group>";
 		};
+		EADF1E621E82CECE0083D7DD /* BWCommon */ = {
+			isa = PBXGroup;
+			children = (
+				EADF1E631E82CEDA0083D7DD /* BWCommon.h */,
+				EADF1E641E82CEDA0083D7DD /* BWCommon.m */,
+			);
+			name = BWCommon;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -781,6 +804,8 @@
 				EA9CF6A81E821F4C0050BA8B /* UIButton+SMK_Layout.m in Sources */,
 				EA9CF6AB1E821F4C0050BA8B /* UIImage+SMK_CFQRcode.m in Sources */,
 				EA9CF6B11E821F4C0050BA8B /* UITextField+SMK_Kit.m in Sources */,
+				EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */,
+				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EA9CF6B21E821F4C0050BA8B /* UITextField+SMKLimit.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA9CF6951E821F4C0050BA8B /* AutoImageTextButton.m in Sources */,
@@ -811,6 +836,7 @@
 				EA9CF6991E821F4C0050BA8B /* NSMutableArray+SMK_Kit.m in Sources */,
 				EA9CF7501E825B900050BA8B /* PYPhotosReaderController.m in Sources */,
 				EA9CF7601E825BA60050BA8B /* DALabeledCircularProgressView.m in Sources */,
+				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
 				EA9CF6A71E821F4C0050BA8B /* UIButton+SMK_Kit.m in Sources */,
 				EA9CF6A61E821F4C0050BA8B /* UIButton+SMK_EnlargeTouchArea.m in Sources */,
 				EA9CF74F1E825B900050BA8B /* PYPhotosPreviewController.m in Sources */,
