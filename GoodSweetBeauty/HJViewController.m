@@ -26,6 +26,7 @@
     
     
     
+    
     //注册网络通知只执行一次
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{

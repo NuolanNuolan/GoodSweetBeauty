@@ -13,6 +13,7 @@ pod 'WHC_Model'
 pod 'PPNetworkHelper'
 pod 'Masonry'
 pod 'CocoaAsyncSocket'
+pod 'UITableView+FDTemplateLayoutCell'
 
 
 
