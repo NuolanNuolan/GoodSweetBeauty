@@ -34,7 +34,7 @@ PODS:
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
   - TZImagePickerController (1.7.8)
-  - UITableView+FDTemplateLayoutCell (1.4)
+  - WHC_AutoLayoutKit (2.6.8)
   - WHC_Debuger (1.0.2)
   - WHC_Model (1.6.6)
   - YYCache (1.0.4)
@@ -51,7 +51,7 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 2.5)
   - SDWebImage
   - TZImagePickerController
-  - UITableView+FDTemplateLayoutCell
+  - WHC_AutoLayoutKit
   - WHC_Debuger
   - WHC_Model
 
@@ -67,11 +67,11 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
   TZImagePickerController: 87a138ae5d585225aaa6c8abe2cface0f0ad19dd
-  UITableView+FDTemplateLayoutCell: 234e1582bcc4e18461af91155123bb96538ed030
+  WHC_AutoLayoutKit: 9d39139f7c9aa5e3bab5e2566300d2e095d00894
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
   WHC_Model: f9311a0a976be1fce7c419d484def3f67dbfb1c0
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: 4600b39ef35e8fea9fb811d6f63689210bf3d068
+PODFILE CHECKSUM: 4cb695d0e4088885f9ff9cbb010a8155e833bf52
 
 COCOAPODS: 1.2.1.beta.1

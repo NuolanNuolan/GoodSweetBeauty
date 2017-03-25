@@ -28,6 +28,7 @@
 #import "HttpEngine.h"
 #import "BWCommon.h"
 #import "GCDAsyncSocket.h"
+#import "UIView+WHC_AutoLayout.h"
 
 
 

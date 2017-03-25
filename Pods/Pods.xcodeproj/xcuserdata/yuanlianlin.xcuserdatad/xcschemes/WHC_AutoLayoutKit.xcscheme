@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'EDFE139B8D16AACF5DBCAEFA9D5A02EF'
-               BlueprintName = 'UITableView+FDTemplateLayoutCell'
+               BlueprintIdentifier = '7DF388827C1B9B98383ADA520C130125'
+               BlueprintName = 'WHC_AutoLayoutKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libUITableView+FDTemplateLayoutCell.a'>
+               BuildableName = 'libWHC_AutoLayoutKit.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
