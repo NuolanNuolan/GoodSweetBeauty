@@ -75,16 +75,13 @@
     self.label_Network.backgroundColor = [UIColor blackColor];
     self.label_Network.textAlignment = NSTextAlignmentCenter;
     self.label_Network.font = [UIFont systemFontOfSize:14];
-//    [self.view addSubview:self.label_Network];
     UIWindow *window = [[UIApplication sharedApplication].windows lastObject];
     // 添加到窗口
     [window addSubview:self.label_Network];
-    [self.label_Network mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(0);
-        make.right.mas_equalTo(0);
-        make.top.offset(20);
-        make.height.mas_equalTo(20);
-    }];
+    self.label_Network.whc_LeftSpace(0)
+    .whc_RightSpace(0)
+    .whc_TopSpace(20)
+    .whc_Height(20);
 }
 //移除无网络lable
 -(void)removeLable
