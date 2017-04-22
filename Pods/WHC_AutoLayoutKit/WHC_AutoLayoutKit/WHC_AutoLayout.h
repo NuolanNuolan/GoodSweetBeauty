@@ -1,11 +1,11 @@
 //
-//  UITableViewCell+WHC_AutoHeightForCell.h
+//  WHC_AutoLayout.h
+//  WHC_AutoLayoutKit
+//
 //  Github <https://github.com/netyouli/WHC_AutoLayoutKit>
 //
-//  Created by 吴海超 on 16/2/17.
-//  Copyright © 2016年 吴海超. All rights reserved.
-//
-
+//  Created by WHC on 17/4/8.
+//  Copyright © 2017年 吴海超. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -25,23 +25,17 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import <Foundation/Foundation.h>
 
-#import <UIKit/UIKit.h>
-////////////////////////////列表视图//////////////////////////////
+//! Project version number for WHC_AutoLayout.
+FOUNDATION_EXPORT double WHC_AutoLayoutVersionNumber;
 
-@interface UITableViewCell (WHC_AutoHeightForCell)
-/// cell最底部视图
-@property (nonatomic , strong) UIView * whc_CellBottomView;
-/// cell最底部视图集合
-@property (nonatomic , strong) NSArray * whc_CellBottomViews;
-/// cell最底部视图与cell底部的间隙
-@property (nonatomic , assign) CGFloat  whc_CellBottomOffset;
-/// cell中包含的UITableView
-@property (nonatomic , strong) UITableView * whc_CellTableView;
-/// 指定tableview宽度（有助于提高自动计算效率）
-@property (nonatomic , assign) CGFloat whc_TableViewWidth;
+//! Project version string for WHC_AutoLayout.
+FOUNDATION_EXPORT const unsigned char WHC_AutoLayoutVersionString[];
 
-/// 自动计算cell高度
-+ (CGFloat)whc_CellHeightForIndexPath:(NSIndexPath *)indexPath tableView:(UITableView *)tableView;
-@end
+#import "WHC_StackView.h"
+#import "UITableViewCell+WHC_AutoHeightForCell.h"
+#import "UIView+WHC_AutoLayout.h"
+#import "UIView+WHC_Frame.h"
+
 

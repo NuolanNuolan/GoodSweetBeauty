@@ -1,161 +1,166 @@
-# WHC_AutoLayoutKit
-<div align=center><img src="https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/WHC_AutoLayoutLogo.png"/></div></br>
-==============
+# WHC_AutoLayout
+<div align=center><img src="https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/WHC_AutoLayoutLogo.png" width = "319.5" height = "129"/></div></br>
+
 ![Build Status](https://api.travis-ci.org/netyouli/WHC_AutoLayoutKit.svg?branch=master)
 [![Pod Version](http://img.shields.io/cocoapods/v/WHC_AutoLayoutKit.svg?style=flat)](http://cocoadocs.org/docsets/WHC_AutoLayoutKit/)
-[![Pod Platform](http://img.shields.io/cocoapods/p/WHC_AutoLayoutKit.svg?style=flat)](http://cocoadocs.org/docsets/WHC_AutoLayoutKit/)
 [![Pod License](http://img.shields.io/cocoapods/l/WHC_AutoLayoutKit.svg?style=flat)](https://opensource.org/licenses/MIT)
--  IOS platforms currently in use the fastest the simplest development to build the UI layout automatically open source library, strong dynamic layout constraint handling capacity
+
+-  iOS and Mac OS X platforms currently in use the fastest the simplest development to build the UI layout automatically open source library, strong dynamic layout constraint handling capacity
 -  Service to update constraints, convenient and quick dynamic UI layout.
--  打造iOS平台极速开发构建动态UI的自动布局库,智能约束冲突识别机制，Api命名清晰易懂，支持Swift和OC。
 
-[使用原理详解](https://gold.xitu.io/post/585e087f61ff4b005812eed7)</br>
+**Swift3.0+ version** 👉 [WHC_Layout](https://github.com/netyouli/WHC_Layout)
 
-简介
+Introduce
 ==============
--  布局Api采用链式调用(快捷方便)
--  提供【Objective-C】【Swift2.3】【Swift3.0】三种语言版本库
--  包含一行代码计算UITableViewCell高度模块
--  包含WHC_StackView模块(目的替代系统UIStackView)
--  自动识别冲突约束并更新新约束
--  支持修改约束优先级
--  支持删除约束
--  咨询QQ: 712641411
--  开发作者: 吴海超
+-  Adopt chain layout Api calls convenient
+-  Include one line of code to calculate UITableViewCell highly module
+-  Contains WHC_StackView module (UIStackView purpose alternative system)
+-  Automatic identification of the same type conflict and update the new constraints
+-  Support change constraints priority
+-  Support delete constraints
+-  Support iOS and Mac OS X
+-  Automatic covering and modify the conflict with type constraints
 
-要求
+Require
 ==============
-* iOS 6.0 or later
+* iOS 8.0 or later
 * Xcode 8.0 or later
 
-集成
+Install
 ==============
-* 使用CocoaPods:
-  -  【Objective-C】: pod 'WHC_AutoLayoutKit'
-  -  【Swift3.0】: pod 'WHC_AutoLayoutKit_Swift3'
-  -  【Swift2.3】: pod 'WHC_AutoLayoutKit_Swift2_3'
-  
-* 手工集成:
-  -  【Objective-C】: 导入文件夹WHC_AutoLayoutKit(OC)
-  -  【Swift3.0】: 导入文件夹WHC_AutoLayoutKit(Swift3.0)
-  -  【Swift2.3】: 导入文件夹WHC_AutoLayoutKit(Swift2.3)
+* CocoaPods: pod 'WHC_AutoLayoutKit'
 
-使用
+Usage
 ==============
-### Objective-C版
+
+## Automatic height view
+![](https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/autoHeight.gif)
+
 ```objective-c
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    UIView * view = [UIView new];
-    [self.view addSubview: view];
-
-    view.whc_LeftSpace(10)
-        .whc_TopSpace(10)
-        .whc_RightSpaceToView(10,view1)
-        .whc_Height(100)
-        .whc_PriorityLow() /// height低优先级
-}
+view.whc_LeftSpace(10)
+    .whc_TopSpace(10)
+    .whc_RightSpace(10)
+    .whc_HeightAuto();
 ```
 
-### Swift版
-```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
-    let view = UIView()
-    self.view.addSubview(view)
-
-    view.whc_Left(20)
-        .whc_Right(0)
-        .whc_Height(40)
-        .whc_Top(64)
-        .whc_PriorityLow() /// top低优先级
-}
+## Masonry/SnapKit update the constraint way unfriendly
+```objective-c
+[view mas_updateConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(superview.mas_top).with.offset(10); 
+    make.left.equalTo(superview.mas_left).with.offset(20);
+    make.bottom.equalTo(superview.mas_bottom).with.offset(-10);
+    make.right.equalTo(superview.mas_right).with.offset(-10);
+}];
 ```
-### ObjectiveC版一行代码计算cell高度
+
+## Update the view constraints
+Modify the view to the left from 20 other views
+```objective-c
+view.whc_LeftSpace(20);
+// or
+view.whc_LeftSpaceToView(20,otherView);
+```
+
+## Can be directly modified constraints on the Xib and Storyboard
+If the view of xib leading now amended as left constraints
+```objective-c
+/// First remove the xib view of leading and then add new constraints
+view.whc_RemoveLayoutAttrs(NSLayoutAttributeLeading)
+    .whc_LeftSpace(10);
+```
+
+## Remove the constraint
+
+Remove all constraints associated with view left
+```objective-c
+view.whc_RemoveLayoutAttrs(NSLayoutAttributeLeft);
+```
+To remove multiple constraints associated with view
+```objective-c
+view.whc_RemoveLayoutAttrs(NSLayoutAttributeLeft,NSLayoutAttributeLeading,NSLayoutAttributeTop);
+```
+
+## Modify the view constraint priority
+
+Modify the view constraint for low priority right
+```objective-c
+view.whc_RightSpace(10)
+    .whc_PriorityLow();
+```
+
+## One line of code calculation cell height
+
+No reuse way calculated cell height
 ```objective-c
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return [UITableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
 }
 ```
 
-### Swift版一行代码计算cell高度
-```swift
-func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    return UITableViewCell.whc_CellHeightForIndexPath(indexPath, tableView: tableView)
-}
-```
-
-### ObjectiveC版WHC_StackView使用
+Reuse way calculated cell height
 ```objective-c
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    WHC_StackView * stackView = [WHC_StackView new];
-    [self.view addSubview: stackView];
-
-    /// 一行代码添加约束
-    stackView.whc_LeftSpace(10)
-             .whc_TopSpace(10)
-             .whc_RightSpace(10)
-             .whc_Height(100);
-
-    /// 配置StackView
-    stackView.whc_Edge = UIEdgeInsetsMake(10, 10, 10, 10); // 内边距
-    stackView.whc_Orientation = Vertical;                  // 自动垂直布局
-    stackView.whc_HSpace = 10;                             // 子视图横向间隙
-    stackView.whc_VSpace = 10;                             // 子视图垂直间隙
-    
-    /// 向StackView中添加子视图
-    for (int i = 0; i < 4; i++) {
-        UIView * view = [UIView new];
-        [stackView addSubview:view];        
-    }
-    /// 开始进行布局
-    [stackView whc_StartLayout];
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return [UITableViewCell whc_CellHeightForIndexPath:indexPath 
+                                             tableView:tableView 
+                                            identifier:@"kFirendsCircleCellIdentifier" 
+                                           layoutBlock:^(UITableViewCell *cell) {
+         /// use model layout cell
+         [(FriendsCircleCell *)cell setFriendModel:_friendModelArray[indexPath.row]];
+    }];
 }
 ```
+## Use WHC_StackView
 
-### Swift版WHC_StackView使用范例
-
-```swift
-override func viewDidLoad() {
-    super.viewDidLoad()
-    let stackView = WHC_StackView()
-    self.view.addSubview(stackView)
-
-    /// 一行代码添加约束
-    stackView.whc_Left(10)
-             .whc_Top(10)
-             .whc_Right(10)
-             .whc_Height(100)
-
-    /// 配置StackView
-    stackView.whc_Edge = UIEdgeInsetsMake(10, 10, 10, 10)  // 内边距
-    stackView.whc_Orientation = .All                       // 自动横向垂直布局
-    stackView.whc_HSpace = 10                              // 子视图横向间隙
-    stackView.whc_VSpace = 10                              // 子视图垂直间隙
-
-    /// 向StackView中添加子视图
-    for _ in 0 ..< 4 {
-        let view = UIView()    
-        stackView.addSubview(view)        
-    }
-    /// 开始进行布局
-    stackView.whc_StartLayout()
-}
+Create WHC_StackView
+```objective-c
+WHC_StackView * stackView = [WHC_StackView new];
+[self.view addSubview: stackView];
 ```
 
-### 部分WHC_AutoLayoutKit demo展示
+Add constraint
+```objective-c
+stackView.whc_LeftSpace(10)
+         .whc_TopSpace(10)
+         .whc_RightSpace(10)
+         .whc_HeightAuto();
+```
 
+Configuration stackView
+**1.** Set the padding
+```objective-c
+stackView.whc_Edge = UIEdgeInsetsMake(10, 10, 10, 10); // 内边距
+```
+**2.** Set the layout direction
+```objective-c
+stackView.whc_Orientation = Vertical;                  // 自动垂直布局
+```
+**3.** Set the child views lateral clearance
+```objective-c
+stackView.whc_HSpace = 10;                             // 子视图横向间隙
+```
+**4.** Set the child views vertical clearance
+```objective-c
+stackView.whc_VSpace = 10;                             // 子视图垂直间隙
+```
+**5.** Add subview and start the layout 
+```objective-c
+for (int i = 0; i < 4; i++) {
+    UIView * view = [UIView new];
+    [stackView addSubview:view];        
+}
+[stackView whc_StartLayout];
+```
+Prompt
+==============
+
+For more UI layout automatically, WHC_StackView components, one line of code to calculate the cell height module, please download this demo to check the specific usage
+
+Part of the WHC_AutoLayoutKit demo show
+==============
 <img src = "https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/c.png" width = "375"><img src = "https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/g.png" width = "375">
 ![](https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/f.gif)![](https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/a.gif)![](https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/swiftb.gif)![image](https://github.com/netyouli/WHC_AutoLayoutKit/blob/master/Gif/d.png)
 
-
-## <a id="期待"></a>期待
-
-- 如果您在使用过程中有任何问题，欢迎issue me! 很乐意为您解答任何相关问题!
-- 与其给我点star，不如向我狠狠地抛来一个BUG！
-- 如果您想要更多的接口来自定义或者建议/意见，欢迎issue me！我会全力满足大家！
-
-## Licenses
+Licenses
+==============
 All source code is licensed under the MIT License.
 

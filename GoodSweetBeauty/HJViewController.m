@@ -23,8 +23,10 @@
     
     
     self.view.backgroundColor = [UIColor yellowColor];
+
+
     
-    
+
     
     
     //注册网络通知只执行一次

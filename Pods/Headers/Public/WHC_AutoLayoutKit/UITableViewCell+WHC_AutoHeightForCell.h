@@ -1,1 +1,1 @@
-../../../WHC_AutoLayoutKit/WHC_AutoLayoutKit(OC)/UITableViewCell+WHC_AutoHeightForCell.h
+../../../WHC_AutoLayoutKit/WHC_AutoLayoutKit/UITableViewCell+WHC_AutoHeightForCell.h
