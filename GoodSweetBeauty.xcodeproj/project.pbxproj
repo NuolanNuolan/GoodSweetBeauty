@@ -23,6 +23,7 @@
 		EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF7681E825C5B0050BA8B /* NSString+MD5.m */; };
 		EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */; };
 		EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76F1E82BDA30050BA8B /* HJViewController.m */; };
+		EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */; };
 		EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */; };
 		EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */; };
 		EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62BC1EBDDD6900AB9280 /* BBSViewController.m */; };
@@ -82,6 +83,8 @@
 		EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		EA9CF76E1E82BDA30050BA8B /* HJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJViewController.h; sourceTree = "<group>"; };
 		EA9CF76F1E82BDA30050BA8B /* HJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJViewController.m; sourceTree = "<group>"; };
+		EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
+		EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
 		EAAE62B51EBDDD5300AB9280 /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
 		EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		EAAE62B81EBDDD6100AB9280 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
@@ -311,6 +314,8 @@
 		EAAE62AC1EBDDC9D00AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */,
+				EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -582,6 +587,7 @@
 				EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */,
+				EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */,
 				EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */,
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
