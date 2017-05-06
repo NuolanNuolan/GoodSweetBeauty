@@ -5,12 +5,7 @@
 //  Created by Eason on 17/3/21.
 //  Copyright © 2017年 YLL. All rights reserved.
 //
-//// 只要添加了这个宏，就不用带mas_前缀
-//#define MAS_SHORTHAND
-//// 只要添加了这个宏，equalTo就等价于mas_equalTo
-//#define MAS_SHORTHAND_GLOBALS5
-//// 这个头文件一定要放在上面两个宏的后面
-//#import "Masonry.h"
+
 #import "LPActionSheet.h"
 #import "PPNetworkHelper.h"
 #import "RACEXTScope.h"
@@ -29,6 +24,8 @@
 #import "BWCommon.h"
 #import "GCDAsyncSocket.h"
 #import "UIView+WHC_AutoLayout.h"
+#import "HJViewController.h"
+#import "MainTabbarController.h"
 
 
 
@@ -68,8 +65,9 @@
 #define MYLOG(...);
 #define LOG_METHOD;
 #endif
-//@weakify(self);
-//@strongify(self);
+
+//主色调
+#define GETMAINCOLOR [UIColor colorWithRed:64/255.0f green:121/255.0f blue:186/255.0f alpha:1]
 
 
 

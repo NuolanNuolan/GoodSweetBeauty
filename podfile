@@ -13,6 +13,7 @@ pod 'WHC_Model'
 pod 'PPNetworkHelper'
 pod 'CocoaAsyncSocket'
 pod 'WHC_AutoLayoutKit'
+pod 'PYPhotoBrowser'
 
 
 

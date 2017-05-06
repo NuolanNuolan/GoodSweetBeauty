@@ -26,7 +26,7 @@ typedef void(^LPActionSheetBlock)(LPActionSheet *actionSheet, NSInteger index);
  * @param cancelButtonTitle      取消按钮文本
  * @param destructiveButtonTitle 删除按钮文本
  * @param otherButtonTitles      其他按钮文本
- * @param block                  block回调
+ * @param actionSheetBlock                  block回调
  *
  * @return LPActionSheet对象
  */
@@ -43,7 +43,7 @@ typedef void(^LPActionSheetBlock)(LPActionSheet *actionSheet, NSInteger index);
  * @param cancelButtonTitle      取消按钮文本
  * @param destructiveButtonTitle 删除按钮文本
  * @param otherButtonTitles      其他按钮文本
- * @param block                  block回调
+ * @param actionSheetBlock                  block回调
  *
  * @return LPActionSheet对象
  */
@@ -60,9 +60,9 @@ typedef void(^LPActionSheetBlock)(LPActionSheet *actionSheet, NSInteger index);
  * @param cancelButtonTitle      取消按钮文本
  * @param destructiveButtonTitle 删除按钮文本
  * @param otherButtonTitles      其他按钮文本
- * @param block                  block回调
+ * @param actionSheetBlock                  block回调
  *
- * @return LPActionSheet对象
+ *  LPActionSheet对象
  */
 + (void)showActionSheetWithTitle:(NSString *)title
                cancelButtonTitle:(NSString *)cancelButtonTitle

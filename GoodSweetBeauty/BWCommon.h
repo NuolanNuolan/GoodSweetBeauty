@@ -32,5 +32,11 @@
 +(BOOL)DoesItIncludeBetween:(NSString *)str withString:(NSString *)str1;
 //判断空字符串
 + (BOOL) isNullString:(NSString *)string;
+//获取子视图父视图
++(UIViewController *)Superview:(UIView *)view;
+//当前时间
++(NSString *)GetNowTimewithformat:(NSString *)format;
+//当前时间戳
++(NSString *)GetNowTimestamps;
 
 @end

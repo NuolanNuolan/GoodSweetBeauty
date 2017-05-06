@@ -10,4 +10,7 @@
 
 @interface AppDelegate (Sunday)
 
+
+-(void)ResRelated;
+
 @end

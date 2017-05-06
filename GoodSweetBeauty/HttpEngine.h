@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface HttpEngine : NSObject
-
+//+(instancetype)
 
 //测试网络请求
 +(void)TestNetWorkcomplete:(void(^)(id responseObject))complete;

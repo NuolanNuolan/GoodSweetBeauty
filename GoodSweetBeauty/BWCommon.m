@@ -120,7 +120,6 @@
 //读取
 + (NSMutableArray *)readArrayByAppendingPath:(NSString *)arrayName
 {
-    
     // 拼接路径
     NSString * docDir = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask,YES) lastObject];
     NSString * fileName = [docDir stringByAppendingPathComponent:arrayName];
@@ -218,5 +217,40 @@
         return YES;
     }
     return NO;
+}
+//获取子视图父视图
++(UIViewController *)Superview:(UIView *)view{
+    
+    for (UIView* next = [view superview]; next; next = next.superview)
+    {
+        UIResponder *nextResponder = [next nextResponder];
+        if ([nextResponder isKindOfClass:[HJViewController class]])
+        {
+            
+            return (UIViewController *)nextResponder;
+        }
+    }
+    return nil;
+}
+//当前时间
++(NSString *)GetNowTimewithformat:(NSString *)format;{
+    
+    NSDate *currentDate = [NSDate date];//获取当前时间，日期
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:format];
+    NSString *dateString = [dateFormatter stringFromDate:currentDate];
+    
+    return dateString;
+}
+//当前时间戳
++(NSString *)GetNowTimestamps{
+    
+    NSDate* data= [NSDate dateWithTimeIntervalSinceNow:0];
+    
+    NSTimeInterval interval=[data timeIntervalSince1970];
+    
+    NSString *timeString = [NSString stringWithFormat:@"%0.f", interval];//转为字符型
+    
+    return timeString;
 }
 @end

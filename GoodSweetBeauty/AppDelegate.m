@@ -18,8 +18,13 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self ResRelated];
+    
+    
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
-    self.window.rootViewController = [[HJViewController alloc]init];
+    self.window.rootViewController = [[MainTabbarController alloc]init];
     [self.window makeKeyAndVisible];
     // Override point for customization after application launch.
     return YES;

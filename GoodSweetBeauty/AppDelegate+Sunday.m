@@ -10,6 +10,12 @@
 
 @implementation AppDelegate (Sunday)
 
+-(void)ResRelated{
+
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+}
 
 
 
