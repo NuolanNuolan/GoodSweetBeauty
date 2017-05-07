@@ -29,6 +29,7 @@
 		EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA2FDF31EBE55BB00C0EB27 /* SettingTableViewCell.xib */; };
 		EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDF71EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m */; };
 		EAA2FDFA1EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA2FDF81EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib */; };
+		EAA2FDFE1EBEF1CA00C0EB27 /* MyPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDFD1EBEF1CA00C0EB27 /* MyPostViewController.m */; };
 		EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */; };
 		EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */; };
 		EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62BC1EBDDD6900AB9280 /* BBSViewController.m */; };
@@ -98,6 +99,8 @@
 		EAA2FDF61EBE58DA00C0EB27 /* SettingSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSwitchTableViewCell.h; sourceTree = "<group>"; };
 		EAA2FDF71EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSwitchTableViewCell.m; sourceTree = "<group>"; };
 		EAA2FDF81EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingSwitchTableViewCell.xib; sourceTree = "<group>"; };
+		EAA2FDFC1EBEF1CA00C0EB27 /* MyPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPostViewController.h; sourceTree = "<group>"; };
+		EAA2FDFD1EBEF1CA00C0EB27 /* MyPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPostViewController.m; sourceTree = "<group>"; };
 		EAAE62B51EBDDD5300AB9280 /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
 		EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		EAAE62B81EBDDD6100AB9280 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
@@ -296,6 +299,15 @@
 			name = "设置";
 			sourceTree = "<group>";
 		};
+		EAA2FDFB1EBEF1A000C0EB27 /* 我的帖子 */ = {
+			isa = PBXGroup;
+			children = (
+				EAA2FDFC1EBEF1CA00C0EB27 /* MyPostViewController.h */,
+				EAA2FDFD1EBEF1CA00C0EB27 /* MyPostViewController.m */,
+			);
+			name = "我的帖子";
+			sourceTree = "<group>";
+		};
 		EAAE62A81EBDDC3D00AB9280 /* YouAnCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +363,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EAA2FDFB1EBEF1A000C0EB27 /* 我的帖子 */,
 				EAA2FDED1EBE524E00C0EB27 /* 设置 */,
 				EAAE62B51EBDDD5300AB9280 /* CenterViewController.h */,
 				EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */,
@@ -614,6 +627,7 @@
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
+				EAA2FDFE1EBEF1CA00C0EB27 /* MyPostViewController.m in Sources */,
 				EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */,
 				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */,

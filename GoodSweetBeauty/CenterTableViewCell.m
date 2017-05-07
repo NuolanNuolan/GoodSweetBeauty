@@ -118,7 +118,7 @@
             break;
         case 7:
             image_main.image = [UIImage imageNamed:@"iconMeGuanzhu"];
-            image_main.whc_Size(26,22).whc_LeftSpace(16).whc_CenterY(0);
+            image_main.whc_Size(26,22).whc_LeftSpace(16).whc_CenterY(3);
             lab_title.text = @"我的关注";
             break;
         case 8:

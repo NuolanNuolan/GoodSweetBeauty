@@ -9,6 +9,7 @@
 #import "CenterViewController.h"
 #import "CenterTableViewCell.h"
 #import "SettingViewController.h"
+#import "MyPostViewController.h"
 
 @interface CenterViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -25,10 +26,17 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                                                     NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
     
 }
+
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     [self CreateUI];
     
 }
@@ -130,6 +138,65 @@
     return view;
 }
 #pragma mark 事件
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    HJViewController *view;
+    switch (indexPath.section) {
+        case 0:{
+            view = [MyPostViewController new];
+            
+        }
+            break;
+        case 1:{
+            
+            
+        }
+            break;
+        case 2:{
+            
+            
+        }
+        break;
+        case 3:{
+            
+            
+        }
+            break;
+        case 4:{
+            
+            
+        }
+            break;
+        case 5:{
+            
+            
+        }
+            break;
+        case 6:{
+            
+            
+        }
+            break;
+        case 7:{
+            
+            
+        }
+            break;
+        case 8:{
+            
+            
+        }
+            break;
+        case 9:{
+            
+            
+        }
+            break;
+    }
+    view.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:view animated:YES];
+    
+}
+
 -(void)PushSettting{
 
     SettingViewController *view = [SettingViewController new];

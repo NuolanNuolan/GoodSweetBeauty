@@ -18,6 +18,26 @@
 @end
 
 @implementation SettingViewController
+-(void)viewWillAppear:(BOOL)animated{
+
+    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
+    [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                                                      NSForegroundColorAttributeName:[UIColor blackColor]}];
+}
+//-(void)viewWillDisappear:(BOOL)animated{
+//    
+//    
+//    
+//    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+//    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+//    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
+//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+//                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
+//
+//    
+//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -99,6 +119,26 @@
     }
     return view;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+
+    switch (indexPath.section) {
+        case 0:
+            MYLOG(@"账号安全");
+            break;
+        case 1:
+            MYLOG(@"关于有安");
+            break;
+        case 3:
+            MYLOG(@"版本信息");
+            break;
+        case 4:
+            MYLOG(@"意见反馈");
+            break;
+    }
+}
+
+
 -(void)LoginOut{
 
     MYLOG(@"退出登录");
