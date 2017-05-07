@@ -35,6 +35,8 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
+  - SDCycleScrollView (1.66):
+    - SDWebImage (~> 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
@@ -57,6 +59,7 @@ DEPENDENCIES:
   - PYPhotoBrowser
   - PYSearch
   - ReactiveCocoa (~> 2.5)
+  - SDCycleScrollView
   - SDWebImage
   - TZImagePickerController
   - WHC_AutoLayoutKit
@@ -75,6 +78,7 @@ SPEC CHECKSUMS:
   PYPhotoBrowser: eb140689619b10843beaad9e532581825ad7f542
   PYSearch: 53c239376b392fe0658c2bd002f408e7caf63046
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
+  SDCycleScrollView: e3ade90e9b3159bec04330b208fbfd81c3f3b671
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TZImagePickerController: 0a8ff228d287ebdd7d485e8c42a2a932894f1fba
   WHC_AutoLayoutKit: 7fefe9216b4074512817c91857822d98eb3b2220
@@ -82,6 +86,6 @@ SPEC CHECKSUMS:
   WHC_Model: 790bc8e34d3e0f94c71b35ef9f26558a80a1fbc2
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: df9c2a3c539df67876fe401041dbc164ef0370a3
+PODFILE CHECKSUM: 27d04acf209d3e9978c0ce987951afd96a6eb7cd
 
 COCOAPODS: 1.2.1

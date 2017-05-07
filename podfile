@@ -14,7 +14,7 @@ pod 'PPNetworkHelper'
 pod 'CocoaAsyncSocket'
 pod 'WHC_AutoLayoutKit'
 pod 'PYPhotoBrowser'
-
+pod 'SDCycleScrollView'
 
 
 end

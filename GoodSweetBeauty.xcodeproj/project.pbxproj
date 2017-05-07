@@ -24,6 +24,11 @@
 		EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */; };
 		EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76F1E82BDA30050BA8B /* HJViewController.m */; };
 		EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */; };
+		EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEF1EBE525E00C0EB27 /* SettingViewController.m */; };
+		EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDF21EBE55BB00C0EB27 /* SettingTableViewCell.m */; };
+		EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA2FDF31EBE55BB00C0EB27 /* SettingTableViewCell.xib */; };
+		EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDF71EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m */; };
+		EAA2FDFA1EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAA2FDF81EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib */; };
 		EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */; };
 		EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */; };
 		EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62BC1EBDDD6900AB9280 /* BBSViewController.m */; };
@@ -85,6 +90,14 @@
 		EA9CF76F1E82BDA30050BA8B /* HJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJViewController.m; sourceTree = "<group>"; };
 		EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
 		EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
+		EAA2FDEE1EBE525E00C0EB27 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		EAA2FDEF1EBE525E00C0EB27 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		EAA2FDF11EBE55BB00C0EB27 /* SettingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewCell.h; sourceTree = "<group>"; };
+		EAA2FDF21EBE55BB00C0EB27 /* SettingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewCell.m; sourceTree = "<group>"; };
+		EAA2FDF31EBE55BB00C0EB27 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
+		EAA2FDF61EBE58DA00C0EB27 /* SettingSwitchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingSwitchTableViewCell.h; sourceTree = "<group>"; };
+		EAA2FDF71EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingSwitchTableViewCell.m; sourceTree = "<group>"; };
+		EAA2FDF81EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingSwitchTableViewCell.xib; sourceTree = "<group>"; };
 		EAAE62B51EBDDD5300AB9280 /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
 		EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		EAAE62B81EBDDD6100AB9280 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
@@ -274,6 +287,15 @@
 			name = HttpEngine;
 			sourceTree = "<group>";
 		};
+		EAA2FDED1EBE524E00C0EB27 /* 设置 */ = {
+			isa = PBXGroup;
+			children = (
+				EAA2FDEE1EBE525E00C0EB27 /* SettingViewController.h */,
+				EAA2FDEF1EBE525E00C0EB27 /* SettingViewController.m */,
+			);
+			name = "设置";
+			sourceTree = "<group>";
+		};
 		EAAE62A81EBDDC3D00AB9280 /* YouAnCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,6 +338,12 @@
 			children = (
 				EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */,
 				EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */,
+				EAA2FDF11EBE55BB00C0EB27 /* SettingTableViewCell.h */,
+				EAA2FDF21EBE55BB00C0EB27 /* SettingTableViewCell.m */,
+				EAA2FDF31EBE55BB00C0EB27 /* SettingTableViewCell.xib */,
+				EAA2FDF61EBE58DA00C0EB27 /* SettingSwitchTableViewCell.h */,
+				EAA2FDF71EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m */,
+				EAA2FDF81EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -323,6 +351,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EAA2FDED1EBE524E00C0EB27 /* 设置 */,
 				EAAE62B51EBDDD5300AB9280 /* CenterViewController.h */,
 				EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */,
 			);
@@ -506,6 +535,8 @@
 				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
 				EA9CF6BC1E8226800050BA8B /* MBProgressHUD.bundle in Resources */,
 				EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */,
+				EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */,
+				EAA2FDFA1EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib in Resources */,
 				EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,12 +610,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */,
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */,
 				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */,
+				EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */,
 				EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */,
@@ -594,6 +627,7 @@
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
 				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
+				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

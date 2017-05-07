@@ -20,6 +20,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
+    [self CreateHJUI];
+    [self NextViewBack];
     //注册网络通知只执行一次
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -27,10 +32,25 @@
        [self RegistryNetworkNotice];
         
     });
-
+    
     // Do any additional setup after loading the view.
 }
+-(void)CreateHJUI{
 
+    self.view.backgroundColor = RGB(247, 247, 247);
+    
+}
+-(void)NextViewBack{
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                                style:UIBarButtonItemStylePlain
+                                                               target:nil
+                                                               action:nil];
+    self.navigationController.navigationBar.backIndicatorImage = [UIImage imageNamed:@"titlebarArrowWhite"];
+    self.navigationController.navigationBar.backIndicatorTransitionMaskImage = [UIImage imageNamed:@"titlebarArrowWhite"];
+    self.navigationItem.backBarButtonItem = backItem;
+    
+}
 -(void)RegistryNetworkNotice{
 
     @weakify(self);

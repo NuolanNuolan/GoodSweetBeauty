@@ -8,6 +8,7 @@
 
 #import "CenterViewController.h"
 #import "CenterTableViewCell.h"
+#import "SettingViewController.h"
 
 @interface CenterViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -23,7 +24,7 @@
 {
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
+    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
 }
 - (void)viewDidLoad {
@@ -71,6 +72,7 @@
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+
     CenterTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (!cell) {
         
@@ -130,6 +132,8 @@
 #pragma mark 事件
 -(void)PushSettting{
 
-    MYLOG(@"设置");
+    SettingViewController *view = [SettingViewController new];
+    view.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:view animated:YES];
 }
 @end

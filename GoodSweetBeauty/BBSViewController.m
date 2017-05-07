@@ -28,6 +28,8 @@
     
     self.view.backgroundColor = RGB(247, 247, 247);
     self.navigationItem.title = @"有安";
+    UIBarButtonItem *btn_right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"iconTitlebarSearch"] style:UIBarButtonItemStyleDone target:self action:@selector(PushSearch)];
+    self.navigationItem.rightBarButtonItem = btn_right;
 }
 
 /*
@@ -39,5 +41,8 @@
     // Pass the selected object to the new view controller.
 }
 */
+-(void)PushSearch{
 
+    MYLOG(@"搜索");
+}
 @end
