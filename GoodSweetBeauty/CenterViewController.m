@@ -32,7 +32,13 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
     
 }
-
+-(void)viewWillDisappear:(BOOL)animated
+{
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+    
+}
 - (void)viewDidLoad {
     
     [super viewDidLoad];

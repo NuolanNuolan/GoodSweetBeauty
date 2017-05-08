@@ -23,7 +23,7 @@
 #import "HttpEngine.h"
 #import "BWCommon.h"
 #import "GCDAsyncSocket.h"
-#import "UIView+WHC_AutoLayout.h"
+#import "WHC_AutoLayout.h"
 #import "HJViewController.h"
 #import "MainTabbarController.h"
 
