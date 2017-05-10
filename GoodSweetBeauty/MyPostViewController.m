@@ -8,6 +8,7 @@
 
 #import "MyPostViewController.h"
 #import "MyPost_OneTableViewCell.h"
+#import "MyPost_TwoTableViewCell.h"
 
 @interface MyPostViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -77,6 +78,7 @@
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerClass:[MyPost_OneTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MyPost_OneTableViewCell class])];
+    [self.tableView registerClass:[MyPost_TwoTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MyPost_TwoTableViewCell class])];
     [self.view addSubview:self.tableView];
 }
 #pragma mark tableviewdelegate
@@ -119,7 +121,10 @@
         [cell SetSection:indexPath.section];
         return cell;
     }
-    return nil;
+    MyPost_TwoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MyPost_TwoTableViewCell class])];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell SetSection:indexPath.section];
+    return cell;
 }
 
 
@@ -162,7 +167,7 @@
         self.btn_main.selected = NO;
         MYLOG(@"回帖");
     }
-    
+    [self.tableView reloadData];
     
 }
 @end

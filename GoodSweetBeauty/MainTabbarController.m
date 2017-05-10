@@ -86,7 +86,7 @@
     
     self.viewControllers = ChildVCArray;
     
-    self.selectedIndex = 2;
+    self.selectedIndex = 0;
 
     
 }

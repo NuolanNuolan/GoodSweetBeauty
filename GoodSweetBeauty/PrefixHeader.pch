@@ -26,6 +26,7 @@
 #import "WHC_AutoLayout.h"
 #import "HJViewController.h"
 #import "MainTabbarController.h"
+#import "UILabel+ChangeLineSpaceAndWordSpace.h"
 
 
 
@@ -66,8 +67,17 @@
 #define LOG_METHOD;
 #endif
 
+//测试接口地址
+#define ADDRESS_API http://121.40.52.49:8010/
+//正式接口地址
+//#define ADDRESS_API 
+
+
+
+
 //主色调
 #define GETMAINCOLOR [UIColor colorWithRed:64/255.0f green:121/255.0f blue:186/255.0f alpha:1]
+
 
 
 

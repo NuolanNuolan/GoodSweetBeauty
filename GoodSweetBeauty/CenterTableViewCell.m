@@ -129,6 +129,7 @@
         case 9:
             image_main.image = [UIImage imageNamed:@"iconMeRenzheng"];
             image_main.whc_Size(16.5,15.3).whc_LeftSpace(20.5).whc_CenterY(0);
+            view_line.hidden =YES;
             lab_title.text = @"我要认证";
             break;
     }

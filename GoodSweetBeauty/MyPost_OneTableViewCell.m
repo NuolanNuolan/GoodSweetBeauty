@@ -91,9 +91,6 @@
         
         view_line.whc_Height(0.5).whc_RightSpace(0).whc_LeftSpaceEqualView(lab_day).whc_TopSpaceToView(15,lab_read_back);
         self.whc_TableViewWidth = self.whc_sw;
-//        self.whc_CellBottomOffset = 10;
-        
-        
     }
     return self;
 }

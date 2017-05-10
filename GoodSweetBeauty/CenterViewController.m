@@ -61,6 +61,9 @@
     self.tableView.rowHeight = 50;
     self.tableView.showsVerticalScrollIndicator=NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, -1000, SCREEN_WIDTH, 1000)];
+    topView.backgroundColor = GETMAINCOLOR;
+    [_tableView addSubview:topView];
     [self.view addSubview:self.tableView];
     
 }
