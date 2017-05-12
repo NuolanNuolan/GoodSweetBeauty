@@ -27,6 +27,7 @@
 #import "HJViewController.h"
 #import "MainTabbarController.h"
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
+#import "SDCycleScrollView.h"
 
 
 
