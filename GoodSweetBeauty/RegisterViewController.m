@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "LoginTextField.h"
+#import "ResSendCodeViewController.h"
 
 @interface RegisterViewController ()
 
@@ -59,6 +60,7 @@
     //    self.text_username.backgroundColor = [UIColor redColor];
     [self.text_username setTintColor:GETMAINCOLOR];
     [self.text_username setFont:[UIFont boldSystemFontOfSize:18]];
+    [self.text_username setKeyboardType:UIKeyboardTypeNumberPad];
     [self.text_username setTextColor:RGB(51, 51, 51)];
     [self.text_username setReturnKeyType:UIReturnKeyNext];
     self.text_username.leftView = self.image_user_left;
@@ -123,7 +125,7 @@
     [[self.text_username rac_textSignal]subscribeNext:^(id x) {
         @strongify(self);
         if ([x length]==11) {
-            self.btn_res.userInteractionEnabled = NO;
+            self.btn_res.userInteractionEnabled = YES;
             [self.btn_res setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }else{
         
@@ -159,7 +161,9 @@
 //获取验证码
 -(void)sendcode{
 
-    
+    ResSendCodeViewController *view = [ResSendCodeViewController new];
+    view.phone = self.text_username.text;
+    [self.navigationController pushViewController:view animated:YES];
 }
 //用户协议
 -(void)userdelegate{

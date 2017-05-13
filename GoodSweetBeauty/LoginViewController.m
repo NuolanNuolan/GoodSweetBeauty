@@ -67,6 +67,7 @@
     
     self.text_username = [LoginTextField new];
     self.text_username.delegate = self;
+    self.text_username.tag=100;
 //    self.text_username.backgroundColor = [UIColor redColor];
     [self.text_username setTintColor:GETMAINCOLOR];
     [self.text_username setFont:[UIFont boldSystemFontOfSize:18]];
@@ -91,6 +92,7 @@
     
     self.text_pwd = [LoginTextField new];
     self.text_pwd.delegate = self;
+    self.text_pwd.tag= 101;
 //    self.text_pwd.backgroundColor = [UIColor redColor];
     [self.text_pwd setTintColor:GETMAINCOLOR];
     [self.text_pwd setFont:[UIFont boldSystemFontOfSize:18]];
@@ -168,6 +170,27 @@
     self.btn_messvalidation_login.whc_CenterX(0).whc_Width(86).whc_TopSpaceToView(50,self.btn_login).whc_Height(15);
     self.lab_res.whc_CenterX(0).whc_BottomSpace(27);
     
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    
+    switch (textField.tag) {
+        case 100:
+            [self.text_pwd becomeFirstResponder];
+            return NO;
+            break;
+        case 101:
+            
+            if (![self.text_username.text isEqualToString:@""]&&![self.text_pwd.text isEqualToString:@""]) {
+                [self.text_pwd resignFirstResponder];
+                //执行登录
+                [self Login];
+            }
+            return NO;
+            break;
+    }
+    return YES;
 }
 //添加监听
 -(void)Addobserver{

@@ -31,6 +31,8 @@
 		EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB171EC6D942000FA93A /* LoginViewController.m */; };
 		EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB1B1EC6E9AF000FA93A /* LoginTextField.m */; };
 		EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */; };
+		EA9DBB221EC704D5000FA93A /* ResSendCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB211EC704D5000FA93A /* ResSendCodeViewController.m */; };
+		EA9DBB251EC70EDB000FA93A /* ResSetUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB241EC70EDB000FA93A /* ResSetUsernameViewController.m */; };
 		EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */; };
 		EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEF1EBE525E00C0EB27 /* SettingViewController.m */; };
 		EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDF21EBE55BB00C0EB27 /* SettingTableViewCell.m */; };
@@ -113,6 +115,10 @@
 		EA9DBB1B1EC6E9AF000FA93A /* LoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextField.m; sourceTree = "<group>"; };
 		EA9DBB1D1EC6F731000FA93A /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		EA9DBB201EC704D5000FA93A /* ResSendCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResSendCodeViewController.h; sourceTree = "<group>"; };
+		EA9DBB211EC704D5000FA93A /* ResSendCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResSendCodeViewController.m; sourceTree = "<group>"; };
+		EA9DBB231EC70EDB000FA93A /* ResSetUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResSetUsernameViewController.h; sourceTree = "<group>"; };
+		EA9DBB241EC70EDB000FA93A /* ResSetUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResSetUsernameViewController.m; sourceTree = "<group>"; };
 		EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
 		EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
 		EAA2FDEE1EBE525E00C0EB27 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -341,6 +347,10 @@
 				EA9DBB171EC6D942000FA93A /* LoginViewController.m */,
 				EA9DBB1D1EC6F731000FA93A /* RegisterViewController.h */,
 				EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */,
+				EA9DBB201EC704D5000FA93A /* ResSendCodeViewController.h */,
+				EA9DBB211EC704D5000FA93A /* ResSendCodeViewController.m */,
+				EA9DBB231EC70EDB000FA93A /* ResSetUsernameViewController.h */,
+				EA9DBB241EC70EDB000FA93A /* ResSetUsernameViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -719,8 +729,10 @@
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,
 				EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */,
 				EA09A2661EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
+				EA9DBB221EC704D5000FA93A /* ResSendCodeViewController.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
 				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
+				EA9DBB251EC70EDB000FA93A /* ResSetUsernameViewController.m in Sources */,
 				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
