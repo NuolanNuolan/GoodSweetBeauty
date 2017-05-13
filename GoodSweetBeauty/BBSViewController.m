@@ -53,6 +53,11 @@
 -(void)viewWillAppear:(BOOL)animated{
 
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -205,8 +210,8 @@
     self.cycleScrollView.titleLabelBackgroundColor = [UIColor clearColor];
     self.cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:16];
     self.cycleScrollView.titleLabelHeight = 50;
-//    self.cycleScrollView.pageControlBottomOffset = 20;
-    
+    self.cycleScrollView.pageControlBottomOffset = 10;
+    self.cycleScrollView.pageControlRightOffset = 2;
     self.cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     self.cycleScrollView.titlesGroup = titles;
     
@@ -360,5 +365,8 @@
 -(void)PushSearch{
 
     MYLOG(@"搜索");
+    LoginViewController *view = [LoginViewController new];
+    view.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:view animated:YES];
 }
 @end

@@ -253,4 +253,20 @@
     
     return timeString;
 }
+#pragma mark - 富文本部分颜色
++(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightText:(NSString *)highlightText collor:(UIColor *)color{
+    NSRange hightlightTextRange = [text rangeOfString:highlightText];
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text];
+    if (hightlightTextRange.length > 0) {
+        [attributeStr addAttribute:NSForegroundColorAttributeName
+                             value:color
+                             range:hightlightTextRange];
+        [attributeStr addAttribute:NSUnderlineStyleAttributeName
+                             value:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
+                             range:hightlightTextRange];
+        return attributeStr;
+    }else {
+        return [highlightText copy];
+    }
+}
 @end

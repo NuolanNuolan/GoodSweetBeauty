@@ -28,6 +28,9 @@
 		EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF7681E825C5B0050BA8B /* NSString+MD5.m */; };
 		EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */; };
 		EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF76F1E82BDA30050BA8B /* HJViewController.m */; };
+		EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB171EC6D942000FA93A /* LoginViewController.m */; };
+		EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB1B1EC6E9AF000FA93A /* LoginTextField.m */; };
+		EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */; };
 		EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */; };
 		EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDEF1EBE525E00C0EB27 /* SettingViewController.m */; };
 		EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2FDF21EBE55BB00C0EB27 /* SettingTableViewCell.m */; };
@@ -104,6 +107,12 @@
 		EA9CF76C1E825E4F0050BA8B /* HttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpEngine.m; sourceTree = "<group>"; };
 		EA9CF76E1E82BDA30050BA8B /* HJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJViewController.h; sourceTree = "<group>"; };
 		EA9CF76F1E82BDA30050BA8B /* HJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJViewController.m; sourceTree = "<group>"; };
+		EA9DBB161EC6D942000FA93A /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		EA9DBB171EC6D942000FA93A /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		EA9DBB1A1EC6E9AF000FA93A /* LoginTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTextField.h; sourceTree = "<group>"; };
+		EA9DBB1B1EC6E9AF000FA93A /* LoginTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTextField.m; sourceTree = "<group>"; };
+		EA9DBB1D1EC6F731000FA93A /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
 		EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
 		EAA2FDEE1EBE525E00C0EB27 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
@@ -324,6 +333,27 @@
 			name = HttpEngine;
 			sourceTree = "<group>";
 		};
+		EA9DBB151EC6D8F3000FA93A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				EA9DBB191EC6E994000FA93A /* view */,
+				EA9DBB161EC6D942000FA93A /* LoginViewController.h */,
+				EA9DBB171EC6D942000FA93A /* LoginViewController.m */,
+				EA9DBB1D1EC6F731000FA93A /* RegisterViewController.h */,
+				EA9DBB1E1EC6F731000FA93A /* RegisterViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
+		EA9DBB191EC6E994000FA93A /* view */ = {
+			isa = PBXGroup;
+			children = (
+				EA9DBB1A1EC6E9AF000FA93A /* LoginTextField.h */,
+				EA9DBB1B1EC6E9AF000FA93A /* LoginTextField.m */,
+			);
+			name = view;
+			sourceTree = "<group>";
+		};
 		EAA2FDED1EBE524E00C0EB27 /* 设置 */ = {
 			isa = PBXGroup;
 			children = (
@@ -461,6 +491,7 @@
 		EAAE62B41EBDDCE600AB9280 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				EA9DBB151EC6D8F3000FA93A /* Login */,
 			);
 			name = Public;
 			sourceTree = "<group>";
@@ -668,6 +699,8 @@
 				EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */,
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
+				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
+				EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */,
 				EAA2FDFE1EBEF1CA00C0EB27 /* MyPostViewController.m in Sources */,
@@ -680,6 +713,7 @@
 				EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */,
 				EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */,
 				EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */,
+				EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */,
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,

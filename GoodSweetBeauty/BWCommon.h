@@ -38,5 +38,7 @@
 +(NSString *)GetNowTimewithformat:(NSString *)format;
 //当前时间戳
 +(NSString *)GetNowTimestamps;
+//富文本改变颜色
++(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightText:(NSString *)highlightText collor:(UIColor *)color;
 
 @end
