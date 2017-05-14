@@ -26,18 +26,6 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
-//-(void)viewWillDisappear:(BOOL)animated{
-//    
-//    
-//    
-//    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-//    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
-//    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
-//    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
-//                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
-//
-//    
-//}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

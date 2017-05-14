@@ -10,6 +10,10 @@
 #import "CenterTableViewCell.h"
 #import "SettingViewController.h"
 #import "MyPostViewController.h"
+#import "FansViewController.h"
+#import "AuthViewController.h"
+
+
 
 @interface CenterViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -192,11 +196,12 @@
             break;
         case 8:{
             
-            
+            view = [FansViewController new];
         }
             break;
         case 9:{
             
+            view = [AuthViewController new];
             
         }
             break;
