@@ -10,4 +10,9 @@
 
 @interface ResSetUsernameViewController : HJViewController
 
+
+
+
+//手机号
+@property(nonatomic,strong)NSString *phone;
 @end

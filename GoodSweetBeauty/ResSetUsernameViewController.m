@@ -212,7 +212,27 @@
 //提交
 -(void)submit{
 
-    MYLOG(@"确定");
+    MYLOG(@"确定 %@----%@-----%@",self.phone,self.text_username.text,self.text_pwd.text);
+    NSDictionary *dic = @{@"username":self.text_username.text,
+                          @"password":self.text_pwd.text,
+                          @"mobile":self.phone,
+                          @"reg_ip":[BWCommon getIpAddresses]};
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    @weakify(self);
+    [HttpEngine RegistrationInput:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        if (success) {
+            
+            
+            
+        }else{
+        
+            
+        }
+        
+    }];
+    
 }
 
 @end

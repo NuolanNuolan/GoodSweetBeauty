@@ -14,5 +14,9 @@
 //测试网络请求
 +(void)TestNetWorkcomplete:(void(^)(id responseObject))complete;
 
+//提交注册
++(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 
+//登录
++(void)UserLogin:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

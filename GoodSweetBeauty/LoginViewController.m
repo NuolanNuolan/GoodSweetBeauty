@@ -260,6 +260,15 @@
 -(void)Login{
 
     MYLOG(@"登录");
+    NSDictionary *dic = @{@"username":self.text_username.text,
+                          @"password":self.text_pwd.text};
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    @weakify(self);
+    [HttpEngine UserLogin:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        
+    }];
 }
 //短信验证登录
 -(void)Login_ForMes{

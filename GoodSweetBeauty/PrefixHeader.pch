@@ -70,7 +70,7 @@
 #endif
 
 //测试接口地址
-#define ADDRESS_API http://121.40.52.49:8010/
+#define ADDRESS_API @"http://121.40.52.49:8010"
 //正式接口地址
 //#define ADDRESS_API 
 

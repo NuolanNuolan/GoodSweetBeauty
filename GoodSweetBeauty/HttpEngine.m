@@ -52,4 +52,45 @@
 //        
 //    }];
 }
+//提交注册
++(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+
+    NSString *url = [NSString stringWithFormat:@"%@/auth/register/",ADDRESS_API];
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@",responseObject);
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        MYLOG(@"%@",dic);
+        complete(NO,error);
+
+    }];
+    
+    
+}
+//登录
++(void)UserLogin:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/api-token-auth/",ADDRESS_API];
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@",responseObject);
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+        MYLOG(@"%@",dic);
+        complete(NO,error);
+        
+    }];
+}
 @end

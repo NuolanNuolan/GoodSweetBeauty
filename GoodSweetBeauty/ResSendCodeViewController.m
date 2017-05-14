@@ -205,6 +205,7 @@
 
     MYLOG(@"提交");
     ResSetUsernameViewController *view = [ResSetUsernameViewController new];
+    view.phone = self.phone;
     [self.navigationController pushViewController:view animated:YES];
     
 }
