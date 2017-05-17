@@ -28,6 +28,8 @@
 @property(nonatomic,strong)UIView *view_lin_pwd;
 //提醒
 @property(nonatomic,strong)UILabel *lab_remind;
+//输入密码提醒
+@property(nonatomic,strong)UILabel *lab_remind_pwd;
 //确定
 @property(nonatomic,strong)UIButton *btn_submit;
 @end
@@ -77,6 +79,7 @@
     self.lab_remind = [UILabel new];
     [self.lab_remind setTextColor:RGB(237, 67, 67)];
     [self.lab_remind setText:@"用户名4-14位字符，设置后不可更改"];
+    self.lab_remind.hidden = YES;
     [self.lab_remind setFont:[UIFont systemFontOfSize:11]];
     [self.lab_remind sizeToFit];
     
@@ -101,6 +104,13 @@
     self.view_lin_pwd = [UIView new];
     self.view_lin_pwd.backgroundColor = RGB(229, 229, 229);
     
+    self.lab_remind_pwd = [UILabel new];
+    [self.lab_remind_pwd setTextColor:RGB(237, 67, 67)];
+    [self.lab_remind_pwd setText:@"密码6-14位数字、字母、符合组合"];
+    self.lab_remind_pwd.hidden = YES;
+    [self.lab_remind_pwd setFont:[UIFont systemFontOfSize:11]];
+    [self.lab_remind_pwd sizeToFit];
+    
     self.btn_submit = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.btn_submit setTitleColor:[UIColor colorWithRed:1 green:1 blue:1 alpha:0.3] forState:UIControlStateNormal];
     [self.btn_submit setBackgroundColor:GETMAINCOLOR];
@@ -117,6 +127,7 @@
     [self.view addSubview:self.view_line_username];
     [self.view addSubview:self.view_lin_pwd];
     [self.view addSubview:self.btn_submit];
+    [self.view addSubview:self.lab_remind_pwd];
     
     self.lab_title.whc_TopSpace(37).whc_CenterX(0);
     
@@ -129,6 +140,9 @@
     self.text_pwd.whc_LeftSpaceEqualView(self.text_username).whc_RightSpaceEqualView(self.text_username).whc_HeightEqualView(self.text_username).whc_TopSpaceToView(13,self.lab_remind);
     
     self.view_lin_pwd.whc_LeftSpaceEqualView(self.text_username).whc_RightSpaceEqualView(self.text_username).whc_Height(0.5).whc_TopSpaceToView(0,self.text_pwd);
+    
+    self.lab_remind_pwd.whc_TopSpaceToView(6,self.view_lin_pwd).whc_LeftSpace(78);
+    
     
     self.btn_submit.whc_LeftSpaceEqualView(self.text_username).whc_RightSpaceEqualView(self.text_username).whc_Height(50).whc_TopSpaceToView(57.5,self.view_lin_pwd);
 
@@ -192,10 +206,14 @@
     
     if ([self.text_username isFirstResponder]) {
         self.view_line_username.backgroundColor = GETMAINCOLOR;
+        self.lab_remind.hidden=NO;
+        self.lab_remind_pwd.hidden =YES;
         self.view_lin_pwd.backgroundColor = RGB(229, 229, 229);
     }else{
         
         self.view_line_username.backgroundColor = RGB(229, 229, 229);
+        self.lab_remind.hidden=YES;
+        self.lab_remind_pwd.hidden =NO;
         self.view_lin_pwd.backgroundColor = GETMAINCOLOR;
     }
     

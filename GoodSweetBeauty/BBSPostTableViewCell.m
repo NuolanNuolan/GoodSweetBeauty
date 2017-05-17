@@ -44,6 +44,9 @@
         image_head = [UIImageView new];
         image_head.layer.masksToBounds =YES;
         image_head.layer.cornerRadius = 20.0f;
+        image_head.userInteractionEnabled =YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
+        [image_head addGestureRecognizer:tap];
         
         lab_username = [UILabel new];
         [lab_username setTextColor:RGB(51, 51, 51)];
@@ -108,7 +111,7 @@
 }
 -(void)SetSection:(NSInteger )sention{
 
-
+    image_head.tag = sention;
     switch (sention) {
         case 0:{
             
@@ -228,5 +231,11 @@
 
     
 }
+-(void)userdetail:(UITapGestureRecognizer *)tap{
 
+    MYLOG(@"%ld",tap.view.tag);
+    
+    if (self.delegateSignal) [self.delegateSignal sendNext:[NSString stringWithFormat:@"%ld",tap.view.tag]];
+    
+}
 @end

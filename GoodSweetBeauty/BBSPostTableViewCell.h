@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface BBSPostTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
 -(void)SetSection:(NSInteger )sention;
+
 @end

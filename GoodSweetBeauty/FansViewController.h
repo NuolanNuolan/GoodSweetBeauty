@@ -10,4 +10,7 @@
 
 @interface FansViewController : HJViewController
 
+
+
+
 @end

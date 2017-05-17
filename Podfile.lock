@@ -18,6 +18,7 @@ PODS:
   - DACircularProgress (2.3.1)
   - FLAnimatedImage (1.0.12)
   - IQKeyboardManager (4.0.9)
+  - KIZBehavior (0.0.1)
   - KMNavigationBarTransition (1.0.0)
   - MBProgressHUD (0.9.2)
   - MJRefresh (3.1.12)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - AFNetworking
   - CocoaAsyncSocket
   - IQKeyboardManager
+  - KIZBehavior
   - KMNavigationBarTransition
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
@@ -74,6 +76,7 @@ SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  KIZBehavior: 23c21df85fd82413bdc9196d4aee982a7d19d430
   KMNavigationBarTransition: b3fb8337f7a1e4542add07fd6c45fb9980794d59
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
@@ -89,6 +92,6 @@ SPEC CHECKSUMS:
   WHC_Model: 790bc8e34d3e0f94c71b35ef9f26558a80a1fbc2
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
 
-PODFILE CHECKSUM: bd4755fd5fe1d7d711365b39cd6e8038b0397916
+PODFILE CHECKSUM: dfdb98e0147227d5c161f14c505c4709143da673
 
 COCOAPODS: 1.2.1

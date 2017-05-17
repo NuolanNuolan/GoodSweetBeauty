@@ -9,6 +9,7 @@
 #import "BBSViewController.h"
 #import "BBSPostTableViewCell.h"
 #import "DetailTableViewController.h"
+#import "UserCenterViewController.h"
 
 
 
@@ -42,7 +43,7 @@
 
 
 
-@property(nonatomic,strong)UITableView *tableView;
+//@property(nonatomic,strong)UITableView *tableView;
 
 
 
@@ -65,6 +66,7 @@
     [self InitData];
     //视图
     [self CreateUI];
+    
     //先创建最大的滚动视图
     [self creatTableScrollView];
     //头部
@@ -128,7 +130,7 @@
 -(void)createTableHeadView:(UITableView *)tableView{
     
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
+    tableHeaderView.backgroundColor = [UIColor yellowColor];
     tableView.showsVerticalScrollIndicator = NO;
     tableView.tableHeaderView = tableHeaderView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -138,8 +140,9 @@
 -(void)createHeaderView{
     
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
-    self.headerView.backgroundColor = [UIColor yellowColor];
+    self.headerView.backgroundColor = [UIColor clearColor];
     self.headerCenterY = self.headerView.center.y;
+    
     [self.view addSubview:self.headerView];
     
     //添加banner
@@ -214,7 +217,7 @@
     self.cycleScrollView.pageControlRightOffset = 2;
     self.cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     self.cycleScrollView.titlesGroup = titles;
-    
+//    self.cycleScrollView.clickItemOperationBlock 
     [self.headerView addSubview:self.cycleScrollView];
 }
 - (void)titleClick:(UIButton *)button
@@ -348,6 +351,12 @@
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell SetSection:indexPath.section];
+    cell.delegateSignal = [RACSubject subject];
+    @weakify(self);
+    [cell.delegateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        [self PushUserDetail:x];
+    }];
     return cell;
 
     
@@ -360,7 +369,14 @@
 
 
 
+//用户详情
+-(void)PushUserDetail:(NSString *)tag{
 
+    UserCenterViewController *view = [UserCenterViewController new];
+    view.hidesBottomBarWhenPushed =YES;
+    [self.navigationController pushViewController:view animated:YES];
+    
+}
 
 -(void)PushSearch{
 

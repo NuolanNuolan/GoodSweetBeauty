@@ -254,6 +254,9 @@
 //忘记密码
 -(void)FogetPwd{
 
+    RegisterViewController *view = [RegisterViewController new];
+    view.type = @"忘记密码";
+    [self.navigationController pushViewController:view animated:YES];
     
 }
 //登录
@@ -273,12 +276,15 @@
 //短信验证登录
 -(void)Login_ForMes{
 
-    
+    RegisterViewController *view = [RegisterViewController new];
+    view.type = @"验证码登录";
+    [self.navigationController pushViewController:view animated:YES];
 }
 //注册
 -(void)Res{
 
     RegisterViewController *view = [RegisterViewController new];
+    view.type = @"注册";
     [self.navigationController pushViewController:view animated:YES];
     
 }

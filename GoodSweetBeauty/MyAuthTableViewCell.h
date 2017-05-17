@@ -14,4 +14,7 @@
 
 
 -(void)SetSection:(NSInteger )section;
+
+//设置密码的
+-(void)SetPwd:(NSInteger )section;
 @end

@@ -16,6 +16,7 @@ pod 'WHC_AutoLayoutKit'
 pod 'PYPhotoBrowser'
 pod 'SDCycleScrollView'
 pod 'KMNavigationBarTransition'
+pod 'KIZBehavior'
 
 
 end

@@ -47,8 +47,11 @@
     // Do any additional setup after loading the view.
 }
 -(void)CreateUI{
-
-    self.title = @"注册";
+    
+    if ([self.type isEqualToString:@"注册"]) self.title = @"注册";
+    else if ([self.type isEqualToString:@"验证码登录"])self.title = @"获取验证码";
+    else  self.title = @"获取验证码";
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.image_logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Loginlogo"]];
     
@@ -56,8 +59,6 @@
     self.image_user_left.frame = CGMAKE(0, 19, 13, 20);
     
     self.text_username = [LoginTextField new];
-//    self.text_username.delegate = self;
-    //    self.text_username.backgroundColor = [UIColor redColor];
     [self.text_username setTintColor:GETMAINCOLOR];
     [self.text_username setFont:[UIFont boldSystemFontOfSize:18]];
     [self.text_username setKeyboardType:UIKeyboardTypeNumberPad];
@@ -83,22 +84,24 @@
     self.btn_res.layer.cornerRadius = 25.0f;
     [self.btn_res addTarget:self action:@selector(sendcode) forControlEvents:UIControlEventTouchUpInside];
     
-    self.lab_userdelegate = [UILabel new];
-    [self.lab_userdelegate setTextColor:RGB(102, 102, 102)];
-    [self.lab_userdelegate setFont:[UIFont systemFontOfSize:12]];
-    [self.lab_userdelegate setAttributedText:[BWCommon setupAttributeString:@"我已阅读并同意 用户注册协议" highlightText:@"用户注册协议" collor:GETMAINCOLOR]];
-    [self.lab_userdelegate sizeToFit];
-    self.lab_userdelegate.userInteractionEnabled=YES;
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdelegate)];
-    [self.lab_userdelegate addGestureRecognizer:tap];
-    
-    
     [self.view addSubview:self.image_logo];
     [self.view addSubview:self.text_username];
     [self.view addSubview:self.view_line_username];
     [self.view addSubview:self.btn_res];
-    [self.view addSubview:self.lab_userdelegate];
     
+    if ([self.type isEqualToString:@"注册"]) {
+        
+        self.lab_userdelegate = [UILabel new];
+        [self.lab_userdelegate setTextColor:RGB(102, 102, 102)];
+        [self.lab_userdelegate setFont:[UIFont systemFontOfSize:12]];
+        [self.lab_userdelegate setAttributedText:[BWCommon setupAttributeString:@"我已阅读并同意 用户注册协议" highlightText:@"用户注册协议" collor:GETMAINCOLOR]];
+        [self.lab_userdelegate sizeToFit];
+        self.lab_userdelegate.userInteractionEnabled=YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdelegate)];
+        [self.lab_userdelegate addGestureRecognizer:tap];
+        [self.view addSubview:self.lab_userdelegate];
+        self.lab_userdelegate.whc_CenterX(0).whc_TopSpaceToView(20,self.btn_res);
+    }
     self.image_logo.whc_TopSpace(35).whc_Size(80,80).whc_CenterX(0);
     
     self.text_username.whc_LeftSpace(45).whc_RightSpace(45).whc_Height(45).whc_TopSpaceToView(30,self.image_logo);
@@ -107,7 +110,7 @@
     
     self.btn_res.whc_LeftSpaceEqualView(self.text_username).whc_RightSpaceEqualView(self.text_username).whc_Height(50).whc_TopSpaceToView(40,self.view_line_username);
 
-    self.lab_userdelegate.whc_CenterX(0).whc_TopSpaceToView(20,self.btn_res);
+    
 }
 //添加监听
 -(void)Addobserver{
@@ -161,8 +164,19 @@
 //获取验证码
 -(void)sendcode{
 
+    //这里根据type需要判断是否有资格获取验证码
+    //注册
+    //验证码登录
+    //忘记密码
+    
+    
+    
+    
+    
+    
     ResSendCodeViewController *view = [ResSendCodeViewController new];
     view.phone = self.text_username.text;
+    view.type = self.type;
     [self.navigationController pushViewController:view animated:YES];
 }
 //用户协议

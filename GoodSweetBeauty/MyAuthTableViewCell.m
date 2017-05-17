@@ -151,6 +151,16 @@
     }
     return YES;
 }
+//设置密码的
+-(void)SetPwd:(NSInteger )section{
+
+    switch (section) {
+        case 0:
+            lab_title.text = @"输入新密码";
+            text_input.tag= 101;
+            break;
+    }
+}
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

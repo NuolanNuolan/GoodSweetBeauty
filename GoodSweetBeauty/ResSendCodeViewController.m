@@ -8,6 +8,7 @@
 
 #import "ResSendCodeViewController.h"
 #import "ResSetUsernameViewController.h"
+#import "SetPwdViewController.h"
 
 @interface ResSendCodeViewController (){
 
@@ -49,7 +50,9 @@
 }
 -(void)CreateUI{
 
-    self.title = @"注册";
+    if ([self.type isEqualToString:@"注册"]) self.title = @"注册";
+    else if ([self.type isEqualToString:@"验证码登录"])self.title = @"登录";
+    else  self.title = @"输入验证码";
     self.view.backgroundColor = [UIColor whiteColor];
     self.view_phone = [UIView new];
     self.view_phone.backgroundColor = RGB(247, 247, 247);
@@ -202,11 +205,29 @@
 
 //提交
 -(void)submit{
-
-    MYLOG(@"提交");
-    ResSetUsernameViewController *view = [ResSetUsernameViewController new];
-    view.phone = self.phone;
-    [self.navigationController pushViewController:view animated:YES];
+    
+    //首先判断验证码
+    //根据type条状不同页面
+    if ([self.type isEqualToString:@"验证码登录"]) {
+        
+        MYLOG(@"直接登录");
+        
+        
+    }else if ([self.type isEqualToString:@"注册"]){
+        MYLOG(@"注册");
+        ResSetUsernameViewController *view = [ResSetUsernameViewController new];
+        view.phone = self.phone;
+        [self.navigationController pushViewController:view animated:YES];
+        
+    }else{
+    
+        MYLOG(@"重新设置密码");
+        SetPwdViewController *view = [SetPwdViewController new];
+        [self.navigationController pushViewController:view animated:YES];
+    }
+    
+    
+   
     
 }
 
