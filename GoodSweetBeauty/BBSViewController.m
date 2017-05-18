@@ -23,7 +23,7 @@
 @interface BBSViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 //主滚动
 @property(nonatomic, strong)UIScrollView *tableScrollView;
-//三个表格
+//三个表格 预留一个Controller
 @property (nonatomic, strong)DetailTableViewController *firstTableView;
 @property (nonatomic, strong)DetailTableViewController *secondTableView;
 @property (nonatomic, strong)DetailTableViewController *thirdTableView;
@@ -40,10 +40,6 @@
 //banner
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 
-
-
-
-//@property(nonatomic,strong)UITableView *tableView;
 
 
 
@@ -142,7 +138,7 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
     self.headerView.backgroundColor = [UIColor clearColor];
     self.headerCenterY = self.headerView.center.y;
-    
+//    self.headerView.userInteractionEnabled =NO;
     [self.view addSubview:self.headerView];
     
     //添加banner
@@ -157,6 +153,7 @@
     
     //红色指示器
     self.indicatorView = [[UIView alloc] init];
+    self.indicatorView.userInteractionEnabled=YES;
     self.indicatorView.backgroundColor = GETMAINCOLOR;
     
     //内部的子标签
@@ -213,12 +210,17 @@
     self.cycleScrollView.titleLabelBackgroundColor = [UIColor clearColor];
     self.cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:16];
     self.cycleScrollView.titleLabelHeight = 50;
+    self.cycleScrollView.userInteractionEnabled=YES;
     self.cycleScrollView.pageControlBottomOffset = 10;
     self.cycleScrollView.pageControlRightOffset = 2;
+    self.cycleScrollView.delegate =self;
     self.cycleScrollView.imageURLStringsGroup = imagesURLStrings;
     self.cycleScrollView.titlesGroup = titles;
-//    self.cycleScrollView.clickItemOperationBlock 
     [self.headerView addSubview:self.cycleScrollView];
+}
+-(void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
+
+    MYLOG(@"%ld",(long)index);
 }
 - (void)titleClick:(UIButton *)button
 {

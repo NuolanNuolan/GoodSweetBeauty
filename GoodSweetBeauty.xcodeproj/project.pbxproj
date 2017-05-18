@@ -51,6 +51,11 @@
 		EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */; };
 		EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */; };
 		EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62BC1EBDDD6900AB9280 /* BBSViewController.m */; };
+		EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */; };
+		EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926131ECD8D2D00B6048D /* DynamicItem.m */; };
+		EAD9261A1ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926151ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m */; };
+		EAD9261B1ECD8D2D00B6048D /* UIScrollView+Dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926171ECD8D2D00B6048D /* UIScrollView+Dragging.m */; };
+		EAD9261E1ECD8E4B00B6048D /* UserCenterDeatilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD9261D1ECD8E4B00B6048D /* UserCenterDeatilViewController.m */; };
 		EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E641E82CEDA0083D7DD /* BWCommon.m */; };
 		EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E671E8363ED0083D7DD /* MainTabbarController.m */; };
 /* End PBXBuildFile section */
@@ -160,6 +165,17 @@
 		EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsViewController.m; sourceTree = "<group>"; };
 		EAAE62BB1EBDDD6900AB9280 /* BBSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSViewController.h; sourceTree = "<group>"; };
 		EAAE62BC1EBDDD6900AB9280 /* BBSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSViewController.m; sourceTree = "<group>"; };
+		EAD9260F1ECD8D2D00B6048D /* JYPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPagingView.h; sourceTree = "<group>"; };
+		EAD926101ECD8D2D00B6048D /* HHHorizontalPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHHorizontalPagingView.h; sourceTree = "<group>"; };
+		EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHHorizontalPagingView.m; sourceTree = "<group>"; };
+		EAD926121ECD8D2D00B6048D /* DynamicItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicItem.h; sourceTree = "<group>"; };
+		EAD926131ECD8D2D00B6048D /* DynamicItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicItem.m; sourceTree = "<group>"; };
+		EAD926141ECD8D2D00B6048D /* UIView+WhenTappedBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WhenTappedBlocks.h"; sourceTree = "<group>"; };
+		EAD926151ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WhenTappedBlocks.m"; sourceTree = "<group>"; };
+		EAD926161ECD8D2D00B6048D /* UIScrollView+Dragging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+Dragging.h"; sourceTree = "<group>"; };
+		EAD926171ECD8D2D00B6048D /* UIScrollView+Dragging.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+Dragging.m"; sourceTree = "<group>"; };
+		EAD9261C1ECD8E4B00B6048D /* UserCenterDeatilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCenterDeatilViewController.h; sourceTree = "<group>"; };
+		EAD9261D1ECD8E4B00B6048D /* UserCenterDeatilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCenterDeatilViewController.m; sourceTree = "<group>"; };
 		EADF1E631E82CEDA0083D7DD /* BWCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BWCommon.h; sourceTree = "<group>"; };
 		EADF1E641E82CEDA0083D7DD /* BWCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCommon.m; sourceTree = "<group>"; };
 		EADF1E661E8363ED0083D7DD /* MainTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
@@ -212,6 +228,8 @@
 		EA0100041ECB2F6B00C14F5B /* 用户主页 */ = {
 			isa = PBXGroup;
 			children = (
+				EAD9261C1ECD8E4B00B6048D /* UserCenterDeatilViewController.h */,
+				EAD9261D1ECD8E4B00B6048D /* UserCenterDeatilViewController.m */,
 				EA0100051ECB2F9800C14F5B /* UserCenterViewController.h */,
 				EA0100061ECB2F9800C14F5B /* UserCenterViewController.m */,
 			);
@@ -341,6 +359,7 @@
 		EA9CF63F1E80D8D00050BA8B /* Until */ = {
 			isa = PBXGroup;
 			children = (
+				EAD926011ECD7DC400B6048D /* HHHorizontalPagingView */,
 				EA09A2631EC1B5E200224DF5 /* ChangeLineSpaceAndWordSpace */,
 				EADF1E621E82CECE0083D7DD /* BWCommon */,
 				EA9CF76A1E825E420050BA8B /* HttpEngine */,
@@ -568,6 +587,22 @@
 			name = Public;
 			sourceTree = "<group>";
 		};
+		EAD926011ECD7DC400B6048D /* HHHorizontalPagingView */ = {
+			isa = PBXGroup;
+			children = (
+				EAD9260F1ECD8D2D00B6048D /* JYPagingView.h */,
+				EAD926101ECD8D2D00B6048D /* HHHorizontalPagingView.h */,
+				EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */,
+				EAD926121ECD8D2D00B6048D /* DynamicItem.h */,
+				EAD926131ECD8D2D00B6048D /* DynamicItem.m */,
+				EAD926141ECD8D2D00B6048D /* UIView+WhenTappedBlocks.h */,
+				EAD926151ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m */,
+				EAD926161ECD8D2D00B6048D /* UIScrollView+Dragging.h */,
+				EAD926171ECD8D2D00B6048D /* UIScrollView+Dragging.m */,
+			);
+			path = HHHorizontalPagingView;
+			sourceTree = "<group>";
+		};
 		EADF1E621E82CECE0083D7DD /* BWCommon */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,7 +806,9 @@
 				EA456CF31EC831E300BE380E /* AuthViewController.m in Sources */,
 				EA7E53A71EC4A90300134732 /* DetailTableViewController.m in Sources */,
 				EA456CEE1EC829A400BE380E /* MyFansTableViewCell.m in Sources */,
+				EAD9261A1ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m in Sources */,
 				EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */,
+				EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */,
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
@@ -786,9 +823,11 @@
 				EA456D001ECADC2E00BE380E /* SetPwdViewController.m in Sources */,
 				EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */,
 				EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */,
+				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */,
 				EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */,
+				EAD9261B1ECD8D2D00B6048D /* UIScrollView+Dragging.m in Sources */,
 				EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */,
 				EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */,
 				EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */,
@@ -804,6 +843,7 @@
 				EA9DBB251EC70EDB000FA93A /* ResSetUsernameViewController.m in Sources */,
 				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 				EA456CF61EC8339500BE380E /* MyAuthTableViewCell.m in Sources */,
+				EAD9261E1ECD8E4B00B6048D /* UserCenterDeatilViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

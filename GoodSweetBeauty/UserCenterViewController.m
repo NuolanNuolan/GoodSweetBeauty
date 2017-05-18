@@ -12,46 +12,37 @@
 #import "KIZParallaxHeaderBehavior.h"
 #import "KIZMultipleProxyBehavior.h"
 #import "BBSPostTableViewCell.h"
+#import "UserCenterDeatilViewController.h"
 
 //头视图总高度
-#define HEADHEIGHT 344
-//top高度
-#define BANNERHEIGHT 300
+#define HEADHEIGHT 235
 //三个按钮视图高度
 #define DEATILHEIGHT 65
 //按钮框高度
 #define BTNVIEWHEIGHT 44
 
-@interface UserCenterViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
-//主滚动
-@property(nonatomic, strong)UIScrollView *tableScrollView;
-//三个表格
-@property (nonatomic, strong)DetailTableViewController *firstTableView;
-@property (nonatomic, strong)DetailTableViewController *secondTableView;
-
-//头部banner+title
-@property (nonatomic, strong) UIView *headerView;
-//头部视图高度相关
-@property (nonatomic, assign) CGFloat headerCenterY;
-//标签栏底部的指示器
-@property (nonatomic, strong) UIView *indicatorView;
-//当前选中的按钮
-@property (nonatomic, strong) UIButton *selectedButton;
-//顶部的所有标签
-@property (nonatomic, strong) UIView *titlesView;
-//头视图上的控件
-@property (nonatomic, strong)UIImageView *image_head;
-//用户名
-@property (nonatomic, strong)UILabel *lab_username;
-//装用户标示的view
-@property (nonatomic, strong)UIView *view_v_level;
-//三个按钮框
-@property (nonatomic, strong)UIView *view_btn_there;
 
 
 
+@interface UserCenterViewController ()<HHHorizontalPagingViewDelegate>
 
-//@property(nonatomic,strong)UITableView *tableView;
+@property (nonatomic, strong) HHHorizontalPagingView *pagingView;
+
+//头像
+@property(nonatomic,strong)UIImageView *image_head;
+//username
+@property(nonatomic,strong)UILabel *lab_username;
+//装v和level的view
+@property(nonatomic,strong)UIView *view_v_level;
+//v
+@property(nonatomic,strong)UIImageView *image_v;
+//level
+@property(nonatomic,strong)UIImageView *image_level;
+//按钮view+缝隙view
+@property(nonatomic,strong)UIView *view_btn_gap;
+//三个lab
+@property(nonatomic,strong)UILabel *lab_detail;
+
 @end
 
 @implementation UserCenterViewController
@@ -64,281 +55,184 @@
 -(void)viewWillDisappear:(BOOL)animated{
 
     
-    
     [super viewWillDisappear:animated];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self CreteUI];
-    //先创建最大的滚动视图
-    [self creatTableScrollView];
-    //头部
-    [self createHeaderView];
+
 
     // Do any additional setup after loading the view.
 }
 -(void)CreteUI{
 
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    
-    
-}
-#pragma mark - 创建底部scrollerView
-- (void)creatTableScrollView{
-
-
-    //创建底部的滚动视图
-    UIScrollView *tableScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-    tableScrollView.contentSize = CGSizeMake(SCREEN_WIDTH * 2, 0);
-    tableScrollView.pagingEnabled = YES;
-    tableScrollView.delegate = self;
-    tableScrollView.backgroundColor = [UIColor clearColor];
-    
-    self.firstTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.firstTableView.tableView.frame = CGRectMake(0  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-    self.firstTableView.tableView.tag = 100;
-    self.firstTableView.tableView.delegate = self;
-    self.firstTableView.tableView.dataSource =self;
-    self.firstTableView.tableView.backgroundColor =[UIColor clearColor];
-    [self createTableHeadView:self.firstTableView.tableView];
-    [tableScrollView addSubview:self.firstTableView.tableView];
-    self.secondTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.secondTableView.tableView.frame = CGRectMake(1  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
-    self.secondTableView.tableView.tag = 101;
-    self.secondTableView.tableView.delegate = self;
-    self.secondTableView.tableView.dataSource = self;
-    self.secondTableView.tableView.backgroundColor = [UIColor clearColor];
-    [self createTableHeadView:self.secondTableView.tableView];
-    [tableScrollView addSubview:self.secondTableView.tableView];
-    
-    
-    self.tableScrollView = tableScrollView;
-    [self.view addSubview:self.tableScrollView];
-
-}
-//添加头视图
--(void)createTableHeadView:(UITableView *)tableView{
-    
-    UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, -1000, SCREEN_WIDTH, 1000)];
-    topView.backgroundColor = GETMAINCOLOR;
-    [tableView addSubview:topView];
-    UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
-    tableHeaderView.backgroundColor = [UIColor clearColor];
-    tableView.showsVerticalScrollIndicator = NO;
-    tableView.tableHeaderView = tableHeaderView;
-    tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
+    [self.pagingView reload];
     
     
 }
-//创建三个按钮+banner
--(void)createHeaderView{
+#pragma mark -  HHHorizontalPagingViewDelegate
+// 下方左右滑UIScrollView设置
+- (NSInteger)numberOfSectionsInPagingView:(HHHorizontalPagingView *)pagingView {
+    return 2;
+}
 
-    self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
-    self.headerView.backgroundColor = GETMAINCOLOR;
-    self.headerCenterY = self.headerView.center.y;
-    [self.view addSubview:self.headerView];
+- (UIScrollView *)pagingView:(HHHorizontalPagingView *)pagingView viewAtIndex:(NSInteger)index{
+    UserCenterDeatilViewController *vc = [[UserCenterDeatilViewController alloc] init];
+    [self addChildViewController:vc];
+    vc.index = index;
+    return (UIScrollView *)vc.view;
+}
 
-    //添加banner
-    [self createbanner];
+//headerView 设置
+- (CGFloat)headerHeightInPagingView:(HHHorizontalPagingView *)pagingView {
+    return HEADHEIGHT;
+}
+
+- (UIView *)headerViewInPagingView:(HHHorizontalPagingView *)pagingView {
     
-    self.titlesView = [[UIView alloc] initWithFrame:CGRectMake(0, BANNERHEIGHT, SCREEN_WIDTH, BTNVIEWHEIGHT)];
-    self.titlesView.layer.masksToBounds = YES;
-    self.titlesView.layer.borderColor = RGB(221, 221, 221).CGColor;
-    self.titlesView.layer.borderWidth= 0.5f;
-    self.titlesView.backgroundColor = [UIColor whiteColor];
-    [self.headerView addSubview:self.titlesView];
+    UIView *headerView = [[UIView alloc] init];
+    headerView.backgroundColor = GETMAINCOLOR;
+    self.image_head = [UIImageView new];
+    self.image_head.layer.masksToBounds =YES;
+    self.image_head.layer.cornerRadius =40.0F;
+    self.image_head.backgroundColor = [UIColor grayColor];
     
-    //红色指示器
-    self.indicatorView = [[UIView alloc] init];
-    self.indicatorView.backgroundColor = GETMAINCOLOR;
+    self.lab_username = [UILabel new];
+    [self.lab_username setTextColor:[UIColor whiteColor]];
+    [self.lab_username setFont:[UIFont boldSystemFontOfSize:16]];
+    [self.lab_username setText:@"换个字试试"];
+    [self.lab_username sizeToFit];
+    
+    self.view_v_level = [UIView new];
+    self.view_v_level.backgroundColor = RGB(247, 247, 247);
+    self.view_v_level.layer.masksToBounds =YES;
+    self.view_v_level.layer.cornerRadius =8;
+    
+    self.image_v = [UIImageView new];
+    self.image_v.image = [UIImage imageNamed:@"iconVBlue"];
+    
+    self.image_level = [UIImageView new];
+    self.image_level.image = [UIImage imageNamed:@"iconLv2"];
+    
+    self.view_btn_gap = [UIView new];
+    self.view_btn_gap.backgroundColor = [UIColor yellowColor];
+    
+    NSArray *arr = [NSArray arrayWithObjects:@"关注",@"粉丝",@"帖子", nil];
+    for (int i =0; i<arr.count; i++) {
+        
+        UIView *view = [[UIView alloc]initWithFrame:CGMAKE(SCREEN_WIDTH/3*i, 0, SCREEN_WIDTH/3, 65)];
+        view.backgroundColor = [UIColor whiteColor];
+        
+        self.lab_detail = [UILabel new];
+        [self.lab_detail setTextColor:RGB(51, 51, 51)];
+        [self.lab_detail setFont:[UIFont systemFontOfSize:18]];
+        [self.lab_detail sizeToFit];
+        [self.lab_detail setText:@"11"];
+        
+        UILabel *lab = [UILabel new];
+        [lab setTextColor:RGB(102, 102, 102)];
+        [lab setFont:[UIFont systemFontOfSize:12]];
+        [lab sizeToFit];
+        [lab setText:arr[i]];
+        
+        
+        
+        [view addSubview:self.lab_detail];
+        [view addSubview:lab];
+        [self.view_btn_gap addSubview:view];
+
+        
+        self.lab_detail.whc_TopSpace(15).whc_CenterX(0).whc_Height(13);
+        lab.whc_TopSpaceToView(10,self.lab_detail).whc_CenterX(0);
+    }
+    UIView *view_gap = [[UIView alloc]initWithFrame:CGMAKE(0, 65, SCREEN_WIDTH, 10)];
+    view_gap.backgroundColor = RGB(247, 247, 247);
+    [self.view_btn_gap addSubview:view_gap];
+    
+    
+    
+    [self.view_v_level addSubview:self.image_v];
+    [self.view_v_level addSubview:self.image_level];
+    [headerView addSubview:self.image_head];
+    [headerView addSubview:self.lab_username];
+    [headerView addSubview:self.view_v_level];
+    [headerView addSubview:self.view_btn_gap];
+    
+    self.image_head.whc_Size(80,80).whc_CenterX(0).whc_TopSpace(5);
+    self.lab_username.whc_TopSpaceToView(15,self.image_head).whc_CenterX(0).whc_Height(16);
+    self.image_v.whc_Size(11,9).whc_TopSpace(3.5).whc_LeftSpace(7);
+    self.image_level.whc_Size(12,11).whc_TopSpace(2.5).whc_RightSpace(7.5);
+    self.view_v_level.whc_Size(42,16).whc_LeftSpaceToView(5,self.lab_username).whc_TopSpaceEqualView(self.lab_username);
+    
+    self.view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(45,self.lab_username).whc_Height(65);
+    
+    return headerView;
+}
+
+//segmentButtons
+- (CGFloat)segmentHeightInPagingView:(HHHorizontalPagingView *)pagingView {
+    
+    return BTNVIEWHEIGHT;
+}
+
+- (NSArray<UIButton*> *)segmentButtonsInPagingView:(HHHorizontalPagingView *)pagingView {
+    
+    NSMutableArray *buttonArray = [NSMutableArray array];
     
     //内部的子标签
-    NSArray *titles = @[@"商务名片", @"口碑评价" ];
-    CGFloat width = SCREEN_WIDTH / titles.count;
-    CGFloat height = BTNVIEWHEIGHT-2;
+    NSArray *titles = @[@"商务名片", @"口碑评价"];
     
     for (NSInteger i = 0; i < titles.count; i++) {
         
         UIButton *button = [[UIButton alloc] init];
-        button.backgroundColor = [UIColor clearColor];
+        button.backgroundColor = [UIColor whiteColor];
         button.tag = i;
-        button.frame = CGRectMake(i * width, 0, width, height);
         [button setTitle:titles[i] forState:UIControlStateNormal];
         [button setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
-        [button setTitleColor:GETMAINCOLOR forState:UIControlStateDisabled];
+        [button setTitleColor:GETMAINCOLOR forState:UIControlStateSelected];
         button.titleLabel.font = [UIFont systemFontOfSize:15];
-        [button addTarget:self action:@selector(titleClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self.titlesView addSubview:button];
         
-        // 默认点击了第一个按钮
-        if (i == 0) {
-            button.enabled = NO;
-            self.selectedButton = button;
-            
-            // 让按钮内部的label根据文字内容来计算尺寸
-            [button.titleLabel sizeToFit];
-            CGFloat indicatorViewW = button.titleLabel.frame.size.width;
-            CGFloat indicatorViewCenterX = button.center.x;
-            
-            self.indicatorView.frame = CGRectMake(indicatorViewCenterX - indicatorViewW / 2, BTNVIEWHEIGHT-2, indicatorViewW, 2);
-            
-        }
+        [buttonArray addObject:button];
     }
-    [self.titlesView addSubview:self.indicatorView];
+    return [buttonArray copy];
+}
+
+// 点击segment
+- (void)pagingView:(HHHorizontalPagingView*)pagingView segmentDidSelected:(UIButton *)item atIndex:(NSInteger)selectedIndex{
+    MYLOG(@"%s",__func__);
 
 }
--(void)createbanner{
 
-    self.image_head = [UIImageView new];
-    self.image_head.backgroundColor = RGB(25, 138, 240);
-    self.image_head.layer.masksToBounds =YES;
-    self.image_head.layer.cornerRadius = 40.0f;
-    
-    
-    
-}
-- (void)titleClick:(UIButton *)button
-{
-    //第一次要刷新
-    //    UITableView *tableview = [self.view viewWithTag:100+button.tag];
-    //    [tableview.mj_header beginRefreshing];
-    
-    // 修改按钮状态
-    self.selectedButton.enabled = YES;
-    button.enabled = NO;
-    self.selectedButton = button;
-    // 动画
-    [UIView animateWithDuration:0.15 animations:^{
-        CGFloat indicatorViewW = button.titleLabel.frame.size.width;
-        CGFloat indicatorViewCenterX = button.center.x;
-        
-        self.indicatorView.frame = CGRectMake(indicatorViewCenterX - indicatorViewW / 2, BTNVIEWHEIGHT-2, indicatorViewW, 2);
-    }];
-    
-    // 滚动
-    CGPoint offset = self.tableScrollView.contentOffset;
-    offset.x = button.tag * self.tableScrollView.frame.size.width;
-    [self.tableScrollView setContentOffset:offset animated:YES];
-}
-#pragma mark scrollView
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    
-    if ([scrollView isEqual:_tableScrollView]) {
-        
-        return;
-    }
-    
-    CGFloat offsetY = scrollView.contentOffset.y;
-    
-    if (scrollView.contentOffset.y > BANNERHEIGHT) {
-        self.headerView.center = CGPointMake(_headerView.center.x,  self.headerCenterY - BANNERHEIGHT);
-        return;
-    }
-    CGFloat h = self.headerCenterY - offsetY;
-    self.headerView.center = CGPointMake(self.headerView.center.x, h);
-    
-    //解决结束刷新时候，其他tableView同步偏移
-    if (scrollView.contentOffset.y == 0) {
-        [self scrollViewDidEndDecelerating:scrollView];
-    }
+- (void)pagingView:(HHHorizontalPagingView*)pagingView segmentDidSelectedSameItem:(UIButton *)item atIndex:(NSInteger)selectedIndex{
+    MYLOG(@"%s",__func__);
     
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    NSLog(@"-------%s    ",__func__);
-    
-    if ([scrollView isEqual:_tableScrollView]) {
-        
-        NSInteger index = scrollView.contentOffset.x / SCREEN_WIDTH;
-        [self titleClick:self.titlesView.subviews[index]];
-        
-        return;
-    }
-    
-    [self setTableViewContentOffsetWithTag:scrollView.tag contentOffset:scrollView.contentOffset.y];
+// 视图切换完成时调用
+- (void)pagingView:(HHHorizontalPagingView*)pagingView didSwitchIndex:(NSInteger)aIndex to:(NSInteger)toIndex{
+    MYLOG(@"%s \n %tu  to  %tu",__func__,aIndex,toIndex);
 }
 
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    NSLog(@"-------%s",__func__);
+- (void)pagingView:(HHHorizontalPagingView *)pagingView scrollTopOffset:(CGFloat)offset {
     
-    if ([scrollView isEqual:_tableScrollView]) {
-        return;
-    }
-    [self setTableViewContentOffsetWithTag:scrollView.tag contentOffset:scrollView.contentOffset.y];
+    
 }
 
-//设置tableView的偏移量
--(void)setTableViewContentOffsetWithTag:(NSInteger)tag contentOffset:(CGFloat)offset{
-    
-    CGFloat tableViewOffset = offset;
-    if(offset > BANNERHEIGHT){
+#pragma mark - 懒加载
+- (HHHorizontalPagingView *)pagingView {
+    if (!_pagingView) {
         
-        tableViewOffset = BANNERHEIGHT;
+        _pagingView = [[HHHorizontalPagingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) delegate:self];
+        _pagingView.segmentTopSpace = 0;
+        _pagingView.segmentView.backgroundColor = [UIColor whiteColor];
+        _pagingView.maxCacheCout = 1;
+        _pagingView.isGesturesSimulate = YES;
+        [self.view addSubview:_pagingView];
     }
-    
-    if (tag == 100) {
-        
-        [self.secondTableView.tableView setContentOffset:CGPointMake(0, tableViewOffset) animated:NO];
-        
-        
-    }else if(tag == 101){
-        
-        [self.firstTableView.tableView setContentOffset:CGPointMake(0, tableViewOffset) animated:NO];
-        
-        
-    }else{
-        
-        [self.firstTableView.tableView setContentOffset:CGPointMake(0, tableViewOffset) animated:NO];
-        [self.secondTableView.tableView setContentOffset:CGPointMake(0, tableViewOffset) animated:NO];
-        
-    }
+    return _pagingView;
 }
-
-#pragma mark tableviewdelegate
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    
-    return 1;
-}
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    
-    return 4;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 0.001;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 10;
-}
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return [BBSPostTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
-}
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    BBSPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
-    if (!cell) {
-        cell = [[BBSPostTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell SetSection:indexPath.section];
-    cell.delegateSignal = [RACSubject subject];
-    return cell;
-    
-    
-}
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    MYLOG(@"点击了第%ld个表格第%ld行",tableView.tag-100,(long)indexPath.section);
-}
-
-
 
 
 @end

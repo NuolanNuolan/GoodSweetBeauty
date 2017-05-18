@@ -29,6 +29,7 @@
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
 #import "SDCycleScrollView.h"
 #import "LoginViewController.h"
+#import "JYPagingView.h"
 
 
 
