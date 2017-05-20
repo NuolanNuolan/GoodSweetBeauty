@@ -8,7 +8,7 @@
 
 #import "HJViewController.h"
 
-@interface UserCenterDeatilViewController : HJViewController
+@interface UserCenterDeatilViewController : UIViewController
 @property (nonatomic, strong, readonly) UITableView *tableView;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL allowPullToRefresh;

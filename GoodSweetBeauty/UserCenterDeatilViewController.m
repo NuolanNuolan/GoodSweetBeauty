@@ -7,6 +7,7 @@
 //
 
 #import "UserCenterDeatilViewController.h"
+#import "LoginViewController.h"
 
 @interface UserCenterDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -18,12 +19,16 @@
     self.view.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64);
 }
 - (void)loadView{
-    self.tableView = [[UITableView alloc] initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-50) style:UITableViewStylePlain];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor colorWithRed:242./255. green:242./255. blue:242./255. alpha:1.0];
     self.view = self.tableView;
+//
+//    [self.view addSubview:self.tableView];
+    
     UIView *view_backgroud = [[UIView alloc]initWithFrame:CGMAKE(0, -1000, SCREEN_WIDTH, 1000)];
     view_backgroud.backgroundColor = GETMAINCOLOR;
     [self.view addSubview:view_backgroud];
@@ -35,11 +40,10 @@
 }
 -(void)CreateBtn{
 
-    UIView *view = [UIView new];
-    view.backgroundColor = [UIColor yellowColor];
+    UIView *view = [[UIView alloc]initWithFrame:CGMAKE(0, SCREEN_HEIGHT-50-344, SCREEN_WIDTH, 50)];
+    view.backgroundColor = [UIColor redColor];
     
     [self.view addSubview:view];
-    view.whc_LeftSpace(0).whc_RightSpace(0).whc_BottomSpace(50).whc_Height(50);
 }
 #pragma mark - UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -71,6 +75,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    
+    
     
 }
 

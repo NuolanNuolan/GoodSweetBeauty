@@ -138,7 +138,12 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
     self.headerView.backgroundColor = [UIColor clearColor];
     self.headerCenterY = self.headerView.center.y;
-//    self.headerView.userInteractionEnabled =NO;
+    self.headerView.userInteractionEnabled =YES;
+    
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(click)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+    [self.headerView addGestureRecognizer:recognizer];
+    
     [self.view addSubview:self.headerView];
     
     //添加banner
@@ -190,6 +195,10 @@
     }
     [self.titlesView addSubview:self.indicatorView];
     
+}
+-(void)click{
+
+    MYLOG(@"点击");
 }
 -(void)createbanner{
 
@@ -383,6 +392,9 @@
 -(void)PushSearch{
 
     MYLOG(@"搜索");
+    
+
+    
     LoginViewController *view = [LoginViewController new];
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];

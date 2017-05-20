@@ -269,4 +269,10 @@
         return [highlightText copy];
     }
 }
+//是否登录
++(BOOL)islogin{
+    
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"])return YES;
+    return NO;
+}
 @end

@@ -9,14 +9,22 @@
 #import <Foundation/Foundation.h>
 
 @interface HttpEngine : NSObject
-//+(instancetype)
-
-//测试网络请求
-+(void)TestNetWorkcomplete:(void(^)(id responseObject))complete;
-
++(void)Login_Success:(NSDictionary *)responseObjecct;
+//图片上传统一接口
++(void)uploadfile:(NSArray *)Arrimage comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
 //提交注册
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
-
 //登录
 +(void)UserLogin:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
+//会员资料
++(void)UserDetailcomplete:(void(^)(BOOL success ,id responseObject))complete;
+//我的粉丝
++(void)UserFanspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+//我的关注
++(void)Userfollowupspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+//关注
++(void)UserFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
+//取消关注
++(void)UserCancelFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
+
 @end

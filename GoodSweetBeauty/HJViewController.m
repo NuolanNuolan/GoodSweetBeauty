@@ -34,8 +34,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     [self CreateHJUI];
     [self NextViewBack];
     //注册网络通知只执行一次

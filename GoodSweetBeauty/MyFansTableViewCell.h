@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "YouAnFansFollowModel.h"
 
 @interface MyFansTableViewCell : UITableViewCell
 //头像
@@ -33,5 +34,8 @@
 //按钮点击事件
 - (IBAction)BtnFocus:(UIButton *)sender;
 
+@property (nonatomic, strong) RACSubject *delegateSignal;
+
+-(void)SetModel:(YouAnFansFollowModel *)model withtype:(NSString *)type withrow:(NSInteger) row;
 
 @end

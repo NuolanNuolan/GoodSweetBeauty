@@ -75,7 +75,7 @@
     return self;
 }
 
--(void)SetSection:(NSInteger )sention{
+-(void)SetSection:(NSInteger )sention withmodel:(YouAnUserModel *)model{
 
     switch (sention) {
         case 0:
@@ -87,18 +87,39 @@
             image_main.image = [UIImage imageNamed:@"iconMe"];
             image_main.whc_Size(17,17).whc_LeftSpace(20.5).whc_CenterY(0);
             lab_title.text = @"@我的";
-            image_red_unread.backgroundColor = [UIColor redColor];
+            if ([model.at_me_count integerValue]>1) {
+                
+                image_red_unread.backgroundColor = [UIColor redColor];
+            }else{
+            
+                image_red_unread.backgroundColor = [UIColor clearColor];
+            }
+            
             
             break;
         case 2:
             image_main.image = [UIImage imageNamed:@"iconMeHuifu"];
             image_main.whc_Size(16.5,15).whc_LeftSpace(20.5).whc_CenterY(0);
             lab_title.text = @"回复我的";
+            if (model.New_reply) {
+                
+                image_red_unread.backgroundColor = [UIColor redColor];
+            }else{
+            
+                image_red_unread.backgroundColor = [UIColor clearColor];
+            }
             break;
         case 3:
             image_main.image = [UIImage imageNamed:@"iconMeEmail"];
             image_main.whc_Size(16.5,12.5).whc_LeftSpace(20.5).whc_CenterY(0);
             lab_title.text = @"我的私信";
+            if ([model.my_message_count integerValue]>1) {
+                
+                image_red_unread.backgroundColor = [UIColor redColor];
+            }else{
+            
+                image_red_unread.backgroundColor = [UIColor clearColor];
+            }
             break;
         case 4:
             image_main.image = [UIImage imageNamed:@"iconMeShoucang"];
@@ -114,7 +135,13 @@
             image_main.image = [UIImage imageNamed:@"iconMeBi"];
             image_main.whc_Size(17,14).whc_LeftSpace(20.5).whc_CenterY(0);
             lab_title.text = @"我的有安币";
-            lab_count.text = @"123";
+            if (model) {
+                
+                lab_count.text = [NSString stringWithFormat:@"%@",model.coins];
+            }else{
+            
+                [lab_count setText:@"0"];
+            }
             break;
         case 7:
             image_main.image = [UIImage imageNamed:@"iconMeGuanzhu"];
@@ -125,6 +152,9 @@
             image_main.image = [UIImage imageNamed:@"iconMeFensi"];
             image_main.whc_Size(17,15.6).whc_LeftSpace(20.5).whc_CenterY(0);
             lab_title.text = @"我的粉丝";
+            if (model.New_follow) image_red_unread.backgroundColor = [UIColor redColor];
+            else image_red_unread.backgroundColor = [UIColor clearColor];
+            
             break;
         case 9:
             image_main.image = [UIImage imageNamed:@"iconMeRenzheng"];

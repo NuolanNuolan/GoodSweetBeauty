@@ -85,6 +85,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle"
   install_resource "PYSearch/PYSearch/PYSearch.bundle"
   install_resource "TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle"
+  install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "IQKeyboardManager/IQKeyboardManager/Resources/IQKeyboardManager.bundle"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "PYPhotoBrowser/PYPhotoBrowser/PYPhotosView.bundle"
   install_resource "PYSearch/PYSearch/PYSearch.bundle"
   install_resource "TZImagePickerController/TZImagePickerController/TZImagePickerController/TZImagePickerController.bundle"
+  install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

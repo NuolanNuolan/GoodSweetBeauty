@@ -17,6 +17,7 @@ pod 'PYPhotoBrowser'
 pod 'SDCycleScrollView'
 pod 'KMNavigationBarTransition'
 pod 'KIZBehavior'
+pod 'ZFPlayer'
 
 
 end

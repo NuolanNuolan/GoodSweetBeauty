@@ -117,7 +117,7 @@
     self.image_level.image = [UIImage imageNamed:@"iconLv2"];
     
     self.view_btn_gap = [UIView new];
-    self.view_btn_gap.backgroundColor = [UIColor yellowColor];
+    self.view_btn_gap.backgroundColor = [UIColor clearColor];
     
     NSArray *arr = [NSArray arrayWithObjects:@"关注",@"粉丝",@"帖子", nil];
     for (int i =0; i<arr.count; i++) {
@@ -227,7 +227,7 @@
         _pagingView = [[HHHorizontalPagingView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) delegate:self];
         _pagingView.segmentTopSpace = 0;
         _pagingView.segmentView.backgroundColor = [UIColor whiteColor];
-        _pagingView.maxCacheCout = 1;
+        _pagingView.maxCacheCout = 2;
         _pagingView.isGesturesSimulate = YES;
         [self.view addSubview:_pagingView];
     }

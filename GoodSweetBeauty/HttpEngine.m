@@ -10,47 +10,37 @@
 
 @implementation HttpEngine
 
++(void)Login_Success:(NSDictionary *)responseObjecct{
 
-+(void)TestNetWorkcomplete:(void(^)(id responseObject))complete
-{
-    MYLOG(@"进入了这里");
-    NSDictionary *dict = @{@"format": @"json"};
-    /**
-     *  上传图片文件
-     *
-     *  @param URL        请求地址
-     *  @param parameters 请求参数
-     *  @param images     图片数组
-     *  @param name       文件对应服务器上的字段
-     *  @param fileName   文件名
-     *  @param mimeType   图片文件的类型,例:png、jpeg(默认类型)....
-     *  @param progress   上传进度信息
-     *  @param success    请求成功的回调
-     *  @param failure    请求失败的回调
-     *
-     *  @return 返回的对象可取消请求,调用cancle方法
-     */
-//    PPNetworkHelper uploadImagesWithURL:<#(NSString *)#> parameters:<#(id)#> name:<#(NSString *)#> images:<#(NSArray<UIImage *> *)#> fileNames:<#(NSArray<NSString *> *)#> imageScale:<#(CGFloat)#> imageType:<#(NSString *)#> progress:<#^(NSProgress *progress)progress#> success:<#^(id responseObject)success#> failure:<#^(NSError *error)failure#>
+    //token
+    [[NSUserDefaults standardUserDefaults]setObject:responseObjecct[@"token"] forKey:@"TOKEN_KEY"];
+    //username
+    [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"username"] forKey:@"NAME"];
+    //phone
+    [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"mobile"] forKey:@"PHONE"];
     
+}
+//图片上传统一接口
++(void)uploadfile:(NSArray *)Arrimage comlete:(void(^)(BOOL susccess , id responseObjecct))complete{
+
     
-    
-    
-    
-    [PPNetworkHelper GET:@"http://www.mycomments.com.my/default/app/index" parameters:dict responseCache:^(id responseCache) {
-        complete(responseCache);
+    NSString*str=[NSString stringWithFormat:@"%@/storage/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSMutableArray *Arr_str = [NSMutableArray arrayWithCapacity:0];
+    for (int i =0; i<Arrimage.count; i++) {
+        [Arr_str addObject:[NSString stringWithFormat:@"%@.jpg",[BWCommon GetNowTimewithformat:@"yyyyMMddHHmmss"]]];
+    }
+    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:Arr_str imageScale:1 imageType:@"" progress:^(NSProgress *progress) {
+        
     } success:^(id responseObject) {
-        complete(responseObject);
         
     } failure:^(NSError *error) {
         
     }];
-//    
-//    
-//    [PPNetworkHelper GET:@"http://www.mycomments.com.my/default/app/index" parameters:dict success:^(id responseObject) {
-//        complete(responseObject);
-//    } failure:^(NSError *error) {
-//        
-//    }];
+    
+    
 }
 //提交注册
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
@@ -66,9 +56,20 @@
     } failure:^(NSError *error) {
         
         NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        MYLOG(@"%@",dic);
-        complete(NO,error);
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if (dic) {
+                
+                complete(NO,dic);
+                
+            }else{
+            
+                 complete(NO,@"服务器繁忙");
+            }
+        }else{
+        
+            complete(NO,@"服务器繁忙");
+        }
 
     }];
     
@@ -82,14 +83,126 @@
     [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
         
         MYLOG(@"%@",responseObject);
+        //储存相关信息
+        [HttpEngine Login_Success:responseObject];
         complete(YES,responseObject);
         
     } failure:^(NSError *error) {
         
         NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
-        NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        MYLOG(@"%@",dic);
-        complete(NO,error);
+        if (data) {
+            
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if (dic) {
+                
+                MYLOG(@"%@",dic);
+                complete(NO,[NSString stringWithFormat:@"账号或密码错误"]);
+            }else{
+            
+                complete(NO,[NSString stringWithFormat:@"服务器繁忙"]);
+            }
+            
+        }else{
+        
+            complete(NO,[NSString stringWithFormat:@"服务器繁忙"]);
+        }
+    }];
+}
+//会员资料
++(void)UserDetailcomplete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/profile/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    [PPNetworkHelper GET:url parameters:nil success:^(id responseObject) {
+        
+    
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+        
+    }];
+    
+}
+//我的粉丝
++(void)UserFanspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/fans/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+        
+    }];
+    
+}
+//我的关注
++(void)Userfollowupspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/followups/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+        
+    }];
+    
+}
+//关注
++(void)UserFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/follow/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"member_id":[NSNumber numberWithInteger:userid]};
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+        
+    }];
+    
+}
+//取消关注
++(void)UserCancelFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/unfollow/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"member_id":[NSNumber numberWithInteger:userid]};
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
         
     }];
 }

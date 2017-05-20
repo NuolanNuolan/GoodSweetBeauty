@@ -5,6 +5,9 @@
 //  Created by Eason on 17/3/21.
 //  Copyright © 2017年 YLL. All rights reserved.
 //
+//Model
+#import "YouAnUserModel.h"
+
 
 #import "LPActionSheet.h"
 #import "PPNetworkHelper.h"
@@ -30,6 +33,7 @@
 #import "SDCycleScrollView.h"
 #import "LoginViewController.h"
 #import "JYPagingView.h"
+#import "ZFPlayer.h"
 
 
 

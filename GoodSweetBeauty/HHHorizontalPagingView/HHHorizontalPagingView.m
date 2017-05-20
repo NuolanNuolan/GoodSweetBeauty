@@ -218,7 +218,7 @@ static NSInteger pagingScrollViewTag             = 2000;
     [scrollView  setContentInset:UIEdgeInsetsMake(self.headerViewHeight+self.segmentBarHeight, 0., scrollView.contentInset.bottom, 0.)];
     scrollView.alwaysBounceVertical = YES;
     scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.contentOffset = CGPointMake(0., -self.headerViewHeight-self.segmentBarHeight);
+    scrollView.contentOffset = CGPointMake(0, -self.headerViewHeight-self.segmentBarHeight);
     [scrollView.panGestureRecognizer addObserver:self forKeyPath:NSStringFromSelector(@selector(state)) options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&HHHorizontalPagingViewPanContext];
     [scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentOffset)) options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&HHHorizontalPagingViewScrollContext];
     [scrollView addObserver:self forKeyPath:NSStringFromSelector(@selector(contentInset)) options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:&HHHorizontalPagingViewInsetContext];

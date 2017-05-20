@@ -17,7 +17,8 @@
 
 @interface CenterViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-
+//model
+@property(nonatomic,strong)YouAnUserModel *usermodel;
 
 @property(nonatomic,strong)UITableView *tableView;
 @end
@@ -34,7 +35,7 @@
                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
-    
+    [self LoadData];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -49,6 +50,18 @@
     
     [self CreateUI];
     
+}
+//会员资料
+-(void)LoadData{
+
+    @weakify(self);
+    [HttpEngine UserDetailcomplete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            self.usermodel = [YouAnUserModel whc_ModelWithJson:responseObject];
+            [self.tableView reloadData];
+        }
+    }];
 }
 -(void)CreateUI{
 
@@ -99,7 +112,7 @@
         
         cell = [[CenterTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-    [cell SetSection:indexPath.section];
+    [cell SetSection:indexPath.section withmodel:self.usermodel];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -119,7 +132,9 @@
         UILabel *lab_name = [UILabel new];
         [lab_name setFont:[UIFont systemFontOfSize:16]];
         [lab_name setTextColor:[UIColor whiteColor]];
-        [lab_name setText:@"万恶的人中赤兔"];
+        
+        [lab_name setText:self.usermodel ? self.usermodel.username : @""];
+        
         [lab_name sizeToFit];
         
         UILabel *lab_balance = [UILabel new];
@@ -127,7 +142,7 @@
         [lab_balance setFont:[UIFont systemFontOfSize:15]];
         
         NSMutableAttributedString * attri = [[NSMutableAttributedString alloc]init];
-        NSMutableAttributedString * attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",@"  122"]];
+        NSMutableAttributedString * attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",self.usermodel ? self.usermodel.coins : @""]];
         NSTextAttachment *attch = [[NSTextAttachment alloc] init];
         attch.image = [UIImage imageNamed:@"iconBi"];
         attch.bounds = CGRectMake(0, -2, 17, 14);
@@ -135,7 +150,6 @@
         [attri appendAttributedString:string];
         [attri appendAttributedString:attri1];
         lab_balance.attributedText = attri;
-//        [lab_balance sizeToFit];
         
         [view addSubview:image_head];
         [view addSubview:lab_name];
@@ -191,12 +205,13 @@
             break;
         case 7:{
             
-            
+            view = [[FansViewController alloc]initWithtype:@"关注"];
         }
             break;
         case 8:{
             
-            view = [FansViewController new];
+            view = [[FansViewController alloc]initWithtype:@"粉丝"];
+            
         }
             break;
         case 9:{
@@ -213,6 +228,8 @@
 
 -(void)PushSettting{
 
+//        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:8] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+    
     SettingViewController *view = [SettingViewController new];
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];

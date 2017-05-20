@@ -209,7 +209,7 @@
     [[RACSignal combineLatest:single]subscribeNext:^(RACTuple *x) {
         @strongify(self);
         
-        if ([[x first] length]>0&&[[x second] length]>0) {
+        if ([[x first] length]>0&&[[x second] length]>=6) {
             
             self.btn_login.userInteractionEnabled=YES;
             [self.btn_login setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -270,6 +270,15 @@
     [HttpEngine UserLogin:dic complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [MBProgressHUD hideHUDForView:self.view];
+        if (success) {
+            
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else{
+        
+            [MBProgressHUD showError:[NSString stringWithFormat:@"%@",responseObject]];
+        }
+        
         
     }];
 }

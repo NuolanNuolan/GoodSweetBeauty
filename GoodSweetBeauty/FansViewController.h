@@ -11,6 +11,7 @@
 @interface FansViewController : HJViewController
 
 
+-(instancetype)initWithtype:(NSString *)type;
 
 
 @end

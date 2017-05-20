@@ -13,6 +13,6 @@
 
 
 
--(void)SetSection:(NSInteger )sention;
+-(void)SetSection:(NSInteger )sention withmodel:(YouAnUserModel *)model;
 
 @end

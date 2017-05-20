@@ -184,7 +184,7 @@
     [[RACSignal combineLatest:single]subscribeNext:^(RACTuple *x) {
         @strongify(self);
         
-        if ([[x first] length]>0&&[[x second] length]>0) {
+        if ([[x first] length]>0&&[[x second] length]>=6) {
             
             self.btn_submit.userInteractionEnabled=YES;
             [self.btn_submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -242,15 +242,47 @@
         [MBProgressHUD hideHUDForView:self.view];
         if (success) {
             
-            
+            //自动登录
+            [self Login];
             
         }else{
         
+            if (responseObject[@"username"]) {
+                
+                [MBProgressHUD showError:responseObject[@"username"][0] toView:self.view];
+                
+            }else if (responseObject[@"mobile"]){
             
+                [MBProgressHUD showError:responseObject[@"mobile"][0] toView:self.view];
+            }else{
+            
+                [MBProgressHUD showError:@"服务器繁忙" toView:self.view];
+            }
         }
         
     }];
     
 }
+-(void)Login{
 
+    NSDictionary *dic = @{@"username":self.text_username.text,
+                          @"password":self.text_pwd.text};
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    @weakify(self);
+    [HttpEngine UserLogin:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        if (success) {
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        }else{
+            
+            [MBProgressHUD showError:[NSString stringWithFormat:@"%@",responseObject]];
+        }
+        
+        
+    }];
+    
+}
 @end

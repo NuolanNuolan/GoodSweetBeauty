@@ -27,5 +27,33 @@
 }
 
 - (IBAction)BtnFocus:(UIButton *)sender {
+    
+    
+    if (self.delegateSignal) [self.delegateSignal sendNext:[NSString stringWithFormat:@"%ld",(long)sender.tag]];
+}
+
+-(void)SetModel:(YouAnFansFollowModel *)model withtype:(NSString *)type withrow:(NSInteger) row{
+
+    if (model) {
+        
+        _btn_Focus.tag = row;
+        _lab_username.text = model.username;
+        _lab_count.text = [NSString stringWithFormat:@"粉丝 %@",model.my_fans_count];
+        _image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%@",model.level]];
+        _image_v.image = model.if_vip ? [UIImage imageNamed:@"iconVRed"] : nil;
+        
+        BOOL isFocus = [type isEqualToString:@"粉丝"]? model.if_each_fan :model.isfocus;
+            if (isFocus) {
+                
+                _btn_Focus.layer.borderColor = RGB(136, 136, 136).CGColor;
+                [_btn_Focus setTitleColor:RGB(136, 136, 136) forState:UIControlStateNormal];
+                [_btn_Focus setTitle:@"已关注" forState:UIControlStateNormal];
+            }else{
+            
+                _btn_Focus.layer.borderColor = GETMAINCOLOR.CGColor;
+                [_btn_Focus setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+                [_btn_Focus setTitle:@"关注" forState:UIControlStateNormal];
+            }
+    }
 }
 @end
