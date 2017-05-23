@@ -27,6 +27,7 @@
 		EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7738E71EAB451600AADE5C /* AppDelegate+Sunday.m */; };
 		EA7823F21ED03C6100CBF1E6 /* YouAnUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */; };
 		EA7E53A71EC4A90300134732 /* DetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7E53A61EC4A90300134732 /* DetailTableViewController.m */; };
+		EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */; };
 		EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60C1E80D3CD0050BA8B /* main.m */; };
 		EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */; };
 		EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6121E80D3CD0050BA8B /* ViewController.m */; };
@@ -122,6 +123,8 @@
 		EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnUserModel.m; sourceTree = "<group>"; };
 		EA7E53A51EC4A90300134732 /* DetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTableViewController.h; sourceTree = "<group>"; };
 		EA7E53A61EC4A90300134732 /* DetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTableViewController.m; sourceTree = "<group>"; };
+		EA89C44D1ED40D4100B64A1B /* YouAnBBSModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnBBSModel.h; sourceTree = "<group>"; };
+		EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnBBSModel.m; sourceTree = "<group>"; };
 		EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodSweetBeauty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9CF60C1E80D3CD0050BA8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -587,6 +590,8 @@
 		EAAE62B11EBDDCC200AB9280 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EA89C44D1ED40D4100B64A1B /* YouAnBBSModel.h */,
+				EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -843,6 +848,7 @@
 				EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */,
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */,
+				EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
 				EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */,

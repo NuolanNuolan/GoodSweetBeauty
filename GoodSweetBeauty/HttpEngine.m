@@ -32,11 +32,16 @@
     for (int i =0; i<Arrimage.count; i++) {
         [Arr_str addObject:[NSString stringWithFormat:@"%@.jpg",[BWCommon GetNowTimewithformat:@"yyyyMMddHHmmss"]]];
     }
-    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:Arr_str imageScale:1 imageType:@"" progress:^(NSProgress *progress) {
+    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:Arr_str imageScale:1 imageType:@"jpeg" progress:^(NSProgress *progress) {
         
     } success:^(id responseObject) {
         
+        
+        complete(YES,responseObject[@"filename"]);
+        
     } failure:^(NSError *error) {
+        
+        complete(NO,nil);
         
     }];
     
@@ -199,6 +204,36 @@
     [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
         
         complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+        
+    }];
+}
+//请求帖子
++(void)BBSGetPost:(NSInteger )type withpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+    NSString * url = @"";
+    switch (type) {
+        case 0:
+            url = [NSString stringWithFormat:@"%@/posts/threads/replied/",ADDRESS_API];
+            break;
+        case 1:
+            url = [NSString stringWithFormat:@"%@/posts/threads/featured/",ADDRESS_API];
+            break;
+        case 2:
+            url = [NSString stringWithFormat:@"%@/members/latest/",ADDRESS_API];
+            break;
+    }
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    [PPNetworkHelper GET:url parameters:dic responseCache:^(id responseCache) {
+        
+        if (responseCache) {
+            complete(YES,responseCache[@"results"]);
+        }
+    } success:^(id responseObject) {
+        
+        complete(YES,responseObject[@"results"]);
         
     } failure:^(NSError *error) {
         

@@ -10,6 +10,7 @@
 #import "BBSPostTableViewCell.h"
 #import "DetailTableViewController.h"
 #import "UserCenterViewController.h"
+#import "YouAnBBSModel.h"
 
 
 
@@ -40,6 +41,22 @@
 //banner
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 
+//判断第一次刷新标识
+@property (nonatomic, assign) NSInteger OneRefresh_count;
+@property (nonatomic, assign) NSInteger OneRefresh_lastrefresh;
+
+//三个表格的page  数据
+@property(nonatomic,assign) NSInteger page_back;
+@property(nonatomic,assign) NSInteger page_new;
+@property(nonatomic,assign) NSInteger page_goods;
+
+@property(nonatomic,strong) NSMutableArray *Arr_back;
+@property(nonatomic,strong) NSMutableArray *Arr_new;
+@property(nonatomic,strong) NSMutableArray *Arr_goods;
+
+@property(nonatomic,strong)YouAnBBSModel *Bbsmodel;
+
+
 
 
 
@@ -60,26 +77,107 @@
     [super viewDidLoad];
     //初始化数据
     [self InitData];
-    //视图
-    [self CreateUI];
-    
     //先创建最大的滚动视图
     [self creatTableScrollView];
     //头部
     [self createHeaderView];
+    
+    [self CreateUI];
+
     
     
 }
 //初始化数据
 -(void)InitData{
 
+    self.OneRefresh_count = 0;
+    self.page_new = 1;
+    self.page_back = 1;
+    self.page_goods = 1;
+    self.Arr_new = [NSMutableArray arrayWithCapacity:0];
+    self.Arr_back = [NSMutableArray arrayWithCapacity:0];
+    self.Arr_goods = [NSMutableArray arrayWithCapacity:0];
     
+    
+}
+//加载数据 传入三种状态
+-(void)LoadData:(NSInteger )type withpage:(NSInteger )page withtableview:(UITableView *)tableview{
+
+    @weakify(self);
+    [HttpEngine BBSGetPost:type withpage:page complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [tableview.mj_header endRefreshing];
+        [tableview.mj_footer endRefreshing];
+        if (success) {
+            
+            [self ProcessTheData:tableview withdata:responseObject withpage:page];
+            
+        }else{
+        
+            
+        }
+        
+    }];
+}
+//数据处理
+-(void)ProcessTheData:(UITableView * )tableview withdata:(id )responseObject withpage:(NSInteger )page{
+
+    switch (tableview.tag) {
+        case 100:{
+            
+            if (page==1) {
+                
+                [self.Arr_back removeAllObjects];
+            }
+            for (NSDictionary *dic in responseObject) {
+                
+                self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
+                [self.Arr_back addObject:self.Bbsmodel];
+            }
+        }
+            break;
+        case 101:{
+            if (page==1) {
+                
+                [self.Arr_new removeAllObjects];
+            }
+            for (NSDictionary *dic in responseObject) {
+                
+                self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
+                [self.Arr_new addObject:self.Bbsmodel];
+            }
+            
+        }
+            break;
+        case 102:{
+            if (page==1) {
+                
+                [self.Arr_goods removeAllObjects];
+            }
+            for (NSDictionary *dic in responseObject) {
+                
+                self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
+                [self.Arr_goods addObject:self.Bbsmodel];
+            }
+            
+        }
+            break;
+    }
+    [tableview reloadData];
 }
 -(void)CreateUI{
     
     self.navigationItem.title = @"有安";
+    self.view.backgroundColor = RGB(247, 247, 247);
     UIBarButtonItem *btn_right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"iconTitlebarSearch"] style:UIBarButtonItemStyleDone target:self action:@selector(PushSearch)];
     self.navigationItem.rightBarButtonItem = btn_right;
+    //创建发帖按钮
+    UIButton *btn_post = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn_post setBackgroundImage:[UIImage imageNamed:@"iconFixedEdit"] forState:UIControlStateNormal];
+    btn_post.adjustsImageWhenHighlighted = NO;
+    [btn_post addTarget:self action:@selector(Btn_Posting) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn_post];
+    btn_post.whc_RightSpace(15).whc_BottomSpace(75).whc_Size(50,50);
     
 }
 #pragma mark - 创建底部scrollerView
@@ -93,7 +191,7 @@
     tableScrollView.backgroundColor = [UIColor clearColor];
     
     self.firstTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.firstTableView.tableView.frame = CGRectMake(0  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44-10);
+    self.firstTableView.tableView.frame = CGRectMake(0  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-49);
     self.firstTableView.tableView.tag = 100;
     self.firstTableView.tableView.delegate = self;
     self.firstTableView.tableView.dataSource =self;
@@ -101,7 +199,7 @@
     [self createTableHeadView:self.firstTableView.tableView];
     [tableScrollView addSubview:self.firstTableView.tableView];
     self.secondTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.secondTableView.tableView.frame = CGRectMake(1  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44-10);
+    self.secondTableView.tableView.frame = CGRectMake(1  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-49);
     self.secondTableView.tableView.tag = 101;
     self.secondTableView.tableView.delegate = self;
     self.secondTableView.tableView.dataSource = self;
@@ -111,7 +209,7 @@
     
     //---
     self.thirdTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
-    self.thirdTableView.tableView.frame = CGRectMake(2  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-44-10);
+    self.thirdTableView.tableView.frame = CGRectMake(2  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-49);
     self.thirdTableView.tableView.tag = 102;
     self.thirdTableView.tableView.delegate = self;
     self.thirdTableView.tableView.dataSource =self;
@@ -126,11 +224,39 @@
 -(void)createTableHeadView:(UITableView *)tableView{
     
     UIView *tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HEADHEIGHT)];
-    tableHeaderView.backgroundColor = [UIColor yellowColor];
+    tableHeaderView.backgroundColor = [UIColor clearColor];
     tableView.showsVerticalScrollIndicator = NO;
     tableView.tableHeaderView = tableHeaderView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerClass:[BBSPostTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
+    @weakify(self);
+    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:tableView.tag-100 withpage:1 withtableview:tableView];
+        
+        
+        
+    }];
+    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        NSInteger page = 0;
+        switch (tableView.tag) {
+            case 100:
+               page = ++self.page_back;
+                break;
+            case 101:
+               page = ++self.page_new;
+                break;
+            case 102:
+               page = ++self.page_goods;
+                break;
+        }
+        
+        [self LoadData:tableView.tag-100 withpage:page withtableview:tableView];
+        
+        
+    }];
 }
 //创建三个按钮+banner
 -(void)createHeaderView{
@@ -140,8 +266,8 @@
     self.headerCenterY = self.headerView.center.y;
     self.headerView.userInteractionEnabled =YES;
     
-    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(click)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionDown)];
+    UIPanGestureRecognizer *recognizer = [[UIPanGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(handleSwipe:)];
     [self.headerView addGestureRecognizer:recognizer];
     
     [self.view addSubview:self.headerView];
@@ -181,6 +307,10 @@
         
         // 默认点击了第一个按钮
         if (i == 0) {
+            //第一次要刷新
+            UITableView *tableview = [self.view viewWithTag:100+i];
+            [tableview.mj_header beginRefreshing];
+            
             button.enabled = NO;
             self.selectedButton = button;
             
@@ -196,9 +326,50 @@
     [self.titlesView addSubview:self.indicatorView];
     
 }
--(void)click{
+-(void)handleSwipe:(UIPanGestureRecognizer *)swipe{
 
-    MYLOG(@"点击");
+    MYLOG(@"啦啦啦啦啦啦啦啦领取%ld",(long)swipe.state);
+    
+    if (swipe.state == 2) {
+        
+        [self commitTranslation:[swipe translationInView:self.headerView]];
+        
+    }else if(swipe.state == 3){
+        
+        if (self.firstTableView.tableView.mj_offsetY<0) {
+            
+            [self.firstTableView.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+        }
+        
+    } 
+}
+- (void)commitTranslation:(CGPoint)translation
+{
+    
+    CGFloat absX = fabs (translation.x);
+    CGFloat absY = fabs(translation.y);
+    // 设置滑动有效距离
+    if (MAX(absX, absY) >= 200)
+        return;
+    if (absY > absX) {
+     
+        if (translation.y<0) {
+            //向上滑动
+            MYLOG(@"上   %f",translation.y);
+//            [self.firstTableView.tableView setContentOffset:CGPointMake(0,- translation.y-self.OFFset) animated:NO];
+//            self.OFFset = -translation.y;
+        }else{
+            
+            //向下滑动
+            MYLOG(@"下  %f",translation.y);
+            if (translation.y>=200) return;
+//            [self.firstTableView.tableView setContentOffset:CGPointMake(0, -translation.y/2) animated:NO];
+            self.firstTableView.tableView.contentOffset = CGPointMake(0, -translation.y/2);
+            
+        }
+    }
+    
+    
 }
 -(void)createbanner{
 
@@ -233,15 +404,20 @@
 }
 - (void)titleClick:(UIButton *)button
 {
-    //第一次要刷新
-//    UITableView *tableview = [self.view viewWithTag:100+button.tag];
-//    [tableview.mj_header beginRefreshing];
     
+    //第一次要刷新
+    
+    if (self.OneRefresh_count<2&&button.tag!=0&&self.OneRefresh_lastrefresh!=button.tag) {
+        
+        UITableView *tableview = [self.view viewWithTag:100+button.tag];
+        [tableview.mj_header beginRefreshing];
+        self.OneRefresh_count++;
+        self.OneRefresh_lastrefresh = button.tag;
+    }
     // 修改按钮状态
     self.selectedButton.enabled = YES;
     button.enabled = NO;
     self.selectedButton = button;
-    
     // 动画
     [UIView animateWithDuration:0.15 animations:^{
         CGFloat indicatorViewW = button.titleLabel.frame.size.width;
@@ -264,7 +440,7 @@
     }
     
     CGFloat offsetY = scrollView.contentOffset.y;
-
+    MYLOG(@"%f",offsetY);
     if (scrollView.contentOffset.y > BANNERHEIGHT) {
         self.headerView.center = CGPointMake(_headerView.center.x,  self.headerCenterY - BANNERHEIGHT);
         return;
@@ -281,7 +457,7 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"-------%s    ",__func__);
+    MYLOG(@"-------%s    ",__func__);
     
     if ([scrollView isEqual:_tableScrollView]) {
         
@@ -296,7 +472,7 @@
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSLog(@"-------%s",__func__);
+    MYLOG(@"-------%s",__func__);
     
     if ([scrollView isEqual:_tableScrollView]) {
         return;
@@ -339,11 +515,22 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 4;
+    switch (tableView.tag) {
+        case 100:
+            return self.Arr_back.count;
+            break;
+        case 101:
+             return self.Arr_new.count;
+            break;
+        case 102:
+             return self.Arr_goods.count;
+            break;
+    }
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.001;
+    return 0.0001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -361,7 +548,18 @@
         cell = [[BBSPostTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell SetSection:indexPath.section];
+    
+    switch (tableView.tag) {
+        case 100:
+            [cell SetSection:indexPath.section withmodel:self.Arr_back[indexPath.section]];
+            break;
+        case 101:
+            [cell SetSection:indexPath.section withmodel:self.Arr_new[indexPath.section]];
+            break;
+        case 103:
+            [cell SetSection:indexPath.section withmodel:self.Arr_goods[indexPath.section]];
+            break;
+    }
     cell.delegateSignal = [RACSubject subject];
     @weakify(self);
     [cell.delegateSignal subscribeNext:^(id x) {
@@ -386,15 +584,19 @@
     UserCenterViewController *view = [UserCenterViewController new];
     view.hidesBottomBarWhenPushed =YES;
     [self.navigationController pushViewController:view animated:YES];
+ 
+}
+//发帖
+-(void)Btn_Posting{
+
+    MYLOG(@"发帖");
+    
+    
     
 }
-
 -(void)PushSearch{
 
     MYLOG(@"搜索");
-    
-
-    
     LoginViewController *view = [LoginViewController new];
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];

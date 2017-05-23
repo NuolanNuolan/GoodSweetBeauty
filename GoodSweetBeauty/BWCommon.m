@@ -81,8 +81,9 @@
     return nil;
 }
 //时间戳转时间
-+(NSString *)TheTimeStamp:(NSString *)date
++(NSString *)TheTimeStamp:(NSString *)date withtype:(NSString *)type
 {
+    
     
     NSTimeInterval time=[date intValue]+28800;//因为时差问题要加8小时 == 28800 sec
     
@@ -95,7 +96,7 @@
     
     //设定时间格式,这里可以设置成自己需要的格式
     
-    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    [dateFormatter setDateFormat:type];
     
     NSString*currentDateStr = [dateFormatter stringFromDate:detaildate];
     

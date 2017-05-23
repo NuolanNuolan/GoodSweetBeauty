@@ -157,7 +157,7 @@ static char kWhenTouchedUpBlockKey;
         // 转换坐标系 看点是否在View上
         CGPoint objPoint = [obj convertPoint:point fromView:self];
         if (!CGRectContainsPoint(obj.frame, objPoint)) {
-            //            NSLog(@"-----%@",NSStringFromCGPoint(objPoint));
+            //            MYLOG(@"-----%@",NSStringFromCGPoint(objPoint));
             return;
         }
         if (self.block) {

@@ -109,125 +109,155 @@
     }
     return self;
 }
--(void)SetSection:(NSInteger )sention{
+-(void)SetSection:(NSInteger )sention withmodel:(YouAnBBSModel *)model{
 
     image_head.tag = sention;
-    switch (sention) {
-        case 0:{
-            
-            image_head.image = [UIImage imageNamed:@"head"];
-            lab_username.text = @"我是用户名";
-            image_v.image = [UIImage imageNamed:@"iconVRed"];
-            image_level.image = [UIImage imageNamed:@"iconLv1"];
-            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠！";
-            lab_time.text = @"04-12 15:05:51";
-            lab_read_back.text = @"阅读 12233 回复 45353";
-            [stack_imageview whc_RemoveAllSubviews];
-            
-            NSArray *arr = [NSArray arrayWithObjects:@"1", nil];
-            
-            NSInteger newCount = arr.count;
-            NSInteger oldCount = stack_imageview.subviews.count;
-            NSInteger countDiff = newCount - oldCount;
-            stack_imageview.whc_ElementHeightWidthRatio = 166 / 345;// 图片高宽比
-            stack_imageview.whc_Column = 1;
-            for (int i =0; i<countDiff; i++) {
-                UIImageView * imageView = [UIImageView new];
-                imageView.userInteractionEnabled = YES;
-                imageView.tag = oldCount + i;
-                imageView.image = [UIImage imageNamed:arr[i]];
-                [stack_imageview addSubview:imageView];
-            }
-            [stack_imageview whc_StartLayout];
-            
-        }
-            break;
-        case 1:{
-            image_head.image = [UIImage imageNamed:@"head"];
-            lab_username.text = @"我是用户名fdsfdsfsd";
-            image_v.image = [UIImage imageNamed:@"iconVRed"];
-            image_level.image = [UIImage imageNamed:@"iconLv1"];
-            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠！";
-            lab_time.text = @"04-12 15:05:51";
-            lab_read_back.text = @"阅读 12233 回复 45353";
-            [stack_imageview whc_RemoveAllSubviews];
-            
-            NSArray *arr = [NSArray arrayWithObjects:@"1",@"2", nil];
-            
-            NSInteger newCount = arr.count;
-            NSInteger oldCount = stack_imageview.subviews.count;
-            NSInteger countDiff = newCount - oldCount;
-            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
-            stack_imageview.whc_Column = 2;
-            for (int i =0; i<countDiff; i++) {
-                UIImageView * imageView = [UIImageView new];
-                imageView.userInteractionEnabled = YES;
-                imageView.tag = oldCount + i;
-                imageView.image = [UIImage imageNamed:arr[i]];
-                [stack_imageview addSubview:imageView];
-            }
-            [stack_imageview whc_StartLayout];
-            
-        }
-            break;
-        case 2:{
-            
-            image_head.image = [UIImage imageNamed:@"head"];
-            lab_username.text = @"我是用户名";
-            image_v.image = [UIImage imageNamed:@"iconVRed"];
-            image_level.image = [UIImage imageNamed:@"iconLv1"];
-            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠！";
-            lab_time.text = @"04-12 15:05:51";
-            lab_read_back.text = @"阅读 12233 回复 45353";
-            [stack_imageview whc_RemoveAllSubviews];
-            
-            NSArray *arr = [NSArray arrayWithObjects:@"1",@"1",@"1", nil];
-            
-            NSInteger newCount = arr.count;
-            NSInteger oldCount = stack_imageview.subviews.count;
-            NSInteger countDiff = newCount - oldCount;
-            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
-            stack_imageview.whc_Column = 3;
-            for (int i =0; i<countDiff; i++) {
-                UIImageView * imageView = [UIImageView new];
-                imageView.userInteractionEnabled = YES;
-                imageView.tag = oldCount + i;
-                imageView.image = [UIImage imageNamed:arr[i]];
-                [stack_imageview addSubview:imageView];
-            }
-            [stack_imageview whc_StartLayout];
-            
-        }
-            break;
-        case 3:{
-            
-            image_head.image = [UIImage imageNamed:@"head"];
-            lab_username.text = @"我是用户名fdsfdsfsd";
-            image_v.image = [UIImage imageNamed:@"iconVRed"];
-            image_level.image = [UIImage imageNamed:@"iconLv1"];
-            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠";
-            lab_time.text = @"04-12 15:05:51";
-            lab_read_back.text = @"阅读 12233 回复 45353";
-            [stack_imageview whc_RemoveAllSubviews];
-            
-            NSArray *arr = [NSArray arrayWithObjects:@"1",@"2", nil];
-            
-            NSInteger newCount = arr.count;
-            NSInteger oldCount = stack_imageview.subviews.count;
-            NSInteger countDiff = newCount - oldCount;
-            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
-            stack_imageview.whc_Column = 2;
-            for (int i =0; i<countDiff; i++) {
-                UIImageView * imageView = [UIImageView new];
-                imageView.userInteractionEnabled = YES;
-                imageView.tag = oldCount + i;
-                imageView.image = [UIImage imageNamed:arr[i]];
-                [stack_imageview addSubview:imageView];
-            }
-            [stack_imageview whc_StartLayout];
-        }
-            break;
-    }
+    
+    lab_username.text = model.author;
+    lab_deatil.text = model.subject;
+    lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
+    lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd hh:mm:ss"]];
+//    
+//    
+//    
+//    
+//    [stack_imageview whc_RemoveAllSubviews];
+//    
+//    NSArray *arr = [NSArray arrayWithObjects:@"1", nil];
+//    
+//    NSInteger newCount = arr.count;
+//    NSInteger oldCount = stack_imageview.subviews.count;
+//    NSInteger countDiff = newCount - oldCount;
+//    stack_imageview.whc_ElementHeightWidthRatio = 166 / 345;// 图片高宽比
+//    stack_imageview.whc_Column = 1;
+//    for (int i =0; i<countDiff; i++) {
+//        UIImageView * imageView = [UIImageView new];
+//        imageView.userInteractionEnabled = YES;
+//        imageView.tag = oldCount + i;
+//        imageView.image = [UIImage imageNamed:arr[i]];
+//        [stack_imageview addSubview:imageView];
+//    }
+//    [stack_imageview whc_StartLayout];
+//    
+    
+    
+//    
+//    switch (sention) {
+//        case 0:{
+//            
+//            image_head.image = [UIImage imageNamed:@"head"];
+//            lab_username.text = @"我是用户名";
+//            image_v.image = [UIImage imageNamed:@"iconVRed"];
+//            image_level.image = [UIImage imageNamed:@"iconLv1"];
+//            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠！";
+//            lab_time.text = @"04-12 15:05:51";
+//            lab_read_back.text = @"阅读 12233 回复 45353";
+//            [stack_imageview whc_RemoveAllSubviews];
+//            
+//            NSArray *arr = [NSArray arrayWithObjects:@"1", nil];
+//            
+//            NSInteger newCount = arr.count;
+//            NSInteger oldCount = stack_imageview.subviews.count;
+//            NSInteger countDiff = newCount - oldCount;
+//            stack_imageview.whc_ElementHeightWidthRatio = 166 / 345;// 图片高宽比
+//            stack_imageview.whc_Column = 1;
+//            for (int i =0; i<countDiff; i++) {
+//                UIImageView * imageView = [UIImageView new];
+//                imageView.userInteractionEnabled = YES;
+//                imageView.tag = oldCount + i;
+//                imageView.image = [UIImage imageNamed:arr[i]];
+//                [stack_imageview addSubview:imageView];
+//            }
+//            [stack_imageview whc_StartLayout];
+//            
+//        }
+//            break;
+//        case 1:{
+//            image_head.image = [UIImage imageNamed:@"head"];
+//            lab_username.text = @"我是用户名fdsfdsfsd";
+//            image_v.image = [UIImage imageNamed:@"iconVRed"];
+//            image_level.image = [UIImage imageNamed:@"iconLv1"];
+//            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠！";
+//            lab_time.text = @"04-12 15:05:51";
+//            lab_read_back.text = @"阅读 12233 回复 45353";
+//            [stack_imageview whc_RemoveAllSubviews];
+//            
+//            NSArray *arr = [NSArray arrayWithObjects:@"1",@"2", nil];
+//            
+//            NSInteger newCount = arr.count;
+//            NSInteger oldCount = stack_imageview.subviews.count;
+//            NSInteger countDiff = newCount - oldCount;
+//            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
+//            stack_imageview.whc_Column = 2;
+//            for (int i =0; i<countDiff; i++) {
+//                UIImageView * imageView = [UIImageView new];
+//                imageView.userInteractionEnabled = YES;
+//                imageView.tag = oldCount + i;
+//                imageView.image = [UIImage imageNamed:arr[i]];
+//                [stack_imageview addSubview:imageView];
+//            }
+//            [stack_imageview whc_StartLayout];
+//            
+//        }
+//            break;
+//        case 2:{
+//            
+//            image_head.image = [UIImage imageNamed:@"head"];
+//            lab_username.text = @"我是用户名";
+//            image_v.image = [UIImage imageNamed:@"iconVRed"];
+//            image_level.image = [UIImage imageNamed:@"iconLv1"];
+//            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠！";
+//            lab_time.text = @"04-12 15:05:51";
+//            lab_read_back.text = @"阅读 12233 回复 45353";
+//            [stack_imageview whc_RemoveAllSubviews];
+//            
+//            NSArray *arr = [NSArray arrayWithObjects:@"1",@"1",@"1", nil];
+//            
+//            NSInteger newCount = arr.count;
+//            NSInteger oldCount = stack_imageview.subviews.count;
+//            NSInteger countDiff = newCount - oldCount;
+//            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
+//            stack_imageview.whc_Column = 3;
+//            for (int i =0; i<countDiff; i++) {
+//                UIImageView * imageView = [UIImageView new];
+//                imageView.userInteractionEnabled = YES;
+//                imageView.tag = oldCount + i;
+//                imageView.image = [UIImage imageNamed:arr[i]];
+//                [stack_imageview addSubview:imageView];
+//            }
+//            [stack_imageview whc_StartLayout];
+//            
+//        }
+//            break;
+//        case 3:{
+//            
+//            image_head.image = [UIImage imageNamed:@"head"];
+//            lab_username.text = @"我是用户名fdsfdsfsd";
+//            image_v.image = [UIImage imageNamed:@"iconVRed"];
+//            image_level.image = [UIImage imageNamed:@"iconLv1"];
+//            lab_deatil.text = @"3-0战胜韩国！中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠中国乒乓球再夺冠";
+//            lab_time.text = @"04-12 15:05:51";
+//            lab_read_back.text = @"阅读 12233 回复 45353";
+//            [stack_imageview whc_RemoveAllSubviews];
+//            
+//            NSArray *arr = [NSArray arrayWithObjects:@"1",@"2", nil];
+//            
+//            NSInteger newCount = arr.count;
+//            NSInteger oldCount = stack_imageview.subviews.count;
+//            NSInteger countDiff = newCount - oldCount;
+//            stack_imageview.whc_ElementHeightWidthRatio = 113 / 113;// 图片高宽比
+//            stack_imageview.whc_Column = 2;
+//            for (int i =0; i<countDiff; i++) {
+//                UIImageView * imageView = [UIImageView new];
+//                imageView.userInteractionEnabled = YES;
+//                imageView.tag = oldCount + i;
+//                imageView.image = [UIImage imageNamed:arr[i]];
+//                [stack_imageview addSubview:imageView];
+//            }
+//            [stack_imageview whc_StartLayout];
+//        }
+//            break;
+//    }
 
     
 }

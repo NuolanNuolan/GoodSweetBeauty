@@ -26,7 +26,7 @@
     [super viewDidLoad];
     [self CreateUI];
     [self CreateController];
-    
+//    [self CancelTabbar];
     // Do any additional setup after loading the view.
 }
 -(void)CreateUI{
@@ -34,7 +34,35 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     self.tabBar.tintColor =GETMAINCOLOR;
-
+//    [UITabBar appearance].translucent = NO;
+    //上部分阴影
+//
+//    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
+//    [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
+//    [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tapbar_top_line"]];
+}
+//去掉tabbar上部分黑线
+-(void)CancelTabbar
+{
+    
+    CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 1);
+    
+    UIGraphicsBeginImageContext(rect.size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [[UIColor clearColor] CGColor]);
+    
+    CGContextFillRect(context, rect);
+    
+    
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    [self.tabBar setBackgroundImage:img];
+    
+    [self.tabBar setShadowImage:img];
 }
 -(void)CreateController{
 

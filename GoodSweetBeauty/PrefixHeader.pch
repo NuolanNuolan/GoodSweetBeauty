@@ -7,7 +7,7 @@
 //
 //Model
 #import "YouAnUserModel.h"
-
+#import "YouAnBBSModel.h"
 
 #import "LPActionSheet.h"
 #import "PPNetworkHelper.h"

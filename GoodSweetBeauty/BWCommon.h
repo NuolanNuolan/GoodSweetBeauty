@@ -14,7 +14,7 @@
 //字典转JSON
 +(NSString *)JsonModel:(NSDictionary *)dictModel;
 //时间戳转时间
-+(NSString *)TheTimeStamp:(NSString *)date;
++(NSString *)TheTimeStamp:(NSString *)date withtype:(NSString *)type;
 //本机ip
 + (NSString *)getIpAddresses;
 //文件读写操作

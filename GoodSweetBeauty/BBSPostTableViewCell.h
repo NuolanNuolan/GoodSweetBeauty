@@ -11,6 +11,6 @@
 @interface BBSPostTableViewCell : UITableViewCell
 @property (nonatomic, strong) RACSubject *delegateSignal;
 
--(void)SetSection:(NSInteger )sention;
+-(void)SetSection:(NSInteger )sention withmodel:(YouAnBBSModel *)model;
 
 @end

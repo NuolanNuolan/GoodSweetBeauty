@@ -47,7 +47,7 @@
 }
 #pragma mark - UITableViewDataSource
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%ld",(long)self.index);
+    MYLOG(@"%ld",(long)self.index);
     static NSString *cellIdentifier = @"cell";
     
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -98,7 +98,7 @@
 }
 
 - (void)dealloc{
-    NSLog(@"%s",__func__);
+    MYLOG(@"%s",__func__);
 }
 
 @end

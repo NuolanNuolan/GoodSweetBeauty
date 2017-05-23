@@ -250,7 +250,7 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
 - (void)dealloc
 {
 #ifdef DEBUG
-    NSLog(@"LPActionSheet dealloc");
+    MYLOG(@"LPActionSheet dealloc");
 #endif
 }
 
