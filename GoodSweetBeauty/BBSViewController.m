@@ -121,7 +121,11 @@
 }
 //数据处理
 -(void)ProcessTheData:(UITableView * )tableview withdata:(id )responseObject withpage:(NSInteger )page{
-
+    NSArray *arr = responseObject;
+    if (arr.count<10) {
+        
+        [tableview.mj_footer endRefreshingWithNoMoreData];
+    }
     switch (tableview.tag) {
         case 100:{
             
@@ -129,7 +133,7 @@
                 
                 [self.Arr_back removeAllObjects];
             }
-            for (NSDictionary *dic in responseObject) {
+            for (NSDictionary *dic in arr) {
                 
                 self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
                 [self.Arr_back addObject:self.Bbsmodel];
@@ -198,6 +202,21 @@
     self.firstTableView.tableView.backgroundColor =[UIColor clearColor];
     [self createTableHeadView:self.firstTableView.tableView];
     [tableScrollView addSubview:self.firstTableView.tableView];
+    @weakify(self);
+    self.firstTableView.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.firstTableView.tableView.tag-100 withpage:1 withtableview:self.firstTableView.tableView];
+
+    }];
+    self.firstTableView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.firstTableView.tableView.tag-100 withpage:self.page_back++ withtableview:self.firstTableView.tableView];
+    }];
+
+    
+    
     self.secondTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
     self.secondTableView.tableView.frame = CGRectMake(1  * SCREEN_WIDTH, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64-49);
     self.secondTableView.tableView.tag = 101;
@@ -206,6 +225,17 @@
     self.secondTableView.tableView.backgroundColor = [UIColor clearColor];
     [self createTableHeadView:self.secondTableView.tableView];
     [tableScrollView addSubview:self.secondTableView.tableView];
+    self.secondTableView.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.secondTableView.tableView.tag-100 withpage:1 withtableview:self.secondTableView.tableView];
+        
+    }];
+    self.secondTableView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.secondTableView.tableView.tag-100 withpage:self.page_new++ withtableview:self.secondTableView.tableView];
+    }];
     
     //---
     self.thirdTableView = [[DetailTableViewController alloc] initWithStyle:UITableViewStylePlain];
@@ -216,7 +246,17 @@
     self.thirdTableView.tableView.backgroundColor = [UIColor clearColor];
     [self createTableHeadView:self.thirdTableView.tableView];
     [tableScrollView addSubview:self.thirdTableView.tableView];
-
+    self.thirdTableView.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.thirdTableView.tableView.tag-100 withpage:1 withtableview:self.thirdTableView.tableView];
+        
+    }];
+    self.thirdTableView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:self.thirdTableView.tableView.tag-100 withpage:self.page_goods++ withtableview:self.thirdTableView.tableView];
+    }];
     self.tableScrollView = tableScrollView;
     [self.view addSubview:self.tableScrollView];
 }
@@ -229,34 +269,34 @@
     tableView.tableHeaderView = tableHeaderView;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [tableView registerClass:[BBSPostTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
-    @weakify(self);
-    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        
-        [self LoadData:tableView.tag-100 withpage:1 withtableview:tableView];
-        
-        
-        
-    }];
-    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self);
-        NSInteger page = 0;
-        switch (tableView.tag) {
-            case 100:
-               page = ++self.page_back;
-                break;
-            case 101:
-               page = ++self.page_new;
-                break;
-            case 102:
-               page = ++self.page_goods;
-                break;
-        }
-        
-        [self LoadData:tableView.tag-100 withpage:page withtableview:tableView];
-        
-        
-    }];
+//    @weakify(self);
+//    tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        @strongify(self);
+//        
+//        [self LoadData:tableView.tag-100 withpage:1 withtableview:tableView];
+//        
+//        
+//        
+//    }];
+//    tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+//        @strongify(self);
+//        NSInteger page = 0;
+//        switch (tableView.tag) {
+//            case 100:
+//               page = ++self.page_back;
+//                break;
+//            case 101:
+//               page = ++self.page_new;
+//                break;
+//            case 102:
+//               page = ++self.page_goods;
+//                break;
+//        }
+//        
+//        [self LoadData:tableView.tag-100 withpage:page withtableview:tableView];
+//        
+//        
+//    }];
 }
 //创建三个按钮+banner
 -(void)createHeaderView{
@@ -406,10 +446,10 @@
 {
     
     //第一次要刷新
-    
+    UITableView *tableview = [self.view viewWithTag:100+button.tag];
     if (self.OneRefresh_count<2&&button.tag!=0&&self.OneRefresh_lastrefresh!=button.tag) {
         
-        UITableView *tableview = [self.view viewWithTag:100+button.tag];
+        
         [tableview.mj_header beginRefreshing];
         self.OneRefresh_count++;
         self.OneRefresh_lastrefresh = button.tag;
@@ -430,6 +470,9 @@
     CGPoint offset = self.tableScrollView.contentOffset;
     offset.x = button.tag * self.tableScrollView.frame.size.width;
     [self.tableScrollView setContentOffset:offset animated:YES];
+    
+    [tableview reloadData];
+    
 }
 #pragma mark scrollView
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -539,6 +582,23 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
     return [BBSPostTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+    
+//    return [UITableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView identifier:NSStringFromClass([BBSPostTableViewCell class]) layoutBlock:^(UITableViewCell *cell) {
+//       
+//        switch (tableView.tag) {
+//            case 100:
+//                [(BBSPostTableViewCell*)cell SetSection:indexPath.section withmodel:self.Arr_back[indexPath.section]];
+//                break;
+//            case 101:
+//                [(BBSPostTableViewCell*)cell SetSection:indexPath.section withmodel:self.Arr_new[indexPath.section]];
+//                break;
+//            case 102:
+//                [(BBSPostTableViewCell*)cell SetSection:indexPath.section withmodel:self.Arr_goods[indexPath.section]];
+//                break;
+//        }
+//
+//        
+//    }];
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -556,7 +616,7 @@
         case 101:
             [cell SetSection:indexPath.section withmodel:self.Arr_new[indexPath.section]];
             break;
-        case 103:
+        case 102:
             [cell SetSection:indexPath.section withmodel:self.Arr_goods[indexPath.section]];
             break;
     }

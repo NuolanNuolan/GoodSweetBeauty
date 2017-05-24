@@ -16,6 +16,20 @@
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
 		EA26E3F51ECEC892003D5F6C /* AtmeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F41ECEC892003D5F6C /* AtmeTableViewCell.m */; };
+		EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */; };
+		EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */; };
+		EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43328A1ED57E3500A65177 /* MSSBrowseActionSheet.m */; };
+		EA4332A51ED57E3500A65177 /* MSSBrowseActionSheetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43328C1ED57E3500A65177 /* MSSBrowseActionSheetCell.m */; };
+		EA4332A61ED57E3500A65177 /* MSSBrowseBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43328E1ED57E3500A65177 /* MSSBrowseBaseViewController.m */; };
+		EA4332A71ED57E3500A65177 /* MSSBrowseCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332901ED57E3500A65177 /* MSSBrowseCollectionViewCell.m */; };
+		EA4332A81ED57E3500A65177 /* MSSBrowseLoadingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332931ED57E3500A65177 /* MSSBrowseLoadingImageView.m */; };
+		EA4332A91ED57E3500A65177 /* MSSBrowseLocalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332951ED57E3500A65177 /* MSSBrowseLocalViewController.m */; };
+		EA4332AA1ED57E3500A65177 /* MSSBrowseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332971ED57E3500A65177 /* MSSBrowseModel.m */; };
+		EA4332AB1ED57E3500A65177 /* MSSBrowseNetworkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332991ED57E3500A65177 /* MSSBrowseNetworkViewController.m */; };
+		EA4332AC1ED57E3500A65177 /* MSSBrowseRemindView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43329B1ED57E3500A65177 /* MSSBrowseRemindView.m */; };
+		EA4332AD1ED57E3500A65177 /* MSSBrowseZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43329D1ED57E3500A65177 /* MSSBrowseZoomScrollView.m */; };
+		EA4332AE1ED57E3500A65177 /* UIImage+MSSScale.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43329F1ED57E3500A65177 /* UIImage+MSSScale.m */; };
+		EA4332AF1ED57E3500A65177 /* UIView+MSSLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4332A11ED57E3500A65177 /* UIView+MSSLayout.m */; };
 		EA456CEA1EC825AF00BE380E /* FansViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456CE91EC825AF00BE380E /* FansViewController.m */; };
 		EA456CEE1EC829A400BE380E /* MyFansTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456CEC1EC829A400BE380E /* MyFansTableViewCell.m */; };
 		EA456CEF1EC829A400BE380E /* MyFansTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA456CED1EC829A400BE380E /* MyFansTableViewCell.xib */; };
@@ -102,6 +116,33 @@
 		EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtMeViewController.m; sourceTree = "<group>"; };
 		EA26E3F31ECEC892003D5F6C /* AtmeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtmeTableViewCell.h; sourceTree = "<group>"; };
 		EA26E3F41ECEC892003D5F6C /* AtmeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtmeTableViewCell.m; sourceTree = "<group>"; };
+		EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@2x.png"; sourceTree = "<group>"; };
+		EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
+		EA4332891ED57E3500A65177 /* MSSBrowseActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseActionSheet.h; sourceTree = "<group>"; };
+		EA43328A1ED57E3500A65177 /* MSSBrowseActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseActionSheet.m; sourceTree = "<group>"; };
+		EA43328B1ED57E3500A65177 /* MSSBrowseActionSheetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseActionSheetCell.h; sourceTree = "<group>"; };
+		EA43328C1ED57E3500A65177 /* MSSBrowseActionSheetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseActionSheetCell.m; sourceTree = "<group>"; };
+		EA43328D1ED57E3500A65177 /* MSSBrowseBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseBaseViewController.h; sourceTree = "<group>"; };
+		EA43328E1ED57E3500A65177 /* MSSBrowseBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseBaseViewController.m; sourceTree = "<group>"; };
+		EA43328F1ED57E3500A65177 /* MSSBrowseCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseCollectionViewCell.h; sourceTree = "<group>"; };
+		EA4332901ED57E3500A65177 /* MSSBrowseCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseCollectionViewCell.m; sourceTree = "<group>"; };
+		EA4332911ED57E3500A65177 /* MSSBrowseDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseDefine.h; sourceTree = "<group>"; };
+		EA4332921ED57E3500A65177 /* MSSBrowseLoadingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLoadingImageView.h; sourceTree = "<group>"; };
+		EA4332931ED57E3500A65177 /* MSSBrowseLoadingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLoadingImageView.m; sourceTree = "<group>"; };
+		EA4332941ED57E3500A65177 /* MSSBrowseLocalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseLocalViewController.h; sourceTree = "<group>"; };
+		EA4332951ED57E3500A65177 /* MSSBrowseLocalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseLocalViewController.m; sourceTree = "<group>"; };
+		EA4332961ED57E3500A65177 /* MSSBrowseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseModel.h; sourceTree = "<group>"; };
+		EA4332971ED57E3500A65177 /* MSSBrowseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseModel.m; sourceTree = "<group>"; };
+		EA4332981ED57E3500A65177 /* MSSBrowseNetworkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseNetworkViewController.h; sourceTree = "<group>"; };
+		EA4332991ED57E3500A65177 /* MSSBrowseNetworkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseNetworkViewController.m; sourceTree = "<group>"; };
+		EA43329A1ED57E3500A65177 /* MSSBrowseRemindView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseRemindView.h; sourceTree = "<group>"; };
+		EA43329B1ED57E3500A65177 /* MSSBrowseRemindView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseRemindView.m; sourceTree = "<group>"; };
+		EA43329C1ED57E3500A65177 /* MSSBrowseZoomScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseZoomScrollView.h; sourceTree = "<group>"; };
+		EA43329D1ED57E3500A65177 /* MSSBrowseZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MSSBrowseZoomScrollView.m; sourceTree = "<group>"; };
+		EA43329E1ED57E3500A65177 /* UIImage+MSSScale.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MSSScale.h"; sourceTree = "<group>"; };
+		EA43329F1ED57E3500A65177 /* UIImage+MSSScale.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MSSScale.m"; sourceTree = "<group>"; };
+		EA4332A01ED57E3500A65177 /* UIView+MSSLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MSSLayout.h"; sourceTree = "<group>"; };
+		EA4332A11ED57E3500A65177 /* UIView+MSSLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MSSLayout.m"; sourceTree = "<group>"; };
 		EA456CE81EC825AF00BE380E /* FansViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FansViewController.h; sourceTree = "<group>"; };
 		EA456CE91EC825AF00BE380E /* FansViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FansViewController.m; sourceTree = "<group>"; };
 		EA456CEB1EC829A400BE380E /* MyFansTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyFansTableViewCell.h; sourceTree = "<group>"; };
@@ -282,6 +323,40 @@
 			name = "@我的";
 			sourceTree = "<group>";
 		};
+		EA4332861ED57E3500A65177 /* MSSBrowse */ = {
+			isa = PBXGroup;
+			children = (
+				EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */,
+				EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */,
+				EA4332891ED57E3500A65177 /* MSSBrowseActionSheet.h */,
+				EA43328A1ED57E3500A65177 /* MSSBrowseActionSheet.m */,
+				EA43328B1ED57E3500A65177 /* MSSBrowseActionSheetCell.h */,
+				EA43328C1ED57E3500A65177 /* MSSBrowseActionSheetCell.m */,
+				EA43328D1ED57E3500A65177 /* MSSBrowseBaseViewController.h */,
+				EA43328E1ED57E3500A65177 /* MSSBrowseBaseViewController.m */,
+				EA43328F1ED57E3500A65177 /* MSSBrowseCollectionViewCell.h */,
+				EA4332901ED57E3500A65177 /* MSSBrowseCollectionViewCell.m */,
+				EA4332911ED57E3500A65177 /* MSSBrowseDefine.h */,
+				EA4332921ED57E3500A65177 /* MSSBrowseLoadingImageView.h */,
+				EA4332931ED57E3500A65177 /* MSSBrowseLoadingImageView.m */,
+				EA4332941ED57E3500A65177 /* MSSBrowseLocalViewController.h */,
+				EA4332951ED57E3500A65177 /* MSSBrowseLocalViewController.m */,
+				EA4332961ED57E3500A65177 /* MSSBrowseModel.h */,
+				EA4332971ED57E3500A65177 /* MSSBrowseModel.m */,
+				EA4332981ED57E3500A65177 /* MSSBrowseNetworkViewController.h */,
+				EA4332991ED57E3500A65177 /* MSSBrowseNetworkViewController.m */,
+				EA43329A1ED57E3500A65177 /* MSSBrowseRemindView.h */,
+				EA43329B1ED57E3500A65177 /* MSSBrowseRemindView.m */,
+				EA43329C1ED57E3500A65177 /* MSSBrowseZoomScrollView.h */,
+				EA43329D1ED57E3500A65177 /* MSSBrowseZoomScrollView.m */,
+				EA43329E1ED57E3500A65177 /* UIImage+MSSScale.h */,
+				EA43329F1ED57E3500A65177 /* UIImage+MSSScale.m */,
+				EA4332A01ED57E3500A65177 /* UIView+MSSLayout.h */,
+				EA4332A11ED57E3500A65177 /* UIView+MSSLayout.m */,
+			);
+			path = MSSBrowse;
+			sourceTree = "<group>";
+		};
 		EA456CE71EC8259900BE380E /* 我的粉丝/关注 */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +462,7 @@
 		EA9CF63F1E80D8D00050BA8B /* Until */ = {
 			isa = PBXGroup;
 			children = (
+				EA4332861ED57E3500A65177 /* MSSBrowse */,
 				EAD926011ECD7DC400B6048D /* HHHorizontalPagingView */,
 				EA09A2631EC1B5E200224DF5 /* ChangeLineSpaceAndWordSpace */,
 				EADF1E621E82CECE0083D7DD /* BWCommon */,
@@ -763,11 +839,13 @@
 			files = (
 				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
 				EA9CF6BC1E8226800050BA8B /* MBProgressHUD.bundle in Resources */,
+				EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */,
 				EA456CEF1EC829A400BE380E /* MyFansTableViewCell.xib in Resources */,
 				EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */,
 				EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */,
 				EAA2FDFA1EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib in Resources */,
 				EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */,
+				EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -840,6 +918,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA4332AD1ED57E3500A65177 /* MSSBrowseZoomScrollView.m in Sources */,
 				EA456CF31EC831E300BE380E /* AuthViewController.m in Sources */,
 				EA7E53A71EC4A90300134732 /* DetailTableViewController.m in Sources */,
 				EA456CEE1EC829A400BE380E /* MyFansTableViewCell.m in Sources */,
@@ -851,12 +930,17 @@
 				EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
+				EA4332AA1ED57E3500A65177 /* MSSBrowseModel.m in Sources */,
 				EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */,
+				EA4332A61ED57E3500A65177 /* MSSBrowseBaseViewController.m in Sources */,
+				EA4332AE1ED57E3500A65177 /* UIImage+MSSScale.m in Sources */,
 				EA456CEA1EC825AF00BE380E /* FansViewController.m in Sources */,
 				EAA2FDFE1EBEF1CA00C0EB27 /* MyPostViewController.m in Sources */,
 				EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */,
+				EA4332A51ED57E3500A65177 /* MSSBrowseActionSheetCell.m in Sources */,
+				EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */,
 				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EA456CF91EC83BC200BE380E /* AuthTypeView.m in Sources */,
 				EA456D001ECADC2E00BE380E /* SetPwdViewController.m in Sources */,
@@ -866,25 +950,31 @@
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */,
 				EAA2FDEC1EBDF00D00C0EB27 /* CenterTableViewCell.m in Sources */,
+				EA4332AF1ED57E3500A65177 /* UIView+MSSLayout.m in Sources */,
 				EAD9261B1ECD8D2D00B6048D /* UIScrollView+Dragging.m in Sources */,
 				EAAE62BD1EBDDD6900AB9280 /* BBSViewController.m in Sources */,
 				EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */,
+				EA4332A71ED57E3500A65177 /* MSSBrowseCollectionViewCell.m in Sources */,
 				EA4F16871ED05486002E7A2D /* YouAnFansFollowModel.m in Sources */,
 				EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */,
 				EA0100071ECB2F9800C14F5B /* UserCenterViewController.m in Sources */,
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,
+				EA4332AC1ED57E3500A65177 /* MSSBrowseRemindView.m in Sources */,
+				EA4332AB1ED57E3500A65177 /* MSSBrowseNetworkViewController.m in Sources */,
 				EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */,
 				EA09A2661EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				EA9DBB221EC704D5000FA93A /* ResSendCodeViewController.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
 				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
+				EA4332A91ED57E3500A65177 /* MSSBrowseLocalViewController.m in Sources */,
 				EA26E3F51ECEC892003D5F6C /* AtmeTableViewCell.m in Sources */,
 				EA9DBB251EC70EDB000FA93A /* ResSetUsernameViewController.m in Sources */,
 				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 				EA456CF61EC8339500BE380E /* MyAuthTableViewCell.m in Sources */,
 				EAD9261E1ECD8E4B00B6048D /* UserCenterDeatilViewController.m in Sources */,
+				EA4332A81ED57E3500A65177 /* MSSBrowseLoadingImageView.m in Sources */,
 				EA7823F21ED03C6100CBF1E6 /* YouAnUserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

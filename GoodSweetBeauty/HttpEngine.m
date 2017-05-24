@@ -222,7 +222,7 @@
             url = [NSString stringWithFormat:@"%@/posts/threads/featured/",ADDRESS_API];
             break;
         case 2:
-            url = [NSString stringWithFormat:@"%@/members/latest/",ADDRESS_API];
+            url = [NSString stringWithFormat:@"%@/posts/threads/latest/",ADDRESS_API];
             break;
     }
     NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
