@@ -481,7 +481,6 @@
         
         return;
     }
-    
     CGFloat offsetY = scrollView.contentOffset.y;
     MYLOG(@"%f",offsetY);
     if (scrollView.contentOffset.y > BANNERHEIGHT) {

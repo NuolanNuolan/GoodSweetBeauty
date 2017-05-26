@@ -34,6 +34,9 @@
 #import "LoginViewController.h"
 #import "JYPagingView.h"
 #import "ZFPlayer.h"
+#import "ZHNTempStatusMan.h"
+#import "YNPageScrollViewController.h"
+#import "UserCenterViewController.h"
 
 
 

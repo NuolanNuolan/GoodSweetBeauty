@@ -322,6 +322,7 @@
             
             view = [AuthViewController new];
             
+            
         }
             break;
     }

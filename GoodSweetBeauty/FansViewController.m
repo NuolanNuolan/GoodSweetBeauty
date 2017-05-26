@@ -122,6 +122,7 @@
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.backgroundColor=[UIColor clearColor];
+    self.tableview.superViewController = self;
     self.tableview.showsVerticalScrollIndicator=NO;
     [self.tableview setSeparatorColor:RGB(229, 229, 229)];
     [self.tableview setSeparatorInset:UIEdgeInsetsMake(0,15,0,15)];
@@ -144,6 +145,24 @@
     [self.view addSubview:self.tableview];
     
     
+}
+//无数据处理
+- (UIView *)ZHN_tempStatusPlaceholderView {
+    
+    UIView *tempView = [[UIView alloc]init];
+    tempView.backgroundColor = [UIColor whiteColor];
+    UILabel *stateLabel = [[UILabel alloc]init];
+    [tempView addSubview:stateLabel];
+    stateLabel.center = self.view.center;
+    stateLabel.bounds = CGRectMake(0, 0, 100, 200);
+    stateLabel.text = @"没有数据";
+    tempView.backgroundColor = [UIColor yellowColor];
+    
+    return tempView;
+}
+- (BOOL)ZHN_tempStatusEnableTableViewScroll {
+    
+    return YES;
 }
 #pragma mark delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

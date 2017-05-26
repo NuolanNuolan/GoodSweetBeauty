@@ -14,7 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - CocoaAsyncSocket (7.6.0)
+  - CocoaAsyncSocket (7.6.1)
   - DACircularProgress (2.3.1)
   - FLAnimatedImage (1.0.12)
   - IQKeyboardManager (4.0.9)
@@ -49,20 +49,20 @@ PODS:
   - TZImagePickerController (1.7.9)
   - WHC_AutoLayoutKit (2.7.1)
   - WHC_Debuger (1.0.2)
-  - WHC_Model (1.6.7)
+  - WHC_Model (1.6.8)
   - YYCache (1.0.4)
   - ZFPlayer (2.1.3):
     - Masonry
 
 DEPENDENCIES:
-  - AFNetworking
+  - AFNetworking (~> 3.1.0)
   - CocoaAsyncSocket
   - IQKeyboardManager
   - KIZBehavior
   - KMNavigationBarTransition
   - MBProgressHUD (~> 0.9.1)
   - MJRefresh
-  - PPNetworkHelper
+  - PPNetworkHelper (~> 0.8.0)
   - PYPhotoBrowser
   - PYSearch
   - ReactiveCocoa (~> 2.5)
@@ -76,7 +76,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
-  CocoaAsyncSocket: b9d5589f07baf9de8f34cc25abd4fcba28f13805
+  CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
   IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
@@ -94,10 +94,10 @@ SPEC CHECKSUMS:
   TZImagePickerController: 0a8ff228d287ebdd7d485e8c42a2a932894f1fba
   WHC_AutoLayoutKit: 7fefe9216b4074512817c91857822d98eb3b2220
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
-  WHC_Model: 790bc8e34d3e0f94c71b35ef9f26558a80a1fbc2
+  WHC_Model: 1e1a572430183bb06f14465398c44bae3b7923a4
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   ZFPlayer: 8dc82b4508fbba4ee59d0304c52e30f8b3390244
 
-PODFILE CHECKSUM: 61d2c137140a47a1bc42702bd855f83d352de43b
+PODFILE CHECKSUM: 261a1b06c7db2f760d8eb02ac5a3c966dea82528
 
 COCOAPODS: 1.2.1

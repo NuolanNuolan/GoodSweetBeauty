@@ -215,7 +215,7 @@ static id AFJSONObjectByRemovingKeysWithNullValues(id JSONObject, NSJSONReadingO
 + (instancetype)serializerWithReadingOptions:(NSJSONReadingOptions)readingOptions {
     AFJSONResponseSerializer *serializer = [[self alloc] init];
     serializer.readingOptions = readingOptions;
-
+    serializer.removesKeysWithNullValues =YES;
     return serializer;
 }
 
