@@ -119,7 +119,7 @@
         
     }];
     
-    CGFloat scrollSizeWidht = self.configration.itemLeftAndRightMargin + CGRectGetMaxX([[self.itemsArrayM lastObject] frame]);
+    CGFloat scrollSizeWidht = self.configration.itemLeftAndRightMargin + CGRectGetMaxX([(UIView *)[self.itemsArrayM lastObject] frame]);
     if (scrollSizeWidht < self.scrollView.yn_width) {//不超出宽度
         itemX = 0;
         itemY = 0;
@@ -145,7 +145,7 @@
                 label.frame = CGRectMake(itemX, itemY, [self.itemsWidthArraM[idx] floatValue], itemH);
             }];
             
-            self.scrollView.contentSize = CGSizeMake(left + CGRectGetMaxX([[self.itemsArrayM lastObject] frame]), self.scrollView.yn_height);
+            self.scrollView.contentSize = CGSizeMake(left + CGRectGetMaxX([(UIView *)[self.itemsArrayM lastObject] frame]), self.scrollView.yn_height);
             
         }else{//否则按原来样子
             if (!self.configration.scrollMenu) {//不能滚动则平分
@@ -156,7 +156,7 @@
                     label.frame = CGRectMake(itemX, itemY, itemW, itemH);
                 }];
                 
-                self.scrollView.contentSize = CGSizeMake(CGRectGetMaxX([[self.itemsArrayM lastObject] frame]), self.scrollView.yn_height);
+                self.scrollView.contentSize = CGSizeMake(CGRectGetMaxX([(UIView *)[self.itemsArrayM lastObject] frame]), self.scrollView.yn_height);
                 
             }else{
                 self.scrollView.contentSize = CGSizeMake(scrollSizeWidht, self.scrollView.yn_height);

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="103" id="KGk-i7-Jjw" customClass="PostingTitleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="103"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="102.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9S4-fV-XH7">
+                        <rect key="frame" x="15" y="0.5" width="350" height="101.5"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e1C-eG-WDa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="0.5"/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="nlz-pl-2ez"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zSr-cC-III">
+                        <rect key="frame" x="0.0" y="102" width="375" height="0.5"/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="dgH-uG-MjX"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="zSr-cC-III" secondAttribute="bottom" id="2A5-Kc-FOA"/>
+                    <constraint firstItem="9S4-fV-XH7" firstAttribute="top" secondItem="e1C-eG-WDa" secondAttribute="bottom" id="2nv-QQ-8IH"/>
+                    <constraint firstItem="9S4-fV-XH7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7uF-fY-GM0"/>
+                    <constraint firstAttribute="trailing" secondItem="zSr-cC-III" secondAttribute="trailing" id="8Ps-hP-FHI"/>
+                    <constraint firstItem="e1C-eG-WDa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Liz-sT-bUp"/>
+                    <constraint firstItem="zSr-cC-III" firstAttribute="top" secondItem="9S4-fV-XH7" secondAttribute="bottom" id="Q2U-ld-B7S"/>
+                    <constraint firstItem="e1C-eG-WDa" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="eKa-NT-NtY"/>
+                    <constraint firstItem="zSr-cC-III" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fLj-WX-FrU"/>
+                    <constraint firstAttribute="trailing" secondItem="e1C-eG-WDa" secondAttribute="trailing" id="hSM-VU-7yl"/>
+                    <constraint firstAttribute="trailing" secondItem="9S4-fV-XH7" secondAttribute="trailing" constant="10" id="ljD-ww-iJ7"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="txt_title" destination="9S4-fV-XH7" id="mOP-Zn-Ioj"/>
+            </connections>
+            <point key="canvasLocation" x="46.5" y="57.5"/>
+        </tableViewCell>
+    </objects>
+</document>

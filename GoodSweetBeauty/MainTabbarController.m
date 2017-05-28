@@ -8,7 +8,6 @@
 
 #import "MainTabbarController.h"
 #import "CenterViewController.h"
-#import "BBSViewController.h"
 #import "ToolsViewController.h"
 #import "BBSMainViewController.h"
 #import "YNTestOneViewController.h"
@@ -179,15 +178,19 @@
     [headerView2 addSubview:self.cycleScrollView];
     vc.headerView = headerView2;
 
+    vc.cycleScrollViewblock = ^(id responseObject){
+    
+//         self.cycleScrollView.titlesGroup = responseObject;
+    };
     return vc;
 
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
     NSLog(@"轮播图 点击 Index : %zd",index);
-    LoginViewController *view = [LoginViewController new];
-    view.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:view animated:YES];
+//    LoginViewController *view = [LoginViewController new];
+//    view.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:view animated:YES];
 }
 #pragma mark - YNPageScrollViewControllerDataSource
 - (UITableView *)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewForIndex:(NSInteger)index{

@@ -13,18 +13,10 @@
 - (void)viewDidLoad{
     [super viewDidLoad];
     
-//    self.view.backgroundColor = [UIColor yellowColor];
     
-//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:@selector(test)];
-    
-    
+    [self.tableView.mj_header beginRefreshing];
+
 }
-//- (void)test {
-//    
-//    
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//    
-//}
 
 
 

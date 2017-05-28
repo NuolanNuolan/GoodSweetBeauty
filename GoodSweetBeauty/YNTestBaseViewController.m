@@ -14,12 +14,15 @@
 #import "YNTestOneViewController.h"
 #import "YNTestTwoViewController.h"
 #import "BBSPostTableViewCell.h"
+#import "CenterOneViewController.h"
+#import "CenterTwoViewController.h"
+#import "CenterMainViewController.h"
 //是否带刷新
 #define HasHeaderRefresh 1
 //是否有loading和无数据view
 #define HasLoadingAndNotDataView 0
 
-@interface YNTestBaseViewController ()
+@interface YNTestBaseViewController ()<YNPageScrollViewControllerDataSource>
 
 //三个表格的page  数据
 @property(nonatomic,assign) NSInteger page_back;
@@ -32,6 +35,23 @@
 
 @property(nonatomic,strong)YouAnBBSModel *Bbsmodel;
 
+//用户主页的头部
+@property(nonatomic,strong)UIView *view_userhead;
+//头像
+@property(nonatomic,strong)UIImageView *image_head;
+//username
+@property(nonatomic,strong)UILabel *lab_username;
+//装v和level的view
+@property(nonatomic,strong)UIView *view_v_level;
+//v
+@property(nonatomic,strong)UIImageView *image_v;
+//level
+@property(nonatomic,strong)UIImageView *image_level;
+//按钮view+缝隙view
+@property(nonatomic,strong)UIView *view_btn_gap;
+//三个lab
+@property(nonatomic,strong)UILabel *lab_detail;
+
 @end
 
 
@@ -40,7 +60,10 @@
 - (void)viewDidLoad{
     
     [super viewDidLoad];
+    
+    
     [self createload];
+    
     [self.view addSubview:self.tableView];
     
     
@@ -135,7 +158,6 @@
                 self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
                 [self.Arr_new addObject:self.Bbsmodel];
             }
-            
         }
             break;
         case 2:{
@@ -148,7 +170,6 @@
                 self.Bbsmodel = [YouAnBBSModel whc_ModelWithJson:dic];
                 [self.Arr_goods addObject:self.Bbsmodel];
             }
-            
         }
             break;
     }
@@ -208,28 +229,40 @@
 //cell-height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
     return [BBSPostTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+//    return 500;
 }
 
 //cell-tableview
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     BBSPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
-    if (!cell) {
-        
-        cell = [[BBSPostTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
-    }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    cell.currentIndexPath = indexPath;
     switch (self.ynPageScrollViewController.pageIndex) {
-        case 0:
-            [cell SetSection:indexPath.section withmodel:self.Arr_back[indexPath.section]];
+        case 0:{
+            if (self.Arr_back.count>0) {
+                
+               [cell SetSection:indexPath.section withmodel:self.Arr_back[indexPath.section]];
+            }
+        }
             break;
-        case 1:
-            [cell SetSection:indexPath.section withmodel:self.Arr_new[indexPath.section]];
+        case 1:{
+            
+            if (self.Arr_new.count>0) {
+                
+                [cell SetSection:indexPath.section withmodel:self.Arr_new[indexPath.section]];
+            }
+        }
             break;
-        case 2:
-            [cell SetSection:indexPath.section withmodel:self.Arr_goods[indexPath.section]];
+        case 2:{
+            if (self.Arr_goods.count>0) {
+               
+                [cell SetSection:indexPath.section withmodel:self.Arr_goods[indexPath.section]];
+            }
+            
+        }
             break;
     }
     cell.delegateSignal = [RACSubject subject];
@@ -267,6 +300,7 @@
         _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
+        [_tableView registerClass:[BBSPostTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
     }
     return _tableView;
 
@@ -300,9 +334,134 @@
 //用户详情
 -(void)PushUserDetail:(NSString *)tag{
     
-    UserCenterViewController *view = [UserCenterViewController new];
-    view.hidesBottomBarWhenPushed =YES;
+    UIViewController *view = [self CreateContrllr];
+    view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];
     
 }
+//配置用户详情页相关
+-(UIViewController*)CreateContrllr{
+
+    CenterOneViewController *one = [CenterOneViewController new];
+    CenterTwoViewController *two = [CenterTwoViewController new];
+    //配置信息
+    YNPageScrollViewMenuConfigration *configration = [[YNPageScrollViewMenuConfigration alloc]init];
+    configration.scrollViewBackgroundColor = [UIColor whiteColor];
+    configration.aligmentModeCenter = NO;
+    configration.lineWidthEqualFontWidth = YES;
+    configration.normalItemColor = RGB(51, 51, 51);
+    configration.selectedItemColor = GETMAINCOLOR;
+    configration.lineColor = GETMAINCOLOR;
+    configration.scrollMenu =NO;
+    configration.lineHeight = 2;
+    configration.pageScrollViewMenuStyle = YNPageScrollViewMenuStyleSuspension;
+    
+    CenterMainViewController *vc = [CenterMainViewController pageScrollViewControllerWithControllers:@[one,two] titles:@[@"商务名片",@"口碑评价"] Configration:configration];
+    vc.dataSource = self;
+    //头部headerView
+    vc.headerView = self.view_userhead;
+    
+    return vc;
+}
+-(UIView *)view_userhead{
+
+    if (!_view_userhead) {
+        
+        _view_userhead = [[UIView alloc] initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 235)];
+        _view_userhead.backgroundColor = GETMAINCOLOR;
+        self.image_head = [UIImageView new];
+        self.image_head.layer.masksToBounds =YES;
+        self.image_head.layer.cornerRadius =40.0F;
+        self.image_head.backgroundColor = [UIColor grayColor];
+        
+        self.lab_username = [UILabel new];
+        [self.lab_username setTextColor:[UIColor whiteColor]];
+        [self.lab_username setFont:[UIFont boldSystemFontOfSize:16]];
+        [self.lab_username setText:@"换个字试试"];
+        [self.lab_username sizeToFit];
+        
+        self.view_v_level = [UIView new];
+        self.view_v_level.backgroundColor = RGB(247, 247, 247);
+        self.view_v_level.layer.masksToBounds =YES;
+        self.view_v_level.layer.cornerRadius =8;
+        
+        self.image_v = [UIImageView new];
+        self.image_v.image = [UIImage imageNamed:@"iconVBlue"];
+        
+        self.image_level = [UIImageView new];
+        self.image_level.image = [UIImage imageNamed:@"iconLv2"];
+        
+        self.view_btn_gap = [UIView new];
+        self.view_btn_gap.backgroundColor = [UIColor clearColor];
+        
+        NSArray *arr = [NSArray arrayWithObjects:@"关注",@"粉丝",@"帖子", nil];
+        for (int i =0; i<arr.count; i++) {
+            
+            UIView *view = [[UIView alloc]initWithFrame:CGMAKE(SCREEN_WIDTH/3*i, 0, SCREEN_WIDTH/3, 65)];
+            view.backgroundColor = [UIColor whiteColor];
+            
+            self.lab_detail = [UILabel new];
+            [self.lab_detail setTextColor:RGB(51, 51, 51)];
+            [self.lab_detail setFont:[UIFont systemFontOfSize:18]];
+            [self.lab_detail sizeToFit];
+            [self.lab_detail setText:@"11"];
+            
+            UILabel *lab = [UILabel new];
+            [lab setTextColor:RGB(102, 102, 102)];
+            [lab setFont:[UIFont systemFontOfSize:12]];
+            [lab sizeToFit];
+            [lab setText:arr[i]];
+            
+            
+            
+            [view addSubview:self.lab_detail];
+            [view addSubview:lab];
+            [self.view_btn_gap addSubview:view];
+            
+            
+            self.lab_detail.whc_TopSpace(15).whc_CenterX(0).whc_Height(13);
+            lab.whc_TopSpaceToView(10,self.lab_detail).whc_CenterX(0);
+        }
+        UIView *view_gap = [[UIView alloc]initWithFrame:CGMAKE(0, 65, SCREEN_WIDTH, 10)];
+        view_gap.backgroundColor = RGB(247, 247, 247);
+        [self.view_btn_gap addSubview:view_gap];
+        
+        
+        
+        [self.view_v_level addSubview:self.image_v];
+        [self.view_v_level addSubview:self.image_level];
+        [_view_userhead addSubview:self.image_head];
+        [_view_userhead addSubview:self.lab_username];
+        [_view_userhead addSubview:self.view_v_level];
+        [_view_userhead addSubview:self.view_btn_gap];
+        
+        self.image_head.whc_Size(80,80).whc_CenterX(0).whc_TopSpace(5);
+        self.lab_username.whc_TopSpaceToView(15,self.image_head).whc_CenterX(0).whc_Height(16);
+        self.image_v.whc_Size(11,9).whc_TopSpace(3.5).whc_LeftSpace(7);
+        self.image_level.whc_Size(12,11).whc_TopSpace(2.5).whc_RightSpace(7.5);
+        self.view_v_level.whc_Size(42,16).whc_LeftSpaceToView(5,self.lab_username).whc_TopSpaceEqualView(self.lab_username);
+        self.view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(45,self.lab_username).whc_Height(65);
+    }
+    return _view_userhead;
+}
+#pragma mark - YNPageScrollViewControllerDataSource
+- (UITableView *)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= (CenterBaseViewController *)pageScrollViewController.currentViewController;
+    return [VC tableView];
+    
+}
+- (BOOL)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController headerViewIsRefreshingForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= (CenterBaseViewController *)pageScrollViewController.currentViewController;
+    return [[[VC tableView] mj_header ] isRefreshing];
+}
+
+- (void)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewHeaderAndFooterEndRefreshForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= pageScrollViewController.viewControllers[index];
+    [[[VC tableView] mj_header] endRefreshing];
+    [[[VC tableView] mj_footer] endRefreshing];
+}
+
 @end

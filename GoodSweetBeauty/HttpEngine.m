@@ -226,19 +226,14 @@
             break;
     }
     NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
-    [PPNetworkHelper GET:url parameters:dic responseCache:^(id responseCache) {
-        
-        if (responseCache) {
-            complete(YES,responseCache[@"results"]);
-        }
-    } success:^(id responseObject) {
+    
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
         
         complete(YES,responseObject[@"results"]);
         
     } failure:^(NSError *error) {
         
         complete(NO,nil);
-        
     }];
 }
 @end

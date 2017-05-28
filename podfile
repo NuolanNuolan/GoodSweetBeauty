@@ -18,6 +18,8 @@ pod 'SDCycleScrollView'
 pod 'KMNavigationBarTransition'
 pod 'KIZBehavior'
 pod 'ZFPlayer'
-#pod 'YNPageScrollViewController'
+pod 'YYText'
+pod 'YYKeyboardManager'
+
 
 end

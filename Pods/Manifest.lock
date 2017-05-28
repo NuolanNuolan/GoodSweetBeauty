@@ -51,6 +51,8 @@ PODS:
   - WHC_Debuger (1.0.2)
   - WHC_Model (1.6.8)
   - YYCache (1.0.4)
+  - YYKeyboardManager (1.0.1)
+  - YYText (1.0.7)
   - ZFPlayer (2.1.3):
     - Masonry
 
@@ -72,6 +74,8 @@ DEPENDENCIES:
   - WHC_AutoLayoutKit
   - WHC_Debuger
   - WHC_Model
+  - YYKeyboardManager
+  - YYText
   - ZFPlayer
 
 SPEC CHECKSUMS:
@@ -96,8 +100,10 @@ SPEC CHECKSUMS:
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
   WHC_Model: 1e1a572430183bb06f14465398c44bae3b7923a4
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
+  YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
+  YYText: 5c461d709e24d55a182d1441c41dc639a18a4849
   ZFPlayer: 8dc82b4508fbba4ee59d0304c52e30f8b3390244
 
-PODFILE CHECKSUM: 261a1b06c7db2f760d8eb02ac5a3c966dea82528
+PODFILE CHECKSUM: 5d5ce1599c522024e3d05b3709cf535a995427be
 
 COCOAPODS: 1.2.1

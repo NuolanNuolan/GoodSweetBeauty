@@ -58,6 +58,7 @@
 - (void)showBrowseViewController
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
     if([[[UIDevice currentDevice]systemVersion]floatValue] >= 8.0)
     {
         self.modalPresentationStyle = UIModalPresentationOverCurrentContext;

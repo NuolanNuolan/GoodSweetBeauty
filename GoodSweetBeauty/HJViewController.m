@@ -10,9 +10,11 @@
 
 #import "HJViewController.h"
 
+
 @interface HJViewController ()
 //无网络时lable
 @property(nonatomic,strong)  UILabel *label_Network;
+
 
 @end
 
@@ -43,9 +45,9 @@
        [self RegistryNetworkNotice];
         
     });
-    
     // Do any additional setup after loading the view.
 }
+
 -(void)CreateHJUI{
 
     self.view.backgroundColor = RGB(247, 247, 247);

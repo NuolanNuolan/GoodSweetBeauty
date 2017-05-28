@@ -7,6 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+/// 认证方式
+typedef NS_ENUM(NSUInteger, YouAnUserVerifyType){
+    YouAnUserVerifyTypeNone = 0,     ///< 没有认证
+    YouAnUserVerifyTypeStandard,     ///< 个人认证，红V
+    YouAnUserVerifyTypeOrganization, ///< 公司认证，蓝V
+};
 
 @interface YouAnBBSModel : NSObject
 @property (nonatomic , assign) NSInteger              id;

@@ -7,6 +7,7 @@
 //
 
 #import "BBSMainViewController.h"
+#import "UserPostingViewController.h"
 
 @interface BBSMainViewController ()<YNPageScrollViewControllerDelegate>
 
@@ -25,6 +26,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.delegate = self;
+    
+//    //延迟执行
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        if (self.cycleScrollViewblock) {
+//            NSArray *titles = @[@"我才是预览文字",
+//                                @"我才是预览文字",
+//                                @"我才是预览文字",
+//                                @"我才是预览文字"
+//                                ];
+//            self.cycleScrollViewblock(titles);
+//        }
+//    });
+
     [self CreateUI];
     // Do any additional setup after loading the view.
 }
@@ -40,7 +54,7 @@
     btn_post.adjustsImageWhenHighlighted = NO;
     [btn_post addTarget:self action:@selector(Btn_Posting) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn_post];
-    btn_post.whc_RightSpace(15).whc_BottomSpace(75).whc_Size(50,50);
+    btn_post.whc_RightSpace(15).whc_BottomSpace(30).whc_Size(50,50);
     
 }
 
@@ -53,7 +67,10 @@
 -(void)Btn_Posting{
     
     MYLOG(@"发帖");
-    
+    UserPostingViewController *view = [UserPostingViewController new];
+    view.type = YouAnStatusComposeViewTypePostTing;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
+    [self presentViewController:nav animated:YES completion:nil];
     
     
 }
