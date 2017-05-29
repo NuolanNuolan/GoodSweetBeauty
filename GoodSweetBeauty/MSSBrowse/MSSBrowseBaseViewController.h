@@ -20,7 +20,7 @@
 @property (nonatomic,assign)CGFloat screenHeight;
 
 - (instancetype)initWithBrowseItemArray:(NSArray *)browseItemArray currentIndex:(NSInteger)currentIndex;
-- (void)showBrowseViewController;
+- (void)showBrowseViewController:(UIViewController *)view;
 
 // 子类重写此方法
 - (void)loadBrowseImageWithBrowseItem:(MSSBrowseModel *)browseItem Cell:(MSSBrowseCollectionViewCell *)cell bigImageRect:(CGRect)bigImageRect;

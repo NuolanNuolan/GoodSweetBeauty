@@ -253,10 +253,9 @@
 }
 //上传头像
 -(void)UploadPhoto:(UIImage *)image{
-    NSArray *arr_image = [NSArray arrayWithObjects:image, nil];
     //上传图片
     @weakify(self);
-    [HttpEngine uploadfile:arr_image comlete:^(BOOL susccess, id responseObjecct) {
+    [HttpEngine uploadfile:image comlete:^(BOOL susccess, id responseObjecct) {
         if (susccess) {
             
             MYLOG(@"%@",responseObjecct);

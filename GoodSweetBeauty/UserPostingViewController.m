@@ -13,7 +13,7 @@
 #import "UIView+YYAdd.h"
 #import "PostingImageTableViewCell.h"
 
-@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate>
 
 
 @property (nonatomic, strong) UIView * toolbar;
@@ -30,6 +30,8 @@
 @property(nonatomic,strong)NSString *str_posting_deatil;
 //用户选择的图片数组
 @property(nonatomic,strong)NSMutableArray *arr_image;
+//图片上传的URL
+@property(nonatomic,strong)NSMutableArray *arr_image_url;
 
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -120,25 +122,28 @@
         button.whc_Size(46,46).whc_CenterX(0).whc_CenterY(0);
         switch (i) {
             case 0:{
-                
+                self.btn_choose_image = button;
             view.whc_LeftSpace(0).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
                 
             }
                 break;
             case 1:{
-                
+                self.btn_choose_emoji = button;
                 view.whc_LeftSpace(ScreenWidth/3).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
             }
                 break;
             case 2:{
-                
+                self.btn_choose_at = button;
                 view.whc_LeftSpace(ScreenWidth*2/3).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
             }
                 break;
         }
     }
 }
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
+    [self.view endEditing:YES];
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return 1;
@@ -163,7 +168,7 @@
             return 50;
             break;
         case 1:
-            return 150;
+            return 100;
             break;
         case 2:
             return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
@@ -210,6 +215,20 @@
             PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
             [cell Setimage:self.arr_image];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegateSignal = [RACSubject subject];
+            @weakify(self);
+            [cell.delegateSignal subscribeNext:^(id x) {
+                @strongify(self);
+                if ([x isKindOfClass:[NSString class]]) {
+                    
+                    [self.arr_image removeObjectAtIndex:[x intValue]];
+                    
+                }else{
+                
+                   [self ToViewLarger:x];
+                }
+                
+            }];
             return cell;
         }
             break;
@@ -245,7 +264,7 @@
             break;
         case 101:{
             
-            
+            [self chooseemoji];
         }
             break;
         case 102:{
@@ -258,13 +277,19 @@
 //选择图片
 -(void)chooseimage{
     
+    if (self.arr_image.count==9) return;
     [self.view endEditing:YES];
-    TZImagePickerController *imagePC=[[TZImagePickerController alloc]initWithMaxImagesCount:9 delegate:self];
+    TZImagePickerController *imagePC=[[TZImagePickerController alloc]initWithMaxImagesCount:9-self.arr_image.count delegate:self];
     //不能发送视频
     imagePC.allowPickingVideo= NO;
     //不能选择原图
     imagePC.allowPickingOriginalPhoto=NO;
     [self presentViewController:imagePC animated:YES completion:nil];
+    
+}
+//表情键盘
+-(void)chooseemoji{
+
     
 }
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *) info{
@@ -274,14 +299,12 @@
     }];
     UIImage *img=info[UIImagePickerControllerEditedImage];
     
-    
-    
-    
 }
 -(void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto
 {
-    MYLOG(@"%@",assets);
-    self.arr_image = [NSMutableArray arrayWithArray:assets];
+    [self.arr_image addObjectsFromArray:photos];
+    //上传图片
+    [self updaloadimage:self.arr_image];
     //刷新第三行
     NSIndexPath *indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
     [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
@@ -314,5 +337,47 @@
         _arr_image  = [NSMutableArray arrayWithCapacity:0];
     }
     return _arr_image;
+}
+-(NSMutableArray *)arr_image_url{
+
+    if (!_arr_image_url) {
+        
+        _arr_image_url  = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _arr_image_url;
+}
+//上传图片
+-(void)updaloadimage:(NSMutableArray *)arr_image{
+    
+    for (int i =0; i<arr_image.count; i++) {
+        
+        @weakify(self);
+        [HttpEngine uploadfile:arr_image[i] comlete:^(BOOL susccess, id responseObjecct) {
+            @strongify(self);
+            
+            MYLOG(@"%@",responseObjecct);
+            
+        }];
+    }
+    
+
+    
+}
+//浏览大图
+-(void)ToViewLarger:(id )x{
+
+    NSMutableArray *arr_image_view = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *arr_image = [NSMutableArray arrayWithArray:x[@"imagearr"]];
+    UIView *view = x[@"imageviewarr"];
+    for (int i=0; i<arr_image.count; i++) {
+        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+        browseItem.bigImage = arr_image[i];
+        browseItem.smallImageView = view.subviews[i];
+        [arr_image_view addObject:browseItem];
+    }
+    MSSBrowseLocalViewController *bvc = [[MSSBrowseLocalViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:[x[@"tag"] intValue]];
+     bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    [bvc showBrowseViewController:self];
+
 }
 @end

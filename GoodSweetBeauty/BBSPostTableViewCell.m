@@ -224,8 +224,8 @@
         [arr_image_view addObject:browseItem];
     }
     MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tapGesture.view.tag];
-    //    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
-    [bvc showBrowseViewController];
+    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    [bvc showBrowseViewController:nil];
     
 }
 -(void)userdetail:(UITapGestureRecognizer *)tap{

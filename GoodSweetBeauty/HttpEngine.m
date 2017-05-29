@@ -21,18 +21,17 @@
     
 }
 //图片上传统一接口
-+(void)uploadfile:(NSArray *)Arrimage comlete:(void(^)(BOOL susccess , id responseObjecct))complete{
++(void)uploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete{
 
     
     NSString*str=[NSString stringWithFormat:@"%@/storage/",ADDRESS_API];
     NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-    NSMutableArray *Arr_str = [NSMutableArray arrayWithCapacity:0];
-    for (int i =0; i<Arrimage.count; i++) {
-        [Arr_str addObject:[NSString stringWithFormat:@"%@.jpg",[BWCommon GetNowTimewithformat:@"yyyyMMddHHmmss"]]];
-    }
-    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:Arr_str imageScale:1 imageType:@"jpeg" progress:^(NSProgress *progress) {
+    NSArray *Arrimage = [NSArray arrayWithObjects:image, nil];
+    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:nil imageScale:1 imageType:@"jpeg" progress:^(NSProgress *progress) {
+        
+        MYLOG(@"%f",progress.fractionCompleted);
         
     } success:^(id responseObject) {
         

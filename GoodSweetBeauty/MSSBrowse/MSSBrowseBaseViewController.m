@@ -55,7 +55,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
-- (void)showBrowseViewController
+- (void)showBrowseViewController:(UIViewController *)view
 {
     UIViewController *rootViewController = [UIApplication sharedApplication].keyWindow.rootViewController;
     
@@ -67,7 +67,8 @@
     {
         _snapshotView = [rootViewController.view snapshotViewAfterScreenUpdates:NO];
     }
-    [rootViewController presentViewController:self animated:NO completion:^{
+    
+    [view?view:rootViewController presentViewController:self animated:NO completion:^{
         
     }];
 }

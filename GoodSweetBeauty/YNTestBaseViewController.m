@@ -60,12 +60,8 @@
 - (void)viewDidLoad{
     
     [super viewDidLoad];
-    
-    
-    [self createload];
-    
     [self.view addSubview:self.tableView];
-    
+    [self createload];
     
 }
 - (void)viewDidLayoutSubviews{
@@ -75,38 +71,44 @@
 -(void)createload{
 
     @weakify(self);
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        @strongify(self);
-        switch (self.ynPageScrollViewController.pageIndex) {
-            case 0:
-                self.page_back =1;
-                break;
-            case 1:
-                self.page_new =1;
-                break;
-            case 2:
-                self.page_goods =1;
-                break;
-        }
-        [self LoadData:self.ynPageScrollViewController.pageIndex withpage:1 withtableview:self.tableView];
+    
         
-    }];
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        @strongify(self);
-        NSInteger page = 0;
-        switch (self.ynPageScrollViewController.pageIndex) {
-            case 0:
-               page = ++self.page_back;
-                break;
-            case 1:
-               page = ++self.page_new;
-                break;
-            case 2:
-               page = ++self.page_goods;
-                break;
-        }
-        [self LoadData:self.ynPageScrollViewController.pageIndex withpage:page withtableview:self.tableView];
-    }];
+        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            @strongify(self);
+            self.tableView.mj_footer.hidden = NO;
+            switch (self.ynPageScrollViewController.pageIndex) {
+                case 0:
+                    self.page_back =1;
+                    break;
+                case 1:
+                    self.page_new =1;
+                    break;
+                case 2:
+                    self.page_goods =1;
+                    break;
+            }
+            [self LoadData:self.ynPageScrollViewController.pageIndex withpage:1 withtableview:self.tableView];
+            
+        }];
+        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            @strongify(self);
+            NSInteger page = 0;
+            switch (self.ynPageScrollViewController.pageIndex) {
+                case 0:
+                    page = ++self.page_back;
+                    break;
+                case 1:
+                    page = ++self.page_new;
+                    break;
+                case 2:
+                    page = ++self.page_goods;
+                    break;
+            }
+            [self LoadData:self.ynPageScrollViewController.pageIndex withpage:page withtableview:self.tableView];
+        }];
+
+    
+    
 }
 //加载数据 传入三种状态
 -(void)LoadData:(NSInteger )type withpage:(NSInteger )page withtableview:(UITableView *)tableview{
@@ -133,6 +135,8 @@
     if (arr.count<10) {
         
         [tableview.mj_footer endRefreshingWithNoMoreData];
+        
+        tableview.mj_footer.hidden = YES;
     }
     switch (self.ynPageScrollViewController.pageIndex) {
         case 0:{
@@ -228,7 +232,6 @@
 }
 //cell-height
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     
     return [BBSPostTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
 //    return 500;

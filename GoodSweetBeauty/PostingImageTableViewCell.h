@@ -10,7 +10,7 @@
 
 @interface PostingImageTableViewCell : UITableViewCell
 
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 -(void)Setimage:(NSMutableArray *)arr_image;
 
 @end

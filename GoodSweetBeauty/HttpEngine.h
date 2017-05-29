@@ -11,7 +11,7 @@
 @interface HttpEngine : NSObject
 +(void)Login_Success:(NSDictionary *)responseObjecct;
 //图片上传统一接口
-+(void)uploadfile:(NSArray *)Arrimage comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
++(void)uploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
 //提交注册
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 //登录

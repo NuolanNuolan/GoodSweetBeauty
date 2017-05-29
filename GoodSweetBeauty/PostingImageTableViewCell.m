@@ -32,9 +32,10 @@
         [self.contentView addSubview:stack_imageview];
         
         stack_imageview.whc_LeftSpace(15).whc_TopSpace(15).whc_RightSpace(15).whc_HeightAuto();
-        stack_imageview.whc_Column = 4;               // 最大3列
+        stack_imageview.whc_Column = 3;               // 最大3列
         stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
-        stack_imageview.whc_HSpace = 3;                // 图片之间的空隙为4
+        stack_imageview.whc_HSpace = 5;                // 图片之间的空隙为4
+        stack_imageview.whc_VSpace = 5;
         stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
         stack_imageview.whc_Orientation = All;        // 横竖混合布局
         self.whc_CellBottomOffset = 20;
@@ -54,34 +55,32 @@
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        
-        PHImageRequestOptions*options = [[PHImageRequestOptions alloc]init];
-        options.deliveryMode=PHImageRequestOptionsDeliveryModeHighQualityFormat;
-        [[PHImageManager defaultManager]requestImageForAsset:arr_image[i] targetSize:CGSizeZero contentMode:PHImageContentModeDefault options:options resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
-            imageView.image = result;
-        }];
-        
-//        imageView.image = arr_image[i];
+        imageView.image = arr_image[i];
         [stack_imageview addSubview:imageView];
+        UIImageView *image_delete = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"icon_close"]];
+        image_delete.userInteractionEnabled =YES;
+        image_delete.tag = i;
+        [imageView addSubview:image_delete];
+        UITapGestureRecognizer * tapGesture_delete = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture_delete:)];
+        [image_delete addGestureRecognizer:tapGesture_delete];
+        image_delete.whc_RightSpace(0).whc_TopSpace(0).whc_Size(20,20);
     }
+    
     [stack_imageview whc_StartLayout];
-
+    
     
 }
 - (void)tapImageGesture:(UITapGestureRecognizer *)tapGesture {
     
-    
-    NSMutableArray *arr_image_view = [NSMutableArray arrayWithCapacity:0];
-    //要遍历所有的图片URL
-    for (int i=0; i<Arr_image.count; i++) {
-        
-        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageLocalPath = Arr_image[i];
-        [arr_image_view addObject:browseItem];
-    }
-    //    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
-    MSSBrowseLocalViewController *bvc = [[MSSBrowseLocalViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tapGesture.view.tag];
-    [bvc showBrowseViewController];
+    NSDictionary *dic = @{@"imagearr":Arr_image,
+                          @"imageviewarr":stack_imageview,
+                          @"tag":[NSString stringWithFormat:@"%ld",tapGesture.view.tag]};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
-
+- (void)tapImageGesture_delete:(UITapGestureRecognizer *)tapGesture {
+    
+    [Arr_image removeObjectAtIndex:tapGesture.view.tag];
+    [self Setimage:Arr_image];
+    if (self.delegateSignal) [self.delegateSignal sendNext:[NSString stringWithFormat:@"%ld",tapGesture.view.tag]];
+}
 @end
