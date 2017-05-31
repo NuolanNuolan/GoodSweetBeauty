@@ -85,7 +85,7 @@
 {
     
     
-    NSTimeInterval time=[date intValue]+28800;//因为时差问题要加8小时 == 28800 sec
+    NSTimeInterval time=[date intValue];//因为时差问题要加8小时 == 28800 sec
     
     NSDate*detaildate=[NSDate dateWithTimeIntervalSince1970:time];
     

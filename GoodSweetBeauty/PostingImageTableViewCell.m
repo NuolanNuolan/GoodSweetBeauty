@@ -38,7 +38,7 @@
         stack_imageview.whc_VSpace = 5;
         stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
         stack_imageview.whc_Orientation = All;        // 横竖混合布局
-        self.whc_CellBottomOffset = 20;
+//        self.whc_CellBottomOffset = 20;
         self.whc_TableViewWidth = self.whc_sw;
         
     }

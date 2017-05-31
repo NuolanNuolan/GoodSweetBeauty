@@ -34,7 +34,7 @@
         textview.delegate =self;
         textview.placeholderFont = [UIFont systemFontOfSize:15];
         textview.placeholderTextColor = RGB(199, 199, 199);
-        textview.backgroundColor = [UIColor grayColor];
+        textview.backgroundColor = [UIColor whiteColor];
         textview.textColor = RGB(51, 51, 51);
         textview.font = [UIFont systemFontOfSize:14];
         textview.showsVerticalScrollIndicator =NO;

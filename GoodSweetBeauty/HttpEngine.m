@@ -235,4 +235,77 @@
         complete(NO,nil);
     }];
 }
+//发帖
++(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    if (Arrimage.count>0) {
+        
+        NSMutableArray *arr_image_url = [NSMutableArray arrayWithCapacity:0];
+        dispatch_group_t group = dispatch_group_create();
+        for (int i =0; i<Arrimage.count; i++) {
+            dispatch_group_enter(group);
+            @weakify(self);
+            [HttpEngine uploadfile:Arrimage[i] comlete:^(BOOL susccess, id responseObjecct) {
+                @strongify(self);
+                if (susccess) {
+                    dispatch_group_leave(group);
+                    @synchronized (arr_image_url) { //线程不安全 加个同步锁
+                        [arr_image_url addObject:responseObjecct];
+                    }
+                    MYLOG(@"%@",responseObjecct);
+                }
+            }];
+        }
+        dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            //这里来发帖
+            NSString *imagestr = @"";
+            if (arr_image_url.count==1) {
+                
+                imagestr = [NSString stringWithFormat:@"%@",[arr_image_url firstObject]];
+                
+                
+            }else{
+            
+                for (NSString *str_image in arr_image_url) {
+                    
+                    imagestr = [imagestr stringByAppendingString:[NSString stringWithFormat:@"%@##",str_image]];
+                }
+                //删除第一个##
+                imagestr = [imagestr substringToIndex:imagestr.length-2];
+            }
+            [dic setValue:imagestr forKey:@"images"];
+            NSString *url = [NSString stringWithFormat:@"%@/posts/threads/",ADDRESS_API];
+            NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+            NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+            [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+            
+            [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+                
+                MYLOG(@"%@",responseObject);
+                
+                
+            } failure:^(NSError *error) {
+               
+                
+            }];
+            
+        });
+    }else{
+    
+        NSString *url = [NSString stringWithFormat:@"%@/posts/threads/",ADDRESS_API];
+        NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+        NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+        [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+        
+        [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+            
+            MYLOG(@"%@",responseObject);
+            
+            
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+
+}
 @end

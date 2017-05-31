@@ -81,7 +81,7 @@
 }
 -(void)CreateTableview{
     
-    self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-46) style:UITableViewStyleGrouped];
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.backgroundColor=[UIColor clearColor];
@@ -168,7 +168,7 @@
             return 50;
             break;
         case 1:
-            return 100;
+            return 150;
             break;
         case 2:
             return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
@@ -221,7 +221,7 @@
                 @strongify(self);
                 if ([x isKindOfClass:[NSString class]]) {
                     
-                    [self.arr_image removeObjectAtIndex:[x intValue]];
+                    [self CancelImageupload:x];
                     
                 }else{
                 
@@ -316,13 +316,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)input{
 
-    if (!self.str_title||[self.str_title isEqualToString:@""]||!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
-        return;
-    }
-    MYLOG(@"\n标题\n%@\n内容\n%@",self.str_title,self.str_posting_deatil);
-}
 -(void)cancel{
 
     [self.view endEditing:YES];
@@ -349,20 +343,53 @@
 //上传图片
 -(void)updaloadimage:(NSMutableArray *)arr_image{
     
-    for (int i =0; i<arr_image.count; i++) {
-        
-        @weakify(self);
-        [HttpEngine uploadfile:arr_image[i] comlete:^(BOOL susccess, id responseObjecct) {
-            @strongify(self);
-            
-            MYLOG(@"%@",responseObjecct);
-            
-        }];
-    }
+//    [self.arr_image_url removeAllObjects];
+//    dispatch_group_t group = dispatch_group_create();
+//
+//    for (int i =0; i<arr_image.count; i++) {
+//        dispatch_group_enter(group);
+//        @weakify(self);
+//        [HttpEngine uploadfile:arr_image[i] comlete:^(BOOL susccess, id responseObjecct) {
+//            @strongify(self);
+//            if (susccess) {
+//                dispatch_group_leave(group);
+//                @synchronized (self.arr_image_url) { //线程不安全 加个同步锁
+//                    [self.arr_image_url addObject:responseObjecct];
+//                }
+//                MYLOG(@"%@",responseObjecct);
+//            }
+//        }];
+//    }
+//    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        NSLog(@"updateUi");
+//    });
+}
+//用户删除了图片 删除视图 取消网络请求 重新上传
+-(void)CancelImageupload:(id )x{
     
-
+    //删除图片数组某个数组
+    [self.arr_image removeObjectAtIndex:[x intValue]];
     
 }
+-(void)input{
+    
+    if (!self.str_title||[self.str_title isEqualToString:@""]||!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
+        return;
+    }
+    MYLOG(@"\n标题\n%@\n内容\n%@",self.str_title,self.str_posting_deatil);
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                self.str_title,@"subject",
+                                self.str_posting_deatil,@"content",
+                                [BWCommon getIpAddresses],@"user_ip", nil];
+    @weakify(self);
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        
+        
+        
+    }];
+}
+
 //浏览大图
 -(void)ToViewLarger:(id )x{
 

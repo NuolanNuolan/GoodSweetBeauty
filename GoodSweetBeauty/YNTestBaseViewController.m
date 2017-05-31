@@ -17,6 +17,7 @@
 #import "CenterOneViewController.h"
 #import "CenterTwoViewController.h"
 #import "CenterMainViewController.h"
+#import "PostingDeatilViewController.h"
 //是否带刷新
 #define HasHeaderRefresh 1
 //是否有loading和无数据view
@@ -282,12 +283,30 @@
 //select-tableview
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    MYLOG(@"%ld",(long)self.ynPageScrollViewController.pageIndex);
-    
-//    LoginViewController *view = [LoginViewController new];
-//    view.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:view animated:YES];
-    
+    PostingDeatilViewController *view = [PostingDeatilViewController new];
+    switch (self.ynPageScrollViewController.pageIndex) {
+        case 0:{
+        
+            _Bbsmodel = self.Arr_back[indexPath.section];
+            view.posting_id = _Bbsmodel.id;
+            
+        }
+            break;
+        case 1:{
+            _Bbsmodel = self.Arr_new[indexPath.section];
+            view.posting_id = _Bbsmodel.id;
+            
+        }
+            break;
+        case 2:{
+            
+            _Bbsmodel = self.Arr_goods[indexPath.section];
+            view.posting_id = _Bbsmodel.id;
+        }
+            break;
+    }
+    view.hidesBottomBarWhenPushed =YES;
+    [self.navigationController pushViewController:view animated:YES];
      
 }
 

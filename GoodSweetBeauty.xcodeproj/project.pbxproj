@@ -98,6 +98,7 @@
 		EAD9261B1ECD8D2D00B6048D /* UIScrollView+Dragging.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926171ECD8D2D00B6048D /* UIScrollView+Dragging.m */; };
 		EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E641E82CEDA0083D7DD /* BWCommon.m */; };
 		EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */ = {isa = PBXBuildFile; fileRef = EADF1E671E8363ED0083D7DD /* MainTabbarController.m */; };
+		EAE023811EDD7CA8009305A7 /* PostingDeatilViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAE023801EDD7CA8009305A7 /* PostingDeatilViewController.m */; };
 		EAEF2CCF1ED921DC003300A9 /* PostingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEF2CCE1ED921DC003300A9 /* PostingTableViewCell.m */; };
 		EAEF2CD31ED9223C003300A9 /* PostingTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEF2CD11ED9223C003300A9 /* PostingTitleTableViewCell.m */; };
 		EAEF2CD41ED9223C003300A9 /* PostingTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAEF2CD21ED9223C003300A9 /* PostingTitleTableViewCell.xib */; };
@@ -305,6 +306,8 @@
 		EADF1E641E82CEDA0083D7DD /* BWCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BWCommon.m; sourceTree = "<group>"; };
 		EADF1E661E8363ED0083D7DD /* MainTabbarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTabbarController.h; sourceTree = "<group>"; };
 		EADF1E671E8363ED0083D7DD /* MainTabbarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTabbarController.m; sourceTree = "<group>"; };
+		EAE0237F1EDD7CA8009305A7 /* PostingDeatilViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingDeatilViewController.h; sourceTree = "<group>"; };
+		EAE023801EDD7CA8009305A7 /* PostingDeatilViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingDeatilViewController.m; sourceTree = "<group>"; };
 		EAEF2CCD1ED921DC003300A9 /* PostingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingTableViewCell.h; sourceTree = "<group>"; };
 		EAEF2CCE1ED921DC003300A9 /* PostingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingTableViewCell.m; sourceTree = "<group>"; };
 		EAEF2CD01ED9223C003300A9 /* PostingTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingTitleTableViewCell.h; sourceTree = "<group>"; };
@@ -848,6 +851,7 @@
 		EAAE62B31EBDDCCA00AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EAE0237E1EDD7C90009305A7 /* 帖子详情 */,
 				EA6371451ED835D6003E6BC3 /* 发帖 */,
 				EA6371291ED6DD2E003E6BC3 /* 主页扩展Controller */,
 				EA0100041ECB2F6B00C14F5B /* 用户主页 */,
@@ -900,6 +904,15 @@
 				EADF1E641E82CEDA0083D7DD /* BWCommon.m */,
 			);
 			name = BWCommon;
+			sourceTree = "<group>";
+		};
+		EAE0237E1EDD7C90009305A7 /* 帖子详情 */ = {
+			isa = PBXGroup;
+			children = (
+				EAE0237F1EDD7CA8009305A7 /* PostingDeatilViewController.h */,
+				EAE023801EDD7CA8009305A7 /* PostingDeatilViewController.m */,
+			);
+			name = "帖子详情";
 			sourceTree = "<group>";
 		};
 		EAEF2CCC1ED9217A003300A9 /* 发帖及回复 */ = {
@@ -1122,6 +1135,7 @@
 				EA6371031ED6A49D003E6BC3 /* ZHNMethodSwizzingHelper.m in Sources */,
 				EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */,
 				EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */,
+				EAE023811EDD7CA8009305A7 /* PostingDeatilViewController.m in Sources */,
 				EAEF2CD31ED9223C003300A9 /* PostingTitleTableViewCell.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
