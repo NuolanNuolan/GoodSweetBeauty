@@ -8,6 +8,7 @@
 #define AUTOW(x)   x*SCREEN_WIDTH/iphone6_width
 
 #import "PostingDeatilViewController.h"
+#import "YouAnBBSDeatilModel.h"
 
 @interface PostingDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>{
 
@@ -25,6 +26,12 @@
 
 @property(nonatomic,strong)UIButton *btn_back;
 
+@property(nonatomic,strong)UITableView *tableview;
+//model
+@property(nonatomic,strong)YouAnBBSDeatilModel *Deatilmodel;
+//page
+@property(nonatomic,assign)NSInteger page;
+
 @end
 
 @implementation PostingDeatilViewController
@@ -39,18 +46,55 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //初始化数据
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    [self InitData];
+    //请求
+    [self LoadData:self.page];
     [self CreateUI];
     // Do any additional setup after loading the view.
 }
--(void)CreateUI{
+-(void)InitData{
 
+    self.page = 1;
+}
+//请求
+-(void)LoadData:(NSInteger )page{
+    
+    @weakify(self);
+    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:1 complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        if (success) {
+            
+            self.Deatilmodel = [YouAnBBSDeatilModel whc_ModelWithJson:responseObject];
+            
+        }
+        
+        
+    }];
+}
+-(void)CreateUI{
+    
+    //表格
+    [self Createtableview];
     //右上角按钮
     [self CreateRightBtn];
     //下方操作按钮
     [self CreateBotBtn];
     
 }
+-(void)Createtableview{
 
+    self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, ScreenHeight-64-50) style:UITableViewStyleGrouped];
+    self.tableview.delegate=self;
+    self.tableview.dataSource=self;
+    self.tableview.backgroundColor=[UIColor clearColor];
+    self.tableview.showsVerticalScrollIndicator=NO;
+    [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.view addSubview:self.tableview];
+    
+}
 -(void)CreateRightBtn{
 
     self.btn_Poster = [UIButton buttonWithType:UIButtonTypeCustom];

@@ -308,4 +308,19 @@
     }
 
 }
+//帖子详情
++(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/posts/threads/%@/",ADDRESS_API,[NSNumber numberWithInteger:postintID]];
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+    }];
+}
 @end
