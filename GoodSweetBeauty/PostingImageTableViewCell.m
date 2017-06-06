@@ -27,8 +27,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
+        self.backgroundColor = [UIColor clearColor];
         stack_imageview = [WHC_StackView new];
-        
+        stack_imageview.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:stack_imageview];
         
         stack_imageview.whc_LeftSpace(15).whc_TopSpace(15).whc_RightSpace(15).whc_HeightAuto();

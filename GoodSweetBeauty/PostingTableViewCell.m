@@ -28,13 +28,13 @@
 
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        
-        textview = [YYTextView new];        
-        textview.placeholderText = @"讨论正文";
+        self.backgroundColor = [UIColor clearColor];
+        textview = [YYTextView new];
         textview.delegate =self;
+        textview.backgroundColor = [UIColor clearColor];
         textview.placeholderFont = [UIFont systemFontOfSize:15];
         textview.placeholderTextColor = RGB(199, 199, 199);
-        textview.backgroundColor = [UIColor whiteColor];
+        textview.backgroundColor = [UIColor clearColor];
         textview.textColor = RGB(51, 51, 51);
         textview.font = [UIFont systemFontOfSize:14];
         textview.showsVerticalScrollIndicator =NO;
@@ -60,5 +60,31 @@
 
     if (self.delegateSignal) [self.delegateSignal sendNext:textview.text];
 }
+-(void)settype:(YouAnStatusComposeViewType )type{
 
+    switch (type) {
+        case YouAnStatusComposeViewTypePostTing:{
+            
+            textview.placeholderText = @"讨论正文";
+        }
+            break;
+        case YouAnStatusComposeViewTypeStatus:{
+            
+            textview.placeholderText = @"写评论";
+            [textview becomeFirstResponder];
+            
+        }
+            break;
+        case YouAnStatusComposeViewTypeComment:{
+            
+            
+        }
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:{
+            
+            
+        }
+            break;
+    }
+}
 @end

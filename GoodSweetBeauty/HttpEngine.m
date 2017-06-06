@@ -236,17 +236,41 @@
     }];
 }
 //发帖
-+(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete{
 
+    //构建url
+    NSString * url = @"";
+    switch (type_status) {
+        case YouAnStatusComposeViewTypePostTing:{
+            
+            url = [NSString stringWithFormat:@"%@/posts/threads/",ADDRESS_API];
+        }
+            break;
+        case YouAnStatusComposeViewTypeStatus:{
+            
+            url = [NSString stringWithFormat:@"%@/posts/threads/%ld/reply/",ADDRESS_API,(long)pk];
+        }
+            break;
+        case YouAnStatusComposeViewTypeComment:{
+            
+            
+        }
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:{
+            
+            
+        }
+            break;
+    }
     if (Arrimage.count>0) {
         
         NSMutableArray *arr_image_url = [NSMutableArray arrayWithCapacity:0];
         dispatch_group_t group = dispatch_group_create();
         for (int i =0; i<Arrimage.count; i++) {
             dispatch_group_enter(group);
-            @weakify(self);
+//            @weakify(self);
             [HttpEngine uploadfile:Arrimage[i] comlete:^(BOOL susccess, id responseObjecct) {
-                @strongify(self);
+//                @strongify(self);
                 if (susccess) {
                     dispatch_group_leave(group);
                     @synchronized (arr_image_url) { //线程不安全 加个同步锁
@@ -274,7 +298,7 @@
                 imagestr = [imagestr substringToIndex:imagestr.length-2];
             }
             [dic setValue:imagestr forKey:@"images"];
-            NSString *url = [NSString stringWithFormat:@"%@/posts/threads/",ADDRESS_API];
+            
             NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
             NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
             [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
@@ -292,17 +316,21 @@
         });
     }else{
     
-        NSString *url = [NSString stringWithFormat:@"%@/posts/threads/",ADDRESS_API];
         NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
         NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
         [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-        
         [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
             
             MYLOG(@"%@",responseObject);
             
             
         } failure:^(NSError *error) {
+            NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            if (data) {
+                NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+
+                MYLOG(@"%@",dic);
+            }
             
         }];
     }

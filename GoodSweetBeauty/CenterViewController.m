@@ -191,7 +191,7 @@
 -(void)Change_head{
 
     @weakify(self);
-    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"更换头像" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"拍照",@"从相册选择"] handler:^(LPActionSheet *actionSheet, NSInteger index) {
+    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"更换头像" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"拍照",@"从相册选择"]  titlecolor:SheetDefaultColor handler:^(LPActionSheet *actionSheet, NSInteger index) {
         @strongify(self);
         switch (index) {
             case 1:

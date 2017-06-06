@@ -32,6 +32,8 @@
 @property(nonatomic,strong)NSMutableArray *arr_image;
 //图片上传的URL
 @property(nonatomic,strong)NSMutableArray *arr_image_url;
+//回复的时候@的人
+@property(nonatomic,strong)NSString *str_at;
 
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -66,7 +68,6 @@
 }
 -(void)CreateUI{
 
-    self.title = @"发帖";
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *button_left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     [button_left setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17],
@@ -84,19 +85,42 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-46) style:UITableViewStyleGrouped];
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
-    self.tableview.backgroundColor=[UIColor clearColor];
     self.tableview.showsVerticalScrollIndicator=NO;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableview registerNib:[UINib nibWithNibName:@"PostingTitleTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
     [self.tableview registerClass:[PostingTableViewCell class] forCellReuseIdentifier:NSStringFromClass([PostingTableViewCell class])];
     [self.tableview registerClass:[PostingImageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
     [self.view addSubview:self.tableview];
+    switch (_type) {
+        case YouAnStatusComposeViewTypePostTing:
+            self.title = @"发帖";
+            self.tableview.backgroundColor = [UIColor whiteColor];
+            break;
+        case YouAnStatusComposeViewTypeStatus:
+            self.title = @"回复";
+            self.tableview.backgroundColor=RGB(247, 247, 247);
+            break;
+        case YouAnStatusComposeViewTypeComment:
+            self.title = @"发帖";
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:
+            self.title = @"发帖";
+            break;
+    }
 }
 -(void)CreateToolbar{
 
     _toolbar = [[UIView alloc]initWithFrame:CGMAKE(0, self.view.height-46, self.view.width, 46)];
     _toolbar.backgroundColor = RGB(246, 246, 246);
     _toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    UIView *view_toolbar_top = [[UIView alloc]initWithFrame:CGMAKE(0, 0, ScreenWidth, 0.5)];
+    view_toolbar_top.backgroundColor = RGB(224, 224, 224);
+    
+    UIView *view_toolbar_bot = [[UIView alloc]initWithFrame:CGMAKE(0, 46-0.5, ScreenWidth, 0.5)];
+    view_toolbar_bot.backgroundColor = RGB(224, 224, 224);
+    
+    [_toolbar addSubview:view_toolbar_top];
+    [_toolbar addSubview:view_toolbar_bot];
     [self.view addSubview:_toolbar];
     [self toolbarbtn];
     
@@ -119,22 +143,22 @@
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:button];
         [_toolbar addSubview:view];
-        button.whc_Size(46,46).whc_CenterX(0).whc_CenterY(0);
+        button.whc_Size(45.5,45.5).whc_CenterX(0).whc_CenterY(0);
         switch (i) {
             case 0:{
                 self.btn_choose_image = button;
-            view.whc_LeftSpace(0).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
+            view.whc_LeftSpace(0).whc_TopSpace(0.5).whc_BottomSpace(0).whc_Height(45.5).whc_Width(ScreenWidth/3);
                 
             }
                 break;
             case 1:{
                 self.btn_choose_emoji = button;
-                view.whc_LeftSpace(ScreenWidth/3).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
+                view.whc_LeftSpace(ScreenWidth/3).whc_TopSpace(0.5).whc_BottomSpace(0).whc_Height(45.5).whc_Width(ScreenWidth/3);
             }
                 break;
             case 2:{
                 self.btn_choose_at = button;
-                view.whc_LeftSpace(ScreenWidth*2/3).whc_TopSpace(0).whc_BottomSpace(0).whc_Height(46).whc_Width(ScreenWidth/3);
+                view.whc_LeftSpace(ScreenWidth*2/3).whc_TopSpace(0.5).whc_BottomSpace(0).whc_Height(45.5).whc_Width(ScreenWidth/3);
             }
                 break;
         }
@@ -151,7 +175,21 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 3;
+    switch (_type) {
+        case YouAnStatusComposeViewTypePostTing:
+            return 3;
+            break;
+        case YouAnStatusComposeViewTypeStatus:
+            return 2;
+            break;
+        case YouAnStatusComposeViewTypeComment:
+            return 1;
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:
+            return 1;
+            break;
+    }
+    return 1;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -162,16 +200,85 @@
     return 0.0001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-
+    
     switch (indexPath.section) {
-        case 0:
-            return 50;
+        case 0:{
+        
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    
+                    return 50;
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    return 150;
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
+        }
             break;
-        case 1:
-            return 150;
+        case 1:{
+        
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    return 150;
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
+        }
             break;
-        case 2:
-            return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+        case 2:{
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    
+                    return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
+
+        }
             break;
             
     }
@@ -183,53 +290,144 @@
 
     switch (indexPath.section) {
         case 0:{
-            
-            PostingTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-            cell.delegateSignal = [RACSubject subject];
-            @weakify(self);
-            [cell.delegateSignal subscribeNext:^(id x) {
-                @strongify(self);
-                self.str_title = [NSString stringWithFormat:@"%@",x];
-                
-            }];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    
+                    PostingTitleTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        self.str_title = [NSString stringWithFormat:@"%@",x];
+                        
+                    }];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    return cell;
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
+                    [cell settype:_type];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+                    }];
+                    return cell;
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
+
             
         }
             break;
         case 1:{
-        
-            PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegateSignal = [RACSubject subject];
-            @weakify(self);
-            [cell.delegateSignal subscribeNext:^(id x) {
-                @strongify(self);
-                self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-            }];
-            return cell;
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    
+                    PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
+                    [cell settype:_type];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+                    }];
+                    return cell;
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
+
+                    [cell Setimage:self.arr_image];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        if ([x isKindOfClass:[NSString class]]) {
+                            
+                            [self CancelImageupload:x];
+                            
+                        }else{
+                            
+                            [self ToViewLarger:x];
+                        }
+                        
+                    }];
+                    return cell;
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
+
         }
             break;
         case 2:{
-        
-            PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
-            [cell Setimage:self.arr_image];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegateSignal = [RACSubject subject];
-            @weakify(self);
-            [cell.delegateSignal subscribeNext:^(id x) {
-                @strongify(self);
-                if ([x isKindOfClass:[NSString class]]) {
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
                     
-                    [self CancelImageupload:x];
-                    
-                }else{
-                
-                   [self ToViewLarger:x];
+                    PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
+                    [cell Setimage:self.arr_image];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        if ([x isKindOfClass:[NSString class]]) {
+                            
+                            [self CancelImageupload:x];
+                            
+                        }else{
+                            
+                            [self ToViewLarger:x];
+                        }
+                        
+                    }];
+                    return cell;
                 }
-                
-            }];
-            return cell;
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                    
+                }
+                    break;
+            }
         }
             break;
     }
@@ -303,10 +501,31 @@
 -(void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto
 {
     [self.arr_image addObjectsFromArray:photos];
-    //上传图片
-    [self updaloadimage:self.arr_image];
     //刷新第三行
-    NSIndexPath *indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
+    NSIndexPath *indexpathone;
+    switch (_type) {
+        case YouAnStatusComposeViewTypePostTing:{
+            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
+        }
+            break;
+        case YouAnStatusComposeViewTypeStatus:{
+            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:1];
+        }
+            break;
+        case YouAnStatusComposeViewTypeComment:{
+            
+            
+        }
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:{
+            
+            
+        }
+            break;
+    }
+    
     [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -340,30 +559,6 @@
     }
     return _arr_image_url;
 }
-//上传图片
--(void)updaloadimage:(NSMutableArray *)arr_image{
-    
-//    [self.arr_image_url removeAllObjects];
-//    dispatch_group_t group = dispatch_group_create();
-//
-//    for (int i =0; i<arr_image.count; i++) {
-//        dispatch_group_enter(group);
-//        @weakify(self);
-//        [HttpEngine uploadfile:arr_image[i] comlete:^(BOOL susccess, id responseObjecct) {
-//            @strongify(self);
-//            if (susccess) {
-//                dispatch_group_leave(group);
-//                @synchronized (self.arr_image_url) { //线程不安全 加个同步锁
-//                    [self.arr_image_url addObject:responseObjecct];
-//                }
-//                MYLOG(@"%@",responseObjecct);
-//            }
-//        }];
-//    }
-//    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        NSLog(@"updateUi");
-//    });
-}
 //用户删除了图片 删除视图 取消网络请求 重新上传
 -(void)CancelImageupload:(id )x{
     
@@ -373,22 +568,75 @@
 }
 -(void)input{
     
-    if (!self.str_title||[self.str_title isEqualToString:@""]||!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
-        return;
+    //根据各种状态的不同来区分发表的类型
+    switch (_type) {
+        case YouAnStatusComposeViewTypePostTing:{
+            
+            if (!self.str_title||[self.str_title isEqualToString:@""]||!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
+                return;
+            }
+            [self Postting];
+        }
+            break;
+        case YouAnStatusComposeViewTypeStatus:{
+            
+            if (!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
+                return;
+            }
+            [self ReplytoPoster];
+        }
+            break;
+        case YouAnStatusComposeViewTypeComment:{
+            
+            
+        }
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:{
+            
+            
+        }
+            break;
     }
-    MYLOG(@"\n标题\n%@\n内容\n%@",self.str_title,self.str_posting_deatil);
+}
+
+/**
+ 发帖事件
+ */
+-(void)Postting{
+
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 self.str_title,@"subject",
                                 self.str_posting_deatil,@"content",
                                 [BWCommon getIpAddresses],@"user_ip", nil];
     @weakify(self);
-    [HttpEngine UserPostting:dic witharrimage:self.arr_image complete:^(BOOL success, id responseObject) {
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
-        
-        
+        MYLOG(@"%@",responseObject);
         
     }];
 }
+
+/**
+ 发表对于楼主的回复
+ */
+-(void)ReplytoPoster{
+
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                self.str_posting_deatil,@"content",
+                                [BWCommon getIpAddresses],@"user_ip",
+                                self.str_at? self.str_at:@"",@"at",
+                                @"",@"subject",nil];
+    
+    @weakify(self);
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
+        
+        MYLOG(@"%@", responseObject);
+        
+    }];
+    
+}
+
+
 
 //浏览大图
 -(void)ToViewLarger:(id )x{

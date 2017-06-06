@@ -17,5 +17,8 @@ typedef NS_ENUM(NSUInteger, YouAnStatusComposeViewType) {
 @interface UserPostingViewController : HJViewController
 
 @property (nonatomic, assign) YouAnStatusComposeViewType type;
+//需要传入帖子ID 或者回复的楼层ID
+@property (nonatomic, assign) NSInteger pk;
+@property (nonatomic, assign) NSInteger father_id;
 
 @end

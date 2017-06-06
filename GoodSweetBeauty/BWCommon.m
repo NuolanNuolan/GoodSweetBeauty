@@ -89,7 +89,6 @@
     
     NSDate*detaildate=[NSDate dateWithTimeIntervalSince1970:time];
     
-    
     //实例化一个NSDateFormatter对象
     
     NSDateFormatter*dateFormatter = [[NSDateFormatter alloc]init];

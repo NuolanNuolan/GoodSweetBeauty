@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserPostingViewController.h"
+
 
 @interface HttpEngine : NSObject
 +(void)Login_Success:(NSDictionary *)responseObjecct;
@@ -28,8 +30,17 @@
 +(void)UserCancelFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
 //请求帖子
 +(void)BBSGetPost:(NSInteger )type withpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
-//发帖
-+(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 发送接口
+
+ @param dic 需要的数据包
+ @param Arrimage 图片数组
+ @param type_status type
+ @param pk 有些需要帖子的ID
+ @param complete 返回参数
+ */
++(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete;
 //帖子详情
 +(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size complete:(void(^)(BOOL success ,id responseObject))complete;
 

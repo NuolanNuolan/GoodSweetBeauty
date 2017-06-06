@@ -9,6 +9,11 @@
 
 #import "PostingDeatilViewController.h"
 #import "YouAnBBSDeatilModel.h"
+#import "BBSDeatilTableViewCell.h"
+#import "BBSTitleDeatilTableViewCell.h"
+#import "BBSimageDeatilTableViewCell.h"
+#import "BBSExceptionalTableViewCell.h"
+
 
 @interface PostingDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>{
 
@@ -47,16 +52,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //初始化数据
-    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     [self InitData];
+
+    [self CreateUI];
     //请求
     [self LoadData:self.page];
-    [self CreateUI];
     // Do any additional setup after loading the view.
 }
 -(void)InitData{
 
     self.page = 1;
+    
+    
 }
 //请求
 -(void)LoadData:(NSInteger )page{
@@ -68,6 +76,7 @@
         if (success) {
             
             self.Deatilmodel = [YouAnBBSDeatilModel whc_ModelWithJson:responseObject];
+            [self.tableview reloadData];
             
         }
         
@@ -92,7 +101,14 @@
     self.tableview.backgroundColor=[UIColor clearColor];
     self.tableview.showsVerticalScrollIndicator=NO;
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self.tableview registerClass:[BBSDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
+    [self.tableview registerClass:[BBSTitleDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSTitleDeatilTableViewCell class])];
+    [self.tableview registerClass:[BBSExceptionalTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSExceptionalTableViewCell class])];
+    [self.tableview registerClass:[BBSimageDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSimageDeatilTableViewCell class])];
+    [self.tableview registerClass:[BBSDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
     [self.view addSubview:self.tableview];
+    [MBProgressHUD showMessage:@"" toView:self.view];
+    
     
 }
 -(void)CreateRightBtn{
@@ -102,6 +118,7 @@
     self.btn_Poster.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.btn_Poster setTitle:@"楼主" forState:UIControlStateNormal];
     [self.btn_Poster setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    [self.btn_Poster addTarget:self action:@selector(Poster_click) forControlEvents:UIControlEventTouchUpInside];
     self.btn_Poster.layer.masksToBounds =YES;
     self.btn_Poster.layer.borderColor = RGB(102, 102, 102).CGColor;
     self.btn_Poster.layer.borderWidth = 0.5f;
@@ -112,7 +129,9 @@
     
     self.btn_More = [UIButton buttonWithType:UIButtonTypeCustom];
     self.btn_More.frame = CGMAKE(0, 0, 4, 18);
+    [self.btn_More setEnlargeEdgeWithTop:0 right:20 bottom:10 left:20];
     self.btn_More.adjustsImageWhenHighlighted =NO;
+    [self.btn_More addTarget:self action:@selector(more_click) forControlEvents:UIControlEventTouchUpInside];
     [self.btn_More setBackgroundImage:[UIImage imageNamed:@"iconTitlebarMore"] forState:UIControlStateNormal];
     UIBarButtonItem *collectionButton = [[UIBarButtonItem alloc]initWithCustomView:self.btn_More];
     NSArray *barItems = [[NSArray alloc] initWithObjects:collectionButton,shareButton, nil];
@@ -126,6 +145,7 @@
     self.btn_back.frame = CGMAKE(ScreenWidth-AUTOW(145), 0, AUTOW(145), 50);
     [self.btn_back setBackgroundColor:GETMAINCOLOR];
     [self.btn_back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.btn_back addTarget:self action:@selector(back_click) forControlEvents:UIControlEventTouchUpInside];
     [self.btn_back setTitle:@"立即回复" forState:UIControlStateNormal];
     self.btn_back.titleLabel.font =[UIFont systemFontOfSize:16];
     
@@ -164,4 +184,155 @@
     else if ([title isEqualToString:@"收藏"]) [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -20,0)];
     return btn;
 }
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 1;
+    
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    
+    return 4;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+   
+    return 0.001;
+    
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.001;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+     
+    switch (indexPath.section) {
+        case 0:
+            return [BBSDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            break;
+        case 1:
+            return [BBSTitleDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            break;
+        case 2:{
+        
+            if (![_Deatilmodel.image isEqualToString:@""]) {
+                
+                return [BBSimageDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            }else{
+            
+                return 0.001;
+            }
+        }
+            
+            break;
+        case 3:
+            return [BBSExceptionalTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            break;
+    }
+    return 0.001;
+}
+
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+    switch (indexPath.section) {
+        case 0:{
+            BBSDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            [cell setmodel:_Deatilmodel];
+            return cell;
+            
+        }
+            break;
+        case 1:{
+            
+            BBSTitleDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSTitleDeatilTableViewCell class])];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            [cell setmodel:_Deatilmodel];
+            return cell;
+        }
+            break;
+        case 2:{
+            if ([_Deatilmodel.image isEqualToString:@""]) {
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+                    [cell setBackgroundColor:[UIColor whiteColor]];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                }
+                return cell;
+            }else{
+            
+                BBSimageDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSimageDeatilTableViewCell class])];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                [cell setmodel:_Deatilmodel];
+                return cell;
+            }
+        }
+            break;
+        case 3:{
+            
+            BBSExceptionalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSExceptionalTableViewCell class])];
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            [cell setmodel:_Deatilmodel];
+            return cell;
+        }
+            break;
+    }
+
+    return nil;
+    
+    
+}
+/**
+ 更多
+ */
+-(void)more_click{
+
+    @weakify(self);
+    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"收藏",@"跳页",@"举报",@"复制链接"] titlecolor:GETMAINCOLOR handler:^(LPActionSheet *actionSheet, NSInteger index) {
+        @strongify(self);
+        switch (index) {
+            case 1:{
+                
+            }
+                break;
+            case 2:{
+                
+            }
+                break;
+            case 3:{
+                
+            }
+                break;
+            case 4:{
+                
+            }
+                break;
+        }
+    }];
+    [sheet show];
+
+    
+}
+/**
+ 楼主
+ */
+-(void)Poster_click{
+
+    
+}
+
+/**
+ 回复
+ */
+-(void)back_click{
+
+    UserPostingViewController *view = [[UserPostingViewController alloc]init];
+    view.type = YouAnStatusComposeViewTypeStatus;
+    view.pk = self.posting_id;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 @end

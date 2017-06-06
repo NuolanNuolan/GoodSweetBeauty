@@ -41,15 +41,20 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-    return [self initWithTitle:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil handler:nil];
+    return [self initWithTitle:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil titlecolor:SheetDefaultColor handler:nil];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
-    return [self initWithTitle:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil handler:nil];
+    return [self initWithTitle:nil cancelButtonTitle:nil destructiveButtonTitle:nil otherButtonTitles:nil titlecolor:SheetDefaultColor handler:nil ];
 }
 
-- (instancetype)initWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(LPActionSheetBlock)actionSheetBlock
+- (instancetype)initWithTitle:(NSString *)title
+            cancelButtonTitle:(NSString *)cancelButtonTitle
+       destructiveButtonTitle:(NSString *)destructiveButtonTitle
+            otherButtonTitles:(NSArray *)otherButtonTitles
+                   titlecolor:(UIColor *)color
+                      handler:(LPActionSheetBlock)actionSheetBlock
 {
     self = [super initWithFrame:CGRectZero];
     if (self)
@@ -106,6 +111,7 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
             [destructiveButton setTitle:destructiveButtonTitle forState:UIControlStateNormal];
             [destructiveButton setTitleColor:[UIColor colorWithRed:230.0f/255.0f green:66.0f/255.0f blue:66.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
             [destructiveButton setBackgroundImage:normalImage forState:UIControlStateNormal];
+            destructiveButton.titleLabel.font = [UIFont systemFontOfSize:16];
             [destructiveButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
             [destructiveButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
             [_actionSheetView addSubview:destructiveButton];
@@ -125,9 +131,10 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
                 button.tag = i+1;
                 button.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
                 [button setTitle:otherButtonTitles[i] forState:UIControlStateNormal];
-                [button setTitleColor:[UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+                [button setTitleColor:color forState:UIControlStateNormal];
                 [button setBackgroundImage:normalImage forState:UIControlStateNormal];
                 [button setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
+                button.titleLabel.font = [UIFont systemFontOfSize:16];
                 [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
                 [_actionSheetView addSubview:button];
                 
@@ -145,7 +152,7 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
             cancelButton.tag = 0;
             cancelButton.titleLabel.font = [UIFont systemFontOfSize:kButtonTitleFontSize];
             [cancelButton setTitle:cancelButtonTitle ?: @"取消" forState:UIControlStateNormal];
-            [cancelButton setTitleColor:[UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [cancelButton setTitleColor:color forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:normalImage forState:UIControlStateNormal];
             [cancelButton setBackgroundImage:highlightedImage forState:UIControlStateHighlighted];
             [cancelButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -162,7 +169,7 @@ static const NSTimeInterval kAnimateDurationDismiss = 0.3f;
 
 + (instancetype)actionSheetWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(LPActionSheetBlock)actionSheetBlock
 {
-    return [[self alloc] initWithTitle:title cancelButtonTitle:cancelButtonTitle destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:otherButtonTitles handler:actionSheetBlock];
+    return [[self alloc] initWithTitle:title cancelButtonTitle:cancelButtonTitle destructiveButtonTitle:destructiveButtonTitle otherButtonTitles:otherButtonTitles titlecolor:SheetDefaultColor handler:actionSheetBlock];
 }
 
 + (void)showActionSheetWithTitle:(NSString *)title cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSArray *)otherButtonTitles handler:(LPActionSheetBlock)actionSheetBlock

@@ -34,6 +34,7 @@ typedef void(^LPActionSheetBlock)(LPActionSheet *actionSheet, NSInteger index);
             cancelButtonTitle:(NSString *)cancelButtonTitle
        destructiveButtonTitle:(NSString *)destructiveButtonTitle
             otherButtonTitles:(NSArray *)otherButtonTitles
+                   titlecolor:(UIColor *)color
                       handler:(LPActionSheetBlock)actionSheetBlock NS_DESIGNATED_INITIALIZER;
 
 /**

@@ -130,7 +130,7 @@
     lab_username.text = model.author;
     lab_deatil.text = model.subject;
     lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
-    lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd hh:mm:ss"]];
+    lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
     if (model.image&&![model.image isEqualToString:@""]) {
         NSArray * arr_image;
         //判断是否有多张

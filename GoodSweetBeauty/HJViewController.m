@@ -43,6 +43,8 @@
     dispatch_once(&onceToken, ^{
         
        [self RegistryNetworkNotice];
+        //注册HUD
+        
         
     });
     // Do any additional setup after loading the view.
@@ -91,6 +93,14 @@
                 break;
         }
     }];
+}
+
+/**
+ 注册HUD
+ */
+-(void)RegisteredHud{
+
+    
 }
 //无网络时弹出框
 - (void)showNoNetWorkUI{

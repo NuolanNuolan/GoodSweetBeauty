@@ -8,6 +8,7 @@
 //Model
 #import "YouAnUserModel.h"
 #import "YouAnBBSModel.h"
+#import "YouAnBBSDeatilModel.h"
 
 #import "LPActionSheet.h"
 #import "PPNetworkHelper.h"
@@ -41,6 +42,9 @@
 #import "YYText.h"
 #import "YYKeyboardManager.h"
 #import "MSSBrowseDefine.h"
+#import "UIButton+EnlargeTouchArea.h"
+#import "UserPostingViewController.h"
+
 
 
 
@@ -86,7 +90,8 @@
 
 //主色调
 #define GETMAINCOLOR [UIColor colorWithRed:64/255.0f green:121/255.0f blue:186/255.0f alpha:1]
-
+//弹出框默认按钮颜色
+#define SheetDefaultColor [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
 
 
 

@@ -301,7 +301,7 @@
 //    [_browseActionSheet removeFromSuperview];
 //    _browseActionSheet = nil;
     @weakify(self);
-    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"保存图片"] handler:^(LPActionSheet *actionSheet, NSInteger index) {
+    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"保存图片"] titlecolor:SheetDefaultColor handler:^(LPActionSheet *actionSheet, NSInteger index) {
         @strongify(self);
         switch (index) {
             case 1:

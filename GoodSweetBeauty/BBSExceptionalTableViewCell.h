@@ -1,14 +1,14 @@
 //
-//  BBSDeatilTableViewCell.h
+//  BBSExceptionalTableViewCell.h
 //  GoodSweetBeauty
 //
-//  Created by Eason on 17/5/31.
+//  Created by Eason on 17/6/1.
 //  Copyright © 2017年 YLL. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface BBSDeatilTableViewCell : UITableViewCell
+@interface BBSExceptionalTableViewCell : UITableViewCell
 
 -(void)setmodel:(YouAnBBSDeatilModel *)model;
 

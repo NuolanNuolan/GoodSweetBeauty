@@ -12,23 +12,11 @@
 
 @end
 @implementation Ats
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        [self whc_Decode:decoder];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [self whc_Encode:encoder];
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return [self whc_Copy];
-}
 
 @end
+@implementation Images
 
+@end
 @implementation Master_posts
 - (id)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
@@ -53,7 +41,26 @@
 @implementation Rewards
 
 @end
+@implementation Father
+- (id)initWithCoder:(NSCoder *)decoder {
+    if (self = [super init]) {
+        [self whc_Decode:decoder];
+    }
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [self whc_Encode:encoder];
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    return [self whc_Copy];
+}
+
+@end
+
 @implementation Posts
 
 @end
+
 

@@ -10,4 +10,7 @@
 
 @interface PostingTableViewCell : UITableViewCell
 @property (nonatomic, strong) RACSubject *delegateSignal;
+
+-(void)settype:(YouAnStatusComposeViewType )type;
+
 @end
