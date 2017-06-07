@@ -6,13 +6,15 @@
 //  Copyright © 2017年 YLL. All rights reserved.
 //
 #define AUTOW(x)   x*SCREEN_WIDTH/iphone6_width
-
+static NSString *const kMycommentsCellIdentifier = @"kMycommentsCellIdentifier";
+static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCellIdentifier";
 #import "PostingDeatilViewController.h"
 #import "YouAnBBSDeatilModel.h"
 #import "BBSDeatilTableViewCell.h"
 #import "BBSTitleDeatilTableViewCell.h"
 #import "BBSimageDeatilTableViewCell.h"
 #import "BBSExceptionalTableViewCell.h"
+#import "CommentsDeatilTableViewCell.h"
 
 
 @interface PostingDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>{
@@ -52,7 +54,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //初始化数据
-    
     [self InitData];
 
     [self CreateUI];
@@ -101,11 +102,15 @@
     self.tableview.backgroundColor=[UIColor clearColor];
     self.tableview.showsVerticalScrollIndicator=NO;
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [self.tableview setSeparatorColor:RGB(229, 229, 229)];
+//    [self.tableview setSeparatorInset:UIEdgeInsetsMake(0,15,0,0)];
     [self.tableview registerClass:[BBSDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
     [self.tableview registerClass:[BBSTitleDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSTitleDeatilTableViewCell class])];
     [self.tableview registerClass:[BBSExceptionalTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSExceptionalTableViewCell class])];
     [self.tableview registerClass:[BBSimageDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSimageDeatilTableViewCell class])];
     [self.tableview registerClass:[BBSDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
+    [self.tableview registerClass:[CommentsDeatilTableViewCell class] forCellReuseIdentifier:kMycommentsCellIdentifier];
+    [self.tableview registerClass:[CommentsDeatilTableViewCell class] forCellReuseIdentifier:kMycommentsfatherCellIdentifier];
     [self.view addSubview:self.tableview];
     [MBProgressHUD showMessage:@"" toView:self.view];
     
@@ -186,12 +191,34 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    switch (section) {
+        case 4:{
+         
+            if (self.Deatilmodel.hot_posts.count>0)return self.Deatilmodel.hot_posts.count;
+            else return 1;
+
+        }
+            break;
+        case 5:{
+            
+            if (self.Deatilmodel.posts.count>0)return self.Deatilmodel.posts.count;
+            else return 1;
+            
+        }
+            break;
+            
+        default:{
+        
+            return 1;
+        }
+            break;
+    }
     return 1;
     
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 4;
+    return 6;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -226,6 +253,20 @@
             break;
         case 3:
             return [BBSExceptionalTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            break;
+        case 4:{
+        
+            if (self.Deatilmodel.hot_posts.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            else return 0.001;
+            
+        }
+            break;
+        case 5:{
+            
+            if (self.Deatilmodel.posts.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            else return 0.001;
+            
+        }
             break;
     }
     return 0.001;
@@ -278,12 +319,52 @@
             return cell;
         }
             break;
+        case 4:{
+            if (self.Deatilmodel.hot_posts.count==0) {
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+                    [cell setBackgroundColor:[UIColor whiteColor]];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                }
+                return cell;
+            }else{
+                
+                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMycommentsCellIdentifier];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                return cell;
+            }
+            
+        }
+            break;
+        case 5:{
+            if (self.Deatilmodel.posts.count==0) {
+                
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+                    [cell setBackgroundColor:[UIColor whiteColor]];
+                    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                }
+                return cell;
+            }else{
+                
+                Posts *postsmodel = self.Deatilmodel.posts[indexPath.row];
+                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[postsmodel.father_id integerValue]==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
+                [cell SetAllPotsModel:postsmodel withisopen:NO withrow:indexPath.row isfather:[postsmodel.father_id integerValue]==0?NO:YES withAllrow:self.Deatilmodel.posts.count];
+                [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                return cell;
+            }
+            
+        }
+            break;
     }
 
     return nil;
-    
-    
 }
+
+
 /**
  更多
  */

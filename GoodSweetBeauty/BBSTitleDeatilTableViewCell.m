@@ -63,11 +63,25 @@
         lab_title.text = model.subject;
         lab_deatil.text = model.content;
         
-        MYLOG(@"%f",lab_title.frame.size.height);
-        [UILabel changeLineSpaceForLabel:lab_title WithSpace:11];
-        [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:11];
+        CGSize size =[self sizeWithString:model.subject font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, ScreenHeight)];
+        CGSize sizeone =[self sizeWithString:model.content font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, ScreenHeight)];
+        if (size.height>30) {
+            
+            [UILabel changeLineSpaceForLabel:lab_title WithSpace:11];
+        }
+        if (sizeone.height>30) {
+            
+            [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:11];
+        }
     }
 }
 //这里做一个判断行数吧..
-
+- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *dict = @{NSFontAttributeName : font};
+    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
+    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
+    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size;
+}
 @end

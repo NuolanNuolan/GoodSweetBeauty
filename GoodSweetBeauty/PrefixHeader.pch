@@ -44,6 +44,8 @@
 #import "MSSBrowseDefine.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "UserPostingViewController.h"
+#import "UIButton+Badge.h"
+#import "YYLabel.h"
 
 
 

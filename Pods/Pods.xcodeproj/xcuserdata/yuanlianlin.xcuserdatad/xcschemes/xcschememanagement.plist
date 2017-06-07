@@ -94,6 +94,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>UIBarButtonItem-Badge-Coding.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>WHC_AutoLayoutKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -137,22 +142,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0DF4C3D1C061A8AF42AFB60731DEEA93</key>
+		<key>0581C6B206F191F064F60A023C249FD0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0EABF4D8F5D2AA23A77AA0B5DA29C550</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>14B555A08F4476EBA3352B8C1B984D8A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>15EA29210DF07F2A2717ADFCD00721DD</key>
+		<key>0BD4CB39FF3411F63D83891420642B93</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -162,17 +157,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>231B7C7AEB79A275EFB2E5B3D7F38496</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>23D7DA26C40DEA0CBB49A7825C7CD4F1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2DEC67DD7B91CC9FBEE67967EEF3BCD5</key>
+		<key>31C92E0BA5362B5D5976C1C256F2C64B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>33545541501BEDC648C3B079C564048C</key>
+		<key>4079316D4C2BBA8C8738829953BC165B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>486C3BA11A18FE5CBAC03E9E82DF0E2E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FD6FB26EA41E29F4BF1E62D799D56D9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -182,7 +192,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>558D71E035D11DA78A889490968A1BD8</key>
+		<key>63E079B3B04AE3771FCDFB5061BDF2F6</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>7580F031692032DB33CDD10D33AEED3C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -193,11 +208,6 @@
 			<true/>
 		</dict>
 		<key>9650B5ADCE86F1A055FAFC635284BDB5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>98BE4944089F5CB46ABB4953ACE5E9CB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -217,17 +227,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>A5B7BBAC4D8A309E44261888523266DF</key>
+		<key>ACFA69E17514F0022075FB284B05280C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC2A46C0723CF6D41E0811D62D7EF86E</key>
+		<key>C0E0F09718233E5BCC24CB62F8D8242B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C05D5E7E6E0F8097EBA90F30CBA5712B</key>
+		<key>C34C5CB3DA9A8F93BD0A54E8F8C4AB16</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -237,22 +247,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D4917F7CD45358CF6C602B0B7449A98A</key>
+		<key>CA2D4C77811AC32A4219BE1BE8BE7E63</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D92AD252B3CBC20545C119C5261C4379</key>
+		<key>D05318ED571725B48B3449AC3D17985D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E26AA3286C9E846ACEF5AE23D1E15F56</key>
+		<key>D8F93B85FEEF7310B162ED3443D1B72A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD879BC1C56A6B24D85C83BF2B9B0BCD</key>
+		<key>FADA025BF5974615830081F3D31E6AD8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
