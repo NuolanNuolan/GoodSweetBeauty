@@ -44,4 +44,8 @@
 //是否登录
 +(BOOL)islogin;
 
++(id)GetNSUserDefaults:(NSString *)key;
+
++(void)SetNSUserDefaultsWithValue:(id )value withkey:(NSString *)key;
+
 @end

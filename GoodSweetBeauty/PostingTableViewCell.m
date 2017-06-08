@@ -77,7 +77,8 @@
             break;
         case YouAnStatusComposeViewTypeComment:{
             
-            
+            textview.placeholderText = @"写评论";
+            [textview becomeFirstResponder];
         }
             break;
         case YouAnStatusComposeViewTypePostKouBei:{

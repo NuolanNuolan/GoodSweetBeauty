@@ -38,6 +38,24 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 @property(nonatomic,strong)YouAnBBSDeatilModel *Deatilmodel;
 //page
 @property(nonatomic,assign)NSInteger page;
+//评论数组
+@property(nonatomic,strong)NSMutableArray *Arr_comments_hot;
+@property(nonatomic,strong)NSMutableArray *Arr_comments_all;
+
+
+/**
+ 评论头部视图
+ */
+@property(nonatomic,strong)UIView *view_head_hot;
+
+@property(nonatomic,strong)UIView *view_head_all;
+
+@property(nonatomic,strong)UILabel *lab_hot_comments;
+
+@property(nonatomic,strong)UILabel *lab_all_comments;
+
+@property(nonatomic,strong)UIView *view_head_line;
+
 
 @end
 
@@ -50,6 +68,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ISREFRESH"]) {
+        [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"ISREFRESH"];
+        [self LoadData:1];
+    }
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,6 +100,20 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         if (success) {
             
             self.Deatilmodel = [YouAnBBSDeatilModel whc_ModelWithJson:responseObject];
+            //这里分离出评论数据
+            if (page==1) {
+                
+                [self.Arr_comments_all removeAllObjects];
+                [self.Arr_comments_hot removeAllObjects];
+            }
+            for (Posts *Postsmodel in self.Deatilmodel.posts) {
+                Postsmodel.isopen = NO;
+                [self.Arr_comments_all addObject:Postsmodel];
+            }
+            for (Hot_posts *Hotsmodel in self.Deatilmodel.hot_posts) {
+                
+                [self.Arr_comments_hot addObject:Hotsmodel];
+            }
             [self.tableview reloadData];
             
         }
@@ -194,14 +231,14 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     switch (section) {
         case 4:{
          
-            if (self.Deatilmodel.hot_posts.count>0)return self.Deatilmodel.hot_posts.count;
+            if (self.Arr_comments_hot.count>0)return self.Arr_comments_hot.count;
             else return 1;
 
         }
             break;
         case 5:{
             
-            if (self.Deatilmodel.posts.count>0)return self.Deatilmodel.posts.count;
+            if (self.Arr_comments_all.count>0)return self.Arr_comments_all.count;
             else return 1;
             
         }
@@ -228,6 +265,20 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    switch (section) {
+        case 4:{
+        
+            if (self.Arr_comments_hot.count>0)return 38;
+            else return 0.001;
+        }
+            break;
+        case 5:{
+            
+            if (self.Arr_comments_all.count>0)return 38;
+            else return 0.001;
+        }
+            break;
+    }
     return 0.001;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -256,14 +307,14 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             break;
         case 4:{
         
-            if (self.Deatilmodel.hot_posts.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            if (self.Arr_comments_hot.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
             else return 0.001;
             
         }
             break;
         case 5:{
             
-            if (self.Deatilmodel.posts.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            if (self.Arr_comments_all.count>0)return [CommentsDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
             else return 0.001;
             
         }
@@ -320,7 +371,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }
             break;
         case 4:{
-            if (self.Deatilmodel.hot_posts.count==0) {
+            if (self.Arr_comments_hot.count==0) {
                 
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
                 if (!cell) {
@@ -339,7 +390,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }
             break;
         case 5:{
-            if (self.Deatilmodel.posts.count==0) {
+            if (self.Arr_comments_all.count==0) {
                 
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
                 if (!cell) {
@@ -350,10 +401,24 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 return cell;
             }else{
                 
-                Posts *postsmodel = self.Deatilmodel.posts[indexPath.row];
-                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[postsmodel.father_id integerValue]==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
-                [cell SetAllPotsModel:postsmodel withisopen:NO withrow:indexPath.row isfather:[postsmodel.father_id integerValue]==0?NO:YES withAllrow:self.Deatilmodel.posts.count];
+                Posts *postsmodel = self.Arr_comments_all[indexPath.row];
+                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:postsmodel.father_id ==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
+                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_all.count];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                cell.delegateSignal = [RACSubject subject];
+                @weakify(self);
+                [cell.delegateSignal subscribeNext:^(id x) {
+                    @strongify(self);
+                    if ([x[@"type"] isEqualToString:@"回复楼层"]) {
+                        
+                        [self backtoTheFloor:x[@"btn"]];
+                    }else if ([x[@"type"] isEqualToString:@"展开评论"]){
+                    
+                        [self opencomment:x[@"btn"]];
+                    }
+
+                    
+                }];
                 return cell;
             }
             
@@ -363,7 +428,43 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
     return nil;
 }
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
+    UIView *view_head = [UIView new];
+    switch (section) {
+        case 4:{
+            
+            if (self.Arr_comments_hot.count>0){
+            
+                [view_head addSubview:self.view_head_hot];
+                [_lab_hot_comments setText:[NSString stringWithFormat:@"热门评论(%lu)",(unsigned long)self.Arr_comments_hot.count]];
+                return view_head;
+                
+            }
+            else{
+            
+                return view_head;
+            }
+            
+        }
+            break;
+        case 5:{
+            
+            if (self.Arr_comments_all.count>0){
+            
+                [view_head addSubview:self.view_head_all];
+                [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",self.Deatilmodel.posts_count]];
+                return view_head;
+                
+            }else{
+            
+                return view_head;
+            }
+        }
+            break;
+    }
+    return view_head;
+}
 
 /**
  更多
@@ -415,5 +516,108 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
     [self presentViewController:nav animated:YES completion:nil];
 }
+/**
+ 回复楼层
+ */
+-(void)backtoTheFloor:(UIButton *)btn{
 
+    UserPostingViewController *view = [[UserPostingViewController alloc]init];
+    view.type = YouAnStatusComposeViewTypeComment;
+    view.pk = self.posting_id;
+    //取出fatherid tag需要减去100或者200判断是热门评论还是全部评论
+    if (btn.tag>=200) {
+        //全部评论
+        Posts *postsmodel = [self.Arr_comments_all objectAtIndex:btn.tag-200];
+        view.postsmodel = postsmodel;
+    }else{
+    
+        //热门评论
+        
+        
+    }
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
+    [self presentViewController:nav animated:YES completion:nil];
+    
+}
+
+/**
+ 展开评论
+ */
+-(void)opencomment:(UIButton *)btn{
+    
+    
+    NSIndexPath *  indexpathone ;
+
+    
+    if (btn.tag>=200) {
+        //全部评论
+        Posts *postsmodel = [self.Arr_comments_all objectAtIndex:btn.tag-200];
+        postsmodel.isopen = YES;
+        indexpathone = [NSIndexPath indexPathForItem:btn.tag-200 inSection:5];
+    }else{
+        
+        //热门评论
+        
+        
+    }
+    [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+#pragma mark 懒加载视图
+-(UIView *)view_head_hot{
+
+    if (!_view_head_hot) {
+        
+        _view_head_hot = [[UIView alloc]initWithFrame:CGMAKE(0, 10, ScreenWidth, 28)];
+        _view_head_hot.backgroundColor = [UIColor whiteColor];
+        
+        _lab_hot_comments = [[UILabel alloc]initWithFrame:CGMAKE(15, 0, ScreenWidth, 28)];
+        [_lab_hot_comments setText:[NSString stringWithFormat:@"热门评论(%lu)",(unsigned long)self.Arr_comments_hot.count]];
+        [_lab_hot_comments setFont:[UIFont systemFontOfSize:14]];
+        [_lab_hot_comments setTextColor:RGB(102, 102, 102)];
+        
+        UIView *view_line = [[UIView alloc]initWithFrame:CGMAKE(0, 27.5, ScreenWidth, 0.5)];
+        [view_line setBackgroundColor:RGB(229, 229, 229)];
+        
+        [_view_head_hot addSubview:view_line];
+        [_view_head_hot addSubview:_lab_hot_comments];
+    }
+    return _view_head_hot;
+}
+-(UIView *)view_head_all{
+    
+    if (!_view_head_all) {
+        
+        _view_head_all = [[UIView alloc]initWithFrame:CGMAKE(0, 10, ScreenWidth, 28)];
+        _view_head_all.backgroundColor = [UIColor whiteColor];
+        
+        _lab_all_comments = [[UILabel alloc]initWithFrame:CGMAKE(15, 0, ScreenWidth, 28)];
+        [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",self.Deatilmodel.posts_count]];
+        [_lab_all_comments setFont:[UIFont systemFontOfSize:14]];
+        [_lab_all_comments setTextColor:RGB(102, 102, 102)];
+        
+        UIView *view_line = [[UIView alloc]initWithFrame:CGMAKE(0, 27.5, ScreenWidth, 0.5)];
+        [view_line setBackgroundColor:RGB(229, 229, 229)];
+        
+        [_view_head_all addSubview:view_line];
+        [_view_head_all addSubview:_lab_all_comments];
+    }
+    return _view_head_all;
+}
+-(NSMutableArray *)Arr_comments_hot{
+
+    if (!_Arr_comments_hot) {
+        
+        _Arr_comments_hot = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _Arr_comments_hot;
+}
+-(NSMutableArray *)Arr_comments_all{
+    
+    if (!_Arr_comments_all) {
+        
+        _Arr_comments_all = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _Arr_comments_all;
+}
 @end

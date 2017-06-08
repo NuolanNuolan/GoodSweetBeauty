@@ -63,6 +63,8 @@
 		EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7738E71EAB451600AADE5C /* AppDelegate+Sunday.m */; };
 		EA7823F21ED03C6100CBF1E6 /* YouAnUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */; };
 		EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */; };
+		EA9483E81EE7D6F900D3124A /* BackCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9483E61EE7D6F900D3124A /* BackCommentTableViewCell.m */; };
+		EA9483E91EE7D6F900D3124A /* BackCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9483E71EE7D6F900D3124A /* BackCommentTableViewCell.xib */; };
 		EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60C1E80D3CD0050BA8B /* main.m */; };
 		EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */; };
 		EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6121E80D3CD0050BA8B /* ViewController.m */; };
@@ -244,6 +246,9 @@
 		EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnUserModel.m; sourceTree = "<group>"; };
 		EA89C44D1ED40D4100B64A1B /* YouAnBBSModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnBBSModel.h; sourceTree = "<group>"; };
 		EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnBBSModel.m; sourceTree = "<group>"; };
+		EA9483E51EE7D6F900D3124A /* BackCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackCommentTableViewCell.h; sourceTree = "<group>"; };
+		EA9483E61EE7D6F900D3124A /* BackCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackCommentTableViewCell.m; sourceTree = "<group>"; };
+		EA9483E71EE7D6F900D3124A /* BackCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackCommentTableViewCell.xib; sourceTree = "<group>"; };
 		EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodSweetBeauty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9CF60C1E80D3CD0050BA8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -986,6 +991,9 @@
 				EAEF2CCE1ED921DC003300A9 /* PostingTableViewCell.m */,
 				EAEF2CD81ED954DD003300A9 /* PostingImageTableViewCell.h */,
 				EAEF2CD91ED954DD003300A9 /* PostingImageTableViewCell.m */,
+				EA9483E51EE7D6F900D3124A /* BackCommentTableViewCell.h */,
+				EA9483E61EE7D6F900D3124A /* BackCommentTableViewCell.m */,
+				EA9483E71EE7D6F900D3124A /* BackCommentTableViewCell.xib */,
 			);
 			name = "发帖及回复";
 			sourceTree = "<group>";
@@ -1105,6 +1113,7 @@
 				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
 				EA9CF6BC1E8226800050BA8B /* MBProgressHUD.bundle in Resources */,
 				EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */,
+				EA9483E91EE7D6F900D3124A /* BackCommentTableViewCell.xib in Resources */,
 				EA456CEF1EC829A400BE380E /* MyFansTableViewCell.xib in Resources */,
 				EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */,
 				EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */,
@@ -1199,6 +1208,7 @@
 				EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */,
 				EAA30B8F1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m in Sources */,
 				EAE023811EDD7CA8009305A7 /* PostingDeatilViewController.m in Sources */,
+				EA9483E81EE7D6F900D3124A /* BackCommentTableViewCell.m in Sources */,
 				EAEF2CD31ED9223C003300A9 /* PostingTitleTableViewCell.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,

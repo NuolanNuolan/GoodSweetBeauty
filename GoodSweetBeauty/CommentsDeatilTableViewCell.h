@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @interface CommentsDeatilTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
 /**
  热门评论具体model 行数是否需要? 是否展开? 是否有father评论?

@@ -103,6 +103,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     btn_back = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn_back setBackgroundImage:[UIImage imageNamed:@"iconHuifu"] forState:UIControlStateNormal];
     [btn_back setEnlargeEdgeWithTop:10 right:10 bottom:10 left:15];
+    [btn_back addTarget:self action:@selector(back_click:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([reuseIdentifier isEqualToString:kMycommentsCellIdentifier] ) {
         
@@ -134,12 +135,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
         lab_father_name = [UILabel new];
         [lab_father_name sizeToFit];
-        lab_father_name.numberOfLines = 0;
+//        lab_father_name.numberOfLines = 0;
         [lab_father_name setFont:[UIFont systemFontOfSize:15]];
         [lab_father_name setTextColor:RGB(51, 51, 51)];
         
         lab_father_deatil = [UILabel new];
         [lab_father_deatil sizeToFit];
+        lab_father_deatil.numberOfLines =2;
         [lab_father_deatil setFont:[UIFont systemFontOfSize:15]];
         [lab_father_deatil setTextColor:RGB(136, 136, 136)];
         
@@ -148,12 +150,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [btn_father_open setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
         btn_father_open.titleLabel.font = [UIFont systemFontOfSize:15];
         btn_father_open.titleLabel.textAlignment = NSTextAlignmentLeft;
-        
-        lab_father_deatil = [UILabel new];
-        [lab_father_deatil sizeToFit];
-        lab_father_deatil.numberOfLines = 2;
-        [lab_father_deatil setTextColor:RGB(51, 51, 51)];
-        [lab_father_deatil setFont:[UIFont systemFontOfSize:17]];
+        [btn_father_open addTarget:self action:@selector(open_click:) forControlEvents:UIControlEventTouchUpInside];
         
         view_father_line = [UIView new];
         [view_father_line setBackgroundColor:RGB(229, 229, 229)];
@@ -181,10 +178,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         lab_name.whc_TopSpace(20.5).whc_LeftSpaceToView(10,image_head).whc_RightSpaceToView(7.5,btn_report);
         lab_time_floor.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(5.5,lab_name);
         btn_report.whc_RightSpace(15).whc_Size(4,18).whc_TopSpaceEqualView(lab_name);
-        view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceToView(0,btn_father_open);
+        view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
         lab_father_name.whc_TopSpaceToView(19,lab_time_floor).whc_LeftSpaceToView(10,view_father_line).whc_RightSpace(20);
         lab_father_deatil.whc_LeftSpaceEqualView(lab_father_name).whc_TopSpaceToView(10,lab_father_name).whc_RightSpaceEqualView(lab_father_name);
-        btn_father_open.whc_TopSpaceToView(10,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(30,15);
+        btn_father_open.whc_TopSpaceToView(10,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
         lab_father_back.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(14,btn_father_open).whc_RightSpaceEqualView(lab_father_deatil);
         btn_back.whc_RightSpaceEqualView(btn_report).whc_Size(19,17).whc_TopSpaceToView(20,lab_father_back);
         btn_Thumb.whc_Size(16,17).whc_RightSpaceToView(45,btn_back).whc_TopSpaceEqualView(btn_back);
@@ -201,22 +198,71 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
     if (postsmodel) {
         
+        [image_head sd_setImageWithURL:[NSURL URLWithString:postsmodel.author_avatar] placeholderImage:[UIImage imageNamed:@"head"]];
+        lab_name.text = postsmodel.author;
+        lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
+        btn_Thumb.badgeValue = [NSString stringWithFormat:@"%ld",(long)postsmodel.likes];
+        btn_back.tag = 200+row;
         if (!isfather) {
            
-            [image_head sd_setImageWithURL:[NSURL URLWithString:postsmodel.author_avatar] placeholderImage:[UIImage imageNamed:@"head"]];
-            lab_name.text = postsmodel.author;
-            lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%@",postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
-            lab_deatil.text = postsmodel.content;
-            btn_Thumb.badgeValue = [NSString stringWithFormat:@"%@",postsmodel.likes];
             
-            CGSize size =[self sizeWithString:lab_deatil.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-90, ScreenHeight)];
-            MYLOG(@"%f",size.height);
+            lab_deatil.text = postsmodel.content;
+            
+            CGSize size =[self sizeWithString:lab_deatil.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, ScreenHeight)];
+            
             if(size.height>25){
         
                 [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:8.5];
             }
-
+        }else{
+        
+            lab_father_name.text = postsmodel.father.author;
+            lab_father_deatil.text = postsmodel.father.content;
+            lab_father_back.text = postsmodel.content;
+            btn_father_open.tag = 200+row;
+            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, ScreenHeight)];
             
+            if (size.height<70) {
+             
+                btn_father_open.hidden = YES;
+
+                btn_father_open.whc_TopSpaceToView(0,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
+                if (size.height<20) {
+                    
+                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
+                }else{
+                
+                    [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+                }
+            }else{
+            
+                [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+                if (isopen) {
+                    
+                    lab_father_deatil.numberOfLines = 0 ;
+                    btn_father_open.hidden = YES;
+                    btn_father_open.whc_TopSpaceToView(0,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
+                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
+                    
+                }else{
+                
+                    btn_father_open.hidden = NO;
+                    btn_father_open.whc_TopSpaceToView(10,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
+                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
+                    
+                }
+            }
+            
+            
+            
+            
+            
+            
+            CGSize size_two =[self sizeWithString:lab_father_back.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, ScreenHeight)];
+            if(size_two.height>25){
+                
+                [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
+            }
         }
         
         
@@ -225,10 +271,40 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         if (row+1 == AllRow) {
             
             line.hidden =YES;
+            
         }
     }
     
 }
+
+/**
+ 回复楼层
+ */
+-(void)back_click:(UIButton *)btn{
+
+    
+    
+    
+    NSDictionary *dic = @{@"btn":btn,
+                          @"type":@"回复楼层"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+    
+}
+
+/**
+ 
+ 展开
+ */
+-(void)open_click:(UIButton *)btn{
+
+    
+    NSDictionary *dic = @{@"btn":btn,
+                          @"type":@"展开评论"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+}
+
+
+
 - (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
 {
     NSDictionary *dict = @{NSFontAttributeName : font};

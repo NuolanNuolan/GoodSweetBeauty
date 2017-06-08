@@ -275,4 +275,21 @@
     if ([[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"])return YES;
     return NO;
 }
++(id)GetNSUserDefaults:(NSString *)key{
+
+   id value =  [[NSUserDefaults standardUserDefaults]objectForKey:key];
+    if (value) {
+        
+        return value;
+        
+    }else{
+    
+        return nil;
+    }
+}
++(void)SetNSUserDefaultsWithValue:(id )value withkey:(NSString *)key{
+
+    [[NSUserDefaults standardUserDefaults]setObject:value forKey:key];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+}
 @end

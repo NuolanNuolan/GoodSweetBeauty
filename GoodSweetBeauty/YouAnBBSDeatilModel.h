@@ -9,33 +9,30 @@
 #import <Foundation/Foundation.h>
 
 
-
-@interface Ats :NSObject
-
-@end
-
-@interface Images :NSObject
+@interface Ats :NSObject <NSCoding,NSCopying>
+@property (nonatomic , copy) NSString              * uname;
+@property (nonatomic , assign) NSInteger              uid;
 
 @end
 
 @interface Master_posts :NSObject <NSCoding,NSCopying>
-@property (nonatomic , strong) NSArray<Ats *>              * ats;
-@property (nonatomic , copy) NSString              * father_id;
-@property (nonatomic , copy) NSString              * id;
-@property (nonatomic , copy) NSString              * author_avatar;
+@property (nonatomic , assign) NSInteger              id;
 @property (nonatomic , copy) NSString              * subject;
+@property (nonatomic , assign) NSInteger              father_id;
+@property (nonatomic , copy) NSString              * author_avatar;
+@property (nonatomic , strong) Ats              * ats;
 @property (nonatomic , copy) NSString              * author;
-@property (nonatomic , copy) NSString              * favors;
+@property (nonatomic , assign) NSInteger              favors;
 @property (nonatomic , copy) NSString              * stripd_content;
-@property (nonatomic , copy) NSString              * likes;
-@property (nonatomic , copy) NSString              * if_master;
+@property (nonatomic , assign) NSInteger              likes;
+@property (nonatomic , assign) BOOL              if_master;
 @property (nonatomic , copy) NSString              * image;
-@property (nonatomic , copy) NSString              * author_id;
-@property (nonatomic , copy) NSString              * created;
-@property (nonatomic , strong) NSArray<Images *>              * images;
+@property (nonatomic , assign) NSInteger              author_id;
 @property (nonatomic , copy) NSString              * user_ip;
+@property (nonatomic , assign) NSInteger              created;
+@property (nonatomic , copy) NSString              * images;
 @property (nonatomic , copy) NSString              * html_content;
-@property (nonatomic , copy) NSString              * tid;
+@property (nonatomic , assign) NSInteger              tid;
 @property (nonatomic , copy) NSString              * content;
 
 @end
@@ -45,68 +42,71 @@
 @end
 
 @interface Rewards :NSObject
-@property (nonatomic , copy) NSString              * uid;
-@property (nonatomic , copy) NSString              * id;
-@property (nonatomic , copy) NSString              * created;
+@property (nonatomic , assign) NSInteger              uid;
+@property (nonatomic , assign) NSInteger              id;
+@property (nonatomic , assign) NSInteger              created;
 @property (nonatomic , copy) NSString              * uname;
-@property (nonatomic , copy) NSString              * coins;
-@property (nonatomic , copy) NSString              * tid;
-@property (nonatomic , copy) NSString              * pid;
-
+@property (nonatomic , assign) NSInteger              coins;
+@property (nonatomic , assign) NSInteger              tid;
+@property (nonatomic , assign) NSInteger              pid;
 @end
 
 @interface Father :NSObject <NSCoding,NSCopying>
 @property (nonatomic , copy) NSString              * author;
 @property (nonatomic , copy) NSString              * content;
-@property (nonatomic , copy) NSString              * author_id;
-@property (nonatomic , copy) NSString              * author_avatar;
+@property (nonatomic , assign) NSInteger              author_id;
 @property (nonatomic , copy) NSString              * image;
 @property (nonatomic , copy) NSString              * subject;
+@property (nonatomic , copy) NSString              * author_avatar;
 
 @end
 
 @interface Posts :NSObject
-@property (nonatomic , copy) NSString              * id;
-@property (nonatomic , copy) NSString              * father_id;
+@property (nonatomic , assign) NSInteger              id;
 @property (nonatomic , copy) NSString              * subject;
+@property (nonatomic , assign) NSInteger              father_id;
 @property (nonatomic , copy) NSString              * author_avatar;
-@property (nonatomic , strong) Father              * father;
+@property (nonatomic , copy) NSString              * ats;
 @property (nonatomic , copy) NSString              * author;
-@property (nonatomic , copy) NSString              * favors;
+@property (nonatomic , assign) NSInteger              favors;
 @property (nonatomic , copy) NSString              * stripd_content;
-@property (nonatomic , copy) NSString              * likes;
-@property (nonatomic , copy) NSString              * if_master;
+@property (nonatomic , assign) NSInteger              likes;
+@property (nonatomic , assign) BOOL              if_master;
+@property (nonatomic , strong) Father              * father;
 @property (nonatomic , copy) NSString              * image;
-@property (nonatomic , copy) NSString              * author_id;
-@property (nonatomic , copy) NSString              * created;
+@property (nonatomic , assign) NSInteger              author_id;
 @property (nonatomic , copy) NSString              * user_ip;
+@property (nonatomic , assign) NSInteger              created;
+@property (nonatomic , copy) NSString              * images;
 @property (nonatomic , copy) NSString              * html_content;
-@property (nonatomic , copy) NSString              * tid;
+@property (nonatomic , assign) NSInteger              tid;
 @property (nonatomic , copy) NSString              * content;
+@property (nonatomic , assign) BOOL                  isopen;
 
 @end
 
 @interface YouAnBBSDeatilModel :NSObject
-@property (nonatomic , copy) NSString              * last_post;
-@property (nonatomic , copy) NSString              * content;
-@property (nonatomic , copy) NSString              * if_feature;
-@property (nonatomic , copy) NSString              * likes;
-@property (nonatomic , copy) NSString              * replies;
+@property (nonatomic , assign) NSInteger              created;
+@property (nonatomic , assign) NSInteger              last_post;
+@property (nonatomic , assign) BOOL              if_feature;
+@property (nonatomic , assign) NSInteger              replies;
+@property (nonatomic , assign) NSInteger              likes;
 @property (nonatomic , copy) NSString              * image;
 @property (nonatomic , strong) Master_posts              * master_posts;
+@property (nonatomic , assign) NSInteger              hits;
 @property (nonatomic , strong) NSArray<Hot_posts *>              * hot_posts;
-@property (nonatomic , copy) NSString              * hits;
 @property (nonatomic , copy) NSString              * subject;
 @property (nonatomic , strong) NSArray<Rewards *>              * rewards;
-@property (nonatomic , copy) NSString              * posts_count;
+@property (nonatomic , assign) NSInteger              posts_count;
 @property (nonatomic , copy) NSString              * last_poster;
-@property (nonatomic , copy) NSString              * author_id;
-@property (nonatomic , copy) NSString              * id;
+@property (nonatomic , assign) NSInteger              author_id;
+@property (nonatomic , assign) NSInteger              id;
 @property (nonatomic , copy) NSString              * author_avatar;
 @property (nonatomic , strong) NSArray<Posts *>              * posts;
-@property (nonatomic , copy) NSString              * favors;
+@property (nonatomic , assign) NSInteger              favors;
+@property (nonatomic , assign) BOOL              if_favor;
 @property (nonatomic , copy) NSString              * author;
-@property (nonatomic , copy) NSString              * created;
+@property (nonatomic , copy) NSString              * content;
 
 @end
 

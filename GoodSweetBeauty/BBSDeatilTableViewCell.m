@@ -94,7 +94,7 @@
         
         [image_head sd_setImageWithURL:[NSURL URLWithString:model.author_avatar] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_username.text = [NSString stringWithFormat:@"%@",model.author];
-        lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%@",model.created] withtype:@"MM-dd HH:mm:ss"];
+        lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
         
         
         

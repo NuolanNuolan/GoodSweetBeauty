@@ -77,14 +77,14 @@
         NSInteger balance = 0;
         for (Rewards *rewardsmodel in model.rewards) {
             //有几个人
-            if ([rewardsmodel.uid integerValue]!=uid_id) {
+            if (rewardsmodel.uid !=uid_id) {
                 
-                uid_id =[rewardsmodel.uid integerValue];
-                [arr_uid addObject:[NSString stringWithFormat:@"%@",rewardsmodel.uid]];
+                uid_id =rewardsmodel.uid ;
+                [arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
                 
             }
             //总金额
-            balance+=[rewardsmodel.coins integerValue];
+            balance+=rewardsmodel.coins ;
             //头像
             
         }

@@ -253,7 +253,7 @@
             break;
         case YouAnStatusComposeViewTypeComment:{
             
-            
+            url = [NSString stringWithFormat:@"%@/posts/threads/%ld/reply/",ADDRESS_API,(long)pk];
         }
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
@@ -306,6 +306,7 @@
             [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
                 
                 MYLOG(@"%@",responseObject);
+                complete(YES,responseObject);
                 
                 
             } failure:^(NSError *error) {
@@ -322,7 +323,7 @@
         [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
             
             MYLOG(@"%@",responseObject);
-            
+            complete(YES,responseObject);
             
         } failure:^(NSError *error) {
             NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];

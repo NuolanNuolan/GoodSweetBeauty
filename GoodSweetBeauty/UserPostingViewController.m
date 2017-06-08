@@ -12,6 +12,7 @@
 #import "YouAnTextLinePositionModifier.h"
 #import "UIView+YYAdd.h"
 #import "PostingImageTableViewCell.h"
+#import "BackCommentTableViewCell.h"
 
 @interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate>
 
@@ -87,21 +88,25 @@
     self.tableview.dataSource=self;
     self.tableview.showsVerticalScrollIndicator=NO;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableview registerNib:[UINib nibWithNibName:@"PostingTitleTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
+    
     [self.tableview registerClass:[PostingTableViewCell class] forCellReuseIdentifier:NSStringFromClass([PostingTableViewCell class])];
     [self.tableview registerClass:[PostingImageTableViewCell class] forCellReuseIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
+    
     [self.view addSubview:self.tableview];
     switch (_type) {
         case YouAnStatusComposeViewTypePostTing:
             self.title = @"发帖";
             self.tableview.backgroundColor = [UIColor whiteColor];
+            [self.tableview registerNib:[UINib nibWithNibName:@"PostingTitleTableViewCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:@"cell"];
             break;
         case YouAnStatusComposeViewTypeStatus:
             self.title = @"回复";
             self.tableview.backgroundColor=RGB(247, 247, 247);
             break;
         case YouAnStatusComposeViewTypeComment:
-            self.title = @"发帖";
+            self.title = @"回复";
+            self.tableview.backgroundColor=RGB(247, 247, 247);
+            [self.tableview registerNib:[UINib nibWithNibName:@"BackCommentTableViewCell"bundle:[NSBundle mainBundle]]forCellReuseIdentifier:@"cell"];
             break;
         case YouAnStatusComposeViewTypePostKouBei:
             self.title = @"发帖";
@@ -183,7 +188,7 @@
             return 2;
             break;
         case YouAnStatusComposeViewTypeComment:
-            return 1;
+            return 3;
             break;
         case YouAnStatusComposeViewTypePostKouBei:
             return 1;
@@ -218,6 +223,7 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
+                    return 50;
                     
                 }
                     break;
@@ -243,7 +249,7 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
-                    
+                    return 150;
                 }
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
@@ -268,7 +274,7 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
-                    
+                    return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
                 }
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
@@ -321,7 +327,11 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
+                    BackCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    [cell setPostsModel:self.postsmodel];
                     
+                    return cell;
                 }
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
@@ -376,7 +386,16 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
-                    
+                    PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
+                    [cell settype:_type];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+                    }];
+                    return cell;
                 }
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
@@ -419,7 +438,24 @@
                     break;
                 case YouAnStatusComposeViewTypeComment:{
                     
-                    
+                    PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
+                    [cell Setimage:self.arr_image];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        if ([x isKindOfClass:[NSString class]]) {
+                            
+                            [self CancelImageupload:x];
+                            
+                        }else{
+                            
+                            [self ToViewLarger:x];
+                        }
+                        
+                    }];
+                    return cell;
                 }
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
@@ -516,7 +552,7 @@
             break;
         case YouAnStatusComposeViewTypeComment:{
             
-            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
         }
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
@@ -588,7 +624,10 @@
             break;
         case YouAnStatusComposeViewTypeComment:{
             
-            
+            if (!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
+                return;
+            }
+            [self ReplyFloor];
         }
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
@@ -611,7 +650,10 @@
     @weakify(self);
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        
         MYLOG(@"%@",responseObject);
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
         
     }];
 }
@@ -625,17 +667,39 @@
                                 self.str_posting_deatil,@"content",
                                 [BWCommon getIpAddresses],@"user_ip",
                                 self.str_at? self.str_at:@"",@"at",
-                                @"",@"subject",nil];
+                                nil];
     
     @weakify(self);
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
-        
+        @strongify(self);
         MYLOG(@"%@", responseObject);
-        
+        //返回之前存入一个值 需要刷新
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }];
     
 }
 
+/**
+ 回复评论
+ */
+-(void)ReplyFloor{
+
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                self.str_posting_deatil,@"content",
+                                [BWCommon getIpAddresses],@"user_ip",
+                                self.str_at? self.str_at:@"",@"at",
+                                [NSNumber numberWithInteger:self.postsmodel.id],@"father_id",nil];
+    
+    @weakify(self);
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        MYLOG(@"%@", responseObject);
+        //返回之前存入一个值 需要刷新
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
 
 
 //浏览大图
