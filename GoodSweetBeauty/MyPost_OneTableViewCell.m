@@ -94,54 +94,36 @@
     }
     return self;
 }
--(void)SetSection:(NSInteger )seciton{
-
-    switch (seciton) {
-        case 0:{
+-(void)SetSection:(NSInteger )seciton withModel:(YouAnUserPosttingModel *)model{
+    
+    if (model) {
+        
+        lab_day.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"dd"];
+        lab_month.text = [NSString stringWithFormat:@"%@月",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM"]];
+        lab_title.text = model.subject;
+        lab_detail.text = model.content;
+        lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
+        CGSize size_title = [self sizeWithString:lab_title.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-71.6, MAXFLOAT)];
+        CGSize size_deatil = [self sizeWithString:lab_detail.text font:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(SCREEN_WIDTH-71.6, MAXFLOAT)];
+        if (size_title.height>25) {
             
-            lab_day.text = @"09";
-            lab_month.text = @"3月";
-            lab_title.text = @"关羽坐骑“赤兔马”的故事关羽坐骑“赤兔马”的故事关羽坐骑“赤兔马”的故事关羽坐骑“赤兔马”的故事关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。";
-            lab_read_back.text = @"阅读 2393  回复 2323";
+            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
         }
-            break;
-        case 1:{
+        if (size_deatil.height>18) {
             
-            lab_day.text = @"09";
-            lab_month.text = @"3月";
-            lab_title.text = @"领英中国推出新应用“赤兔”,它挺像一个职场版的微信";
-            lab_detail.text = @"领英中国今天推出了一款面向本土市场的职场社交应用“赤兔”。赤兔有即时聊天、群聊、个sadsdsdadas";
-            lab_read_back.text = @"阅读 2393  回复 2323";
+            [UILabel changeLineSpaceForLabel:lab_detail WithSpace:7];
         }
-            break;
-        case 2:{
-            
-            lab_day.text = @"09";
-            lab_month.text = @"3月";
-            lab_title.text = @"关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。领英中国今天推出了一款面向本土市场的职场社交应用“赤兔”。赤兔有即时聊天、群聊、个sadsdsdadas";
-            lab_read_back.text = @"阅读 2393  回复 2323";
-        }
-            break;
-        case 3:{
-            
-            lab_day.text = @"09";
-            lab_month.text = @"3月";
-            lab_title.text = @"关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。";
-            lab_read_back.text = @"阅读 2393  回复 2323";
-        }
-            break;
-        case 4:{
-            
-            lab_day.text = @"09";
-            lab_month.text = @"3月";
-            lab_title.text = @"关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。";
-            lab_read_back.text = @"阅读 2393  回复 2323";
-        }
-            break;
+        
+        
     }
+
+}
+- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *dict = @{NSFontAttributeName : font};
+    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
+    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
+    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size;
 }
 @end

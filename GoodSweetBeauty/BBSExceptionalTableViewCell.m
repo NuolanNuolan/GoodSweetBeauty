@@ -71,6 +71,8 @@
 
     if (model.rewards.count>0) {
         
+        lab_count_amount.whc_TopSpaceToView(15,btn_exceptional).whc_CenterX(0);
+        stack_imageview.whc_CenterX(0).whc_WidthAuto().whc_HeightAuto().whc_TopSpaceToView(15,lab_count_amount);
         //遍历UID
         NSMutableArray *arr_uid = [NSMutableArray arrayWithCapacity:0];
         NSInteger uid_id = 0;
@@ -89,12 +91,10 @@
             
         }
         lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",balance] collor:GETMAINCOLOR];
-
-        
-        
     }else{
     
-        
+        lab_count_amount.whc_TopSpaceToView(0,btn_exceptional).whc_CenterX(0);
+        stack_imageview.whc_CenterX(0).whc_Size(0,0).whc_TopSpaceToView(0,lab_count_amount);
     }
 }
 
@@ -103,15 +103,18 @@
  */
 -(void)exceptional_click{
 
-    
+    @weakify(self);
     Exceptional_view *view = [Exceptional_view alertViewExceptional:100 withAmount:[NSArray arrayWithObjects:@"1",@"2",@"5",@"10",@"50",@"100", nil] except_title:@"写的不错, 打赏一下" exceptionalblockclick:^(Exceptional_view *view, NSInteger Amount) {
-       
-        MYLOG(@"%ld",(long)Amount);
-        
+        @strongify(self);
+        [view dismiss];
+        if (self.delegateSignal) [self.delegateSignal sendNext:[NSString stringWithFormat:@"%ld",(long)Amount]];
         
     }];
     [view show];
 }
+
+
+
 #pragma mark - 富文本部分颜色
 -(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightOneText:(NSString *)highlightText highlightTwoText:(NSString *)highlightTwoText  collor:(UIColor *)color{
     NSRange hightlightTextRange = [text rangeOfString:highlightText];

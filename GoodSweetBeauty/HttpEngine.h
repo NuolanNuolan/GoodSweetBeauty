@@ -33,7 +33,6 @@
 
 /**
  发送接口
-
  @param dic 需要的数据包
  @param Arrimage 图片数组
  @param type_status type
@@ -43,5 +42,21 @@
 +(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete;
 //帖子详情
 +(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 打赏
+
+ */
++(void)Exceptional:(NSInteger )conins withpk:(NSInteger )pk complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 
+ 帖子收藏/取下收藏
+ */
++(void)Posttingcollection:(NSInteger )pk complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 我的帖子
+ */
++(void)UserPostting_master_comment:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 
 @end

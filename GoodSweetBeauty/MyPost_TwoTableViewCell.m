@@ -12,7 +12,7 @@
     //title
     UILabel *lab_title;
     //deatil
-    UILabel *lab_detail;
+//    UILabel *lab_detail;
     //时间
     UILabel *lab_time;
     //阅读回复
@@ -46,11 +46,6 @@
         lab_title.numberOfLines = 2;
         [lab_title sizeToFit];
         
-        lab_detail = [UILabel new];
-        [lab_detail setTextColor:RGB(136, 136, 136)];
-        [lab_detail setFont:[UIFont systemFontOfSize:14]];
-        lab_detail.numberOfLines = 2;
-        [lab_detail sizeToFit];
         
         lab_read_back = [UILabel new];
         [lab_read_back setTextColor:RGB(153, 153, 153)];
@@ -66,7 +61,7 @@
         view_line.backgroundColor = RGB(229, 229, 299);
         
         [self.contentView addSubview:lab_read_back];
-        [self.contentView addSubview:lab_detail];
+
         [self.contentView addSubview:lab_title];
         [self.contentView addSubview:lab_time];
         [self.contentView addSubview:view_line];
@@ -74,65 +69,43 @@
         
         lab_title.whc_LeftSpace(15).whc_TopSpace(15).whc_RightSpace(15);
         
-        lab_detail.whc_LeftSpaceEqualView(lab_title).whc_TopSpaceToView(15,lab_title).whc_RightSpaceEqualView(lab_title);
         
-        lab_time.whc_LeftSpaceEqualView(lab_title).whc_TopSpaceToView(15,lab_detail);
+        lab_time.whc_LeftSpaceEqualView(lab_title).whc_TopSpaceToView(15,lab_title);
         
-        lab_read_back.whc_RightSpaceEqualView(lab_detail).whc_TopSpaceEqualView(lab_time);
+        lab_read_back.whc_RightSpaceEqualView(lab_title).whc_TopSpaceEqualView(lab_time);
 
         view_line.whc_Height(0.5).whc_RightSpace(0).whc_LeftSpaceEqualView(lab_title).whc_TopSpaceToView(15,lab_read_back);
         self.whc_TableViewWidth = self.whc_sw;
     }
     return self;
 }
--(void)SetSection:(NSInteger )seciton{
+-(void)SetSection:(NSInteger )seciton withModel:(YouAnUserPosttingModel *)model{
+    
+    if (model) {
+        
+        lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
+        
+        lab_title.text = [NSString stringWithFormat:@"Re: %@",model.content];
 
-    switch (seciton) {
-        case 0:{
-            lab_title.text = @"Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事";
+        lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
+        CGSize size_title = [self sizeWithString:lab_title.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
+//        MYLOG(@"%f",size_title.height);
+        if (size_title.height>25) {
+            
             [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。";
-            [UILabel changeLineSpaceForLabel:lab_detail WithSpace:7];
-            lab_time.text = @"04-16 16:34:27";
-            lab_read_back.text = @"阅读 2393  回复 234";
-        }
-            break;
-        case 1:{
-            
-            lab_title.text = @"Re：关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事";
-            lab_time.text = @"04-16 16:34:27";
-            lab_read_back.text = @"阅读 2393  回复 234";
         }
 
-            
-            break;
-        case 2:{
-            
-            lab_title.text = @"Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。";
-            lab_time.text = @"04-16 16:34:27";
-            lab_read_back.text = @"阅读 2393  回复 234";
-        }
-
-            
-            break;
-        case 3:{
-         
-            lab_title.text = @"Re：关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。";
-            lab_time.text = @"04-16 16:34:27";
-            lab_read_back.text = @"阅读 2393  回复 234";
-        }
-            break;
-        case 4:{
-            
-            lab_title.text = @"Re：关羽坐骑“赤兔马”的故事Re：关羽坐骑“赤兔马”的故事";
-            lab_detail.text = @"在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。在今郑东新区白沙镇,有一个叫赤兔马的自然村,位于郑州市区东22公里。村名原叫小马庄,后改为现名。";
-            lab_time.text = @"04-16 16:34:27";
-            lab_read_back.text = @"阅读 2393  回复 234";
-        }
-            break;
+        
+        
     }
+    
+}
+- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *dict = @{NSFontAttributeName : font};
+    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
+    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
+    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size;
 }
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BBSExceptionalTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 -(void)setmodel:(YouAnBBSDeatilModel *)model;
 
 @end

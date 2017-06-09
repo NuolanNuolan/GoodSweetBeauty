@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "YouAnUserPosttingModel.h"
 @interface MyPost_TwoTableViewCell : UITableViewCell
 
--(void)SetSection:(NSInteger )seciton;
+-(void)SetSection:(NSInteger )seciton withModel:(YouAnUserPosttingModel *)model;
 @end

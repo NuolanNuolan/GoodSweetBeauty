@@ -76,7 +76,7 @@
         
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             @strongify(self);
-            self.tableView.mj_footer.hidden = NO;
+//            self.tableView.mj_footer.hidden = NO;
             switch (self.ynPageScrollViewController.pageIndex) {
                 case 0:
                     self.page_back =1;
@@ -91,7 +91,7 @@
             [self LoadData:self.ynPageScrollViewController.pageIndex withpage:1 withtableview:self.tableView];
             
         }];
-        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
             @strongify(self);
             NSInteger page = 0;
             switch (self.ynPageScrollViewController.pageIndex) {
@@ -137,7 +137,7 @@
         
         [tableview.mj_footer endRefreshingWithNoMoreData];
         
-        tableview.mj_footer.hidden = YES;
+//        tableview.mj_footer.hidden = YES;
     }
     switch (self.ynPageScrollViewController.pageIndex) {
         case 0:{

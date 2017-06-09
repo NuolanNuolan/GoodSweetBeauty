@@ -7,6 +7,12 @@
 //
 
 #import "HJViewController.h"
+typedef NS_ENUM(NSUInteger, Posttingtype) {
+    
+    StatusMaster = 1 ,  ///< 主贴
+    StatusComments = 0///< 评论
+};
+
 
 @interface MyPostViewController : HJViewController
 

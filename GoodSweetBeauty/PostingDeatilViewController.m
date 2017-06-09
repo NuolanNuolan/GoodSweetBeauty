@@ -56,6 +56,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
 @property(nonatomic,strong)UIView *view_head_line;
 
+//尾部视图
+@property(nonatomic,strong)UILabel *lab_footer;
+//是否需要隐藏尾部视图
+@property(nonatomic,assign)BOOL     ishidden_lab_footer;
 
 @end
 
@@ -70,7 +74,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ISREFRESH"]) {
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"ISREFRESH"];
-        [self LoadData:1];
+        self.page =1;
+        [self.tableview.mj_footer resetNoMoreData];
+        [self LoadData:self.page];
     }
     
 }
@@ -94,32 +100,58 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)LoadData:(NSInteger )page{
     
     @weakify(self);
-    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:1 complete:^(BOOL success, id responseObject) {
+    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [self.tableview.mj_footer endRefreshing];
         [MBProgressHUD hideHUDForView:self.view];
         if (success) {
             
-            self.Deatilmodel = [YouAnBBSDeatilModel whc_ModelWithJson:responseObject];
-            //这里分离出评论数据
-            if (page==1) {
-                
-                [self.Arr_comments_all removeAllObjects];
-                [self.Arr_comments_hot removeAllObjects];
-            }
-            for (Posts *Postsmodel in self.Deatilmodel.posts) {
-                Postsmodel.isopen = NO;
-                [self.Arr_comments_all addObject:Postsmodel];
-            }
-            for (Hot_posts *Hotsmodel in self.Deatilmodel.hot_posts) {
-                
-                [self.Arr_comments_hot addObject:Hotsmodel];
-            }
-            [self.tableview reloadData];
-            
+            [self DataProcessingwithpage:page withdata:responseObject];
         }
-        
-        
     }];
+}
+/**
+ 数据处理
+ */
+-(void)DataProcessingwithpage:(NSInteger )page withdata:(id)responseObject{
+
+    self.Deatilmodel = [YouAnBBSDeatilModel whc_ModelWithJson:responseObject];
+    //是否收藏
+    if (self.Deatilmodel.if_favor) {
+        
+        [self.btn_collection setBackgroundImage:[UIImage imageNamed:@"iconBottombarShoucangActive"] forState:UIControlStateNormal];
+    }
+    //这里分离出评论数据
+    if (page==1) {
+        if (![BWCommon islogin]) {
+            
+            self.ishidden_lab_footer = NO;
+            self.tableview.mj_footer.hidden =YES;
+        }
+        [self.Arr_comments_all removeAllObjects];
+        [self.Arr_comments_hot removeAllObjects];
+    }
+    if (self.Deatilmodel.posts.count<10) {
+        
+        [self.tableview.mj_footer endRefreshingWithNoMoreData];
+        
+    }
+    for (Posts *Postsmodel in self.Deatilmodel.posts) {
+        Postsmodel.isopen = NO;
+        [self.Arr_comments_all addObject:Postsmodel];
+    }
+    for (Hot_posts *Hotsmodel in self.Deatilmodel.hot_posts) {
+        
+        [self.Arr_comments_hot addObject:Hotsmodel];
+    }
+    if (page==1) [self.tableview reloadData];
+    else{
+        
+        [UIView performWithoutAnimation:^{
+            [self.tableview reloadSections:[NSIndexSet indexSetWithIndex:5] withRowAnimation:UITableViewRowAnimationNone];
+        }];
+    }
+    
 }
 -(void)CreateUI{
     
@@ -149,6 +181,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [self.tableview registerClass:[CommentsDeatilTableViewCell class] forCellReuseIdentifier:kMycommentsCellIdentifier];
     [self.tableview registerClass:[CommentsDeatilTableViewCell class] forCellReuseIdentifier:kMycommentsfatherCellIdentifier];
     [self.view addSubview:self.tableview];
+    @weakify(self);
+    self.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        [self LoadData:++self.page];
+        
+    }];
     [MBProgressHUD showMessage:@"" toView:self.view];
     
     
@@ -181,10 +220,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 }
 -(void)CreateBotBtn{
 
-    UIView *view_btn = [[UIView alloc]initWithFrame:CGMAKE(0, SCREEN_HEIGHT-50-64, ScreenWidth, 50)];
+    UIView *view_btn = [[UIView alloc]initWithFrame:CGMAKE(0, SCREEN_HEIGHT-50.5-64, ScreenWidth, 50.5)];
+    UIView *view_line = [[UIView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 0.5)];
+    view_line.backgroundColor = [UIColor colorWithRed:136/255.0f green:136/255.0f blue:136/255.0f alpha:0.1];
+    
     view_btn.backgroundColor = [UIColor whiteColor];
     self.btn_back = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btn_back.frame = CGMAKE(ScreenWidth-AUTOW(145), 0, AUTOW(145), 50);
+    self.btn_back.frame = CGMAKE(ScreenWidth-AUTOW(145), 0.5, AUTOW(145), 50);
     [self.btn_back setBackgroundColor:GETMAINCOLOR];
     [self.btn_back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.btn_back addTarget:self action:@selector(back_click) forControlEvents:UIControlEventTouchUpInside];
@@ -201,12 +243,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     self.btn_collection =[self create_btn_bot:@"收藏" withimage:@"iconBottombarShoucang"];
     [view_collection addSubview:self.btn_collection];
     
+    [view_btn addSubview:view_line];
     [view_btn addSubview:view_share];
     [view_btn addSubview:view_collection];
     [view_btn addSubview:self.btn_back];
     [self.view addSubview:view_btn];
     
-    view_share.whc_LeftSpace(0).whc_TopSpace(0).whc_BottomSpace(0).whc_RightSpaceToView(0,view_collection);
+    view_share.whc_LeftSpace(0).whc_TopSpace(0.5).whc_BottomSpace(0).whc_RightSpaceToView(0,view_collection);
     view_collection.whc_LeftSpaceToView(0,view_share).whc_TopSpaceEqualView(view_share).whc_RightSpaceToView(0,self.btn_back).whc_BottomSpaceEqualView(view_share).whc_WidthEqualView(view_share);
     self.btn_share.whc_CenterX(0).whc_TopSpace(6.5);
     self.btn_collection.whc_CenterX(-20).whc_TopSpace(8);
@@ -216,12 +259,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setBackgroundImage:[UIImage imageNamed:imagename] forState:UIControlStateNormal];
+    btn.adjustsImageWhenHighlighted = NO;
     [btn setTitle:title forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:11];
     [btn setTitleColor:RGB(144, 148, 153) forState:UIControlStateNormal];
     btn.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
     btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -18,0)];
+    [btn setEnlargeEdgeWithTop:0 right:10 bottom:20 left:20];
+    [btn addTarget:self action:@selector(btn_bot_click:) forControlEvents:UIControlEventTouchUpInside];
     if ([title isEqualToString:@"分享"])  [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -18,0)];
     else if ([title isEqualToString:@"收藏"]) [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -20,0)];
     return btn;
@@ -259,7 +305,16 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-   
+    if (section==5) {
+        if (![BWCommon islogin]) {
+            if (self.Deatilmodel.posts_count>10){
+                if (!self.ishidden_lab_footer) {
+                    
+                    return 40;
+                }
+            }
+        }
+    }
     return 0.001;
     
 }
@@ -366,6 +421,12 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             
             BBSExceptionalTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSExceptionalTableViewCell class])];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+            @weakify(self);
+            cell.delegateSignal = [RACSubject subject];
+            [cell.delegateSignal subscribeNext:^(id x) {
+                @strongify(self);
+                [self Exceptional:x];
+            }];
             [cell setmodel:_Deatilmodel];
             return cell;
         }
@@ -465,7 +526,25 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }
     return view_head;
 }
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
 
+    UIView *view_footer = [UIView new];
+    if (section==5) {
+        if (![BWCommon islogin]) {
+            if (self.Deatilmodel.posts_count>10) {
+                if (!self.ishidden_lab_footer) {
+                    
+                    [view_footer addSubview:self.lab_footer];
+                    [_lab_footer setText:[NSString stringWithFormat:@"查看更多%ld条回复...",self.Deatilmodel.posts_count-10]];
+                }else{
+                
+                    self.tableview.mj_footer.hidden =NO;
+                }
+            }
+        }
+    }
+    return view_footer;
+}
 /**
  更多
  */
@@ -563,6 +642,72 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+/**
+ 打赏
+ */
+-(void)Exceptional:(NSString *)conins{
+
+    MYLOG(@"%@",conins);
+    [HttpEngine Exceptional:[conins integerValue] withpk:self.Deatilmodel.id complete:^(BOOL success, id responseObject) {
+        
+        if (success) {
+            [MBProgressHUD showSuccess:responseObject[@"msg"] toView:self.view];
+        }else{
+        
+            if (responseObject) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+                
+            }else{
+            
+                [MBProgressHUD showError:@"服务器繁忙" toView:self.view];
+            }
+        }
+    }];
+}
+
+/**
+ 帖子底部按钮操作
+ */
+-(void)btn_bot_click:(UIButton *)btn{
+
+    if ([btn.titleLabel.text isEqualToString:@"分享"]) {
+     
+        MYLOG(@"分享");
+    }else{
+    
+        MYLOG(@"收藏");
+        [HttpEngine Posttingcollection:self.Deatilmodel.id complete:^(BOOL success, id responseObject) {
+            
+            if (success) {
+             
+                if ([responseObject[@"msg"] isEqualToString:@"帖子收藏成功"]) {
+                    
+                    [self.btn_collection setBackgroundImage:[UIImage imageNamed:@"iconBottombarShoucangActive"] forState:UIControlStateNormal];
+                }else{
+                
+                    [self.btn_collection setBackgroundImage:[UIImage imageNamed:@"iconBottombarShoucang"] forState:UIControlStateNormal];
+                }
+                
+            }
+            
+        }];
+    }
+}
+/***
+ 
+ 更多评论
+ */
+-(void)more_posts{
+
+    MYLOG(@"加载下一页,需要判断时候登录");
+    self.ishidden_lab_footer = YES;
+    self.tableview.mj_footer.hidden =NO;
+    [self LoadData:++self.page];
+    
+    
+    
+}
 #pragma mark 懒加载视图
 -(UIView *)view_head_hot{
 
@@ -619,5 +764,19 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         _Arr_comments_all = [NSMutableArray arrayWithCapacity:0];
     }
     return _Arr_comments_all;
+}
+-(UILabel *)lab_footer{
+
+    if (!_lab_footer) {
+        
+        _lab_footer = [[UILabel alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 40)];
+        [_lab_footer setTextColor:GETMAINCOLOR];
+        _lab_footer.userInteractionEnabled=YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(more_posts)];
+        [_lab_footer addGestureRecognizer:tap];
+        [_lab_footer setTextAlignment:NSTextAlignmentCenter];
+        [_lab_footer setFont:[UIFont systemFontOfSize:15]];
+    }
+    return _lab_footer;
 }
 @end

@@ -9,7 +9,8 @@
 #import "MyPostViewController.h"
 #import "MyPost_OneTableViewCell.h"
 #import "MyPost_TwoTableViewCell.h"
-
+#import "YouAnUserPosttingModel.h"
+#import "PostingDeatilViewController.h"
 @interface MyPostViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 
@@ -19,6 +20,17 @@
 @property(nonatomic,strong)UIButton *btn_back;
 @property(nonatomic,strong)UIView *view_line;
 @property(nonatomic,strong)UIView *view_line_two;
+
+//page
+@property(nonatomic,assign)NSInteger page_master;
+@property(nonatomic,assign)NSInteger page_comment;
+
+@property(nonatomic,strong)NSMutableArray *Arr_master;
+@property(nonatomic,strong)NSMutableArray *Arr_comment;
+
+@property(nonatomic,strong)YouAnUserPosttingModel *Posttingmodel;
+
+
 @end
 
 @implementation MyPostViewController
@@ -32,9 +44,95 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self InitData];
     [self CreateUI];
+    [self LoadData:self.page_master withtype:StatusMaster];
+    [self LoadData:self.page_comment withtype:StatusComments];
     // Do any additional setup after loading the view.
 }
+-(void)InitData{
+
+    self.page_master = 1;
+    self.page_comment = 1;
+    self.Arr_master = [NSMutableArray arrayWithCapacity:0];
+    self.Arr_comment = [NSMutableArray arrayWithCapacity:0];
+}
+-(void)LoadData:(NSInteger )page withtype:(Posttingtype )type{
+    
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page],
+                          @"if_master":[NSNumber numberWithInteger:type]};
+    @weakify(self);
+    [HttpEngine UserPostting_master_comment:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        if (success) {
+            //数据处理
+            switch (type) {
+                case StatusMaster:{
+                
+                    [self DataProcessing_master:responseObject withpage:page];
+
+                }
+                    break;
+                case StatusComments:{
+                    
+                    [self DataProcessing_comment:responseObject withpage:page];
+                }
+                    break;
+            }
+            [self.tableView reloadData];
+        }
+    }];
+}
+/**
+ 主贴数据处理
+ */
+-(void)DataProcessing_master:(id )responseObject withpage:(NSInteger )page{
+
+    if (page==1) {
+        
+        [self.Arr_master removeAllObjects];
+    }
+    if ([(NSArray *)responseObject count]==0) {
+        
+        self.page_master = page-1;
+        
+    }else{
+        
+        for (NSDictionary *dic in responseObject) {
+            
+            self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
+            
+            [self.Arr_master addObject:self.Posttingmodel];
+        }
+    }
+}
+/**
+评论贴数据处理
+ */
+-(void)DataProcessing_comment:(id )responseObject withpage:(NSInteger )page{
+    
+    if (page==1) {
+        
+        [self.Arr_comment removeAllObjects];
+    }
+    if ([(NSArray *)responseObject count]==0) {
+        
+        self.page_comment = page-1;
+        
+    }else{
+        
+        for (NSDictionary *dic in responseObject) {
+            
+            self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
+            
+            [self.Arr_comment addObject:self.Posttingmodel];
+        }
+    }
+
+}
+
 -(void)CreateUI{
     
     self.title = @"我的帖子";
@@ -80,7 +178,36 @@
     [self.tableView registerClass:[MyPost_OneTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MyPost_OneTableViewCell class])];
     [self.tableView registerClass:[MyPost_TwoTableViewCell class] forCellReuseIdentifier:NSStringFromClass([MyPost_TwoTableViewCell class])];
     [self.view addSubview:self.tableView];
+    @weakify(self);
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.btn_main.selected) {
+            
+            self.page_master = 1;
+            [self LoadData:self.page_master withtype:StatusMaster];
+            
+        }else{
+        
+            self.page_comment = 1;
+            [self LoadData:self.page_comment withtype:StatusComments];
+        }
+        
+    }];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        if (self.btn_main.selected) {
+            
+            
+            [self LoadData:++self.page_master withtype:StatusMaster];
+            
+        }else{
+            
+            [self LoadData:++self.page_comment withtype:StatusComments];
+        }
+    }];
+
 }
+
 #pragma mark tableviewdelegate
 //- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
 //    [self.tableView reloadData];
@@ -96,7 +223,15 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 5;
+    
+    if (self.btn_main) {
+        
+        return self.Arr_master.count;
+        
+    }else{
+    
+        return self.Arr_comment.count;
+    }
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -118,15 +253,29 @@
     if (self.btn_main.selected) {
         MyPost_OneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MyPost_OneTableViewCell class])];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell SetSection:indexPath.section];
+        [cell SetSection:indexPath.section withModel:self.Arr_master[indexPath.section]];
         return cell;
     }
     MyPost_TwoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([MyPost_TwoTableViewCell class])];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell SetSection:indexPath.section];
+    [cell SetSection:indexPath.section withModel:self.Arr_comment[indexPath.section]];
     return cell;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    PostingDeatilViewController *view = [PostingDeatilViewController new];
+    if (self.btn_main.selected) {
+        
+        self.Posttingmodel = self.Arr_master[indexPath.section];
+        view.posting_id = self.Posttingmodel.tid;
+        
+    }else{
+    
+        self.Posttingmodel = self.Arr_comment[indexPath.section];
+        view.posting_id = self.Posttingmodel.tid;
+    }
+    [self.navigationController pushViewController:view animated:YES];
+}
 
 
 

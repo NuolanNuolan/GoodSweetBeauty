@@ -63,8 +63,8 @@
         lab_title.text = model.subject;
         lab_deatil.text = model.content;
         
-        CGSize size =[self sizeWithString:model.subject font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, ScreenHeight)];
-        CGSize sizeone =[self sizeWithString:model.content font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, ScreenHeight)];
+        CGSize size =[self sizeWithString:model.subject font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
+        CGSize sizeone =[self sizeWithString:model.content font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
         if (size.height>30) {
             
             [UILabel changeLineSpaceForLabel:lab_title WithSpace:11];

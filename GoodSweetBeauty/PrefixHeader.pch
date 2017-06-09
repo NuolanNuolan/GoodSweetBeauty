@@ -10,6 +10,8 @@
 #import "YouAnBBSModel.h"
 #import "YouAnBBSDeatilModel.h"
 
+
+#import<QuartzCore/QuartzCore.h>
 #import "LPActionSheet.h"
 #import "PPNetworkHelper.h"
 #import "RACEXTScope.h"

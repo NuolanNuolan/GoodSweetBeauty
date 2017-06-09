@@ -65,6 +65,7 @@
 		EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */; };
 		EA9483E81EE7D6F900D3124A /* BackCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9483E61EE7D6F900D3124A /* BackCommentTableViewCell.m */; };
 		EA9483E91EE7D6F900D3124A /* BackCommentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA9483E71EE7D6F900D3124A /* BackCommentTableViewCell.xib */; };
+		EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9483EB1EE9057800D3124A /* YouAnUserPosttingModel.m */; };
 		EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60C1E80D3CD0050BA8B /* main.m */; };
 		EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF60F1E80D3CD0050BA8B /* AppDelegate.m */; };
 		EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CF6121E80D3CD0050BA8B /* ViewController.m */; };
@@ -249,6 +250,8 @@
 		EA9483E51EE7D6F900D3124A /* BackCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackCommentTableViewCell.h; sourceTree = "<group>"; };
 		EA9483E61EE7D6F900D3124A /* BackCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackCommentTableViewCell.m; sourceTree = "<group>"; };
 		EA9483E71EE7D6F900D3124A /* BackCommentTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BackCommentTableViewCell.xib; sourceTree = "<group>"; };
+		EA9483EA1EE9057800D3124A /* YouAnUserPosttingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnUserPosttingModel.h; sourceTree = "<group>"; };
+		EA9483EB1EE9057800D3124A /* YouAnUserPosttingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnUserPosttingModel.m; sourceTree = "<group>"; };
 		EA9CF6081E80D3CD0050BA8B /* GoodSweetBeauty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodSweetBeauty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA9CF60C1E80D3CD0050BA8B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EA9CF60E1E80D3CD0050BA8B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -792,6 +795,8 @@
 				EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */,
 				EA4F16851ED05486002E7A2D /* YouAnFansFollowModel.h */,
 				EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */,
+				EA9483EA1EE9057800D3124A /* YouAnUserPosttingModel.h */,
+				EA9483EB1EE9057800D3124A /* YouAnUserPosttingModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1240,6 +1245,7 @@
 				EA63710E1ED6C38A003E6BC3 /* YNTestThreeViewController.m in Sources */,
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
+				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
 				EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
 				EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */,

@@ -162,7 +162,7 @@
         [self.lab_balance setFont:[UIFont systemFontOfSize:15]];
         
         self.attri = [[NSMutableAttributedString alloc]init];
-        self.attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",self.usermodel ? self.usermodel.coins : @""]];
+        self.attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",self.usermodel?[NSString stringWithFormat:@"%ld",(long)self.usermodel.coins]: @""]];
         self.attch = [[NSTextAttachment alloc] init];
         self.attch.image = [UIImage imageNamed:@"iconBi"];
         self.attch.bounds = CGRectMake(0, -2, 17, 14);
@@ -181,7 +181,7 @@
     }
     [self.lab_name setText:self.usermodel ? self.usermodel.username : @""];
     self.attri = [[NSMutableAttributedString alloc]init];
-    self.attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",self.usermodel ? self.usermodel.coins : @""]];
+    self.attri1 = [[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@" %@",self.usermodel ? [NSString stringWithFormat:@"%ld",(long)self.usermodel.coins]: @""]];
     [self.attri appendAttributedString:self.string_attributed];
     [self.attri appendAttributedString:self.attri1];
     self.lab_balance.attributedText = self.attri;
