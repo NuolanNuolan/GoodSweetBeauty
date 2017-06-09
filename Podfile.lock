@@ -17,7 +17,7 @@ PODS:
   - CocoaAsyncSocket (7.6.1)
   - DACircularProgress (2.3.1)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManager (4.0.9)
+  - IQKeyboardManager (4.0.10)
   - KIZBehavior (0.0.1)
   - KMNavigationBarTransition (1.0.0)
   - Masonry (1.0.2)
@@ -46,11 +46,11 @@ PODS:
   - SDWebImage/GIF (4.0.0):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - TZImagePickerController (1.7.9)
+  - TZImagePickerController (1.8.0)
   - UIBarButtonItem-Badge-Coding (0.0.1)
   - WHC_AutoLayoutKit (2.7.1)
   - WHC_Debuger (1.0.2)
-  - WHC_Model (1.6.8)
+  - WHC_Model (1.6.9)
   - YYCache (1.0.4)
   - YYKeyboardManager (1.0.1)
   - YYText (1.0.7)
@@ -85,7 +85,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManager: 322c7405df3eb5f7e50dede32ea937bf3d4364e0
+  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
   KIZBehavior: 23c21df85fd82413bdc9196d4aee982a7d19d430
   KMNavigationBarTransition: b3fb8337f7a1e4542add07fd6c45fb9980794d59
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -97,11 +97,11 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   SDCycleScrollView: e3ade90e9b3159bec04330b208fbfd81c3f3b671
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  TZImagePickerController: 0a8ff228d287ebdd7d485e8c42a2a932894f1fba
+  TZImagePickerController: 2a74f34f116e8229264e2afc122b0d8d4683c626
   UIBarButtonItem-Badge-Coding: 3f8e96f75f7d7c7516c1a1706b566892bf2db134
   WHC_AutoLayoutKit: 7fefe9216b4074512817c91857822d98eb3b2220
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
-  WHC_Model: 1e1a572430183bb06f14465398c44bae3b7923a4
+  WHC_Model: 4e71317ab23072d2313e079278ead75bd97e7e96
   YYCache: 8105b6638f5e849296c71f331ff83891a4942952
   YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
   YYText: 5c461d709e24d55a182d1441c41dc639a18a4849

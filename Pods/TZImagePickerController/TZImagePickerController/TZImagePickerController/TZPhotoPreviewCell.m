@@ -79,7 +79,7 @@
         _scrollView.delegate = self;
         _scrollView.scrollsToTop = NO;
         _scrollView.showsHorizontalScrollIndicator = NO;
-        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = YES;
         _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _scrollView.delaysContentTouches = NO;
         _scrollView.canCancelContentTouches = YES;
@@ -135,18 +135,27 @@
 }
 
 - (void)setAsset:(id)asset {
+    if (_asset && self.imageRequestID) {
+        [[PHImageManager defaultManager] cancelImageRequest:self.imageRequestID];
+    }
+    
     _asset = asset;
-    [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+    self.imageRequestID = [[TZImageManager manager] getPhotoWithAsset:asset completion:^(UIImage *photo, NSDictionary *info, BOOL isDegraded) {
+        if (![asset isEqual:_asset]) return;
         self.imageView.image = photo;
         [self resizeSubviews];
         _progressView.hidden = YES;
         if (self.imageProgressUpdateBlock) {
             self.imageProgressUpdateBlock(1);
         }
+        if (!isDegraded) {
+            self.imageRequestID = 0;
+        }
     } progressHandler:^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
+        if (![asset isEqual:_asset]) return;
         _progressView.hidden = NO;
         [self bringSubviewToFront:_progressView];
-        progress = progress > 0.02 ? progress : 0.02;;
+        progress = progress > 0.02 ? progress : 0.02;
         _progressView.progress = progress;
         if (self.imageProgressUpdateBlock) {
             self.imageProgressUpdateBlock(progress);
@@ -188,6 +197,15 @@
 - (void)setAllowCrop:(BOOL)allowCrop {
     _allowCrop = allowCrop;
     _scrollView.maximumZoomScale = allowCrop ? 4.0 : 2.5;
+    
+    if ([self.asset isKindOfClass:[PHAsset class]]) {
+        PHAsset *phAsset = (PHAsset *)self.asset;
+        CGFloat aspectRatio = phAsset.pixelWidth / (CGFloat)phAsset.pixelHeight;
+        // 优化超宽图片的显示
+        if (aspectRatio > 1.5) {
+            self.scrollView.maximumZoomScale *= aspectRatio / 1.5;
+        }
+    }
 }
 
 - (void)refreshScrollViewContentSize {
