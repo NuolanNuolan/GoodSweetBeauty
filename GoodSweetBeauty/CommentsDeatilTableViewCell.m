@@ -28,6 +28,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     UILabel *lab_deatil;
     WHC_StackView *stack_imageview;
     
+    //楼层回复的图片
+    WHC_StackView *stack_imageview_floor;
+    
     //第二种情况
     //name
     UILabel *lab_father_name;
@@ -45,6 +48,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     UIView *line;
     //图片imagearr
     NSArray *Arr_image_main;
+    //楼中楼的图片
+    NSArray *Arr_image_floor;
 
     
     
@@ -176,6 +181,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         view_father_line = [UIView new];
         [view_father_line setBackgroundColor:RGB(229, 229, 229)];
 
+        //图片
+        stack_imageview_floor = [WHC_StackView new];
+        stack_imageview_floor.backgroundColor = [UIColor clearColor];
+        stack_imageview_floor.whc_Column = 3;               // 最大3列
+        stack_imageview_floor.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
+        stack_imageview_floor.whc_HSpace = 5;                // 图片之间的空隙为4
+        stack_imageview_floor.whc_VSpace = 5;
+        stack_imageview_floor.whc_ElementHeightWidthRatio = 1 / 1;
+        stack_imageview_floor.whc_Orientation = All;        // 横竖混合布局
         
         lab_father_back = [UILabel new];
         [lab_father_back sizeToFit];
@@ -183,6 +197,18 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [lab_father_back setTextColor:RGB(51, 51, 51)];
         [lab_father_back setFont:[UIFont systemFontOfSize:17]];
         
+        stack_imageview = [WHC_StackView new];
+        stack_imageview.backgroundColor = [UIColor clearColor];
+        stack_imageview.whc_Column = 3;               // 最大3列
+        stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
+        stack_imageview.whc_HSpace = 5;                // 图片之间的空隙为4
+        stack_imageview.whc_VSpace = 5;
+        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
+        stack_imageview.whc_Orientation = All;        // 横竖混合布局
+        
+        
+        [self.contentView addSubview:stack_imageview_floor];
+        [self.contentView addSubview:stack_imageview];
         [self.contentView addSubview:image_head];
         [self.contentView addSubview:lab_name];
         [self.contentView addSubview:lab_time_floor];
@@ -202,9 +228,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
         lab_father_name.whc_TopSpaceToView(19,lab_time_floor).whc_LeftSpaceToView(10,view_father_line).whc_RightSpace(20);
         lab_father_deatil.whc_LeftSpaceEqualView(lab_father_name).whc_TopSpaceToView(10,lab_father_name).whc_RightSpaceEqualView(lab_father_name);
-        btn_father_open.whc_TopSpaceToView(10,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
+        stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(20,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_HeightAuto();
+        btn_father_open.whc_TopSpaceToView(10,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
         lab_father_back.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(14,btn_father_open).whc_RightSpaceEqualView(lab_father_deatil);
-        btn_back.whc_RightSpaceEqualView(btn_report).whc_Size(19,17).whc_TopSpaceToView(20,lab_father_back);
+        
+        stack_imageview.whc_LeadingSpaceEqualView(lab_father_back).whc_RightSpaceEqualView(lab_father_back).whc_TopSpaceToView(20,lab_father_back).whc_HeightAuto();
+        
+        btn_back.whc_RightSpaceEqualView(btn_report).whc_Size(19,17).whc_TopSpaceToView(20,stack_imageview);
         btn_Thumb.whc_Size(16,17).whc_RightSpaceToView(45,btn_back).whc_TopSpaceEqualView(btn_back);
         
     }
@@ -230,6 +260,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             //如果有图片 开始图片布局
             if (postsmodel.images&&![postsmodel.images isEqualToString:@""]) {
 
+                //有图片
+                stack_imageview.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(20,lab_deatil).whc_RightSpaceEqualView(lab_deatil).whc_HeightAuto();
                 [self imageurl:postsmodel];
                 
             }else{
@@ -250,43 +282,21 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             lab_father_deatil.text = postsmodel.father.content;
             lab_father_back.text = postsmodel.content;
             btn_father_open.tag = 200+row;
-            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, MAXFLOAT)];
             
-            if (size.height<70) {
-             
-                btn_father_open.hidden = YES;
-                btn_father_open.whc_TopSpaceToView(0,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
-                if (size.height<20) {
-                    
-                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
-                }else{
+            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, MAXFLOAT)];
+            //判断父评论有否有图片
+            if (![postsmodel.father.image isEqualToString:@""]) {
+
+                [self comment_floor_Yesimage:size with:postsmodel withisopen:isopen];
                 
-                    [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
-                }
             }else{
             
-                [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
-                if (isopen) {
-                    
-                    lab_father_deatil.numberOfLines = 0 ;
-                    btn_father_open.hidden = YES;
-                    btn_father_open.whc_TopSpaceToView(0,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
-                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
-                    
-                }else{
-                
-                    btn_father_open.hidden = NO;
-                    btn_father_open.whc_TopSpaceToView(10,lab_father_deatil).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
-                    view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
-                }
+                [self comment_floor_NOimage:size with:postsmodel withisopen:isopen];
             }
-            //评论父评论的内容
-            CGSize size_two =[self sizeWithString:lab_father_back.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, MAXFLOAT)];
-            if(size_two.height>25){
-                
-                [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
-            }
+            //子评论操作
+            [self son_comment:postsmodel];
         }
+        
         if (row+1 == AllRow) {
             
             line.hidden =YES;
@@ -295,11 +305,104 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }
     
 }
+/***
+ 父评论有图片
+ */
+-(void)comment_floor_Yesimage:(CGSize )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
+
+    //内容
+    if(size.height>20){
+        
+        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+    }
+    //是否展示
+    if (isopen) {
+        
+        lab_father_deatil.numberOfLines = 0 ;
+        btn_father_open.hidden = YES;
+        btn_father_open.whc_TopSpaceToView(0,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
+        view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(stack_imageview_floor,0);
+        
+        [self floor_image_url:postsmodel.father];
+        
+    }else{
+        //有图片 不展示
+        btn_father_open.hidden = NO;
+        lab_father_deatil.numberOfLines = 2 ;
+        btn_father_open.whc_TopSpaceToView(10,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
+        view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
+        [stack_imageview_floor whc_RemoveAllSubviews];
+        stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(0,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_Height(0);
+    }
+}
+/***
+ 父评论没图片
+ */
+-(void)comment_floor_NOimage:(CGSize )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
+
+    //没图片
+    [stack_imageview_floor whc_RemoveAllSubviews];
+    stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(0,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_Height(0);
+    
+    if (size.height<70) {
+        
+        btn_father_open.hidden = YES;
+        btn_father_open.whc_TopSpaceToView(0,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
+        if (size.height<20) {
+            
+            view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
+        }else{
+            
+            [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+        }
+    }else{
+        
+        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+        if (isopen) {
+            
+            lab_father_deatil.numberOfLines = 0 ;
+            btn_father_open.hidden = YES;
+            btn_father_open.whc_TopSpaceToView(0,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
+            view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
+        }else{
+            
+            btn_father_open.hidden = NO;
+            lab_father_deatil.numberOfLines = 2 ;
+            btn_father_open.whc_TopSpaceToView(10,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(35,15);
+            view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
+            
+        }
+    }
+
+}
+/**
+ 子评论的操作
+ */
+-(void)son_comment:(Posts *)postsmodel{
+
+    //如果评论带照片
+    if (postsmodel.images&&![postsmodel.images isEqualToString:@""]) {
+        
+        stack_imageview.whc_LeadingSpaceEqualView(lab_father_back).whc_RightSpaceEqualView(lab_father_back).whc_TopSpaceToView(20,lab_father_back).whc_HeightAuto();
+        [self imageurl:postsmodel];
+        
+    }else{
+        
+        [stack_imageview whc_RemoveAllSubviews];
+        stack_imageview.whc_LeadingSpaceEqualView(lab_father_back).whc_RightSpaceEqualView(lab_father_back).whc_TopSpaceToView(0,lab_father_back).whc_Height(0);
+        
+    }
+    //评论父评论的内容
+    CGSize size_two =[self sizeWithString:lab_father_back.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, MAXFLOAT)];
+    if(size_two.height>25){
+        
+        [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
+    }
+}
 //图片地址解析处理
 -(void)imageurl:(Posts *)postsmodel{
 
-    //有图片
-    stack_imageview.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(20,lab_deatil).whc_RightSpaceEqualView(lab_deatil).whc_HeightAuto();
+
     NSArray *arr_image;
     if ([BWCommon DoesItInclude:postsmodel.images withString:@"##"]) {
         //有多张
@@ -314,6 +417,27 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     Arr_image_main = [NSArray arrayWithArray:arr_image];
     
 }
+
+/**
+ 楼中楼图片处理
+ */
+-(void)floor_image_url:(Father *)father{
+
+    stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(20,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_HeightAuto();
+    NSArray *arr_image;
+    if ([BWCommon DoesItInclude:father.image withString:@"##"]) {
+        //有多张
+        arr_image = [father.image componentsSeparatedByString:@"##"];
+    }else{
+        //只有一张
+        arr_image = [NSArray arrayWithObjects:father.image, nil];
+        arr_image = [NSArray arrayWithObjects:@"http://farm4.staticflickr.com/3795/9269794168_3ac58fc15c_b.jpg",@"http://pic1.win4000.com/wallpaper/6/512ab98606b0c.jpg",@"http://image5.tuku.cn/wallpaper/Landscape%20Wallpapers/8294_2560x1600.jpg",@"http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/00/0A/ChMkJ1cpupiIW7yaABC-KDRTyM8AARBAQNvQmYAEL5A375.jpg", nil];
+    }
+    [self resetstack_father:father withimagearr:arr_image];
+    Arr_image_floor = nil;
+    Arr_image_floor = [NSArray arrayWithArray:arr_image];
+}
+//普通回复图片
 -(void)resetstack:(Posts *)model withimagearr:(NSArray *)arr_image{
 
     [stack_imageview whc_RemoveAllSubviews];
@@ -330,11 +454,33 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
         [imageView sd_setImageWithURL:[NSURL URLWithString:arr_image[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
-        
         [stack_imageview addSubview:imageView];
     }
     [stack_imageview whc_StartLayout];
 
+}
+//楼中楼回复图片
+-(void)resetstack_father:(Father *)model withimagearr:(NSArray *)arr_image{
+    
+    [stack_imageview_floor whc_RemoveAllSubviews];
+    NSInteger newCount = arr_image.count;
+    NSInteger oldCount = stack_imageview_floor.subviews.count;
+    NSInteger countDiff = newCount - oldCount;
+    
+    for (int i =0; i<countDiff; i++) {
+        
+        UIImageView * imageView = [UIImageView new];
+        imageView.userInteractionEnabled = YES;
+        imageView.tag = oldCount + i;
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture_floor:)];
+        [imageView addGestureRecognizer:tapGesture];
+        imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
+        [imageView sd_setImageWithURL:[NSURL URLWithString:arr_image[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        
+        [stack_imageview_floor addSubview:imageView];
+    }
+    [stack_imageview_floor whc_StartLayout];
+    
 }
 /**
  图片放大
@@ -354,6 +500,25 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
     [bvc showBrowseViewController:nil];
 
+}
+/**
+ 
+ 楼层图片放大
+ */
+-(void)tapImageGesture_floor:(UITapGestureRecognizer *)tapGesture{
+
+    NSMutableArray *arr_image_view = [NSMutableArray arrayWithCapacity:0];
+    //要遍历所有的图片URL
+    for (int i=0; i<Arr_image_floor.count; i++) {
+        
+        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+        browseItem.bigImageUrl = Arr_image_floor[i];// 加载网络图片大图地址
+        browseItem.smallImageView = stack_imageview_floor.subviews[i];// 小图
+        [arr_image_view addObject:browseItem];
+    }
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tapGesture.view.tag];
+    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    [bvc showBrowseViewController:nil];
 }
 /**
  头像点击
@@ -379,14 +544,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)open_click:(UIButton *)btn{
 
-    
     NSDictionary *dic = @{@"btn":btn,
                           @"type":@"展开评论"};
     if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
-
-
-
 - (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
 {
     NSDictionary *dict = @{NSFontAttributeName : font};

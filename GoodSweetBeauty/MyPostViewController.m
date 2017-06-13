@@ -28,6 +28,10 @@
 @property(nonatomic,strong)NSMutableArray *Arr_master;
 @property(nonatomic,strong)NSMutableArray *Arr_comment;
 
+//判断是否还有更多数据
+@property(nonatomic,assign)BOOL isNoMoreData_master;
+@property(nonatomic,assign)BOOL isNoMoreData_comments;
+
 @property(nonatomic,strong)YouAnUserPosttingModel *Posttingmodel;
 
 
@@ -56,6 +60,8 @@
     self.page_comment = 1;
     self.Arr_master = [NSMutableArray arrayWithCapacity:0];
     self.Arr_comment = [NSMutableArray arrayWithCapacity:0];
+//    self.isNoMoreData_master = NO;
+//    self.isNoMoreData_comments = NO;
 }
 -(void)LoadData:(NSInteger )page withtype:(Posttingtype )type{
     
@@ -70,18 +76,19 @@
             //数据处理
             switch (type) {
                 case StatusMaster:{
-                
+                    MYLOG(@"处理主贴");
                     [self DataProcessing_master:responseObject withpage:page];
 
                 }
                     break;
                 case StatusComments:{
-                    
+                    MYLOG(@"处理评论");
                     [self DataProcessing_comment:responseObject withpage:page];
                 }
                     break;
             }
             [self.tableView reloadData];
+            [self DealWithFooter];
         }
     }];
 }
@@ -94,19 +101,20 @@
         
         [self.Arr_master removeAllObjects];
     }
-    if ([(NSArray *)responseObject count]==0) {
+    if ([(NSArray *)responseObject count]<10) {
         
-        self.page_master = page-1;
+//        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        self.isNoMoreData_master =YES;
+//        self.page_master = page-1;
         
-    }else{
-        
-        for (NSDictionary *dic in responseObject) {
-            
-            self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
-            
-            [self.Arr_master addObject:self.Posttingmodel];
-        }
     }
+    for (NSDictionary *dic in responseObject) {
+        
+        self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
+        
+        [self.Arr_master addObject:self.Posttingmodel];
+    }
+    
 }
 /**
 评论贴数据处理
@@ -117,19 +125,18 @@
         
         [self.Arr_comment removeAllObjects];
     }
-    if ([(NSArray *)responseObject count]==0) {
+    if ([(NSArray *)responseObject count]<10) {
         
-        self.page_comment = page-1;
+        self.isNoMoreData_comments =YES;
         
-    }else{
-        
-        for (NSDictionary *dic in responseObject) {
-            
-            self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
-            
-            [self.Arr_comment addObject:self.Posttingmodel];
-        }
     }
+    for (NSDictionary *dic in responseObject) {
+        
+        self.Posttingmodel = [YouAnUserPosttingModel whc_ModelWithJson:dic];
+        
+        [self.Arr_comment addObject:self.Posttingmodel];
+    }
+    
 
 }
 
@@ -184,16 +191,18 @@
         if (self.btn_main.selected) {
             
             self.page_master = 1;
+            self.isNoMoreData_master =NO;
             [self LoadData:self.page_master withtype:StatusMaster];
             
         }else{
         
             self.page_comment = 1;
+            self.isNoMoreData_comments = NO;
             [self LoadData:self.page_comment withtype:StatusComments];
         }
         
     }];
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
         if (self.btn_main.selected) {
             
@@ -224,7 +233,7 @@
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
     
-    if (self.btn_main) {
+    if (self.btn_main.selected) {
         
         return self.Arr_master.count;
         
@@ -317,6 +326,35 @@
         MYLOG(@"回帖");
     }
     [self.tableView reloadData];
+    [self DealWithFooter];
+}
+
+/**
+ 这里处理footer
+ */
+-(void)DealWithFooter{
+
+    if (self.btn_main.selected) {
+        
+        if (self.isNoMoreData_master) {
+            
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+        
+            [self.tableView.mj_footer resetNoMoreData];
+        }
+        
+    }else{
+    
+        if (self.isNoMoreData_comments) {
+            
+            [self.tableView.mj_footer endRefreshingWithNoMoreData];
+        }else{
+            
+            [self.tableView.mj_footer resetNoMoreData];
+        }
+        
+    }
     
 }
 @end

@@ -437,7 +437,6 @@
         complete(YES,responseObject);
         
     } failure:^(NSError *error) {
-        
         NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
         if (data) {
             NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];

@@ -107,6 +107,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         if (success) {
             
             [self DataProcessingwithpage:page withdata:responseObject];
+            
+        }else{
+        
+            self.page =page-1;
         }
     }];
 }
