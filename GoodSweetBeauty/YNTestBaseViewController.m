@@ -243,7 +243,6 @@
     
     BBSPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.currentIndexPath = indexPath;
     switch (self.ynPageScrollViewController.pageIndex) {
         case 0:{
             if (self.Arr_back.count>0) {

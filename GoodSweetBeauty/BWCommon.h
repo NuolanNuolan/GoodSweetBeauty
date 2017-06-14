@@ -40,7 +40,10 @@
 +(NSString *)GetNowTimestamps;
 //富文本改变颜色
 +(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightText:(NSString *)highlightText collor:(UIColor *)color;
-
+/**
+ 正则
+ */
++(BOOL)Predicate:(NSString *)Predicate str:(NSString *)str;
 //是否登录
 +(BOOL)islogin;
 

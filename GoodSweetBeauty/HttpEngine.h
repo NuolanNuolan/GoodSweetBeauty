@@ -58,5 +58,12 @@
  我的帖子
  */
 +(void)UserPostting_master_comment:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
-
+/**
+ 认证
+ */
++(void)Vip_Application:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 收藏
+ */
++(void)MyCollectionWithpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

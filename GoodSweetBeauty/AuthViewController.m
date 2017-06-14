@@ -20,10 +20,10 @@
 
 
 //认证类型
-@property(nonatomic,strong)NSString *authtype;
-@property(nonatomic,strong)NSString *name;
-@property(nonatomic,strong)NSString *phone;
-@property(nonatomic,strong)NSString *email;
+@property(nonatomic,assign)NSInteger authtype;
+@property(nonatomic,copy)NSString *name;
+@property(nonatomic,copy)NSString *phone;
+@property(nonatomic,copy)NSString *email;
 
 @end
 
@@ -49,7 +49,7 @@
 }
 -(void)initData{
 
-    self.authtype = @"";
+    self.authtype = 0;
     self.name = @"";
     self.phone = @"";
     self.email = @"";
@@ -168,7 +168,7 @@
 
     if ([[x class]isSubclassOfClass:[NSString class]]) {
         
-        self.authtype = [NSString stringWithFormat:@"%@",x];
+        self.authtype = [[NSString stringWithFormat:@"%@",x] isEqualToString:@"个人认证"]?1:2;
         
     }else{
     
@@ -177,7 +177,7 @@
         self.email = [NSString stringWithFormat:@"%@",[x objectAtIndex:2]];
     }
     
-    if (![self.name isEqualToString:@""]&&![self.phone isEqualToString:@""]&&![self.email isEqualToString:@""]&&![self.authtype isEqualToString:@""]) {
+    if (![self.name isEqualToString:@""]&&![self.phone isEqualToString:@""]&&![self.email isEqualToString:@""]&&self.authtype!=0) {
         self.btn_input.userInteractionEnabled=YES;
         [self.btn_input setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }else{
@@ -188,6 +188,44 @@
 }
 -(void)Btn_input{
 
+    //开始正则匹配
+    //姓名 不能有下划线 数字 符号 空格
+    if (![BWCommon Predicate:@"^[a-zA-Z\u4e00-\u9fa5]+$" str:self.name]) {
+        
+        [MBProgressHUD showError:@"请输入正确的姓名"];
+        
+        return;
+    }
+    //联系方式 只有数字 座机有中划线 位数不做限制
+    if (![BWCommon Predicate:@"^\\d{3}-\\d{8}|\\d{4}-\\d{7,8}$" str:self.phone]&&![BWCommon checkInputMobile:self.phone]) {
+        
+        [MBProgressHUD showError:@"请输入正确的联系方式"];
+        return;
+    }
+    //邮箱
+    if (![BWCommon Predicate:@"^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\\.[a-zA-Z0-9_-]+)+$" str:self.email]) {
+        
+        [MBProgressHUD showError:@"请输入正确的邮箱"];
+        return;
+    }
+    //验证通过
+    NSDictionary *dic = @{@"real_name":self.name,
+                          @"vip_type":[NSNumber numberWithInteger:self.authtype],
+                          @"phone":self.phone,
+                          @"email":self.email};
+    @weakify(self);
+    [HttpEngine Vip_Application:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }else{
+        
+            [MBProgressHUD showError:responseObject[@"msg"]];
+        }
+    }];
     
     
 }

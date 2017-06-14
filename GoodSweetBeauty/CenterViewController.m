@@ -12,6 +12,7 @@
 #import "MyPostViewController.h"
 #import "FansViewController.h"
 #import "AuthViewController.h"
+#import "CollectionViewController.h"
 
 
 
@@ -293,6 +294,7 @@
             break;
         case 4:{
             
+            view = [CollectionViewController new];
             
         }
             break;

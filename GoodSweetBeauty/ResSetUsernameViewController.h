@@ -14,5 +14,5 @@
 
 
 //手机号
-@property(nonatomic,strong)NSString *phone;
+@property(nonatomic,copy)NSString *phone;
 @end

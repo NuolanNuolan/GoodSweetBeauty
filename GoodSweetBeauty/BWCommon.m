@@ -41,6 +41,18 @@
     return NO;
     
 }
+/**
+ 正则
+ */
++(BOOL)Predicate:(NSString *)Predicate str:(NSString *)str{
+
+    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", Predicate];
+    if ([regextestcm evaluateWithObject:str]) {
+        
+        return YES;
+    }
+    return NO;
+}
 + (NSString *)getIpAddresses{
     NSString *address = @"error";
     struct ifaddrs *interfaces = NULL;

@@ -60,6 +60,8 @@
 		EA6371431ED8210D003E6BC3 /* LJRunLoopWork.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6371401ED8210D003E6BC3 /* LJRunLoopWork.m */; };
 		EA6371441ED8210D003E6BC3 /* UITableViewCell_CellExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6371421ED8210D003E6BC3 /* UITableViewCell_CellExtension.m */; };
 		EA6371481ED8374B003E6BC3 /* UserPostingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6371471ED8374B003E6BC3 /* UserPostingViewController.m */; };
+		EA6D3D441EF10C70001F397B /* YouAnCollectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6D3D431EF10C70001F397B /* YouAnCollectionModel.m */; };
+		EA6D3D471EF10CAB001F397B /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6D3D461EF10CAB001F397B /* CollectionViewController.m */; };
 		EA7738E81EAB451600AADE5C /* AppDelegate+Sunday.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7738E71EAB451600AADE5C /* AppDelegate+Sunday.m */; };
 		EA7823F21ED03C6100CBF1E6 /* YouAnUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA7823F11ED03C6100CBF1E6 /* YouAnUserModel.m */; };
 		EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA89C44E1ED40D4100B64A1B /* YouAnBBSModel.m */; };
@@ -241,6 +243,10 @@
 		EA6371421ED8210D003E6BC3 /* UITableViewCell_CellExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UITableViewCell_CellExtension.m; sourceTree = "<group>"; };
 		EA6371461ED8374B003E6BC3 /* UserPostingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserPostingViewController.h; sourceTree = "<group>"; };
 		EA6371471ED8374B003E6BC3 /* UserPostingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserPostingViewController.m; sourceTree = "<group>"; };
+		EA6D3D421EF10C70001F397B /* YouAnCollectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnCollectionModel.h; sourceTree = "<group>"; };
+		EA6D3D431EF10C70001F397B /* YouAnCollectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnCollectionModel.m; sourceTree = "<group>"; };
+		EA6D3D451EF10CAB001F397B /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		EA6D3D461EF10CAB001F397B /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		EA7738E61EAB451600AADE5C /* AppDelegate+Sunday.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Sunday.h"; sourceTree = "<group>"; };
 		EA7738E71EAB451600AADE5C /* AppDelegate+Sunday.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Sunday.m"; sourceTree = "<group>"; };
 		EA7823F01ED03C6100CBF1E6 /* YouAnUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnUserModel.h; sourceTree = "<group>"; };
@@ -571,6 +577,15 @@
 			name = "发帖AndSo on";
 			sourceTree = "<group>";
 		};
+		EA6D3D411EF10C4A001F397B /* 我的收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				EA6D3D451EF10CAB001F397B /* CollectionViewController.h */,
+				EA6D3D461EF10CAB001F397B /* CollectionViewController.m */,
+			);
+			name = "我的收藏";
+			sourceTree = "<group>";
+		};
 		EA9CF5FF1E80D3CD0050BA8B = {
 			isa = PBXGroup;
 			children = (
@@ -797,6 +812,8 @@
 				EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */,
 				EA9483EA1EE9057800D3124A /* YouAnUserPosttingModel.h */,
 				EA9483EB1EE9057800D3124A /* YouAnUserPosttingModel.m */,
+				EA6D3D421EF10C70001F397B /* YouAnCollectionModel.h */,
+				EA6D3D431EF10C70001F397B /* YouAnCollectionModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -832,6 +849,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EA6D3D411EF10C4A001F397B /* 我的收藏 */,
 				EA26E3EF1ECEC783003D5F6C /* @我的 */,
 				EA456CF01EC831B400BE380E /* 我要认证 */,
 				EA456CE71EC8259900BE380E /* 我的粉丝/关注 */,
@@ -1230,6 +1248,7 @@
 				EADF1E651E82CEDA0083D7DD /* BWCommon.m in Sources */,
 				EA6371121ED6C3AB003E6BC3 /* YNTestBaseViewController.m in Sources */,
 				EA4332A51ED57E3500A65177 /* MSSBrowseActionSheetCell.m in Sources */,
+				EA6D3D471EF10CAB001F397B /* CollectionViewController.m in Sources */,
 				EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */,
 				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EA6371361ED7D1BB003E6BC3 /* CenterMainViewController.m in Sources */,
@@ -1282,6 +1301,7 @@
 				EAE023841EDE7565009305A7 /* YouAnBBSDeatilModel.m in Sources */,
 				EAEF2CDA1ED954DD003300A9 /* PostingImageTableViewCell.m in Sources */,
 				EA6371431ED8210D003E6BC3 /* LJRunLoopWork.m in Sources */,
+				EA6D3D441EF10C70001F397B /* YouAnCollectionModel.m in Sources */,
 				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
 				EA4332A91ED57E3500A65177 /* MSSBrowseLocalViewController.m in Sources */,
 				EA26E3F51ECEC892003D5F6C /* AtmeTableViewCell.m in Sources */,

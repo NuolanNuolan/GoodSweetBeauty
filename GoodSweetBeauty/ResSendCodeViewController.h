@@ -12,7 +12,7 @@
 
 
 //注册 验证码登录 忘记密码
-@property(nonatomic,strong)NSString *type;
+@property(nonatomic,copy)NSString *type;
 //手机号
-@property(nonatomic,strong)NSString *phone;
+@property(nonatomic,copy)NSString *phone;
 @end

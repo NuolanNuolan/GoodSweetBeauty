@@ -26,15 +26,15 @@
 @property (nonatomic, strong)UIButton *btn_choose_at;
 
 //用户输入的标题
-@property(nonatomic,strong)NSString *str_title;
+@property(nonatomic,copy)NSString *str_title;
 //用户输入的帖子内容
-@property(nonatomic,strong)NSString *str_posting_deatil;
+@property(nonatomic,copy)NSString *str_posting_deatil;
 //用户选择的图片数组
 @property(nonatomic,strong)NSMutableArray *arr_image;
 //图片上传的URL
 @property(nonatomic,strong)NSMutableArray *arr_image_url;
 //回复的时候@的人
-@property(nonatomic,strong)NSString *str_at;
+@property(nonatomic,copy)NSString *str_at;
 
 
 @property(nonatomic,strong)UITableView *tableview;

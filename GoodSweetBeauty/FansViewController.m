@@ -13,7 +13,7 @@
 
 @interface FansViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property(nonatomic,strong)NSString *type;
+@property(nonatomic,copy)NSString *type;
 
 @property(nonatomic,strong)UITableView *tableview;
 

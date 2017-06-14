@@ -450,4 +450,63 @@
     }];
     
 }
+/**
+ 认证
+ */
++(void)Vip_Application:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/vip-application/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@",responseObject);
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+       
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+
+    }];
+    
+}
+/**
+ 收藏
+ */
++(void)MyCollectionWithpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/my-favors/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
 @end
