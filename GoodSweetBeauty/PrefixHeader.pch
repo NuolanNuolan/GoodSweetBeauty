@@ -48,6 +48,7 @@
 #import "UserPostingViewController.h"
 #import "UIButton+Badge.h"
 #import "YYLabel.h"
+#import "ZFCWaveActivityIndicatorView.h"
 
 
 

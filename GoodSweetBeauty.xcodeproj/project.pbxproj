@@ -11,6 +11,7 @@
 		EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA09A2611EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m */; };
 		EA09A2661EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */ = {isa = PBXBuildFile; fileRef = EA09A2651EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m */; };
 		EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA09A2691EC2199900224DF5 /* BBSPostTableViewCell.m */; };
+		EA1202441EF224940014F927 /* ZFCWaveActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */; };
 		EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */; };
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
@@ -147,6 +148,8 @@
 		EA09A2651EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+ChangeLineSpaceAndWordSpace.m"; sourceTree = "<group>"; };
 		EA09A2681EC2199900224DF5 /* BBSPostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSPostTableViewCell.h; sourceTree = "<group>"; };
 		EA09A2691EC2199900224DF5 /* BBSPostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSPostTableViewCell.m; sourceTree = "<group>"; };
+		EA1202421EF224940014F927 /* ZFCWaveActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCWaveActivityIndicatorView.h; sourceTree = "<group>"; };
+		EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCWaveActivityIndicatorView.m; sourceTree = "<group>"; };
 		EA15CB461EBF471200034741 /* MyPost_OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost_OneTableViewCell.h; sourceTree = "<group>"; };
 		EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost_OneTableViewCell.m; sourceTree = "<group>"; };
 		EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -435,6 +438,15 @@
 			name = BBSForView;
 			sourceTree = "<group>";
 		};
+		EA1202411EF224770014F927 /* ZFCWaveHUD */ = {
+			isa = PBXGroup;
+			children = (
+				EA1202421EF224940014F927 /* ZFCWaveActivityIndicatorView.h */,
+				EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */,
+			);
+			name = ZFCWaveHUD;
+			sourceTree = "<group>";
+		};
 		EA26E3EF1ECEC783003D5F6C /* @我的 */ = {
 			isa = PBXGroup;
 			children = (
@@ -673,6 +685,7 @@
 		EA9CF63F1E80D8D00050BA8B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EA1202411EF224770014F927 /* ZFCWaveHUD */,
 				EAE1EC261EE11B8100FA2882 /* UIButton+EnlargeTouchArea */,
 				EABF66061ED96619004A0771 /* YYkitBase */,
 				EA63713E1ED820F4003E6BC3 /* RunLoopWork */,
@@ -1250,6 +1263,7 @@
 				EA4332A51ED57E3500A65177 /* MSSBrowseActionSheetCell.m in Sources */,
 				EA6D3D471EF10CAB001F397B /* CollectionViewController.m in Sources */,
 				EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */,
+				EA1202441EF224940014F927 /* ZFCWaveActivityIndicatorView.m in Sources */,
 				EA9CF7701E82BDA30050BA8B /* HJViewController.m in Sources */,
 				EA6371361ED7D1BB003E6BC3 /* CenterMainViewController.m in Sources */,
 				EA6371331ED7D15E003E6BC3 /* CenterTwoViewController.m in Sources */,

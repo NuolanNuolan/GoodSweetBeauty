@@ -103,7 +103,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableview.mj_footer endRefreshing];
-        [MBProgressHUD hideHUDForView:self.view];
+//        [MBProgressHUD hideHUDForView:self.view];
+        [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
             
             [self DataProcessingwithpage:page withdata:responseObject];
@@ -192,7 +193,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [self LoadData:++self.page];
         
     }];
-    [MBProgressHUD showMessage:@"" toView:self.view];
+//    [MBProgressHUD showMessage:@"" toView:self.view];
+    [ZFCWaveActivityIndicatorView show:self.view];
+
+    
     
     
 }
