@@ -50,5 +50,11 @@
 +(id)GetNSUserDefaults:(NSString *)key;
 
 +(void)SetNSUserDefaultsWithValue:(id )value withkey:(NSString *)key;
+//UTF8转string
++(NSString *)stringByRemovingPercentEncoding:(NSString *)str;
+//string转UTF8
++(NSString *)UTF8string:(NSString *)str;
+//Unicode解码
++(NSString *)UnicodeDic:(NSDictionary *)dic;
 
 @end

@@ -235,13 +235,13 @@
                           @"password":self.text_pwd.text,
                           @"mobile":self.phone,
                           @"reg_ip":[BWCommon getIpAddresses]};
-//    [MBProgressHUD showMessage:@"" toView:self.view];
-    [ZFCWaveActivityIndicatorView show:self.view];
+    [MBProgressHUD showMessage:@"" toView:self.view];
+//    [ZFCWaveActivityIndicatorView show:self.view];
     @weakify(self);
     [HttpEngine RegistrationInput:dic complete:^(BOOL success, id responseObject) {
         @strongify(self);
-//        [MBProgressHUD hideHUDForView:self.view];
-        [ZFCWaveActivityIndicatorView hid:self.view];
+        [MBProgressHUD hideHUDForView:self.view];
+//        [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
             
             //自动登录

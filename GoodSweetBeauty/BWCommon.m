@@ -304,4 +304,43 @@
     [[NSUserDefaults standardUserDefaults]setObject:value forKey:key];
     [[NSUserDefaults standardUserDefaults]synchronize];
 }
+//UTF8转string
++(NSString *)stringByRemovingPercentEncoding:(NSString *)str{
+
+    if (str&&![str isEqualToString:@""]) {
+        
+        return [str stringByRemovingPercentEncoding];
+    }
+    return @"";
+}
+//string转UTF8
++(NSString *)UTF8string:(NSString *)str{
+
+    if (str&&![str isEqualToString:@""]) {
+        
+        return [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
+    return @"";
+}
+//Unicode解码
++(NSString *)UnicodeDic:(NSDictionary *)dic{
+
+    if (![dic count]) {
+        return nil;
+    }
+    NSString *tempStr1 =
+    [[dic description] stringByReplacingOccurrencesOfString:@"\\u"
+                                                 withString:@"\\U"];
+    NSString *tempStr2 =
+    [tempStr1 stringByReplacingOccurrencesOfString:@"\"" withString:@"\\\""];
+    NSString *tempStr3 =
+    [[@"\"" stringByAppendingString:tempStr2] stringByAppendingString:@"\""];
+    NSData *tempData = [tempStr3 dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *str =
+    [NSPropertyListSerialization propertyListFromData:tempData
+                                     mutabilityOption:NSPropertyListImmutable
+                                               format:NULL
+                                     errorDescription:NULL];
+    return str;
+}
 @end

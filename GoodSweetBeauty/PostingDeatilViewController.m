@@ -234,7 +234,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     view_btn.backgroundColor = [UIColor whiteColor];
     self.btn_back = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btn_back.frame = CGMAKE(ScreenWidth-AUTOW(145), 0.5, AUTOW(145), 50);
+    self.btn_back.frame = CGMAKE(ScreenWidth-AUTOW(145), 0, AUTOW(145), 50.5);
     [self.btn_back setBackgroundColor:GETMAINCOLOR];
     [self.btn_back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.btn_back addTarget:self action:@selector(back_click) forControlEvents:UIControlEventTouchUpInside];
