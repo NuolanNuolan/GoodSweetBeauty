@@ -13,8 +13,10 @@
 #import "UIView+YYAdd.h"
 #import "PostingImageTableViewCell.h"
 #import "BackCommentTableViewCell.h"
+#import "WBEmoticonInputView.h"
+@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate,WBStatusComposeEmoticonViewDelegate>
 
-@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate>
+@property (nonatomic, strong) YYTextView *textView;
 
 
 @property (nonatomic, strong) UIView * toolbar;
@@ -317,6 +319,7 @@
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.delegateSignal = [RACSubject subject];
+                    self.textView = cell.textView;
                     @weakify(self);
                     [cell.delegateSignal subscribeNext:^(id x) {
                         @strongify(self);
@@ -352,6 +355,7 @@
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.delegateSignal = [RACSubject subject];
+                    self.textView = cell.textView;
                     @weakify(self);
                     [cell.delegateSignal subscribeNext:^(id x) {
                         @strongify(self);
@@ -390,6 +394,7 @@
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     cell.delegateSignal = [RACSubject subject];
+                    self.textView = cell.textView;
                     @weakify(self);
                     [cell.delegateSignal subscribeNext:^(id x) {
                         @strongify(self);
@@ -524,6 +529,23 @@
 //表情键盘
 -(void)chooseemoji{
 
+    if (_textView.inputView) {
+        
+        _textView.inputView = nil;
+        [_textView reloadInputViews];
+        [_textView becomeFirstResponder];
+        [_btn_choose_emoji setImage:[UIImage imageNamed:@"iconBiaoqing"] forState:UIControlStateNormal];
+    }else{
+    
+        WBEmoticonInputView *v = [WBEmoticonInputView sharedView];
+        v.delegate = self;
+        _textView.inputView = v;
+        [_textView reloadInputViews];
+        [_textView becomeFirstResponder];
+        [_btn_choose_emoji setImage:[UIImage imageNamed:@"compose_keyboardbutton_background"] forState:UIControlStateNormal];
+    }
+    
+    
     
 }
 -(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *) info{
@@ -668,17 +690,16 @@
 //    
 //    MYLOG(@"%@",[BWCommon stringByRemovingPercentEncoding:utf8str]);
     
-    NSString *emotionPattern = @"/([0-9|#][\\x{20E3}])|[\\x{00ae}|\\x{00a9}|\\x{203C}|\\x{2047}|\\x{2048}|\\x{2049}|\\x{3030}|\\x{303D}|\\x{2139}|\\x{2122}|\\x{3297}|\\x{3299}][\\x{FE00}-\\x{FEFF}]?|[\\x{2190}-\\x{21FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2300}-\\x{23FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2460}-\\x{24FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{25A0}-\\x{25FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2600}-\\x{27BF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2900}-\\x{297F}][\\x{FE00}-\\x{FEFF}]?|[\\x{2B00}-\\x{2BF0}][\\x{FE00}-\\x{FEFF}]?|[\\x{1F000}-\\x{1F6FF}][\\x{FE00}-\\x{FEFF}]?/u";
-     NSString *pattern = [NSString stringWithFormat:@"%@", emotionPattern];
-    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-    // 2.测试字符串
-    NSArray *results = [regex matchesInString:self.str_posting_deatil options:0 range:NSMakeRange(0, self.str_posting_deatil.length)];
-    // 3.遍历结果
-    for (NSTextCheckingResult *result in results) {
-        NSLog(@"%@ %@", NSStringFromRange(result.range), [self.str_posting_deatil substringWithRange:result.range]);
-    }
-    
-    
+//    NSString *emotionPattern = @"/([0-9|#][\\x{20E3}])|[\\x{00ae}|\\x{00a9}|\\x{203C}|\\x{2047}|\\x{2048}|\\x{2049}|\\x{3030}|\\x{303D}|\\x{2139}|\\x{2122}|\\x{3297}|\\x{3299}][\\x{FE00}-\\x{FEFF}]?|[\\x{2190}-\\x{21FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2300}-\\x{23FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2460}-\\x{24FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{25A0}-\\x{25FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2600}-\\x{27BF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2900}-\\x{297F}][\\x{FE00}-\\x{FEFF}]?|[\\x{2B00}-\\x{2BF0}][\\x{FE00}-\\x{FEFF}]?|[\\x{1F000}-\\x{1F6FF}][\\x{FE00}-\\x{FEFF}]?/u";
+//     NSString *pattern = [NSString stringWithFormat:@"%@", emotionPattern];
+//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+//    // 2.测试字符串
+//    NSArray *results = [regex matchesInString:self.str_posting_deatil options:0 range:NSMakeRange(0, self.str_posting_deatil.length)];
+//    // 3.遍历结果
+//    for (NSTextCheckingResult *result in results) {
+//        NSLog(@"%@ %@", NSStringFromRange(result.range), [self.str_posting_deatil substringWithRange:result.range]);
+//    }
+
     
 //    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 //                                self.str_posting_deatil,@"content",
@@ -736,4 +757,17 @@
     [bvc showBrowseViewController:self];
 
 }
+
+#pragma mark @protocol WBStatusComposeEmoticonView
+- (void)emoticonInputDidTapText:(NSString *)text {
+    if (text.length) {
+        [_textView replaceRange:_textView.selectedTextRange withText:text];
+    }
+}
+
+- (void)emoticonInputDidTapBackspace {
+    [_textView deleteBackward];
+}
+
+
 @end

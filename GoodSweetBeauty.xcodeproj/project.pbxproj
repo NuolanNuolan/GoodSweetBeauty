@@ -98,12 +98,17 @@
 		EAA30B8C1EE3D4200074CE0C /* Exceptional_view.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA30B8B1EE3D4200074CE0C /* Exceptional_view.m */; };
 		EAA30B8F1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA30B8E1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m */; };
 		EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA30B911EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m */; };
+		EAA5A2C31EF3C86C002585C3 /* WBEmoticonInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2C21EF3C86C002585C3 /* WBEmoticonInputView.m */; };
+		EAA5A2C61EF3C890002585C3 /* WBStatusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2C51EF3C890002585C3 /* WBStatusHelper.m */; };
+		EAA5A2C91EF3C8CE002585C3 /* WBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2C81EF3C8CE002585C3 /* WBModel.m */; };
+		EAA5A2F81EF3CDCC002585C3 /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2F51EF3CDCC002585C3 /* PPNetworkCache.m */; };
+		EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */; };
+		EAA5A2FB1EF3D7B4002585C3 /* Emoji.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAA5A2FA1EF3D7B4002585C3 /* Emoji.bundle */; };
 		EAA98A921EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A911EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m */; };
 		EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A941EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m */; };
 		EAA98A981EDFFBD300F294BE /* BBSExceptionalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A971EDFFBD300F294BE /* BBSExceptionalTableViewCell.m */; };
 		EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */; };
 		EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */; };
-		EABF66041ED965E4004A0771 /* UIView+YYAdd.m in Sources */ = {isa = PBXBuildFile; fileRef = EABF66031ED965E4004A0771 /* UIView+YYAdd.m */; };
 		EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */; };
 		EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926131ECD8D2D00B6048D /* DynamicItem.m */; };
 		EAD9261A1ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926151ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m */; };
@@ -318,6 +323,17 @@
 		EAA30B8E1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsDeatilTableViewCell.m; sourceTree = "<group>"; };
 		EAA30B901EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsDeatilFatherTableViewCell.h; sourceTree = "<group>"; };
 		EAA30B911EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsDeatilFatherTableViewCell.m; sourceTree = "<group>"; };
+		EAA5A2C11EF3C86C002585C3 /* WBEmoticonInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBEmoticonInputView.h; sourceTree = "<group>"; };
+		EAA5A2C21EF3C86C002585C3 /* WBEmoticonInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBEmoticonInputView.m; sourceTree = "<group>"; };
+		EAA5A2C41EF3C890002585C3 /* WBStatusHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStatusHelper.h; sourceTree = "<group>"; };
+		EAA5A2C51EF3C890002585C3 /* WBStatusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBStatusHelper.m; sourceTree = "<group>"; };
+		EAA5A2C71EF3C8CE002585C3 /* WBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBModel.h; sourceTree = "<group>"; };
+		EAA5A2C81EF3C8CE002585C3 /* WBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBModel.m; sourceTree = "<group>"; };
+		EAA5A2F41EF3CDCC002585C3 /* PPNetworkCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkCache.h; sourceTree = "<group>"; };
+		EAA5A2F51EF3CDCC002585C3 /* PPNetworkCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkCache.m; sourceTree = "<group>"; };
+		EAA5A2F61EF3CDCC002585C3 /* PPNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkHelper.h; sourceTree = "<group>"; };
+		EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkHelper.m; sourceTree = "<group>"; };
+		EAA5A2FA1EF3D7B4002585C3 /* Emoji.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoji.bundle; sourceTree = "<group>"; };
 		EAA98A901EDFF59100F294BE /* BBSTitleDeatilTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSTitleDeatilTableViewCell.h; sourceTree = "<group>"; };
 		EAA98A911EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSTitleDeatilTableViewCell.m; sourceTree = "<group>"; };
 		EAA98A931EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSimageDeatilTableViewCell.h; sourceTree = "<group>"; };
@@ -328,9 +344,6 @@
 		EAAE62B61EBDDD5300AB9280 /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		EAAE62B81EBDDD6100AB9280 /* ToolsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolsViewController.h; sourceTree = "<group>"; };
 		EAAE62B91EBDDD6100AB9280 /* ToolsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolsViewController.m; sourceTree = "<group>"; };
-		EABF66021ED965E4004A0771 /* UIView+YYAdd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+YYAdd.h"; sourceTree = "<group>"; };
-		EABF66031ED965E4004A0771 /* UIView+YYAdd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YYAdd.m"; sourceTree = "<group>"; };
-		EABF66051ED96606004A0771 /* YYKitMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYKitMacro.h; sourceTree = "<group>"; };
 		EAD9260F1ECD8D2D00B6048D /* JYPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPagingView.h; sourceTree = "<group>"; };
 		EAD926101ECD8D2D00B6048D /* HHHorizontalPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHHorizontalPagingView.h; sourceTree = "<group>"; };
 		EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHHorizontalPagingView.m; sourceTree = "<group>"; };
@@ -685,9 +698,9 @@
 		EA9CF63F1E80D8D00050BA8B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5A2F31EF3CDC3002585C3 /* PPNetworkHelper */,
 				EA1202411EF224770014F927 /* ZFCWaveHUD */,
 				EAE1EC261EE11B8100FA2882 /* UIButton+EnlargeTouchArea */,
-				EABF66061ED96619004A0771 /* YYkitBase */,
 				EA63713E1ED820F4003E6BC3 /* RunLoopWork */,
 				EA6371131ED6C4D5003E6BC3 /* YNPageScrollViewController */,
 				EA6370F61ED6A49D003E6BC3 /* DTTempStatusMan */,
@@ -784,6 +797,31 @@
 				EAA2FDFD1EBEF1CA00C0EB27 /* MyPostViewController.m */,
 			);
 			name = "我的帖子";
+			sourceTree = "<group>";
+		};
+		EAA5A2C01EF3C861002585C3 /* Emojil */ = {
+			isa = PBXGroup;
+			children = (
+				EAA5A2C11EF3C86C002585C3 /* WBEmoticonInputView.h */,
+				EAA5A2C21EF3C86C002585C3 /* WBEmoticonInputView.m */,
+				EAA5A2C41EF3C890002585C3 /* WBStatusHelper.h */,
+				EAA5A2C51EF3C890002585C3 /* WBStatusHelper.m */,
+				EAA5A2C71EF3C8CE002585C3 /* WBModel.h */,
+				EAA5A2C81EF3C8CE002585C3 /* WBModel.m */,
+				EAA5A2FA1EF3D7B4002585C3 /* Emoji.bundle */,
+			);
+			name = Emojil;
+			sourceTree = "<group>";
+		};
+		EAA5A2F31EF3CDC3002585C3 /* PPNetworkHelper */ = {
+			isa = PBXGroup;
+			children = (
+				EAA5A2F41EF3CDCC002585C3 /* PPNetworkCache.h */,
+				EAA5A2F51EF3CDCC002585C3 /* PPNetworkCache.m */,
+				EAA5A2F61EF3CDCC002585C3 /* PPNetworkHelper.h */,
+				EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */,
+			);
+			name = PPNetworkHelper;
 			sourceTree = "<group>";
 		};
 		EAAE62A81EBDDC3D00AB9280 /* YouAnCenter */ = {
@@ -943,16 +981,6 @@
 			name = Public;
 			sourceTree = "<group>";
 		};
-		EABF66061ED96619004A0771 /* YYkitBase */ = {
-			isa = PBXGroup;
-			children = (
-				EABF66051ED96606004A0771 /* YYKitMacro.h */,
-				EABF66021ED965E4004A0771 /* UIView+YYAdd.h */,
-				EABF66031ED965E4004A0771 /* UIView+YYAdd.m */,
-			);
-			name = YYkitBase;
-			sourceTree = "<group>";
-		};
 		EAD926011ECD7DC400B6048D /* HHHorizontalPagingView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1020,6 +1048,7 @@
 		EAEF2CCC1ED9217A003300A9 /* 发帖及回复 */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5A2C01EF3C861002585C3 /* Emojil */,
 				EAEF2CD01ED9223C003300A9 /* PostingTitleTableViewCell.h */,
 				EAEF2CD11ED9223C003300A9 /* PostingTitleTableViewCell.m */,
 				EAEF2CD21ED9223C003300A9 /* PostingTitleTableViewCell.xib */,
@@ -1154,6 +1183,7 @@
 				EA9CF6181E80D3CD0050BA8B /* Assets.xcassets in Resources */,
 				EAA2FDF51EBE55BB00C0EB27 /* SettingTableViewCell.xib in Resources */,
 				EAA2FDFA1EBE58DA00C0EB27 /* SettingSwitchTableViewCell.xib in Resources */,
+				EAA5A2FB1EF3D7B4002585C3 /* Emoji.bundle in Resources */,
 				EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */,
 				EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */,
 				EAEF2CD41ED9223C003300A9 /* PostingTitleTableViewCell.xib in Resources */,
@@ -1275,6 +1305,7 @@
 				EA63710D1ED6C38A003E6BC3 /* YNTestOneViewController.m in Sources */,
 				EAA2FDF41EBE55BB00C0EB27 /* SettingTableViewCell.m in Sources */,
 				EA6371271ED6C4D5003E6BC3 /* YNPageScrollViewMenu.m in Sources */,
+				EAA5A2C91EF3C8CE002585C3 /* WBModel.m in Sources */,
 				EA63710E1ED6C38A003E6BC3 /* YNTestThreeViewController.m in Sources */,
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
@@ -1287,8 +1318,8 @@
 				EAD9261B1ECD8D2D00B6048D /* UIScrollView+Dragging.m in Sources */,
 				EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */,
 				EA6371441ED8210D003E6BC3 /* UITableViewCell_CellExtension.m in Sources */,
-				EABF66041ED965E4004A0771 /* UIView+YYAdd.m in Sources */,
 				EA4332A71ED57E3500A65177 /* MSSBrowseCollectionViewCell.m in Sources */,
+				EAA5A2C31EF3C86C002585C3 /* WBEmoticonInputView.m in Sources */,
 				EA6371011ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m in Sources */,
 				EA4F16871ED05486002E7A2D /* YouAnFansFollowModel.m in Sources */,
 				EA6371221ED6C4D5003E6BC3 /* UIView+YNCategory.m in Sources */,
@@ -1297,6 +1328,7 @@
 				EAE1EC291EE11B8A00FA2882 /* UIButton+EnlargeTouchArea.m in Sources */,
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
 				EA6371281ED6C4D5003E6BC3 /* YNPageScrollViewMenuConfigration.m in Sources */,
+				EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */,
 				EA63712D1ED7D0F0003E6BC3 /* CenterBaseViewController.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
 				EA6371001ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m in Sources */,
@@ -1306,11 +1338,13 @@
 				EA4332AB1ED57E3500A65177 /* MSSBrowseNetworkViewController.m in Sources */,
 				EA6371021ED6A49D003E6BC3 /* UIViewController+ZHNAutoTempStatus.m in Sources */,
 				EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */,
+				EAA5A2C61EF3C890002585C3 /* WBStatusHelper.m in Sources */,
 				EA6371261ED6C4D5003E6BC3 /* YNPageScrollViewController.m in Sources */,
 				EAA98A981EDFFBD300F294BE /* BBSExceptionalTableViewCell.m in Sources */,
 				EA09A2661EC1B5F400224DF5 /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				EA9DBB221EC704D5000FA93A /* ResSendCodeViewController.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
+				EAA5A2F81EF3CDCC002585C3 /* PPNetworkCache.m in Sources */,
 				EA63710F1ED6C38A003E6BC3 /* YNTestTwoViewController.m in Sources */,
 				EAE023841EDE7565009305A7 /* YouAnBBSDeatilModel.m in Sources */,
 				EAEF2CDA1ED954DD003300A9 /* PostingImageTableViewCell.m in Sources */,
