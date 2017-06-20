@@ -61,7 +61,7 @@
 //主线程
 #define GCD_MAIN(Block) dispatch_async(dispatch_get_main_queue(),^{Block})
 //子线程
-#define GCD_GETGLOBAL_QUEUE(Block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{Block});
+#define GCD_GETGLOBAL_QUEUE(Block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{Block})
 //判断系统版本号
 #define SYSTEMVERSION [[UIDevice currentDevice] systemVersion]
 ///得到沙盒路径

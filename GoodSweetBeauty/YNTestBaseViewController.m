@@ -61,9 +61,9 @@
 - (void)viewDidLoad{
     
     [super viewDidLoad];
-    
-    
+
     [self.view addSubview:self.tableView];
+    
     [self createload];
     
 }
@@ -73,9 +73,8 @@
 }
 -(void)createload{
 
-    @weakify(self);
     
-        
+    @weakify(self);
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
             @strongify(self);
 //            self.tableView.mj_footer.hidden = NO;
@@ -237,7 +236,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     return [BBSPostTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
-//    return 500;
 }
 
 //cell-tableview

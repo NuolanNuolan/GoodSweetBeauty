@@ -8,7 +8,7 @@
 
 #import "CenterBaseViewController.h"
 
-@interface CenterBaseViewController ()<YNPageScrollViewControllerDataSource>
+@interface CenterBaseViewController ()
 
 @end
 
