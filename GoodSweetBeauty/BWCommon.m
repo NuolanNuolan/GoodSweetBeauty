@@ -11,6 +11,7 @@
 #import "BWCommon.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
+#import "YouAnFansFollowModel.h"
 
 @implementation BWCommon
 //是否手机号
@@ -18,22 +19,15 @@
 {
     
     //
-    NSString *MOBILE    = @"^1(3[0-9]|5[0-35-9]|8[025-9])\\d{8}$";
-    NSString *CM        = @"^1(34[0-8]|(3[5-9]|5[017-9]|8[12378]|7[7])\\d)\\d{7}$";   // 包含电信4G 177号段
-    NSString *CU        = @"^1(3[0-2]|5[256]|8[56])\\d{8}$";
-    NSString *CT        = @"^1((33|53|8[09])[0-9]|349)\\d{7}$";
+    NSString *MOBILE    = @"^1\\d{10}$";
     
     //
     NSPredicate *regextestmobile = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", MOBILE];
-    NSPredicate *regextestcm = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CM];
-    NSPredicate *regextestcu = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CU];
-    NSPredicate *regextestct = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", CT];
+
     BOOL res1 = [regextestmobile evaluateWithObject:_text];
-    BOOL res2 = [regextestcm evaluateWithObject:_text];
-    BOOL res3 = [regextestcu evaluateWithObject:_text];
-    BOOL res4 = [regextestct evaluateWithObject:_text];
+
     
-    if (res1 || res2 || res3 || res4 )
+    if (res1)
     {
         return YES;
     }
@@ -342,5 +336,138 @@
                                                format:NULL
                                      errorDescription:NULL];
     return str;
+}
+//转拼音
++(NSString *)Pinyin:(NSString *)Chinese{
+
+    NSMutableString *pinyin = [Chinese mutableCopy];
+    NSString * pinyinstr = @"";
+    
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformMandarinLatin, NO);
+    CFStringTransform((__bridge CFMutableStringRef)pinyin, NULL, kCFStringTransformStripCombiningMarks, NO);
+    //不去掉空格
+    pinyinstr = [pinyin stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    pinyinstr = [pinyin stringByReplacingOccurrencesOfString:@"\r" withString:@" "];
+    pinyinstr = [pinyin stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+//    pinyinstr = [pinyin stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    return pinyinstr;
+    
+}
++ (BOOL)checkIsChinese:(NSString *)string
+{
+    for (int i=0; i<string.length; i++)
+    {
+        unichar ch = [string characterAtIndex:i];
+        if (0x4E00 <= ch  && ch <= 0x9FA5)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+//取出@的人 以及 内容
++(NSDictionary *)PredicateAt:(NSString *)content Atarr:(NSMutableArray *)Arr_at{
+
+    if (Arr_at.count==0) {
+        
+        NSDictionary *dic = @{@"content":content,
+                              @"at":@""};
+        return dic;
+        
+    }else{
+        
+        //@列表
+        NSMutableArray *Arr_Deal_at = [NSMutableArray arrayWithCapacity:0];
+        
+        NSString *pattern = [NSString stringWithFormat:@"@(.+?) "];
+        NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+    
+        NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
+        if (results.count>0) {
+            
+            //内容
+            NSString *str_content = content;
+            for (NSTextCheckingResult *result in results) {
+                MYLOG(@"%@ %@", NSStringFromRange(result.range), [content substringWithRange:result.range]);
+                //正则提取出来的内容 包含@和空格
+                NSString *str_result =  [[content substringWithRange:result.range]substringFromIndex:1];
+                //去掉开头的@
+                //去掉后面的空格
+                str_result = [str_result substringToIndex:str_result.length-1];
+                //提取出来的用户名 与 At Model里面相对比
+                for (YouAnFansFollowModel *model in Arr_at) {
+                    
+                    if ([model.username isEqualToString:str_result]) {
+                        //如果At列表里面有这个人 @列表+1 @内容去除
+                        [Arr_Deal_at addObject:model];
+                        str_content = [str_content stringByReplacingOccurrencesOfString:[content substringWithRange:result.range] withString:@""];
+                        
+                    }
+                }
+            }
+            
+            NSString *str_Deal_at = @"";
+            for (YouAnFansFollowModel *model in Arr_Deal_at) {
+                
+                str_Deal_at = [str_Deal_at stringByAppendingString:[NSString stringWithFormat:@"%ld##",(long)model.id]];
+            }
+            if (![str_Deal_at isEqualToString:@""]) {
+                
+                str_Deal_at = [str_Deal_at substringToIndex:str_Deal_at.length-2];
+            }
+            NSDictionary *dic = @{@"content":str_content,
+                                  @"at":str_Deal_at};
+            return dic;
+        }else{
+        
+            NSDictionary *dic = @{@"content":content,
+                                  @"at":@""};
+            return dic;
+        }
+    }
+    
+    
+    
+    
+    
+//    //结果
+//    
+//    
+//    NSString *pattern = [NSString stringWithFormat:@"@(.+?) "];
+//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
+//    
+//    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
+//    if (results.count>0) {
+//        
+//        for (NSTextCheckingResult *result in results) {
+//            
+//            NSLog(@"%@ %@", NSStringFromRange(result.range), [content substringWithRange:result.range]);
+//            if ([BWCommon DoesItIncludeBetween:[content substringWithRange:result.range] withString:@"@"]&&[BWCommon DoesItIncludeBetween:[content substringWithRange:result.range] withString:@" "]) {
+//                //提取出来的@信息
+//                NSString * str_At = [content substringWithRange:result.range];
+//                
+//                
+//                
+//                
+//                //把@ 和空格字符替换掉
+//                content = [content stringByReplacingOccurrencesOfString:[content substringWithRange:result.range] withString:@""];
+//                //去掉首尾
+//                NSString *str 
+//                
+//                [arr addObject:str];
+//            }
+//        }
+//        
+//        [arr addObject:content];
+//        
+//    }else{
+//    
+//        [arr addObject:content];
+//    }
+    
+//    NSDictionary *dic = @{};
+//    
+//    return dic;
 }
 @end

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PostingTableViewCell : UITableViewCell
-@property (nonatomic, strong) RACSubject *delegateSignal;
+//@property (nonatomic, strong) RACSubject *delegateSignal;
 @property (nonatomic, strong) YYTextView *textView;
 
 -(void)settype:(YouAnStatusComposeViewType )type;

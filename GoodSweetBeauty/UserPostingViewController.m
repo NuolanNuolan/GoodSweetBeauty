@@ -14,7 +14,9 @@
 #import "PostingImageTableViewCell.h"
 #import "BackCommentTableViewCell.h"
 #import "WBEmoticonInputView.h"
-@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate,WBStatusComposeEmoticonViewDelegate>
+#import "AtChooseViewController.h"
+
+@interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate,WBStatusComposeEmoticonViewDelegate,YYTextViewDelegate>
 
 @property (nonatomic, strong) YYTextView *textView;
 
@@ -36,7 +38,7 @@
 //图片上传的URL
 @property(nonatomic,strong)NSMutableArray *arr_image_url;
 //回复的时候@的人
-@property(nonatomic,copy)NSString *str_at;
+@property(nonatomic,strong)NSMutableArray *Arr_at;
 
 
 @property(nonatomic,strong)UITableView *tableview;
@@ -135,9 +137,9 @@
 -(void)toolbarbtn{
 
     NSArray *arr_image ;
-    if (self.type == YouAnStatusComposeViewTypePostTing) arr_image = [NSArray arrayWithObjects:@"iconImg",@"iconBiaoqing", nil];
-    else arr_image = [NSArray arrayWithObjects:@"iconImg",@"iconBiaoqing",@"icon_At", nil];
-    
+//    if (self.type == YouAnStatusComposeViewTypePostTing) arr_image = [NSArray arrayWithObjects:@"iconImg",@"iconBiaoqing", nil];
+//    else arr_image = [NSArray arrayWithObjects:@"iconImg",@"iconBiaoqing",@"icon_At", nil];
+    arr_image = [NSArray arrayWithObjects:@"iconImg",@"iconBiaoqing",@"icon_At", nil];
     for (int i =0; i<arr_image.count; i++) {
         
         UIView *view = [UIView new];
@@ -318,13 +320,14 @@
                     PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.delegateSignal = [RACSubject subject];
+//                    cell.delegateSignal = [RACSubject subject];
                     self.textView = cell.textView;
-                    @weakify(self);
-                    [cell.delegateSignal subscribeNext:^(id x) {
-                        @strongify(self);
-                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-                    }];
+                    self.textView.delegate =self;
+//                    @weakify(self);
+//                    [cell.delegateSignal subscribeNext:^(id x) {
+//                        @strongify(self);
+//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+//                    }];
                     return cell;
                 }
                     break;
@@ -354,13 +357,14 @@
                     PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.delegateSignal = [RACSubject subject];
+//                    cell.delegateSignal = [RACSubject subject];
                     self.textView = cell.textView;
-                    @weakify(self);
-                    [cell.delegateSignal subscribeNext:^(id x) {
-                        @strongify(self);
-                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-                    }];
+                    self.textView.delegate =self;
+//                    @weakify(self);
+//                    [cell.delegateSignal subscribeNext:^(id x) {
+//                        @strongify(self);
+//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+//                    }];
                     return cell;
                 }
                     break;
@@ -393,13 +397,14 @@
                     PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.delegateSignal = [RACSubject subject];
+//                    cell.delegateSignal = [RACSubject subject];
                     self.textView = cell.textView;
-                    @weakify(self);
-                    [cell.delegateSignal subscribeNext:^(id x) {
-                        @strongify(self);
-                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-                    }];
+                    self.textView.delegate =self;
+//                    @weakify(self);
+//                    [cell.delegateSignal subscribeNext:^(id x) {
+//                        @strongify(self);
+//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
+//                    }];
                     return cell;
                 }
                     break;
@@ -409,7 +414,6 @@
                 }
                     break;
             }
-
         }
             break;
         case 2:{
@@ -508,7 +512,8 @@
             break;
         case 102:{
             
-            
+            //@人
+            [self AtPerson];
         }
             break;
     }
@@ -548,12 +553,101 @@
     
     
 }
--(void) imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *) info{
+
+/**
+ 跳转@页面
+ */
+-(void)AtPerson{
+
+    if ([_textView becomeFirstResponder]) {
+        
+        AtChooseViewController *view = [AtChooseViewController new];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:view];
+        @weakify(self);
+        view.popblock=^ (){
+            @strongify(self);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                
+                [self.textView becomeFirstResponder];
+            });
+        };
+        view.modelblock=^(YouAnFansFollowModel *model){
+            @strongify(self);
+            
+            [self AtDealWith:model];
+        };
+        [self presentViewController:navigationController animated:YES completion:nil];
+        
+        
+    }
+}
+//at人数处理
+-(void)AtDealWith:(YouAnFansFollowModel *)model{
+
+    MYLOG(@"%@",model.username);
+    NSString *str = [NSString stringWithFormat:@"@%@ ",model.username];
+    
+    if (self.Arr_at.count==0) {
+        
+        [self.Arr_at addObject:model];
+        [self.textView replaceRange:self.textView.selectedTextRange withText:str];
+        
+    }else{
+        
+        if (self.Arr_at.count==5) {
+            
+            [MBProgressHUD showError:@"您最多@5人哦" toView:self.view];
+            return ;
+        }
+        //判断是否能添加
+        BOOL isCanAdd = TRUE;
+        for (YouAnFansFollowModel*Arr_model in self.Arr_at) {
+            if (model.id == Arr_model.id) {
+                
+                isCanAdd = FALSE;
+                break;
+            }
+        }
+        if (isCanAdd) {
+
+            [self.Arr_at addObject:model];
+            [self.textView replaceRange:self.textView.selectedTextRange withText:str];
+        }
+    }
+}
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *) info{
     
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
     UIImage *img=info[UIImagePickerControllerEditedImage];
+    //上传图片 刷新
+    [self.arr_image addObject:img];
+    //刷新第三行
+    NSIndexPath *indexpathone;
+    switch (_type) {
+        case YouAnStatusComposeViewTypePostTing:{
+            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
+        }
+            break;
+        case YouAnStatusComposeViewTypeStatus:{
+            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:1];
+        }
+            break;
+        case YouAnStatusComposeViewTypeComment:{
+            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:2];
+        }
+            break;
+        case YouAnStatusComposeViewTypePostKouBei:{
+            
+            
+        }
+            break;
+    }
+    [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
     
 }
 -(void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto
@@ -665,9 +759,14 @@
  */
 -(void)Postting{
 
+    
+    NSDictionary *dic_at = [BWCommon PredicateAt:[self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes]Atarr:self.Arr_at];
+    MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                self.str_title,@"subject",
-                                self.str_posting_deatil,@"content",
+                                [self.str_title stringByReplacingEmojiUnicodeToCheatCodes],@"subject",
+                                dic_at[@"content"],@"content",
+                                dic_at[@"at"],@"at",
                                 [BWCommon getIpAddresses],@"user_ip", nil];
     @weakify(self);
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
@@ -699,22 +798,34 @@
 //    for (NSTextCheckingResult *result in results) {
 //        NSLog(@"%@ %@", NSStringFromRange(result.range), [self.str_posting_deatil substringWithRange:result.range]);
 //    }
+//
+//    NSString *encodedString = (NSString *)
+//    
+//    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
+//                                                              
+//                                                              (CFStringRef)[self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],
+//                                                              
+//                                                              NULL,
+//                                                              
+//                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+//                                                              
+//                                                              kCFStringEncodingUTF8));
+    
+        
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                    [self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],@"content",
+                                    [BWCommon getIpAddresses],@"user_ip",
+                                    nil];
 
     
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-//                                self.str_posting_deatil,@"content",
-//                                [BWCommon getIpAddresses],@"user_ip",
-//                                self.str_at? self.str_at:@"",@"at",
-//                                nil];
-//    
-//    @weakify(self);
-//    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
-//        @strongify(self);
-//        MYLOG(@"%@", responseObject);
-//        //返回之前存入一个值 需要刷新
-//        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
-//        [self dismissViewControllerAnimated:YES completion:nil];
-//    }];
+    @weakify(self);
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        MYLOG(@"%@", responseObject);
+        //返回之前存入一个值 需要刷新
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
     
 }
 
@@ -724,9 +835,8 @@
 -(void)ReplyFloor{
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                self.str_posting_deatil,@"content",
+                                [self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],@"content",
                                 [BWCommon getIpAddresses],@"user_ip",
-                                self.str_at? self.str_at:@"",@"at",
                                 [NSNumber numberWithInteger:self.postsmodel.id],@"father_id",nil];
     
     @weakify(self);
@@ -757,7 +867,15 @@
     [bvc showBrowseViewController:self];
 
 }
-
+#pragma mark @protocol YYTextViewDelegate
+- (void)textViewDidChange:(YYTextView *)textView {
+    
+    self.str_posting_deatil = textView.text;
+    if ([textView.text isEqualToString:@""]) {
+        
+        [self.Arr_at removeAllObjects];
+    }
+}
 #pragma mark @protocol WBStatusComposeEmoticonView
 - (void)emoticonInputDidTapText:(NSString *)text {
     if (text.length) {
@@ -769,5 +887,12 @@
     [_textView deleteBackward];
 }
 
+//懒加载
+-(NSMutableArray *)Arr_at{
 
+    if (!_Arr_at) {
+        _Arr_at = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _Arr_at;
+}
 @end

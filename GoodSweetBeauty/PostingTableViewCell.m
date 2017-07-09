@@ -30,7 +30,7 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
         _textView = [YYTextView new];
-        _textView.delegate =self;
+//        _textView.delegate =self;
         _textView.backgroundColor = [UIColor clearColor];
         _textView.placeholderFont = [UIFont systemFontOfSize:15];
         _textView.placeholderTextColor = RGB(199, 199, 199);
@@ -39,6 +39,7 @@
         _textView.font = [UIFont systemFontOfSize:14];
         _textView.showsVerticalScrollIndicator =NO;
         _textView.textContainerInset = UIEdgeInsetsMake(15, 15, 12, 15);
+        _textView.textParser = [WBStatusComposeTextParser new];
 //        textview.contentInset = UIEdgeInsetsMake(0, 0, 100, 0);
         _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -56,10 +57,10 @@
     }
     return self;
 }
-- (void)textViewDidChange:(YYTextView *)textView{
-
-    if (self.delegateSignal) [self.delegateSignal sendNext:_textView.text];
-}
+//- (void)textViewDidChange:(YYTextView *)textView{
+//
+//    if (self.delegateSignal) [self.delegateSignal sendNext:_textView.text];
+//}
 -(void)settype:(YouAnStatusComposeViewType )type{
 
     switch (type) {

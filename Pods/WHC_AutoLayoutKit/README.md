@@ -23,7 +23,7 @@ Introduce
 
 Require
 ==============
-* iOS 8.0 or later
+* iOS 8.0+ / Mac OS X 10.11+ / tvOS 9.0+
 * Xcode 8.0 or later
 
 Install
@@ -126,6 +126,7 @@ stackView.whc_LeftSpace(10)
 ```
 
 Configuration stackView
+
 **1.** Set the padding
 ```objective-c
 stackView.whc_Edge = UIEdgeInsetsMake(10, 10, 10, 10); // 内边距

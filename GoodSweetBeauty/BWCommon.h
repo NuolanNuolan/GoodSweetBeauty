@@ -56,5 +56,13 @@
 +(NSString *)UTF8string:(NSString *)str;
 //Unicode解码
 +(NSString *)UnicodeDic:(NSDictionary *)dic;
+//汉字转拼音
++(NSString *)Pinyin:(NSString *)Chinese;
+//是否有中文
++ (BOOL)checkIsChinese:(NSString *)string;
+
+
+//At处理
++(NSDictionary *)PredicateAt:(NSString *)content Atarr:(NSMutableArray *)Arr_at;
 
 @end

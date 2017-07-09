@@ -50,6 +50,9 @@
 #import "UIButton+Badge.h"
 #import "YYLabel.h"
 #import "ZFCWaveActivityIndicatorView.h"
+#import "NSString+TYHEmoji.h"
+#import "WBStatusComposeTextParser.h"
+#import "XXLinkLabel.h"
 
 
 

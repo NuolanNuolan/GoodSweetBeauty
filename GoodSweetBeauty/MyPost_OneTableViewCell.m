@@ -100,8 +100,8 @@
         
         lab_day.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"dd"];
         lab_month.text = [NSString stringWithFormat:@"%@月",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM"]];
-        lab_title.text = model.subject;
-        lab_detail.text = model.content;
+        lab_title.text = [model.subject stringByReplacingEmojiCheatCodesToUnicode];
+        lab_detail.text = [model.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
         CGSize size_title = [self sizeWithString:lab_title.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-71.6, MAXFLOAT)];
         CGSize size_deatil = [self sizeWithString:lab_detail.text font:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(SCREEN_WIDTH-71.6, MAXFLOAT)];

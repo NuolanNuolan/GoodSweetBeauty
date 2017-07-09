@@ -11,6 +11,9 @@
 @interface BBSimageDeatilTableViewCell : UITableViewCell
 
 
--(void)setmodel:(YouAnBBSDeatilModel *)model;
+-(void)setmodel:(YouAnBBSDeatilModel *)model isopen:(BOOL)isopen;
+
+
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
 @end

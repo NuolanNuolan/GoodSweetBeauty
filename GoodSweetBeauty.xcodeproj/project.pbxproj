@@ -37,6 +37,12 @@
 		EA456CF61EC8339500BE380E /* MyAuthTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456CF51EC8339500BE380E /* MyAuthTableViewCell.m */; };
 		EA456CF91EC83BC200BE380E /* AuthTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456CF81EC83BC200BE380E /* AuthTypeView.m */; };
 		EA456D001ECADC2E00BE380E /* SetPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA456CFF1ECADC2E00BE380E /* SetPwdViewController.m */; };
+		EA4C05F91F0DD3B800539A16 /* NSString+TYHEmoji.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C05F71F0DD3B800539A16 /* NSString+TYHEmoji.m */; };
+		EA4C05FC1F0E8DB200539A16 /* AtChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C05FB1F0E8DB200539A16 /* AtChooseViewController.m */; };
+		EA4C06001F0E9A1300539A16 /* BMChineseSort.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C05FF1F0E9A1300539A16 /* BMChineseSort.m */; };
+		EA4C06041F0F5F8A00539A16 /* AtContactTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C06031F0F5F8A00539A16 /* AtContactTableViewCell.m */; };
+		EA4C06071F0F785100539A16 /* AtTitleheadview.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C06061F0F785100539A16 /* AtTitleheadview.m */; };
+		EA4C060B1F0F93CA00539A16 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C060A1F0F93CA00539A16 /* UIView+Utils.m */; };
 		EA4F16871ED05486002E7A2D /* YouAnFansFollowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */; };
 		EA6371001ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6370F81ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m */; };
 		EA6371011ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6370FA1ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m */; };
@@ -104,6 +110,9 @@
 		EAA5A2F81EF3CDCC002585C3 /* PPNetworkCache.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2F51EF3CDCC002585C3 /* PPNetworkCache.m */; };
 		EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */; };
 		EAA5A2FB1EF3D7B4002585C3 /* Emoji.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EAA5A2FA1EF3D7B4002585C3 /* Emoji.bundle */; };
+		EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5DF491F0FCB45000A0D4B /* CustomTextField.m */; };
+		EAA5DF4D1F10D4F0000A0D4B /* WBStatusComposeTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5DF4C1F10D4F0000A0D4B /* WBStatusComposeTextParser.m */; };
+		EAA5DF511F114111000A0D4B /* XXLinkLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA5DF501F114111000A0D4B /* XXLinkLabel.m */; };
 		EAA98A921EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A911EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m */; };
 		EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A941EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m */; };
 		EAA98A981EDFFBD300F294BE /* BBSExceptionalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA98A971EDFFBD300F294BE /* BBSExceptionalTableViewCell.m */; };
@@ -202,6 +211,19 @@
 		EA456CF81EC83BC200BE380E /* AuthTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AuthTypeView.m; sourceTree = "<group>"; };
 		EA456CFE1ECADC2E00BE380E /* SetPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetPwdViewController.h; sourceTree = "<group>"; };
 		EA456CFF1ECADC2E00BE380E /* SetPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetPwdViewController.m; sourceTree = "<group>"; };
+		EA4C05F61F0DD3B800539A16 /* NSString+TYHEmoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TYHEmoji.h"; sourceTree = "<group>"; };
+		EA4C05F71F0DD3B800539A16 /* NSString+TYHEmoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TYHEmoji.m"; sourceTree = "<group>"; };
+		EA4C05F81F0DD3B800539A16 /* TYHEmojiDic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYHEmojiDic.h; sourceTree = "<group>"; };
+		EA4C05FA1F0E8DB200539A16 /* AtChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtChooseViewController.h; sourceTree = "<group>"; };
+		EA4C05FB1F0E8DB200539A16 /* AtChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtChooseViewController.m; sourceTree = "<group>"; };
+		EA4C05FE1F0E9A1300539A16 /* BMChineseSort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BMChineseSort.h; sourceTree = "<group>"; };
+		EA4C05FF1F0E9A1300539A16 /* BMChineseSort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BMChineseSort.m; sourceTree = "<group>"; };
+		EA4C06021F0F5F8A00539A16 /* AtContactTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtContactTableViewCell.h; sourceTree = "<group>"; };
+		EA4C06031F0F5F8A00539A16 /* AtContactTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtContactTableViewCell.m; sourceTree = "<group>"; };
+		EA4C06051F0F785100539A16 /* AtTitleheadview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtTitleheadview.h; sourceTree = "<group>"; };
+		EA4C06061F0F785100539A16 /* AtTitleheadview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtTitleheadview.m; sourceTree = "<group>"; };
+		EA4C06091F0F93CA00539A16 /* UIView+Utils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Utils.h"; sourceTree = "<group>"; };
+		EA4C060A1F0F93CA00539A16 /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		EA4F16851ED05486002E7A2D /* YouAnFansFollowModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnFansFollowModel.h; sourceTree = "<group>"; };
 		EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnFansFollowModel.m; sourceTree = "<group>"; };
 		EA6370F71ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ZHNAutoTempStatus.h"; sourceTree = "<group>"; };
@@ -334,6 +356,12 @@
 		EAA5A2F61EF3CDCC002585C3 /* PPNetworkHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PPNetworkHelper.h; sourceTree = "<group>"; };
 		EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PPNetworkHelper.m; sourceTree = "<group>"; };
 		EAA5A2FA1EF3D7B4002585C3 /* Emoji.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Emoji.bundle; sourceTree = "<group>"; };
+		EAA5DF481F0FCB45000A0D4B /* CustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTextField.h; sourceTree = "<group>"; };
+		EAA5DF491F0FCB45000A0D4B /* CustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTextField.m; sourceTree = "<group>"; };
+		EAA5DF4B1F10D4F0000A0D4B /* WBStatusComposeTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStatusComposeTextParser.h; sourceTree = "<group>"; };
+		EAA5DF4C1F10D4F0000A0D4B /* WBStatusComposeTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBStatusComposeTextParser.m; sourceTree = "<group>"; };
+		EAA5DF4F1F114111000A0D4B /* XXLinkLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XXLinkLabel.h; sourceTree = "<group>"; };
+		EAA5DF501F114111000A0D4B /* XXLinkLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XXLinkLabel.m; sourceTree = "<group>"; };
 		EAA98A901EDFF59100F294BE /* BBSTitleDeatilTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSTitleDeatilTableViewCell.h; sourceTree = "<group>"; };
 		EAA98A911EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBSTitleDeatilTableViewCell.m; sourceTree = "<group>"; };
 		EAA98A931EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBSimageDeatilTableViewCell.h; sourceTree = "<group>"; };
@@ -521,6 +549,48 @@
 			name = "我要认证";
 			sourceTree = "<group>";
 		};
+		EA4C05F51F0DD3B800539A16 /* NSString+emoji */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C05F61F0DD3B800539A16 /* NSString+TYHEmoji.h */,
+				EA4C05F71F0DD3B800539A16 /* NSString+TYHEmoji.m */,
+				EA4C05F81F0DD3B800539A16 /* TYHEmojiDic.h */,
+			);
+			name = "NSString+emoji";
+			path = NSString;
+			sourceTree = "<group>";
+		};
+		EA4C05FD1F0E9A1300539A16 /* BMChineseStringSort */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C05FE1F0E9A1300539A16 /* BMChineseSort.h */,
+				EA4C05FF1F0E9A1300539A16 /* BMChineseSort.m */,
+			);
+			path = BMChineseStringSort;
+			sourceTree = "<group>";
+		};
+		EA4C06011F0F5F2800539A16 /* 联系人 */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C06021F0F5F8A00539A16 /* AtContactTableViewCell.h */,
+				EA4C06031F0F5F8A00539A16 /* AtContactTableViewCell.m */,
+				EA4C06051F0F785100539A16 /* AtTitleheadview.h */,
+				EA4C06061F0F785100539A16 /* AtTitleheadview.m */,
+				EAA5DF481F0FCB45000A0D4B /* CustomTextField.h */,
+				EAA5DF491F0FCB45000A0D4B /* CustomTextField.m */,
+			);
+			name = "联系人";
+			sourceTree = "<group>";
+		};
+		EA4C06081F0F937D00539A16 /* SearchBarCornerRadius */ = {
+			isa = PBXGroup;
+			children = (
+				EA4C06091F0F93CA00539A16 /* UIView+Utils.h */,
+				EA4C060A1F0F93CA00539A16 /* UIView+Utils.m */,
+			);
+			name = SearchBarCornerRadius;
+			sourceTree = "<group>";
+		};
 		EA6370F61ED6A49D003E6BC3 /* DTTempStatusMan */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +668,8 @@
 			children = (
 				EA6371461ED8374B003E6BC3 /* UserPostingViewController.h */,
 				EA6371471ED8374B003E6BC3 /* UserPostingViewController.m */,
+				EA4C05FA1F0E8DB200539A16 /* AtChooseViewController.h */,
+				EA4C05FB1F0E8DB200539A16 /* AtChooseViewController.m */,
 			);
 			name = "发帖AndSo on";
 			sourceTree = "<group>";
@@ -698,6 +770,10 @@
 		EA9CF63F1E80D8D00050BA8B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5DF4E1F1140FE000A0D4B /* XXLinkLabel */,
+				EA4C06081F0F937D00539A16 /* SearchBarCornerRadius */,
+				EA4C05FD1F0E9A1300539A16 /* BMChineseStringSort */,
+				EA4C05F51F0DD3B800539A16 /* NSString+emoji */,
 				EAA5A2F31EF3CDC3002585C3 /* PPNetworkHelper */,
 				EA1202411EF224770014F927 /* ZFCWaveHUD */,
 				EAE1EC261EE11B8100FA2882 /* UIButton+EnlargeTouchArea */,
@@ -802,6 +878,8 @@
 		EAA5A2C01EF3C861002585C3 /* Emojil */ = {
 			isa = PBXGroup;
 			children = (
+				EAA5DF4B1F10D4F0000A0D4B /* WBStatusComposeTextParser.h */,
+				EAA5DF4C1F10D4F0000A0D4B /* WBStatusComposeTextParser.m */,
 				EAA5A2C11EF3C86C002585C3 /* WBEmoticonInputView.h */,
 				EAA5A2C21EF3C86C002585C3 /* WBEmoticonInputView.m */,
 				EAA5A2C41EF3C890002585C3 /* WBStatusHelper.h */,
@@ -822,6 +900,15 @@
 				EAA5A2F71EF3CDCC002585C3 /* PPNetworkHelper.m */,
 			);
 			name = PPNetworkHelper;
+			sourceTree = "<group>";
+		};
+		EAA5DF4E1F1140FE000A0D4B /* XXLinkLabel */ = {
+			isa = PBXGroup;
+			children = (
+				EAA5DF4F1F114111000A0D4B /* XXLinkLabel.h */,
+				EAA5DF501F114111000A0D4B /* XXLinkLabel.m */,
+			);
+			name = XXLinkLabel;
 			sourceTree = "<group>";
 		};
 		EAAE62A81EBDDC3D00AB9280 /* YouAnCenter */ = {
@@ -951,6 +1038,7 @@
 		EAAE62B21EBDDCC700AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA4C06011F0F5F2800539A16 /* 联系人 */,
 				EAE023851EDE8EF7009305A7 /* 帖子详情 */,
 				EAEF2CCC1ED9217A003300A9 /* 发帖及回复 */,
 				EA09A2671EC218B200224DF5 /* BBSForView */,
@@ -1261,12 +1349,14 @@
 			files = (
 				EA4332AD1ED57E3500A65177 /* MSSBrowseZoomScrollView.m in Sources */,
 				EA456CF31EC831E300BE380E /* AuthViewController.m in Sources */,
+				EA4C05F91F0DD3B800539A16 /* NSString+TYHEmoji.m in Sources */,
 				EA456CEE1EC829A400BE380E /* MyFansTableViewCell.m in Sources */,
 				EAD9261A1ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m in Sources */,
 				EAA2FDF91EBE58DA00C0EB27 /* SettingSwitchTableViewCell.m in Sources */,
 				EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */,
 				EA9CF6131E80D3CD0050BA8B /* ViewController.m in Sources */,
 				EAEF2CD71ED94E6E003300A9 /* YouAnTextLinePositionModifier.m in Sources */,
+				EA4C06041F0F5F8A00539A16 /* AtContactTableViewCell.m in Sources */,
 				EA6371241ED6C4D5003E6BC3 /* YNPageScrollHeaderView.m in Sources */,
 				EA6371031ED6A49D003E6BC3 /* ZHNMethodSwizzingHelper.m in Sources */,
 				EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */,
@@ -1281,6 +1371,7 @@
 				EA4332AA1ED57E3500A65177 /* MSSBrowseModel.m in Sources */,
 				EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */,
 				EAE023881EDE8F4B009305A7 /* BBSDeatilTableViewCell.m in Sources */,
+				EA4C06071F0F785100539A16 /* AtTitleheadview.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */,
 				EA4332A61ED57E3500A65177 /* MSSBrowseBaseViewController.m in Sources */,
@@ -1308,6 +1399,7 @@
 				EAA5A2C91EF3C8CE002585C3 /* WBModel.m in Sources */,
 				EA63710E1ED6C38A003E6BC3 /* YNTestThreeViewController.m in Sources */,
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
+				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
 				EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */,
@@ -1319,6 +1411,7 @@
 				EA09A26A1EC2199900224DF5 /* BBSPostTableViewCell.m in Sources */,
 				EA6371441ED8210D003E6BC3 /* UITableViewCell_CellExtension.m in Sources */,
 				EA4332A71ED57E3500A65177 /* MSSBrowseCollectionViewCell.m in Sources */,
+				EAA5DF4D1F10D4F0000A0D4B /* WBStatusComposeTextParser.m in Sources */,
 				EAA5A2C31EF3C86C002585C3 /* WBEmoticonInputView.m in Sources */,
 				EA6371011ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m in Sources */,
 				EA4F16871ED05486002E7A2D /* YouAnFansFollowModel.m in Sources */,
@@ -1330,9 +1423,11 @@
 				EA6371281ED6C4D5003E6BC3 /* YNPageScrollViewMenuConfigration.m in Sources */,
 				EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */,
 				EA63712D1ED7D0F0003E6BC3 /* CenterBaseViewController.m in Sources */,
+				EA4C06001F0E9A1300539A16 /* BMChineseSort.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
 				EA6371001ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m in Sources */,
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,
+				EA4C05FC1F0E8DB200539A16 /* AtChooseViewController.m in Sources */,
 				EAA98A921EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m in Sources */,
 				EA4332AC1ED57E3500A65177 /* MSSBrowseRemindView.m in Sources */,
 				EA4332AB1ED57E3500A65177 /* MSSBrowseNetworkViewController.m in Sources */,
@@ -1347,6 +1442,8 @@
 				EAA5A2F81EF3CDCC002585C3 /* PPNetworkCache.m in Sources */,
 				EA63710F1ED6C38A003E6BC3 /* YNTestTwoViewController.m in Sources */,
 				EAE023841EDE7565009305A7 /* YouAnBBSDeatilModel.m in Sources */,
+				EA4C060B1F0F93CA00539A16 /* UIView+Utils.m in Sources */,
+				EAA5DF511F114111000A0D4B /* XXLinkLabel.m in Sources */,
 				EAEF2CDA1ED954DD003300A9 /* PostingImageTableViewCell.m in Sources */,
 				EA6371431ED8210D003E6BC3 /* LJRunLoopWork.m in Sources */,
 				EA6D3D441EF10C70001F397B /* YouAnCollectionModel.m in Sources */,
@@ -1513,7 +1610,7 @@
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.youan.huaji;
+				PRODUCT_BUNDLE_IDENTIFIER = com.youan.bbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1529,7 +1626,7 @@
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.youan.huaji;
+				PRODUCT_BUNDLE_IDENTIFIER = com.youan.bbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

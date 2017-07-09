@@ -85,7 +85,7 @@
         
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
         
-        lab_title.text = [NSString stringWithFormat:@"Re: %@",model.content];
+        lab_title.text = [NSString stringWithFormat:@"Re: %@",[model.stripd_content stringByReplacingEmojiCheatCodesToUnicode]];
 
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
         CGSize size_title = [self sizeWithString:lab_title.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];

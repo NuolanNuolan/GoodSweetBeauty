@@ -168,16 +168,22 @@
     //注册
     //验证码登录
     //忘记密码
-    
-    
-    
-    
-    
-    
-    ResSendCodeViewController *view = [ResSendCodeViewController new];
-    view.phone = self.text_username.text;
-    view.type = self.type;
-    [self.navigationController pushViewController:view animated:YES];
+    @weakify(self)
+    [HttpEngine SendMes:self.text_username.text Type:[self.type isEqualToString:@"注册"]?@"register":@"forgetpwd" complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            [MBProgressHUD showSuccess:@"发送成功"];
+            ResSendCodeViewController *view = [ResSendCodeViewController new];
+            view.phone = self.text_username.text;
+            view.type = self.type;
+            [self.navigationController pushViewController:view animated:YES];
+            
+        }else{
+            
+            [MBProgressHUD showError:@"发送失败" toView:self.view];
+            
+        }
+    }];
 }
 //用户协议
 -(void)userdelegate{

@@ -185,7 +185,7 @@
     dispatch_once(&onceToken, ^{
         // 微博的 At 只允许 英文数字下划线连字符，和 unicode 4E00~9FA5 范围内的中文字符，这里保持和微博一致。。
         // 目前中文字符范围比这个大
-        regex = [NSRegularExpression regularExpressionWithPattern:@"@[-_a-zA-Z0-9\u4E00-\u9FA5]+" options:kNilOptions error:NULL];
+        regex = [NSRegularExpression regularExpressionWithPattern:@"@[-_a-zA-Z0-9\u4E00-\u9FA5]+ " options:kNilOptions error:NULL];
     });
     return regex;
 }

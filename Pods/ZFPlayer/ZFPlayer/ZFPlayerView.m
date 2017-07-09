@@ -27,6 +27,8 @@
 #import "UIView+CustomControlView.h"
 #import "ZFPlayer.h"
 
+#define CellPlayerFatherViewTag  200
+
 //忽略编译器的警告
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored"-Wdeprecated-declarations"
@@ -85,11 +87,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
 @property (nonatomic, strong) UIImage                *thumbImg;
 /** 亮度view */
 @property (nonatomic, strong) ZFBrightnessView       *brightnessView;
+/** 视频填充模式 */
+@property (nonatomic, copy) NSString                 *videoGravity;
 
 #pragma mark - UITableViewCell PlayerView
 
 /** palyer加到tableView */
-@property (nonatomic, strong) UITableView            *tableView;
+@property (nonatomic, strong) UIScrollView           *scrollView;
 /** player所在cell的indexPath */
 @property (nonatomic, strong) NSIndexPath            *indexPath;
 /** ViewController中页面是否消失 */
@@ -102,6 +106,10 @@ typedef NS_ENUM(NSInteger, PanDirection){
 @property (nonatomic, assign) BOOL                   isChangeResolution;
 /** 是否正在拖拽 */
 @property (nonatomic, assign) BOOL                   isDragged;
+/** 小窗口距屏幕右边和下边的距离 */
+@property (nonatomic, assign) CGPoint                shrinkRightBottomPoint;
+
+@property (nonatomic, strong) UIPanGestureRecognizer *shrinkPanGesture;
 
 @property (nonatomic, strong) UIView                 *controlView;
 @property (nonatomic, strong) ZFPlayerModel          *playerModel;
@@ -135,12 +143,12 @@ typedef NS_ENUM(NSInteger, PanDirection){
  *  初始化player
  */
 - (void)initializeThePlayer {
-    self.cellPlayerOnCenter = YES;;
+    self.cellPlayerOnCenter = YES;
 }
 
 - (void)dealloc {
     self.playerItem = nil;
-    self.tableView  = nil;
+    self.scrollView  = nil;
     ZFPlayerShared.isLockScreen = NO;
     [self.controlView zf_playerCancelAutoFadeOutControlView];
     // 移除通知
@@ -172,6 +180,9 @@ typedef NS_ENUM(NSInteger, PanDirection){
     // app进入前台
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidEnterPlayground) name:UIApplicationDidBecomeActiveNotification object:nil];
     
+    // 监听耳机插入和拔掉通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];
+    
     // 监测设备方向
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -189,9 +200,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
 
 - (void)layoutSubviews {
     [super layoutSubviews];
-    [self layoutIfNeeded];
     self.playerLayer.frame = self.bounds;
-    [UIApplication sharedApplication].statusBarHidden = NO;
 }
 
 #pragma mark - Public Method
@@ -225,10 +234,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
  * 使用自带的控制层时候可使用此API
  */
 - (void)playerModel:(ZFPlayerModel *)playerModel {
-    // 指定默认控制层
-    ZFPlayerControlView *defaultControlView = [[ZFPlayerControlView alloc] init];
-    self.controlView = defaultControlView;
-    self.playerModel = playerModel;
+    [self playerControlView:nil playerModel:playerModel];
 }
 
 /**
@@ -243,11 +249,14 @@ typedef NS_ENUM(NSInteger, PanDirection){
  *  player添加到fatherView上
  */
 - (void)addPlayerToFatherView:(UIView *)view {
-    [self removeFromSuperview];
-    [view addSubview:self];
-    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-        make.edges.mas_offset(UIEdgeInsetsZero);
-    }];
+    // 这里应该添加判断，因为view有可能为空，当view为空时[view addSubview:self]会crash
+    if (view) {
+        [self removeFromSuperview];
+        [view addSubview:self];
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_offset(UIEdgeInsetsZero);
+        }];
+    }
 }
 
 /**
@@ -292,7 +301,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
         // vicontroller中页面消失
         self.viewDisappear = YES;
         self.isCellVideo   = NO;
-        self.tableView     = nil;
+        self.scrollView     = nil;
         self.indexPath     = nil;
     }
 }
@@ -315,11 +324,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
     if (self.state == ZFPlayerStatePause) { self.state = ZFPlayerStatePlaying; }
     self.isPauseByUser = NO;
     [_player play];
-    if (!self.isBottomVideo) {
-        // 显示控制层
-        [self.controlView zf_playerCancelAutoFadeOutControlView];
-        [self.controlView zf_playerShowControlView];
-    }
 }
 
 /**
@@ -340,8 +344,8 @@ typedef NS_ENUM(NSInteger, PanDirection){
  *  @param tableView tableView
  *  @param indexPath indexPath
  */
-- (void)cellVideoWithTableView:(UITableView *)tableView
-                   AtIndexPath:(NSIndexPath *)indexPath {
+- (void)cellVideoWithScrollView:(UIScrollView *)scrollView
+                    AtIndexPath:(NSIndexPath *)indexPath {
     // 如果页面没有消失，并且playerItem有值，需要重置player(其实就是点击播放其他视频时候)
     if (!self.viewDisappear && self.playerItem) { [self resetPlayer]; }
     // 在cell上播放视频
@@ -349,11 +353,15 @@ typedef NS_ENUM(NSInteger, PanDirection){
     // viewDisappear改为NO
     self.viewDisappear    = NO;
     // 设置tableview
-    self.tableView        = tableView;
+    self.scrollView       = scrollView;
     // 设置indexPath
     self.indexPath        = indexPath;
     // 在cell播放
     [self.controlView zf_playerCellPlay];
+    
+    self.shrinkPanGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(shrikPanAction:)];
+    self.shrinkPanGesture.delegate = self;
+    [self addGestureRecognizer:self.shrinkPanGesture];
 }
 
 /**
@@ -371,7 +379,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
     
     self.backgroundColor = [UIColor blackColor];
     // 此处为默认视频填充模式
-    self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+    self.playerLayer.videoGravity = self.videoGravity;
     
     // 自动播放
     self.isAutoPlay = YES;
@@ -413,7 +421,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
     self.doubleTap.delegate                = self;
     self.doubleTap.numberOfTouchesRequired = 1; //手指数
     self.doubleTap.numberOfTapsRequired    = 2;
-
     [self addGestureRecognizer:self.doubleTap];
 
     // 解决点击当前view时候响应其他控件事件
@@ -470,8 +477,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
     
     if (!success) { /* handle the error in setCategoryError */ }
     
-    // 监听耳机插入和拔掉通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioRouteChangeListenerCallback:) name:AVAudioSessionRouteChangeNotification object:nil];
 }
 
 /**
@@ -556,7 +561,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
                 self.state = ZFPlayerStatePlaying;
             }
         }
-    } else if (object == self.tableView) {
+    } else if (object == self.scrollView) {
         if ([keyPath isEqualToString:kZFPlayerViewContentOffset]) {
             if (self.isFullScreen) { return; }
             // 当tableview滚动时处理playerView的位置
@@ -573,17 +578,34 @@ typedef NS_ENUM(NSInteger, PanDirection){
  *  @param dict void
  */
 - (void)handleScrollOffsetWithDict:(NSDictionary*)dict {
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
-    NSArray *visableCells = self.tableView.visibleCells;
-    if ([visableCells containsObject:cell]) {
-        // 在显示中
-        [self updatePlayerViewToCell];
-    } else {
-        if (self.stopPlayWhileCellNotVisable) {
-            [self resetPlayer];
+    if ([self.scrollView isKindOfClass:[UITableView class]]) {
+        UITableView *tableView = (UITableView *)self.scrollView;
+        UITableViewCell *cell = [tableView cellForRowAtIndexPath:self.indexPath];
+        NSArray *visableCells = tableView.visibleCells;
+        if ([visableCells containsObject:cell]) {
+            // 在显示中
+            [self updatePlayerViewToCell];
         } else {
-            // 在底部
-            [self updatePlayerViewToBottom];
+            if (self.stopPlayWhileCellNotVisable) {
+                [self resetPlayer];
+            } else {
+                // 在底部
+                [self updatePlayerViewToBottom];
+            }
+        }
+    } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+        UICollectionView *collectionView = (UICollectionView *)self.scrollView;
+        UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:self.indexPath];
+        if ( [collectionView.visibleCells containsObject:cell]) {
+            // 在显示中
+            [self updatePlayerViewToCell];
+        } else {
+            if (self.stopPlayWhileCellNotVisable) {
+                [self resetPlayer];
+            } else {
+                // 在底部
+                [self updatePlayerViewToBottom];
+            }
         }
     }
 }
@@ -600,16 +622,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
         [self resetPlayer];
         return;
     }
-    [self layoutIfNeeded];
     [[UIApplication sharedApplication].keyWindow addSubview:self];
-    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-        CGFloat width = ScreenWidth*0.5-20;
-        CGFloat height = (self.bounds.size.height / self.bounds.size.width);
-        make.width.mas_equalTo(width);
-        make.height.equalTo(self.mas_width).multipliedBy(height);
-        make.trailing.mas_equalTo(-10);
-        make.bottom.mas_equalTo(-self.tableView.contentInset.bottom-10);
-    }];
+
+    if (CGPointEqualToPoint(self.shrinkRightBottomPoint, CGPointZero)) { // 没有初始值
+        self.shrinkRightBottomPoint = CGPointMake(10, self.scrollView.contentInset.bottom+10);
+    } else {
+        [self setShrinkRightBottomPoint:self.shrinkRightBottomPoint];
+    }
     // 小屏播放
     [self.controlView zf_playerBottomShrinkPlay];
 }
@@ -637,13 +656,26 @@ typedef NS_ENUM(NSInteger, PanDirection){
  */
 - (void)setOrientationPortraitConstraint {
     if (self.isCellVideo) {
-        UITableViewCell * cell = [self.tableView cellForRowAtIndexPath:self.indexPath];
-        NSArray *visableCells = self.tableView.visibleCells;
-        self.isBottomVideo = NO;
-        if (![visableCells containsObject:cell]) {
-            [self updatePlayerViewToBottom];
-        } else {
-            [self addPlayerToFatherView:self.playerModel.fatherView];
+        if ([self.scrollView isKindOfClass:[UITableView class]]) {
+            UITableView *tableView = (UITableView *)self.scrollView;
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:self.indexPath];
+            self.isBottomVideo = NO;
+            if (![tableView.visibleCells containsObject:cell]) {
+                [self updatePlayerViewToBottom];
+            } else {
+                UIView *fatherView = [cell.contentView viewWithTag:self.playerModel.fatherViewTag];
+                [self addPlayerToFatherView:fatherView];
+            }
+        } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+            UICollectionView *collectionView = (UICollectionView *)self.scrollView;
+            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:self.indexPath];
+            self.isBottomVideo = NO;
+            if (![collectionView.visibleCells containsObject:cell]) {
+                [self updatePlayerViewToBottom];
+            } else {
+                UIView *fatherView = [cell viewWithTag:self.playerModel.fatherViewTag];
+                [self addPlayerToFatherView:fatherView];
+            }
         }
     } else {
         [self addPlayerToFatherView:self.playerModel.fatherView];
@@ -685,8 +717,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
     self.transform = [self getTransformRotationAngle];
     // 开始旋转
     [UIView commitAnimations];
-    [self.controlView layoutIfNeeded];
-    [self.controlView setNeedsLayout];
 }
 
 /**
@@ -732,6 +762,7 @@ typedef NS_ENUM(NSInteger, PanDirection){
     if (!self.player) { return; }
     if (ZFPlayerShared.isLockScreen) { return; }
     if (self.didEnterBackground) { return; };
+    if (self.playerPushedOrPresented) { return; }
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
     UIInterfaceOrientation interfaceOrientation = (UIInterfaceOrientation)orientation;
     if (orientation == UIDeviceOrientationFaceUp || orientation == UIDeviceOrientationFaceDown || orientation == UIDeviceOrientationUnknown ) { return; }
@@ -779,7 +810,14 @@ typedef NS_ENUM(NSInteger, PanDirection){
         if (currentOrientation == UIInterfaceOrientationPortrait) {
             [self setOrientationPortraitConstraint];
             if (self.cellPlayerOnCenter) {
-                [self.tableView scrollToRowAtIndexPath:self.indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+                if ([self.scrollView isKindOfClass:[UITableView class]]) {
+                    UITableView *tableView = (UITableView *)self.scrollView;
+                    [tableView scrollToRowAtIndexPath:self.indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
+
+                } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+                    UICollectionView *collectionView = (UICollectionView *)self.scrollView;
+                    [collectionView scrollToItemAtIndexPath:self.indexPath atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+                }
             }
             [self.brightnessView removeFromSuperview];
             [[UIApplication sharedApplication].keyWindow addSubview:self.brightnessView];
@@ -890,7 +928,9 @@ typedef NS_ENUM(NSInteger, PanDirection){
         if (self.isBottomVideo && !self.isFullScreen) { [self _fullScreenAction]; }
         else {
             if (self.playDidEnd) { return; }
-            else { [self.controlView zf_playerShowControlView]; }
+            else {
+                [self.controlView zf_playerShowOrHideControlView];
+            }
         }
     }
 }
@@ -903,13 +943,44 @@ typedef NS_ENUM(NSInteger, PanDirection){
 - (void)doubleTapAction:(UIGestureRecognizer *)gesture {
     if (self.playDidEnd) { return;  }
     // 显示控制层
-    [self.controlView zf_playerCancelAutoFadeOutControlView];
     [self.controlView zf_playerShowControlView];
     if (self.isPauseByUser) { [self play]; }
     else { [self pause]; }
     if (!self.isAutoPlay) {
         self.isAutoPlay = YES;
         [self configZFPlayer];
+    }
+}
+
+- (void)shrikPanAction:(UIPanGestureRecognizer *)gesture {
+    CGPoint point = [gesture locationInView:[UIApplication sharedApplication].keyWindow];
+    ZFPlayerView *view = (ZFPlayerView *)gesture.view;
+    const CGFloat width = view.frame.size.width;
+    const CGFloat height = view.frame.size.height;
+    const CGFloat distance = 10;  // 离四周的最小边距
+    
+    if (gesture.state == UIGestureRecognizerStateEnded) {
+        // x轴的的移动
+        if (point.x < width/2) {
+            point.x = width/2 + distance;
+        } else if (point.x > ScreenWidth - width/2) {
+            point.x = ScreenWidth - width/2 - distance;
+        }
+        // y轴的移动
+        if (point.y < height/2) {
+            point.y = height/2 + distance;
+        } else if (point.y > ScreenHeight - height/2) {
+            point.y = ScreenHeight - height/2 - distance;
+        }
+
+        [UIView animateWithDuration:0.5 animations:^{
+            view.center = point;
+            self.shrinkRightBottomPoint = CGPointMake(ScreenWidth - view.frame.origin.x - width, ScreenHeight - view.frame.origin.y - height);
+        }];
+    
+    } else {
+        view.center = point;
+        self.shrinkRightBottomPoint = CGPointMake(ScreenWidth - view.frame.origin.x- view.frame.size.width, ScreenHeight - view.frame.origin.y-view.frame.size.height);
     }
 }
 
@@ -1140,7 +1211,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
 #pragma mark - UIGestureRecognizerDelegate
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+    
+    if (gestureRecognizer == self.shrinkPanGesture && self.isCellVideo) {
+        if (!self.isBottomVideo || self.isFullScreen) {
+            return NO;
+        }
+    }
+    if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]] && gestureRecognizer != self.shrinkPanGesture) {
         if ((self.isCellVideo && !self.isFullScreen) || self.playDidEnd || self.isLocked){
             return NO;
         }
@@ -1231,13 +1308,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
  *
  *  @param tableView tableView 
  */
-- (void)setTableView:(UITableView *)tableView {
-    if (_tableView == tableView) { return; }
-    if (_tableView) {
-        [_tableView removeObserver:self forKeyPath:kZFPlayerViewContentOffset];
+- (void)setScrollView:(UIScrollView *)scrollView {
+    if (_scrollView == scrollView) { return; }
+    if (_scrollView) {
+        [_scrollView removeObserver:self forKeyPath:kZFPlayerViewContentOffset];
     }
-    _tableView = tableView;
-    if (tableView) { [tableView addObserver:self forKeyPath:kZFPlayerViewContentOffset options:NSKeyValueObservingOptionNew context:nil]; }
+    _scrollView = scrollView;
+    if (scrollView) { [scrollView addObserver:self forKeyPath:kZFPlayerViewContentOffset options:NSKeyValueObservingOptionNew context:nil]; }
 }
 
 /**
@@ -1250,12 +1327,15 @@ typedef NS_ENUM(NSInteger, PanDirection){
     switch (playerLayerGravity) {
         case ZFPlayerLayerGravityResize:
             self.playerLayer.videoGravity = AVLayerVideoGravityResize;
+            self.videoGravity = AVLayerVideoGravityResize;
             break;
         case ZFPlayerLayerGravityResizeAspect:
             self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspect;
+            self.videoGravity = AVLayerVideoGravityResizeAspect;
             break;
         case ZFPlayerLayerGravityResizeAspectFill:
             self.playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
+            self.videoGravity = AVLayerVideoGravityResizeAspectFill;
             break;
         default:
             break;
@@ -1272,7 +1352,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
 
 - (void)setResolutionDic:(NSDictionary *)resolutionDic {
     _resolutionDic = resolutionDic;
-    [self.controlView zf_playerResolutionArray:[resolutionDic allKeys]];
     self.videoURLArray = [resolutionDic allValues];
 }
 
@@ -1280,7 +1359,6 @@ typedef NS_ENUM(NSInteger, PanDirection){
     if (_controlView) { return; }
     _controlView = controlView;
     controlView.delegate = self;
-    [self layoutIfNeeded];
     [self addSubview:controlView];
     [controlView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(UIEdgeInsetsZero);
@@ -1289,19 +1367,55 @@ typedef NS_ENUM(NSInteger, PanDirection){
 
 - (void)setPlayerModel:(ZFPlayerModel *)playerModel {
     _playerModel = playerModel;
-    NSCAssert(playerModel.fatherView, @"请指定playerView的faterView");
 
     if (playerModel.seekTime) { self.seekTime = playerModel.seekTime; }
     [self.controlView zf_playerModel:playerModel];
-
-    if (playerModel.tableView && playerModel.indexPath && playerModel.videoURL) {
-        [self cellVideoWithTableView:playerModel.tableView AtIndexPath:playerModel.indexPath];
-        if (playerModel.resolutionDic) { self.resolutionDic = playerModel.resolutionDic; }
+    // 分辨率
+    if (playerModel.resolutionDic) {
+       self.resolutionDic = playerModel.resolutionDic;
     }
-    [self addPlayerToFatherView:playerModel.fatherView];
+
+    if (playerModel.scrollView && playerModel.indexPath && playerModel.videoURL) {
+        NSCAssert(playerModel.fatherViewTag, @"请指定playerViews所在的faterViewTag");
+        [self cellVideoWithScrollView:playerModel.scrollView AtIndexPath:playerModel.indexPath];
+        if ([self.scrollView isKindOfClass:[UITableView class]]) {
+            UITableView *tableView = (UITableView *)playerModel.scrollView;
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:playerModel.indexPath];
+            UIView *fatherView = [cell.contentView viewWithTag:playerModel.fatherViewTag];
+            [self addPlayerToFatherView:fatherView];
+        } else if ([self.scrollView isKindOfClass:[UICollectionView class]]) {
+            UICollectionView *collectionView = (UICollectionView *)playerModel.scrollView;
+            UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:playerModel.indexPath];
+            UIView *fatherView = [cell.contentView viewWithTag:playerModel.fatherViewTag];
+            [self addPlayerToFatherView:fatherView];
+        }
+    } else {
+        NSCAssert(playerModel.fatherView, @"请指定playerView的faterView");
+        [self addPlayerToFatherView:playerModel.fatherView];
+    }
     self.videoURL = playerModel.videoURL;
 }
 
+- (void)setShrinkRightBottomPoint:(CGPoint)shrinkRightBottomPoint {
+    _shrinkRightBottomPoint = shrinkRightBottomPoint;
+    CGFloat width = ScreenWidth*0.5-20;
+    CGFloat height = (self.bounds.size.height / self.bounds.size.width);
+    [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo(width);
+        make.height.equalTo(self.mas_width).multipliedBy(height);
+        make.trailing.mas_equalTo(-shrinkRightBottomPoint.x);
+        make.bottom.mas_equalTo(-shrinkRightBottomPoint.y);
+    }];
+}
+
+- (void)setPlayerPushedOrPresented:(BOOL)playerPushedOrPresented {
+    _playerPushedOrPresented = playerPushedOrPresented;
+    if (playerPushedOrPresented) {
+        [self pause];
+    } else {
+        [self play];
+    }
+}
 #pragma mark - Getter
 
 - (AVAssetImageGenerator *)imageGenerator {
@@ -1316,6 +1430,13 @@ typedef NS_ENUM(NSInteger, PanDirection){
         _brightnessView = [ZFBrightnessView sharedBrightnessView];
     }
     return _brightnessView;
+}
+
+- (NSString *)videoGravity {
+    if (!_videoGravity) {
+        _videoGravity = AVLayerVideoGravityResizeAspect;
+    }
+    return _videoGravity;
 }
 
 #pragma mark - ZFPlayerControlViewDelegate
@@ -1486,6 +1607,18 @@ typedef NS_ENUM(NSInteger, PanDirection){
         //计算出拖动的当前秒数
         NSInteger dragedSeconds = floorf(total * slider.value);
         [self seekToTime:dragedSeconds completionHandler:nil];
+    }
+}
+
+- (void)zf_controlViewWillShow:(UIView *)controlView isFullscreen:(BOOL)fullscreen {
+    if ([self.delegate respondsToSelector:@selector(zf_playerControlViewWillShow:isFullscreen:)]) {
+        [self.delegate zf_playerControlViewWillShow:controlView isFullscreen:fullscreen];
+    }
+}
+
+- (void)zf_controlViewWillHidden:(UIView *)controlView isFullscreen:(BOOL)fullscreen {
+    if ([self.delegate respondsToSelector:@selector(zf_playerControlViewWillHidden:isFullscreen:)]) {
+        [self.delegate zf_playerControlViewWillHidden:controlView isFullscreen:fullscreen];
     }
 }
 

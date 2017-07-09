@@ -132,13 +132,14 @@
     
 }
 //我的粉丝
-+(void)UserFanspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)UserFanspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete{
 
     NSString *url = [NSString stringWithFormat:@"%@/members/fans/",ADDRESS_API];
     NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page],
+                          @"page_size":[NSNumber numberWithInteger:pagesize]};
     [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
         
         
@@ -152,13 +153,14 @@
     
 }
 //我的关注
-+(void)Userfollowupspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)Userfollowupspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete{
 
     NSString *url = [NSString stringWithFormat:@"%@/members/followups/",ADDRESS_API];
     NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page],
+                          @"page_size":[NSNumber numberWithInteger:pagesize]};
     [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
         
         
@@ -185,7 +187,14 @@
         complete(YES,responseObject);
         
     } failure:^(NSError *error) {
-        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if (dic) {
+                MYLOG(@"%@",dic)
+            }
+        }
         complete(NO,nil);
         
     }];
@@ -349,6 +358,12 @@
         
     } failure:^(NSError *error) {
         
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+        }
         complete(NO,nil);
     }];
 }
@@ -508,5 +523,67 @@
         }
         
     }];
+}
+/**
+ 发送短信接口
+ */
++(void)SendMes:(NSString *)phone Type:(NSString *)type complete:(void(^)(BOOL success ,id responseObject))complete
+{
+
+    NSString *url = [NSString stringWithFormat:@"%@/sms/send/",ADDRESS_API];
+    //参数
+    NSDictionary *dic = @{@"mobile":phone,
+                          @"code_type":[type isEqualToString:@"register"]? @"register":@"forgetpwd",
+                          @"time":[BWCommon GetNowTimestamps],
+                          @"token":[[NSString stringWithFormat:@"%@|%@|yabbs!@#$",phone,[BWCommon GetNowTimestamps]] md5String]};
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@", responseObject);
+        complete(YES,@"");
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+    }];
+}
+/**
+ 验证码校验
+ */
++(void)Mescheck:(NSString *)phone Type:(NSString *)type code:(NSString *)code complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/sms/verify/",ADDRESS_API];
+    //参数
+    NSDictionary *dic = @{@"mobile":phone,
+                          @"code_type":[type isEqualToString:@"register"]? @"register":@"forgetpwd",
+                          @"code":code};
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@", responseObject);
+        complete(YES,nil);
+        
+    } failure:^(NSError *error) {
+        
+        NSError *errort = error.userInfo[@"NSUnderlyingError"];
+        NSData*data=errort.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+
+            NSString *str =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            MYLOG(@"%@",str);
+            complete(NO,str);
+        }else{
+            
+            complete(NO,nil);
+        }
+    }];
+    
 }
 @end

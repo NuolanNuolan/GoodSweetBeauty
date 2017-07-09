@@ -256,13 +256,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         btn_back.tag = 200+row;
         if (!isfather) {
            
-            lab_deatil.text = postsmodel.content;
-            
-//            NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithData:[postsmodel.content dataUsingEncoding:NSUnicodeStringEncoding] options:@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType                                                                                                                                                                                     }documentAttributes:nil error:nil];
-//            
-//            lab_deatil.attributedText = attributeStr;
-            
-//            lab_deatil.text = [BWCommon stringByRemovingPercentEncoding:postsmodel.content];
+            lab_deatil.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
             //如果有图片 开始图片布局
             if (postsmodel.images&&![postsmodel.images isEqualToString:@""]) {
 
@@ -285,8 +279,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }else{
         
             lab_father_name.text = postsmodel.father.author;
-            lab_father_deatil.text = postsmodel.father.content;
-            lab_father_back.text = postsmodel.content;
+            lab_father_deatil.text = [postsmodel.father.content stringByReplacingEmojiCheatCodesToUnicode];
+            lab_father_back.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
             btn_father_open.tag = 200+row;
             
             CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, MAXFLOAT)];

@@ -17,6 +17,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 #import "CommentsDeatilTableViewCell.h"
 
 
+
 @interface PostingDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>{
 
     
@@ -41,6 +42,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //评论数组
 @property(nonatomic,strong)NSMutableArray *Arr_comments_hot;
 @property(nonatomic,strong)NSMutableArray *Arr_comments_all;
+//此处定义主贴图片是否展开
+@property(nonatomic,assign)BOOL Master_image_isopen;
 
 
 /**
@@ -84,10 +87,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [super viewDidLoad];
     //初始化数据
     [self InitData];
-
     [self CreateUI];
     //请求
     [self LoadData:self.page];
+    
     // Do any additional setup after loading the view.
 }
 -(void)InitData{
@@ -176,8 +179,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     self.tableview.backgroundColor=[UIColor clearColor];
     self.tableview.showsVerticalScrollIndicator=NO;
     [self.tableview setSeparatorStyle:UITableViewCellSeparatorStyleNone];
-//    [self.tableview setSeparatorColor:RGB(229, 229, 229)];
-//    [self.tableview setSeparatorInset:UIEdgeInsetsMake(0,15,0,0)];
     [self.tableview registerClass:[BBSDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
     [self.tableview registerClass:[BBSTitleDeatilTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSTitleDeatilTableViewCell class])];
     [self.tableview registerClass:[BBSExceptionalTableViewCell class] forCellReuseIdentifier:NSStringFromClass([BBSExceptionalTableViewCell class])];
@@ -407,7 +408,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }
             break;
         case 2:{
-            if ([_Deatilmodel.image isEqualToString:@""]) {
+            if ([_Deatilmodel.master_posts.image isEqualToString:@""]||!_Deatilmodel.master_posts.image) {
                 
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
                 if (!cell) {
@@ -420,7 +421,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             
                 BBSimageDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSimageDeatilTableViewCell class])];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-                [cell setmodel:_Deatilmodel];
+                cell.delegateSignal = [RACSubject subject];
+                @weakify(self);
+                [cell.delegateSignal subscribeNext:^(id x) {
+                    @strongify(self);
+                    //刷新此表格
+                    self.Master_image_isopen = YES;
+                    [self.tableview reloadSection:2 withRowAnimation:UITableViewRowAnimationNone];
+                }];
+                [cell setmodel:_Deatilmodel isopen:self.Master_image_isopen];
                 return cell;
             }
         }

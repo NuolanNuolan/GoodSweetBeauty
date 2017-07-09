@@ -38,9 +38,9 @@
         
         _btn_Focus.tag = row;
         _lab_username.text = model.username;
-        _lab_count.text = [NSString stringWithFormat:@"粉丝 %@",model.my_fans_count];
-        _image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%@",model.level]];
-        _image_v.image = model.if_vip ? [UIImage imageNamed:@"iconVRed"] : nil;
+        _lab_count.text = [NSString stringWithFormat:@"粉丝 %ld",(long)model.my_fans_count];
+        _image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.level]];
+        _image_v.image = model.vip ? [UIImage imageNamed:@"iconVRed"] : nil;
         
         BOOL isFocus = [type isEqualToString:@"粉丝"]? model.if_each_fan :model.isfocus;
             if (isFocus) {

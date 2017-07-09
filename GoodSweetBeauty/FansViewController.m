@@ -61,7 +61,7 @@
     //判断是请求粉丝还是关注
     if ([self.type isEqualToString:@"粉丝"]) {
         @weakify(self);
-        [HttpEngine UserFanspage:self.page complete:^(BOOL success, id responseObject) {
+        [HttpEngine UserFanspage:self.page pagesize:10 complete:^(BOOL success, id responseObject) {
             @strongify(self);
             [self.tableview.mj_header endRefreshing];
             [self.tableview.mj_footer endRefreshing];
@@ -87,7 +87,7 @@
         
     }else{
         @weakify(self);
-        [HttpEngine Userfollowupspage:self.page complete:^(BOOL success, id responseObject) {
+        [HttpEngine Userfollowupspage:self.page pagesize:10 complete:^(BOOL success, id responseObject) {
             @strongify(self);
             [self.tableview.mj_header endRefreshing];
             [self.tableview.mj_footer endRefreshing];
@@ -207,7 +207,7 @@
     if (isFocus) {
         //取消关注
         @weakify(self);
-        [HttpEngine UserCancelFocususerid:[self.model.id integerValue] complete:^(BOOL success, id responseObject) {
+        [HttpEngine UserCancelFocususerid:self.model.id complete:^(BOOL success, id responseObject) {
             @strongify(self);
             if (success) {
                 
@@ -217,7 +217,7 @@
     }else{
         @weakify(self);
         //关注
-        [HttpEngine UserFocususerid:[self.model.id integerValue] complete:^(BOOL success, id responseObject) {
+        [HttpEngine UserFocususerid:self.model.id complete:^(BOOL success, id responseObject) {
             @strongify(self);
             if (success) {
                 [self Changestatus:isFocus];

@@ -80,6 +80,7 @@
     self.btn_code.frame = CGMAKE(0, 21, 102, 25);
     self.btn_code.titleLabel.font = [UIFont systemFontOfSize:14];
     self.btn_code.layer.masksToBounds =YES;
+    [self.btn_code addTarget:self action:@selector(re_sendMes) forControlEvents:UIControlEventTouchUpInside];
     self.btn_code.layer.cornerRadius = 12.5f;
     self.btn_code.layer.borderWidth = 0.5f;
     self.btn_code.layer.borderColor = RGB(136, 136, 136).CGColor;
@@ -176,7 +177,7 @@
     @weakify(self);
     [[self.text_code rac_textSignal]subscribeNext:^(id x) {
         @strongify(self);
-        if ([x length]==6) {
+        if ([x length]==4) {
             self.btn_submit.userInteractionEnabled = YES;
             [self.btn_submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }else{
@@ -207,28 +208,62 @@
 -(void)submit{
     
     //首先判断验证码
-    //根据type条状不同页面
-    if ([self.type isEqualToString:@"验证码登录"]) {
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine Mescheck:self.phone Type:[self.type isEqualToString:@"注册"]?@"register":@"forgetpwd" code:self.text_code.text complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+         
+            //根据type跳转不同页面
+            if ([self.type isEqualToString:@"验证码登录"]) {
+                
+                MYLOG(@"直接登录");
+                
+                
+            }else if ([self.type isEqualToString:@"注册"]){
+                MYLOG(@"注册");
+                ResSetUsernameViewController *view = [ResSetUsernameViewController new];
+                view.phone = self.phone;
+                [self.navigationController pushViewController:view animated:YES];
+                
+            }else{
+                
+                MYLOG(@"重新设置密码");
+                SetPwdViewController *view = [SetPwdViewController new];
+                [self.navigationController pushViewController:view animated:YES];
+            }
+            
+            
+        }else{
         
-        MYLOG(@"直接登录");
-        
-        
-    }else if ([self.type isEqualToString:@"注册"]){
-        MYLOG(@"注册");
-        ResSetUsernameViewController *view = [ResSetUsernameViewController new];
-        view.phone = self.phone;
-        [self.navigationController pushViewController:view animated:YES];
-        
-    }else{
-    
-        MYLOG(@"重新设置密码");
-        SetPwdViewController *view = [SetPwdViewController new];
-        [self.navigationController pushViewController:view animated:YES];
-    }
-    
-    
-   
+            if (responseObject) {
+                
+                [MBProgressHUD showError:responseObject toView:self.view];
+            }
+        }
+    }];
     
 }
+//重新获取验证码
+-(void)re_sendMes{
 
+    MYLOG(@"重新获取验证码 我的类型是--%@",self.type);
+    @weakify(self)
+    [HttpEngine SendMes:self.phone Type:[self.type isEqualToString:@"注册"]?@"register":@"forgetpwd" complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            
+            [MBProgressHUD showSuccess:@"发送成功"];
+            //重新计时
+            [self StartCcountdown];
+            
+            
+        }else{
+            
+            [MBProgressHUD showError:@"发送失败" toView:self.view];
+            
+        }
+    }];
+}
 @end

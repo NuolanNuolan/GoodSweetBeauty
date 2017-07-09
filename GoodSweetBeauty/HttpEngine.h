@@ -21,9 +21,9 @@
 //会员资料
 +(void)UserDetailcomplete:(void(^)(BOOL success ,id responseObject))complete;
 //我的粉丝
-+(void)UserFanspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
++(void)UserFanspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete;
 //我的关注
-+(void)Userfollowupspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
++(void)Userfollowupspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete;
 //关注
 +(void)UserFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
 //取消关注
@@ -66,4 +66,15 @@
  收藏
  */
 +(void)MyCollectionWithpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+
+
+/**
+ 发送短信接口
+ */
++(void)SendMes:(NSString *)phone Type:(NSString *)type complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 验证码校验
+ */
++(void)Mescheck:(NSString *)phone Type:(NSString *)type code:(NSString *)code complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

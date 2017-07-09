@@ -12,7 +12,7 @@
     //title
     UILabel *lab_title;
     //deatil
-    UILabel *lab_deatil;
+    XXLinkLabel *lab_deatil;
     
     
 }
@@ -44,7 +44,11 @@
     lab_title.numberOfLines = 0;
     [lab_title sizeToFit];
     
-    lab_deatil = [UILabel new];
+    lab_deatil = [XXLinkLabel new];
+    lab_deatil.linkTextColor = UIColorHex(527ead);
+    lab_deatil.regularType = XXLinkLabelRegularTypeAboat;
+    lab_deatil.selectedBackgroudColor = [UIColor whiteColor];
+//    | XXLinkLabelRegularTypeTopic | XXLinkLabelRegularTypeUrl;
     [lab_deatil setTextColor:RGB(51, 51, 51)];
     [lab_deatil setFont:[UIFont systemFontOfSize:18]];
     lab_deatil.numberOfLines = 0;
@@ -60,11 +64,26 @@
 
     if (model) {
         
-        lab_title.text = model.subject;
-        lab_deatil.text = model.content;
+        lab_title.text = [model.master_posts.subject stringByReplacingEmojiCheatCodesToUnicode];
         
-        CGSize size =[self sizeWithString:model.subject font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
-        CGSize sizeone =[self sizeWithString:model.content font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
+        //判断是否有@的人
+//        if (model.master_posts.ats.count>0) {
+            
+//            NSString  * str_at = [NSString stringWithFormat:@" @%@ ",model.master_posts.ats.uname];
+//            lab_deatil.text = [NSString stringWithFormat:@"%@%@",[model.master_posts.stripd_content stringByReplacingEmojiCheatCodesToUnicode],str_at];
+//            lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
+////                self.showClickTextLabel.text = [NSString stringWithFormat:@"----点击了文字----\n%@",clickedString];
+//                MYLOG(@"----block点击了文字----\n%@",clickedString);
+//            };
+            
+//        }else{
+        
+            lab_deatil.text = [model.master_posts.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
+//        }
+        
+        
+        CGSize size =[self sizeWithString:lab_title.text font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
+        CGSize sizeone =[self sizeWithString:lab_deatil.text font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
         if (size.height>30) {
             
             [UILabel changeLineSpaceForLabel:lab_title WithSpace:11];
