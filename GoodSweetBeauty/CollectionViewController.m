@@ -75,6 +75,7 @@
 -(void)LoadDataWithpage:(NSInteger )page{
 
     @weakify(self);
+    
     [HttpEngine MyCollectionWithpage:page complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableView.mj_footer endRefreshing];

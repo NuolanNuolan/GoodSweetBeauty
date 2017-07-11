@@ -60,8 +60,7 @@
     self.page_comment = 1;
     self.Arr_master = [NSMutableArray arrayWithCapacity:0];
     self.Arr_comment = [NSMutableArray arrayWithCapacity:0];
-//    self.isNoMoreData_master = NO;
-//    self.isNoMoreData_comments = NO;
+
 }
 -(void)LoadData:(NSInteger )page withtype:(Posttingtype )type{
     
@@ -103,9 +102,7 @@
     }
     if ([(NSArray *)responseObject count]<10) {
         
-//        [self.tableView.mj_footer endRefreshingWithNoMoreData];
         self.isNoMoreData_master =YES;
-//        self.page_master = page-1;
         
     }
     for (NSDictionary *dic in responseObject) {

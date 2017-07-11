@@ -13,6 +13,8 @@
 #import "FansViewController.h"
 #import "AuthViewController.h"
 #import "CollectionViewController.h"
+#import "AtMeViewController.h"
+#import "CoinsViewController.h"
 
 
 
@@ -279,7 +281,7 @@
             break;
         case 1:{
             
-            
+            view = [AtMeViewController new];
         }
             break;
         case 2:{
@@ -305,6 +307,7 @@
             break;
         case 6:{
             
+            view = [[CoinsViewController alloc]initWithconins:self.usermodel.coins];
             
         }
             break;

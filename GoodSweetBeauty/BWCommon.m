@@ -371,7 +371,7 @@
 
     if (Arr_at.count==0) {
         
-        NSDictionary *dic = @{@"content":content,
+        NSDictionary *dic = @{@"content":[content stringByReplacingEmojiUnicodeToCheatCodes],
                               @"at":@""};
         return dic;
         
@@ -416,58 +416,23 @@
                 
                 str_Deal_at = [str_Deal_at substringToIndex:str_Deal_at.length-2];
             }
-            NSDictionary *dic = @{@"content":str_content,
+            NSDictionary *dic = @{@"content":[str_content stringByReplacingEmojiUnicodeToCheatCodes],
                                   @"at":str_Deal_at};
             return dic;
         }else{
         
-            NSDictionary *dic = @{@"content":content,
+            NSDictionary *dic = @{@"content":[content stringByReplacingEmojiUnicodeToCheatCodes],
                                   @"at":@""};
             return dic;
         }
     }
-    
-    
-    
-    
-    
-//    //结果
-//    
-//    
-//    NSString *pattern = [NSString stringWithFormat:@"@(.+?) "];
-//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-//    
-//    NSArray *results = [regex matchesInString:content options:0 range:NSMakeRange(0, content.length)];
-//    if (results.count>0) {
-//        
-//        for (NSTextCheckingResult *result in results) {
-//            
-//            NSLog(@"%@ %@", NSStringFromRange(result.range), [content substringWithRange:result.range]);
-//            if ([BWCommon DoesItIncludeBetween:[content substringWithRange:result.range] withString:@"@"]&&[BWCommon DoesItIncludeBetween:[content substringWithRange:result.range] withString:@" "]) {
-//                //提取出来的@信息
-//                NSString * str_At = [content substringWithRange:result.range];
-//                
-//                
-//                
-//                
-//                //把@ 和空格字符替换掉
-//                content = [content stringByReplacingOccurrencesOfString:[content substringWithRange:result.range] withString:@""];
-//                //去掉首尾
-//                NSString *str 
-//                
-//                [arr addObject:str];
-//            }
-//        }
-//        
-//        [arr addObject:content];
-//        
-//    }else{
-//    
-//        [arr addObject:content];
-//    }
-    
-//    NSDictionary *dic = @{};
-//    
-//    return dic;
+}
++ (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
+{
+    NSDictionary *dict = @{NSFontAttributeName : font};
+    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
+    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
+    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+    return size;
 }
 @end

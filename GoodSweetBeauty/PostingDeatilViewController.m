@@ -598,6 +598,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)Poster_click{
 
+    MYLOG(@"只看楼主")
+    //对数据就行筛选
     
 }
 

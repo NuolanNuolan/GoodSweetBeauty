@@ -39,7 +39,6 @@ static NSDictionary * s_cheatCodesToUnicode = nil;
     if (!s_cheatCodesToUnicode) {
         [NSString initializeEmojiCheatCodes];
     }
-    
     if (self.length) {
         __block NSMutableString *newText = [NSMutableString stringWithString:self];
         [s_unicodeToCheatCodes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {

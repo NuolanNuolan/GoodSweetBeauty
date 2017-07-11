@@ -1,14 +1,14 @@
 //
-//  BackCommentTableViewCell.m
+//  CoinsOneTableViewCell.m
 //  GoodSweetBeauty
 //
-//  Created by Eason on 17/6/7.
+//  Created by Eason on 17/7/10.
 //  Copyright © 2017年 YLL. All rights reserved.
 //
 
-#import "BackCommentTableViewCell.h"
+#import "CoinsOneTableViewCell.h"
 
-@implementation BackCommentTableViewCell
+@implementation CoinsOneTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,9 +20,5 @@
 
     // Configure the view for the selected state
 }
--(void)setPostsModel:(Posts *)model{
 
-    _lab_username.text = model.author;
-    _lab_comment.text = [model.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
-}
 @end

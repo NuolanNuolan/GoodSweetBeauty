@@ -605,6 +605,11 @@
             if (model.id == Arr_model.id) {
                 
                 isCanAdd = FALSE;
+                //判断文本框里面有没有这个人 如果没有添加进文本框
+                if (![BWCommon DoesItInclude:self.textView.text withString:str]) {
+                    //不存在
+                    [self.textView replaceRange:self.textView.selectedTextRange withText:str];
+                }
                 break;
             }
         }
@@ -760,7 +765,7 @@
 -(void)Postting{
 
     
-    NSDictionary *dic_at = [BWCommon PredicateAt:[self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes]Atarr:self.Arr_at];
+    NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
     MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -811,10 +816,13 @@
 //                                                              
 //                                                              kCFStringEncodingUTF8));
     
-        
+    NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
+    MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                    [self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],@"content",
+                                    dic_at[@"content"],@"content",
                                     [BWCommon getIpAddresses],@"user_ip",
+                                    dic_at[@"at"],@"at",
                                     nil];
 
     
@@ -834,9 +842,13 @@
  */
 -(void)ReplyFloor{
 
+    NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
+    MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                [self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],@"content",
+                                dic_at[@"content"],@"content",
                                 [BWCommon getIpAddresses],@"user_ip",
+                                dic_at[@"at"],@"at",
                                 [NSNumber numberWithInteger:self.postsmodel.id],@"father_id",nil];
     
     @weakify(self);

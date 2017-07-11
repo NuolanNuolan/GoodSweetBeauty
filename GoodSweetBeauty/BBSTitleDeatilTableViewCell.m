@@ -45,7 +45,7 @@
     [lab_title sizeToFit];
     
     lab_deatil = [XXLinkLabel new];
-    lab_deatil.linkTextColor = UIColorHex(527ead);
+    lab_deatil.linkTextColor = GETMAINCOLOR;
     lab_deatil.regularType = XXLinkLabelRegularTypeAboat;
     lab_deatil.selectedBackgroudColor = [UIColor whiteColor];
 //    | XXLinkLabelRegularTypeTopic | XXLinkLabelRegularTypeUrl;

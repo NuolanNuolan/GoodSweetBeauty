@@ -20,7 +20,7 @@
 @property (nonatomic , copy) NSString              * subject;
 @property (nonatomic , assign) NSInteger              father_id;
 @property (nonatomic , copy) NSString              * author_avatar;
-@property (nonatomic , strong) NSArray<Ats *>              * ats;
+//@property (nonatomic , strong) NSArray<Ats *>              * ats;
 @property (nonatomic , copy) NSString              * author;
 @property (nonatomic , assign) NSInteger              favors;
 @property (nonatomic , copy) NSString              * stripd_content;

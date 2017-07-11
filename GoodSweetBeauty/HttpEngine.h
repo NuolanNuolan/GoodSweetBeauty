@@ -77,4 +77,13 @@
  验证码校验
  */
 +(void)Mescheck:(NSString *)phone Type:(NSString *)type code:(NSString *)code complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ @我的
+ */
++(void)AtMePosts:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 有安币变动记录
+ */
++(void)CoinsRecord:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

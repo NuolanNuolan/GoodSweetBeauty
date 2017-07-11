@@ -15,7 +15,6 @@
 		EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */; };
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
-		EA26E3F51ECEC892003D5F6C /* AtmeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F41ECEC892003D5F6C /* AtmeTableViewCell.m */; };
 		EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */; };
 		EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */; };
 		EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43328A1ED57E3500A65177 /* MSSBrowseActionSheet.m */; };
@@ -44,6 +43,19 @@
 		EA4C06071F0F785100539A16 /* AtTitleheadview.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C06061F0F785100539A16 /* AtTitleheadview.m */; };
 		EA4C060B1F0F93CA00539A16 /* UIView+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4C060A1F0F93CA00539A16 /* UIView+Utils.m */; };
 		EA4F16871ED05486002E7A2D /* YouAnFansFollowModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */; };
+		EA5211FF1F132CD6006EFD7F /* YouAnAtMeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5211FE1F132CD6006EFD7F /* YouAnAtMeModel.m */; };
+		EA5212021F1330EE006EFD7F /* AtMePostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212011F1330EE006EFD7F /* AtMePostTableViewCell.m */; };
+		EA5212061F135C8C006EFD7F /* CoinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212051F135C8C006EFD7F /* CoinsViewController.m */; };
+		EA52120B1F1374CE006EFD7F /* CoinsOneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212091F1374CE006EFD7F /* CoinsOneTableViewCell.m */; };
+		EA52120C1F1374CE006EFD7F /* CoinsOneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA52120A1F1374CE006EFD7F /* CoinsOneTableViewCell.xib */; };
+		EA5212101F1375A4006EFD7F /* ConisTwoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA52120E1F1375A4006EFD7F /* ConisTwoTableViewCell.m */; };
+		EA5212111F1375A4006EFD7F /* ConisTwoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA52120F1F1375A4006EFD7F /* ConisTwoTableViewCell.xib */; };
+		EA5212141F138317006EFD7F /* HistoricalRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212131F138317006EFD7F /* HistoricalRecordViewController.m */; };
+		EA5212171F1383DC006EFD7F /* YouAnConisRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212161F1383DC006EFD7F /* YouAnConisRecordModel.m */; };
+		EA52121B1F146389006EFD7F /* HistoryCoinsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212191F146389006EFD7F /* HistoryCoinsTableViewCell.m */; };
+		EA52121C1F146389006EFD7F /* HistoryCoinsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EA52121A1F146389006EFD7F /* HistoryCoinsTableViewCell.xib */; };
+		EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA52121E1F146527006EFD7F /* TimeHeaderFooterView.m */; };
+		EA5212221F14AA54006EFD7F /* BuyCoinsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA5212211F14AA54006EFD7F /* BuyCoinsViewController.m */; };
 		EA6371001ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6370F81ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m */; };
 		EA6371011ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6370FA1ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.m */; };
 		EA6371021ED6A49D003E6BC3 /* UIViewController+ZHNAutoTempStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = EA6370FC1ED6A49D003E6BC3 /* UIViewController+ZHNAutoTempStatus.m */; };
@@ -169,8 +181,6 @@
 		EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EA26E3F01ECEC792003D5F6C /* AtMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtMeViewController.h; sourceTree = "<group>"; };
 		EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtMeViewController.m; sourceTree = "<group>"; };
-		EA26E3F31ECEC892003D5F6C /* AtmeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtmeTableViewCell.h; sourceTree = "<group>"; };
-		EA26E3F41ECEC892003D5F6C /* AtmeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtmeTableViewCell.m; sourceTree = "<group>"; };
 		EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@2x.png"; sourceTree = "<group>"; };
 		EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
 		EA4332891ED57E3500A65177 /* MSSBrowseActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseActionSheet.h; sourceTree = "<group>"; };
@@ -226,6 +236,29 @@
 		EA4C060A1F0F93CA00539A16 /* UIView+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Utils.m"; sourceTree = "<group>"; };
 		EA4F16851ED05486002E7A2D /* YouAnFansFollowModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnFansFollowModel.h; sourceTree = "<group>"; };
 		EA4F16861ED05486002E7A2D /* YouAnFansFollowModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnFansFollowModel.m; sourceTree = "<group>"; };
+		EA5211FD1F132CD6006EFD7F /* YouAnAtMeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnAtMeModel.h; sourceTree = "<group>"; };
+		EA5211FE1F132CD6006EFD7F /* YouAnAtMeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnAtMeModel.m; sourceTree = "<group>"; };
+		EA5212001F1330EE006EFD7F /* AtMePostTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtMePostTableViewCell.h; sourceTree = "<group>"; };
+		EA5212011F1330EE006EFD7F /* AtMePostTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtMePostTableViewCell.m; sourceTree = "<group>"; };
+		EA5212041F135C8C006EFD7F /* CoinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsViewController.h; sourceTree = "<group>"; };
+		EA5212051F135C8C006EFD7F /* CoinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsViewController.m; sourceTree = "<group>"; };
+		EA5212081F1374CE006EFD7F /* CoinsOneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoinsOneTableViewCell.h; sourceTree = "<group>"; };
+		EA5212091F1374CE006EFD7F /* CoinsOneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoinsOneTableViewCell.m; sourceTree = "<group>"; };
+		EA52120A1F1374CE006EFD7F /* CoinsOneTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CoinsOneTableViewCell.xib; sourceTree = "<group>"; };
+		EA52120D1F1375A4006EFD7F /* ConisTwoTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConisTwoTableViewCell.h; sourceTree = "<group>"; };
+		EA52120E1F1375A4006EFD7F /* ConisTwoTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConisTwoTableViewCell.m; sourceTree = "<group>"; };
+		EA52120F1F1375A4006EFD7F /* ConisTwoTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConisTwoTableViewCell.xib; sourceTree = "<group>"; };
+		EA5212121F138317006EFD7F /* HistoricalRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoricalRecordViewController.h; sourceTree = "<group>"; };
+		EA5212131F138317006EFD7F /* HistoricalRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoricalRecordViewController.m; sourceTree = "<group>"; };
+		EA5212151F1383DC006EFD7F /* YouAnConisRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnConisRecordModel.h; sourceTree = "<group>"; };
+		EA5212161F1383DC006EFD7F /* YouAnConisRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnConisRecordModel.m; sourceTree = "<group>"; };
+		EA5212181F146389006EFD7F /* HistoryCoinsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryCoinsTableViewCell.h; sourceTree = "<group>"; };
+		EA5212191F146389006EFD7F /* HistoryCoinsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryCoinsTableViewCell.m; sourceTree = "<group>"; };
+		EA52121A1F146389006EFD7F /* HistoryCoinsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryCoinsTableViewCell.xib; sourceTree = "<group>"; };
+		EA52121D1F146527006EFD7F /* TimeHeaderFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeHeaderFooterView.h; sourceTree = "<group>"; };
+		EA52121E1F146527006EFD7F /* TimeHeaderFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeHeaderFooterView.m; sourceTree = "<group>"; };
+		EA5212201F14AA54006EFD7F /* BuyCoinsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyCoinsViewController.h; sourceTree = "<group>"; };
+		EA5212211F14AA54006EFD7F /* BuyCoinsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyCoinsViewController.m; sourceTree = "<group>"; };
 		EA6370F71ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+ZHNAutoTempStatus.h"; sourceTree = "<group>"; };
 		EA6370F81ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+ZHNAutoTempStatus.m"; sourceTree = "<group>"; };
 		EA6370F91ED6A49D003E6BC3 /* UITableView+ZHNAutoTempStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+ZHNAutoTempStatus.h"; sourceTree = "<group>"; };
@@ -591,6 +624,37 @@
 			name = SearchBarCornerRadius;
 			sourceTree = "<group>";
 		};
+		EA5212031F135C6C006EFD7F /* 我的有安币 */ = {
+			isa = PBXGroup;
+			children = (
+				EA5212041F135C8C006EFD7F /* CoinsViewController.h */,
+				EA5212051F135C8C006EFD7F /* CoinsViewController.m */,
+				EA5212121F138317006EFD7F /* HistoricalRecordViewController.h */,
+				EA5212131F138317006EFD7F /* HistoricalRecordViewController.m */,
+				EA5212201F14AA54006EFD7F /* BuyCoinsViewController.h */,
+				EA5212211F14AA54006EFD7F /* BuyCoinsViewController.m */,
+			);
+			name = "我的有安币";
+			sourceTree = "<group>";
+		};
+		EA5212071F1374B1006EFD7F /* 我的有安币 */ = {
+			isa = PBXGroup;
+			children = (
+				EA5212081F1374CE006EFD7F /* CoinsOneTableViewCell.h */,
+				EA5212091F1374CE006EFD7F /* CoinsOneTableViewCell.m */,
+				EA52120A1F1374CE006EFD7F /* CoinsOneTableViewCell.xib */,
+				EA52120D1F1375A4006EFD7F /* ConisTwoTableViewCell.h */,
+				EA52120E1F1375A4006EFD7F /* ConisTwoTableViewCell.m */,
+				EA52120F1F1375A4006EFD7F /* ConisTwoTableViewCell.xib */,
+				EA5212181F146389006EFD7F /* HistoryCoinsTableViewCell.h */,
+				EA5212191F146389006EFD7F /* HistoryCoinsTableViewCell.m */,
+				EA52121A1F146389006EFD7F /* HistoryCoinsTableViewCell.xib */,
+				EA52121D1F146527006EFD7F /* TimeHeaderFooterView.h */,
+				EA52121E1F146527006EFD7F /* TimeHeaderFooterView.m */,
+			);
+			name = "我的有安币";
+			sourceTree = "<group>";
+		};
 		EA6370F61ED6A49D003E6BC3 /* DTTempStatusMan */ = {
 			isa = PBXGroup;
 			children = (
@@ -952,6 +1016,10 @@
 				EA9483EB1EE9057800D3124A /* YouAnUserPosttingModel.m */,
 				EA6D3D421EF10C70001F397B /* YouAnCollectionModel.h */,
 				EA6D3D431EF10C70001F397B /* YouAnCollectionModel.m */,
+				EA5211FD1F132CD6006EFD7F /* YouAnAtMeModel.h */,
+				EA5211FE1F132CD6006EFD7F /* YouAnAtMeModel.m */,
+				EA5212151F1383DC006EFD7F /* YouAnConisRecordModel.h */,
+				EA5212161F1383DC006EFD7F /* YouAnConisRecordModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -959,6 +1027,7 @@
 		EAAE62AC1EBDDC9D00AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA5212071F1374B1006EFD7F /* 我的有安币 */,
 				EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */,
 				EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */,
 				EAA2FDF11EBE55BB00C0EB27 /* SettingTableViewCell.h */,
@@ -974,12 +1043,12 @@
 				EA456CEB1EC829A400BE380E /* MyFansTableViewCell.h */,
 				EA456CEC1EC829A400BE380E /* MyFansTableViewCell.m */,
 				EA456CED1EC829A400BE380E /* MyFansTableViewCell.xib */,
-				EA26E3F31ECEC892003D5F6C /* AtmeTableViewCell.h */,
-				EA26E3F41ECEC892003D5F6C /* AtmeTableViewCell.m */,
 				EA456CF41EC8339500BE380E /* MyAuthTableViewCell.h */,
 				EA456CF51EC8339500BE380E /* MyAuthTableViewCell.m */,
 				EA456CF71EC83BC200BE380E /* AuthTypeView.h */,
 				EA456CF81EC83BC200BE380E /* AuthTypeView.m */,
+				EA5212001F1330EE006EFD7F /* AtMePostTableViewCell.h */,
+				EA5212011F1330EE006EFD7F /* AtMePostTableViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -987,6 +1056,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EA5212031F135C6C006EFD7F /* 我的有安币 */,
 				EA6D3D411EF10C4A001F397B /* 我的收藏 */,
 				EA26E3EF1ECEC783003D5F6C /* @我的 */,
 				EA456CF01EC831B400BE380E /* 我要认证 */,
@@ -1263,7 +1333,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA52120C1F1374CE006EFD7F /* CoinsOneTableViewCell.xib in Resources */,
 				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
+				EA52121C1F146389006EFD7F /* HistoryCoinsTableViewCell.xib in Resources */,
 				EA9CF6BC1E8226800050BA8B /* MBProgressHUD.bundle in Resources */,
 				EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */,
 				EA9483E91EE7D6F900D3124A /* BackCommentTableViewCell.xib in Resources */,
@@ -1275,6 +1347,7 @@
 				EA9CF6161E80D3CD0050BA8B /* Main.storyboard in Resources */,
 				EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */,
 				EAEF2CD41ED9223C003300A9 /* PostingTitleTableViewCell.xib in Resources */,
+				EA5212111F1375A4006EFD7F /* ConisTwoTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1360,17 +1433,21 @@
 				EA6371241ED6C4D5003E6BC3 /* YNPageScrollHeaderView.m in Sources */,
 				EA6371031ED6A49D003E6BC3 /* ZHNMethodSwizzingHelper.m in Sources */,
 				EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */,
+				EA52120B1F1374CE006EFD7F /* CoinsOneTableViewCell.m in Sources */,
 				EAA30B8C1EE3D4200074CE0C /* Exceptional_view.m in Sources */,
 				EA89C44F1ED40D4100B64A1B /* YouAnBBSModel.m in Sources */,
 				EAA30B8F1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m in Sources */,
 				EAE023811EDD7CA8009305A7 /* PostingDeatilViewController.m in Sources */,
 				EA9483E81EE7D6F900D3124A /* BackCommentTableViewCell.m in Sources */,
+				EA5212021F1330EE006EFD7F /* AtMePostTableViewCell.m in Sources */,
+				EA5212141F138317006EFD7F /* HistoricalRecordViewController.m in Sources */,
 				EAEF2CD31ED9223C003300A9 /* PostingTitleTableViewCell.m in Sources */,
 				EA9CF6481E80F3020050BA8B /* LPActionSheet.m in Sources */,
 				EA9DBB1F1EC6F731000FA93A /* RegisterViewController.m in Sources */,
 				EA4332AA1ED57E3500A65177 /* MSSBrowseModel.m in Sources */,
 				EA9DBB181EC6D942000FA93A /* LoginViewController.m in Sources */,
 				EAE023881EDE8F4B009305A7 /* BBSDeatilTableViewCell.m in Sources */,
+				EA52121B1F146389006EFD7F /* HistoryCoinsTableViewCell.m in Sources */,
 				EA4C06071F0F785100539A16 /* AtTitleheadview.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
 				EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */,
@@ -1390,6 +1467,7 @@
 				EA6371331ED7D15E003E6BC3 /* CenterTwoViewController.m in Sources */,
 				EA456CF91EC83BC200BE380E /* AuthTypeView.m in Sources */,
 				EA456D001ECADC2E00BE380E /* SetPwdViewController.m in Sources */,
+				EA5212101F1375A4006EFD7F /* ConisTwoTableViewCell.m in Sources */,
 				EAAE62B71EBDDD5300AB9280 /* CenterViewController.m in Sources */,
 				EAEF2CCF1ED921DC003300A9 /* PostingTableViewCell.m in Sources */,
 				EA6371481ED8374B003E6BC3 /* UserPostingViewController.m in Sources */,
@@ -1401,6 +1479,7 @@
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
+				EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
 				EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */,
 				EA9CF76D1E825E4F0050BA8B /* HttpEngine.m in Sources */,
@@ -1422,12 +1501,14 @@
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
 				EA6371281ED6C4D5003E6BC3 /* YNPageScrollViewMenuConfigration.m in Sources */,
 				EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */,
+				EA5211FF1F132CD6006EFD7F /* YouAnAtMeModel.m in Sources */,
 				EA63712D1ED7D0F0003E6BC3 /* CenterBaseViewController.m in Sources */,
 				EA4C06001F0E9A1300539A16 /* BMChineseSort.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,
 				EA6371001ED6A49D003E6BC3 /* UICollectionView+ZHNAutoTempStatus.m in Sources */,
 				EA9CF6BD1E8226800050BA8B /* MBProgressHUD+HM.m in Sources */,
 				EA4C05FC1F0E8DB200539A16 /* AtChooseViewController.m in Sources */,
+				EA5212171F1383DC006EFD7F /* YouAnConisRecordModel.m in Sources */,
 				EAA98A921EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m in Sources */,
 				EA4332AC1ED57E3500A65177 /* MSSBrowseRemindView.m in Sources */,
 				EA4332AB1ED57E3500A65177 /* MSSBrowseNetworkViewController.m in Sources */,
@@ -1449,10 +1530,11 @@
 				EA6D3D441EF10C70001F397B /* YouAnCollectionModel.m in Sources */,
 				EADF1E681E8363ED0083D7DD /* MainTabbarController.m in Sources */,
 				EA4332A91ED57E3500A65177 /* MSSBrowseLocalViewController.m in Sources */,
-				EA26E3F51ECEC892003D5F6C /* AtmeTableViewCell.m in Sources */,
 				EA9DBB251EC70EDB000FA93A /* ResSetUsernameViewController.m in Sources */,
+				EA5212221F14AA54006EFD7F /* BuyCoinsViewController.m in Sources */,
 				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 				EA6371301ED7D153003E6BC3 /* CenterOneViewController.m in Sources */,
+				EA5212061F135C8C006EFD7F /* CoinsViewController.m in Sources */,
 				EA456CF61EC8339500BE380E /* MyAuthTableViewCell.m in Sources */,
 				EA6371251ED6C4D5003E6BC3 /* YNPageScrollView.m in Sources */,
 				EA4332A81ED57E3500A65177 /* MSSBrowseLoadingImageView.m in Sources */,

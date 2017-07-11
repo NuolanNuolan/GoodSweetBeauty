@@ -65,4 +65,6 @@
 //At处理
 +(NSDictionary *)PredicateAt:(NSString *)content Atarr:(NSMutableArray *)Arr_at;
 
+//文本高度
++ (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
 @end
