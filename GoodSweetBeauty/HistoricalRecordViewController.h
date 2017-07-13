@@ -7,7 +7,17 @@
 //
 
 #import "HJViewController.h"
-
+typedef NS_ENUM(NSUInteger, Historyrecord) {
+    
+    Statushiscoins = 1 ,  ///< 历史记录
+    Statustopinrecord = 0///< 充值记录
+};
 @interface HistoricalRecordViewController : HJViewController
+
+
+//判断是充值记录还是历史记录
+-(instancetype)initWithtype:(Historyrecord )type;
+
+
 
 @end

@@ -90,7 +90,7 @@
     [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(HistoricalRecord) forControlEvents:UIControlEventTouchUpInside];
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
-    btn.frame = CGMAKE(ScreenWidth-100, 0, 85, 76);
+    btn.frame = CGMAKE(ScreenWidth-100, 0, 100, 76);
     
     UILabel *lab = [[UILabel alloc]initWithFrame:CGMAKE(42, 26.5, 300, 22.5)];
     [lab setText:[NSString stringWithFormat:@"%ld",(long)self.conins]];
@@ -389,7 +389,7 @@
  */
 -(void)HistoricalRecord{
 
-    HistoricalRecordViewController *view = [HistoricalRecordViewController new];
+    HistoricalRecordViewController *view = [[HistoricalRecordViewController alloc]initWithtype:Statushiscoins];
     [self.navigationController pushViewController:view animated:YES];
 }
 

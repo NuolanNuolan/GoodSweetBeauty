@@ -355,11 +355,33 @@
 //用户详情
 -(void)PushUserDetail:(NSString *)tag{
     
+    [self ConfigurationUserDeail:self.ynPageScrollViewController.pageIndex tag:[tag integerValue]];
+    
     UIViewController *view = [self CreateContrllr];
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];
     
 }
+-(void)ConfigurationUserDeail:(NSInteger )pageindex tag:(NSInteger )tag{
+
+    switch (pageindex) {
+        case 0:{
+            
+            
+            
+        }
+            break;
+        case 1:{
+            
+        }
+            break;
+        case 2:{
+            
+        }
+            break;
+    }
+}
+
 //配置用户详情页相关
 -(UIViewController*)CreateContrllr{
 
@@ -400,6 +422,11 @@
         [self.lab_username setFont:[UIFont boldSystemFontOfSize:16]];
         [self.lab_username setText:@"换个字试试"];
         [self.lab_username sizeToFit];
+        
+        //添加一个view 装name 和图标
+        UIView *view_lab_v_level = [UIView new];
+//        view_lab_v_level.backgroundColor = [UIColor whiteColor];
+        view_lab_v_level.backgroundColor = [UIColor yellowColor];
         
         self.view_v_level = [UIView new];
         self.view_v_level.backgroundColor = RGB(247, 247, 247);
@@ -451,17 +478,21 @@
         
         [self.view_v_level addSubview:self.image_v];
         [self.view_v_level addSubview:self.image_level];
+        [view_lab_v_level addSubview:self.lab_username];
+        [view_lab_v_level addSubview:self.view_v_level];
         [_view_userhead addSubview:self.image_head];
-        [_view_userhead addSubview:self.lab_username];
-        [_view_userhead addSubview:self.view_v_level];
+        [_view_userhead addSubview:view_lab_v_level];
         [_view_userhead addSubview:self.view_btn_gap];
         
         self.image_head.whc_Size(80,80).whc_CenterX(0).whc_TopSpace(5);
-        self.lab_username.whc_TopSpaceToView(15,self.image_head).whc_CenterX(0).whc_Height(16);
-        self.image_v.whc_Size(11,9).whc_TopSpace(3.5).whc_LeftSpace(7);
-        self.image_level.whc_Size(12,11).whc_TopSpace(2.5).whc_RightSpace(7.5);
-        self.view_v_level.whc_Size(42,16).whc_LeftSpaceToView(5,self.lab_username).whc_TopSpaceEqualView(self.lab_username);
-        self.view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(45,self.lab_username).whc_Height(65);
+        
+        view_lab_v_level.whc_TopSpaceToView(15,self.image_head).whc_CenterXToView(0,self.image_head).whc_WidthAuto().whc_HeightAuto();
+        self.lab_username.whc_LeftSpace(0).whc_TopSpace(0).whc_RightSpaceToView(5,self.view_v_level);
+        self.image_v.whc_Size(11,9).whc_LeftSpace(7).whc_CenterY(0).whc_RightSpaceToView(5,self.image_level);
+        self.image_level.whc_Size(12,11).whc_RightSpace(7.5).whc_CenterY(0);
+        self.view_v_level.whc_WidthAuto().whc_RightSpace(0).whc_Height(16).whc_CenterYToView(0,self.lab_username);
+        
+        self.view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(60,view_lab_v_level).whc_Height(65);
     }
     return _view_userhead;
 }

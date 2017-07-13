@@ -18,10 +18,7 @@
     [super viewDidLoad];
     
     [self.view addSubview:self.tableView];
-    
-    
-    
-    
+    self.tableView.whc_LeftSpace(0).whc_TopSpace(0).whc_BottomSpace(50).whc_RightSpace(0);
     // Do any additional setup after loading the view.
 }
 #pragma mark - UITableViewDataSource
@@ -65,7 +62,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    // 通过最后一个 Footer 来补高度
     
     return 0.0001;
 }
@@ -75,7 +71,8 @@
     
     if (!_tableView) {
         
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+//        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc]init];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];
@@ -84,6 +81,7 @@
         view_backgroud.backgroundColor = GETMAINCOLOR;
         [_tableView addSubview:view_backgroud];
         _tableView.showsVerticalScrollIndicator = NO;
+
     }
     return _tableView;
     

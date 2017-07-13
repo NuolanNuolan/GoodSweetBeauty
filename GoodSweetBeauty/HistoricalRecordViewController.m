@@ -21,6 +21,9 @@
 @property(nonatomic,strong)NSMutableArray *Arr_show_data;
 @property(nonatomic,strong)NSMutableArray *Arr_data;
 @property(nonatomic,strong)YouAnConisRecordModel *model;
+
+//类型
+@property(nonatomic,assign)Historyrecord type;
 @end
 
 @implementation HistoricalRecordViewController
@@ -31,6 +34,17 @@
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
+}
+//判断是充值记录还是历史记录
+-(instancetype)initWithtype:(Historyrecord )type{
+
+    self = [super init];
+    if (self) {
+        
+        self.type = type;
+        
+    }
+    return self;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -48,7 +62,8 @@
 }
 -(void)CreateUI{
 
-    self.title = @"我的有安币";
+    if (self.type==Statushiscoins) self.title = @"我的有安币";
+    else self.title = @"充值记录";
     self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, ScreenWidth, ScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.delegate =self;
     self.tableview.dataSource =self;
