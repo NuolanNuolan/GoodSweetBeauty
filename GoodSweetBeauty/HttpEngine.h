@@ -10,6 +10,7 @@
 #import "UserPostingViewController.h"
 
 
+
 @interface HttpEngine : NSObject
 +(void)Login_Success:(NSDictionary *)responseObjecct;
 //图片上传统一接口
@@ -41,7 +42,7 @@
  */
 +(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete;
 //帖子详情
-+(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size complete:(void(^)(BOOL success ,id responseObject))complete;
++(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size if_master:(BOOL)if_master complete:(void(^)(BOOL success ,id responseObject))complete;
 
 /**
  打赏
@@ -84,6 +85,7 @@
 +(void)AtMePosts:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
 /**
  有安币变动记录
+ 传入变动类型
  */
-+(void)CoinsRecord:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
++(void)CoinsRecord:(NSInteger )page type:(NSString * )type complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

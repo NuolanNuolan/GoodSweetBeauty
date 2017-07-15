@@ -347,11 +347,26 @@
 
 }
 //帖子详情
-+(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size if_master:(BOOL)if_master complete:(void(^)(BOOL success ,id responseObject))complete{
 
     NSString *url = [NSString stringWithFormat:@"%@/posts/threads/%@/",ADDRESS_API,[NSNumber numberWithInteger:postintID]];
-    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    NSDictionary *dic ;
+    if (if_master) {
+        
+        dic =@{@"page":[NSNumber numberWithInteger:page],
+               @"if_master":[NSNumber numberWithInteger:1]};
+    }else{
     
+        dic =@{@"page":[NSNumber numberWithInteger:page]};
+    }
+    
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    if (![token isEqualToString:@""]||!token) {
+        
+        NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+        [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    }
     [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
         
         complete(YES,responseObject);
@@ -369,7 +384,6 @@
 }
 /**
  打赏
- 
  */
 +(void)Exceptional:(NSInteger )conins withpk:(NSInteger )pk complete:(void(^)(BOOL success ,id responseObject))complete;{
 
@@ -619,13 +633,14 @@
 /**
  有安币变动记录
  */
-+(void)CoinsRecord:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)CoinsRecord:(NSInteger )page type:(NSString * )type complete:(void(^)(BOOL success ,id responseObject))complete{
 
     NSString *url = [NSString stringWithFormat:@"%@/members/coins/",ADDRESS_API];
     NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page],
+                          @"action_type":type};
     [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
         
         complete(YES,responseObject);

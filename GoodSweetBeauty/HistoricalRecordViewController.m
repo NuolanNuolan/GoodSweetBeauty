@@ -99,7 +99,7 @@
 
     @weakify(self);
     [ZFCWaveActivityIndicatorView show:self.view];
-    [HttpEngine CoinsRecord:self.page complete:^(BOOL success, id responseObject) {
+    [HttpEngine CoinsRecord:self.page type:self.type==1?@"":@"charge" complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableview.mj_footer endRefreshing];
         [self.tableview.mj_header endRefreshing];

@@ -210,7 +210,7 @@
         case Statusrecord:{
             
             @weakify(self);
-            [HttpEngine CoinsRecord:self.page_record complete:^(BOOL success, id responseObject) {
+            [HttpEngine CoinsRecord:self.page_record type:@"gift" complete:^(BOOL success, id responseObject) {
                 @strongify(self);
                 [self.tableView.mj_footer endRefreshing];
                 [self.tableView.mj_header endRefreshing];

@@ -15,6 +15,8 @@
 		EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */; };
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
+		EA343B661F1856D5001F1FB1 /* MyImMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA343B651F1856D5001F1FB1 /* MyImMessagesViewController.m */; };
+		EA343B6A1F1859F8001F1FB1 /* MesListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA343B691F1859F8001F1FB1 /* MesListTableViewCell.m */; };
 		EA4332A21ED57E3500A65177 /* mss_browseLoading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */; };
 		EA4332A31ED57E3500A65177 /* mss_browseLoading@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */; };
 		EA4332A41ED57E3500A65177 /* MSSBrowseActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = EA43328A1ED57E3500A65177 /* MSSBrowseActionSheet.m */; };
@@ -181,6 +183,10 @@
 		EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EA26E3F01ECEC792003D5F6C /* AtMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtMeViewController.h; sourceTree = "<group>"; };
 		EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtMeViewController.m; sourceTree = "<group>"; };
+		EA343B641F1856D5001F1FB1 /* MyImMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyImMessagesViewController.h; sourceTree = "<group>"; };
+		EA343B651F1856D5001F1FB1 /* MyImMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyImMessagesViewController.m; sourceTree = "<group>"; };
+		EA343B681F1859F8001F1FB1 /* MesListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MesListTableViewCell.h; sourceTree = "<group>"; };
+		EA343B691F1859F8001F1FB1 /* MesListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MesListTableViewCell.m; sourceTree = "<group>"; };
 		EA4332871ED57E3500A65177 /* mss_browseLoading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@2x.png"; sourceTree = "<group>"; };
 		EA4332881ED57E3500A65177 /* mss_browseLoading@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "mss_browseLoading@3x.png"; sourceTree = "<group>"; };
 		EA4332891ED57E3500A65177 /* MSSBrowseActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MSSBrowseActionSheet.h; sourceTree = "<group>"; };
@@ -528,6 +534,24 @@
 				EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */,
 			);
 			name = "@我的";
+			sourceTree = "<group>";
+		};
+		EA343B631F185694001F1FB1 /* 我的私信 */ = {
+			isa = PBXGroup;
+			children = (
+				EA343B641F1856D5001F1FB1 /* MyImMessagesViewController.h */,
+				EA343B651F1856D5001F1FB1 /* MyImMessagesViewController.m */,
+			);
+			name = "我的私信";
+			sourceTree = "<group>";
+		};
+		EA343B671F185924001F1FB1 /* 我的私信 */ = {
+			isa = PBXGroup;
+			children = (
+				EA343B681F1859F8001F1FB1 /* MesListTableViewCell.h */,
+				EA343B691F1859F8001F1FB1 /* MesListTableViewCell.m */,
+			);
+			name = "我的私信";
 			sourceTree = "<group>";
 		};
 		EA4332861ED57E3500A65177 /* MSSBrowse */ = {
@@ -1027,6 +1051,7 @@
 		EAAE62AC1EBDDC9D00AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EA343B671F185924001F1FB1 /* 我的私信 */,
 				EA5212071F1374B1006EFD7F /* 我的有安币 */,
 				EAA2FDEA1EBDF00D00C0EB27 /* CenterTableViewCell.h */,
 				EAA2FDEB1EBDF00D00C0EB27 /* CenterTableViewCell.m */,
@@ -1056,6 +1081,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EA343B631F185694001F1FB1 /* 我的私信 */,
 				EA5212031F135C6C006EFD7F /* 我的有安币 */,
 				EA6D3D411EF10C4A001F397B /* 我的收藏 */,
 				EA26E3EF1ECEC783003D5F6C /* @我的 */,
@@ -1478,6 +1504,7 @@
 				EA63710E1ED6C38A003E6BC3 /* YNTestThreeViewController.m in Sources */,
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
+				EA343B6A1F1859F8001F1FB1 /* MesListTableViewCell.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
@@ -1534,6 +1561,7 @@
 				EA5212221F14AA54006EFD7F /* BuyCoinsViewController.m in Sources */,
 				EAA2FDF01EBE525E00C0EB27 /* SettingViewController.m in Sources */,
 				EA6371301ED7D153003E6BC3 /* CenterOneViewController.m in Sources */,
+				EA343B661F1856D5001F1FB1 /* MyImMessagesViewController.m in Sources */,
 				EA5212061F135C8C006EFD7F /* CoinsViewController.m in Sources */,
 				EA456CF61EC8339500BE380E /* MyAuthTableViewCell.m in Sources */,
 				EA6371251ED6C4D5003E6BC3 /* YNPageScrollView.m in Sources */,

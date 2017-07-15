@@ -15,6 +15,7 @@
 #import "CollectionViewController.h"
 #import "AtMeViewController.h"
 #import "CoinsViewController.h"
+#import "MyImMessagesViewController.h"
 
 
 
@@ -291,6 +292,7 @@
         break;
         case 3:{
             
+            view = [MyImMessagesViewController new];
             
         }
             break;

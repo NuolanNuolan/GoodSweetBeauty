@@ -25,6 +25,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
 //楼主按钮
 @property(nonatomic,strong)UIButton *btn_Poster;
+//是否是只看楼主
+@property(nonatomic,assign)BOOL      if_master;
 //更多按钮
 @property(nonatomic,strong)UIButton *btn_More;
 //分享收藏立即回复
@@ -102,11 +104,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //请求
 -(void)LoadData:(NSInteger )page{
     
+    
     @weakify(self);
-    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 complete:^(BOOL success, id responseObject) {
+    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 if_master:self.if_master complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableview.mj_footer endRefreshing];
-//        [MBProgressHUD hideHUDForView:self.view];
         [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
             
@@ -194,7 +196,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [self LoadData:++self.page];
         
     }];
-//    [MBProgressHUD showMessage:@"" toView:self.view];
     [ZFCWaveActivityIndicatorView show:self.view];
 
     
@@ -204,22 +205,23 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)CreateRightBtn{
 
     self.btn_Poster = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.btn_Poster.frame = CGMAKE(-20, 0, 40, 20);
+    self.btn_Poster.frame = CGMAKE(20, 12.5, 40, 20);
     self.btn_Poster.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.btn_Poster setTitle:@"楼主" forState:UIControlStateNormal];
+    [self.btn_Poster setEnlargeEdgeWithTop:20 right:10 bottom:20 left:30];
     [self.btn_Poster setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
     [self.btn_Poster addTarget:self action:@selector(Poster_click) forControlEvents:UIControlEventTouchUpInside];
     self.btn_Poster.layer.masksToBounds =YES;
     self.btn_Poster.layer.borderColor = RGB(102, 102, 102).CGColor;
     self.btn_Poster.layer.borderWidth = 0.5f;
-    UIView *bgview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 20)];
+    UIView *bgview=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 80, 44)];
     [bgview setBackgroundColor:[UIColor clearColor]];
     [bgview  addSubview:self.btn_Poster];
     UIBarButtonItem *shareButton = [[UIBarButtonItem alloc]initWithCustomView:bgview];
     
     self.btn_More = [UIButton buttonWithType:UIButtonTypeCustom];
     self.btn_More.frame = CGMAKE(0, 0, 4, 18);
-    [self.btn_More setEnlargeEdgeWithTop:0 right:20 bottom:10 left:20];
+    [self.btn_More setEnlargeEdgeWithTop:0 right:20 bottom:10 left:10];
     self.btn_More.adjustsImageWhenHighlighted =NO;
     [self.btn_More addTarget:self action:@selector(more_click) forControlEvents:UIControlEventTouchUpInside];
     [self.btn_More setBackgroundImage:[UIImage imageNamed:@"iconTitlebarMore"] forState:UIControlStateNormal];
@@ -573,6 +575,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         switch (index) {
             case 1:{
                 
+                [self btn_bot_click:self.btn_collection];
             }
                 break;
             case 2:{
@@ -598,9 +601,18 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)Poster_click{
 
-    MYLOG(@"只看楼主")
-    //对数据就行筛选
     
+    self.if_master = !self.if_master;
+    if (self.if_master) {
+        
+        [self.btn_Poster setBackgroundColor:RGB(229, 229, 229)];
+        
+    }else{
+    
+        [self.btn_Poster setBackgroundColor:[UIColor whiteColor]];
+    }
+    self.page = 1;
+    [self LoadData:self.page];
 }
 
 /**
