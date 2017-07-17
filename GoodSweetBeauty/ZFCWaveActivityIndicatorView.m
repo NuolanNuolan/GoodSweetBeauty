@@ -170,7 +170,7 @@
 }
 -(void)dealloc{
 
-    MYLOG(@"1212");
+    MYLOG(@"HUD释放");
 }
 - (void)setNumbers:(NSUInteger)numbers
 {

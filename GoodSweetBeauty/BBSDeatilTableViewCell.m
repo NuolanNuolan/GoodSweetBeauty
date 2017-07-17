@@ -21,6 +21,9 @@
     UILabel *lab_time;
     //关注按钮
     UIButton *btn_Focus;
+    
+    //model
+    YouAnBBSDeatilModel * model_cell;
 }
 @end
 @implementation BBSDeatilTableViewCell
@@ -35,7 +38,6 @@
     if (self) {
         
         [self SetFarme];
-        
         
         
     }
@@ -70,6 +72,8 @@
     btn_Focus.layer.masksToBounds = YES;
     btn_Focus.layer.cornerRadius = 14;
     btn_Focus.layer.borderWidth = 0.5f;
+    btn_Focus.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn_Focus addTarget:self action:@selector(focus_click:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.contentView addSubview:image_head];
     [self.contentView addSubview:lab_username];
@@ -91,13 +95,68 @@
 -(void)setmodel:(YouAnBBSDeatilModel *)model{
 
     if (model) {
-        
-        [image_head sd_setImageWithURL:[NSURL URLWithString:model.author_avatar] placeholderImage:[UIImage imageNamed:@"head"]];
+        model_cell = model;
+
+        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_username.text = [NSString stringWithFormat:@"%@",model.author];
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
         
+        //判断等级以及是否关注等
+        if (model.author_profile.vip == 0) {
+            image_auth.whc_Size(0,0).whc_LeftSpaceToView(5,lab_username).whc_CenterYToView(0,lab_username);
+        }else{
+            
+            image_auth.whc_Size(11,9).whc_LeftSpaceToView(5,lab_username).whc_CenterYToView(0,lab_username);
+            //这里根据判断显示哪张图片
+            
+        }
+        if (model.author_profile.level == 0) {
+            image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(0,0).whc_CenterYToView(0,lab_username);
+        }else{
+            
+            image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(12,11).whc_CenterYToView(0,lab_username);
+            image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
+        }
+        if ([model.if_follow isEqualToString:@"nofollow"]||[model.if_follow isEqualToString:@"fan"]) {
+            
+            btn_Focus.layer.borderColor = GETMAINCOLOR.CGColor;
+            [btn_Focus setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+            [btn_Focus setTitle:@"关注" forState:UIControlStateNormal];
+        }else{
         
+            btn_Focus.layer.borderColor = RGB(136, 136, 136).CGColor;
+            [btn_Focus setTitleColor:RGB(136, 136, 136) forState:UIControlStateNormal];
+            [btn_Focus setTitle:@"已关注" forState:UIControlStateNormal];
+        }
         
+    }
+}
+
+//关注非关注点击
+-(void)focus_click:(UIButton *)btn{
+
+    MYLOG(@"%@",btn.titleLabel.text)
+    if ([btn.titleLabel.text isEqualToString:@"关注"]) {
+        //关注
+        [HttpEngine UserFocususerid:model_cell.author_id complete:^(BOOL success, id responseObject) {
+
+            if (success) {
+                btn.layer.borderColor = RGB(136, 136, 136).CGColor;
+                [btn setTitleColor:RGB(136, 136, 136) forState:UIControlStateNormal];
+                [btn setTitle:@"已关注" forState:UIControlStateNormal];
+            }
+        }];
+    }else{
+    
+        [HttpEngine UserCancelFocususerid:model_cell.author_id complete:^(BOOL success, id responseObject) {
+            
+            if (success) {
+                
+                btn.layer.borderColor = GETMAINCOLOR.CGColor;
+                [btn setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+                [btn setTitle:@"关注" forState:UIControlStateNormal];
+            }
+        }];
     }
 }
 @end

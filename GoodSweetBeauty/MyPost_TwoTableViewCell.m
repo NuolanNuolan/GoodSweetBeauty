@@ -92,7 +92,7 @@
 //        MYLOG(@"%f",size_title.height);
         if (size_title.height>25) {
             
-            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
+//            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
         }
 
         

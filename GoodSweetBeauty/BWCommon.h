@@ -67,4 +67,16 @@
 
 //文本高度
 + (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize;
+
+
+/**
+ 设置AT文本
+ */
++ (NSMutableAttributedString *)textWithStatus:(NSString *)str_centent
+                                        Atarr:(NSArray <Ats *> *)ats_arr
+                                         font:(UIFont *)font
+                                  LineSpacing:(CGFloat)LineSpacing
+                                    textColor:(UIColor *)textColor ;
+
 @end
+

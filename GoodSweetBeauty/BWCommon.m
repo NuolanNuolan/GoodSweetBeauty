@@ -435,4 +435,39 @@
     CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     return size;
 }
+/**
+ 设置AT文本
+ */
++ (NSMutableAttributedString *)textWithStatus:(NSString *)str_centent
+                                        Atarr:(NSArray <Ats *> *)ats_arr
+                                         font:(UIFont *)font
+                                  LineSpacing:(CGFloat)LineSpacing
+                                    textColor:(UIColor *)textColor{
+
+    NSMutableString *string = [[str_centent stringByReplacingEmojiCheatCodesToUnicode]mutableCopy];
+    //判断是否有@的 添加在最后面
+    if (ats_arr.count>0&&ats_arr) {
+        NSString *str_at = @"";
+        for (Ats *at_model in ats_arr) {
+            
+            str_at = [str_at stringByAppendingString:[NSString stringWithFormat:@"@%@ ",at_model.uname]];
+        }
+        [string appendString:str_at];
+    }
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string attributes: @{NSBaselineOffsetAttributeName:@(0)}];
+    text.font = font;
+    text.color = textColor;
+
+    //行间距
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    [paragraphStyle setLineSpacing:LineSpacing];
+    
+    [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+    
+    [text addAttribute:NSBaselineOffsetAttributeName value:@(0) range:NSMakeRange(0, [string length])];
+    
+    return text;
+
+}
 @end

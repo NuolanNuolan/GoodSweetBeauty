@@ -97,7 +97,7 @@
 - (void)setRegularType:(XXLinkLabelRegularType)regularType {
     _regularType = regularType;
     self.regularPatterns = nil;
-     NSArray *patterns = @[ @"@[\\u4e00-\\u9fa5a-zA-Z0-9_-]*",
+     NSArray *patterns = @[ @"@[-_a-zA-Z0-9\u4E00-\u9FA5]+ ",
                             @"#.*?#",
                             @"((http|ftp|https)://)(([a-zA-Z0-9\\._-]+\\.[a-zA-Z]{2,6})|([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}))(:[0-9]{1,4})*(/[a-zA-Z0-9\\&%_\\./-~-]*)?"];
     
@@ -373,17 +373,17 @@
 }
 //长按事件
 -(void) timerBegin{
-    MYLOG(@"长按开始");
+//    NSLog(@"长按开始");
     _count = 0;
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target: self selector: @selector(handleTimer) userInfo: nil repeats: YES];
     [_timer fire];
 }
 
 -(void) timerEnd{
-    MYLOG(@"长按结束");
+//    NSLog(@"长按结束");
     [_timer invalidate];
     _timer = nil;
-    MYLOG(@"count = %f",_count);
+//    NSLog(@"count = %f",_count);
 }
 
 -(void) handleTimer{
@@ -412,7 +412,7 @@
         }
         [self timerEnd];        
     }
-    MYLOG(@"%f",_count);
+//    NSLog(@"%f",_count);
 }
 
 - (NSRange)linkRangeAtLocation:(CGPoint)location {

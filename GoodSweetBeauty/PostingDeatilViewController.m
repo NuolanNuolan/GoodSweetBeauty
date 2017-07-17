@@ -150,7 +150,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         Postsmodel.isopen = NO;
         [self.Arr_comments_all addObject:Postsmodel];
     }
-    for (Hot_posts *Hotsmodel in self.Deatilmodel.hot_posts) {
+    for (Posts *Hotsmodel in self.Deatilmodel.hot_posts) {
         
         [self.Arr_comments_hot addObject:Hotsmodel];
     }
@@ -354,7 +354,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             return [BBSDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
             break;
         case 1:
-            return [BBSTitleDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+            return [BBSTitleDeatilTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView ];
             break;
         case 2:{
         
@@ -462,8 +462,27 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 return cell;
             }else{
                 
-                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kMycommentsCellIdentifier];
+                Posts *postsmodel = self.Arr_comments_hot[indexPath.row];
+                CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:postsmodel.father_id ==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
+                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_hot.count isAllcomments:NO];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+                cell.delegateSignal = [RACSubject subject];
+                @weakify(self);
+                [cell.delegateSignal subscribeNext:^(id x) {
+                    @strongify(self);
+                    if ([x[@"type"] isEqualToString:@"回复楼层"]) {
+                        
+                        [self backtoTheFloor:x[@"btn"]];
+                    }else if ([x[@"type"] isEqualToString:@"展开评论"]){
+                        
+                        [self opencomment:x[@"btn"]];
+                    }else if ([x[@"type"] isEqualToString:@"评论点赞"]){
+                        
+                        [self commentlike:x[@"btn"]];
+                    }
+                    
+                    
+                }];
                 return cell;
             }
             
@@ -483,7 +502,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 Posts *postsmodel = self.Arr_comments_all[indexPath.row];
                 CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:postsmodel.father_id ==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
-                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_all.count];
+                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_all.count isAllcomments:YES];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 cell.delegateSignal = [RACSubject subject];
                 @weakify(self);
@@ -495,6 +514,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                     }else if ([x[@"type"] isEqualToString:@"展开评论"]){
                     
                         [self opencomment:x[@"btn"]];
+                    }else if ([x[@"type"] isEqualToString:@"评论点赞"]){
+                    
+                        [self commentlike:x[@"btn"]];
                     }
 
                     
@@ -642,7 +664,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }else{
     
         //热门评论
-        
+        Posts *postsmodel = [self.Arr_comments_all objectAtIndex:btn.tag-100];
+        view.postsmodel = postsmodel;
         
     }
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
@@ -667,12 +690,37 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }else{
         
         //热门评论
-        
+        Posts *postsmodel = [self.Arr_comments_all objectAtIndex:btn.tag-100];
+        postsmodel.isopen = YES;
+        indexpathone = [NSIndexPath indexPathForItem:btn.tag-100 inSection:4];
         
     }
     [self.tableview reloadRowsAtIndexPaths:@[indexpathone] withRowAnimation:UITableViewRowAnimationNone];
 }
 
+/**
+ 评论点赞
+
+ */
+-(void)commentlike:(UIButton *)btn{
+
+    @weakify(self);
+    [HttpEngine Posetlike:self.Deatilmodel.id commentid:btn.tag complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            if ([responseObject[@"msg"] isEqualToString:@"帖子点赞成功"]) {
+                
+                [btn setBackgroundImage:[UIImage imageNamed:@"iconZanActive"] forState:UIControlStateNormal];
+            }else{
+            
+                [btn setBackgroundImage:[UIImage imageNamed:@"iconZanDef"] forState:UIControlStateNormal];
+            }
+        }
+    }];
+    
+          
+    
+}
 /**
  打赏
  */

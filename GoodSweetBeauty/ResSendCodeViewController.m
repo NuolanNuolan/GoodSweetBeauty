@@ -208,9 +208,20 @@
 -(void)submit{
     
     //首先判断验证码
+    NSString *type = @"";
+    if ([self.type isEqualToString:@"注册"]) {
+        
+        type = @"register";
+    }else if ([self.type isEqualToString:@"忘记密码"]){
+        
+        type = @"forgetpwd";
+    }else if ([self.type isEqualToString:@"验证码登录"]){
+        
+        type = @"signin";
+    }
     @weakify(self);
     [ZFCWaveActivityIndicatorView show:self.view];
-    [HttpEngine Mescheck:self.phone Type:[self.type isEqualToString:@"注册"]?@"register":@"forgetpwd" code:self.text_code.text complete:^(BOOL success, id responseObject) {
+    [HttpEngine Mescheck:self.phone Type:type code:self.text_code.text complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
@@ -219,6 +230,7 @@
             if ([self.type isEqualToString:@"验证码登录"]) {
                 
                 MYLOG(@"直接登录");
+                
                 
                 
             }else if ([self.type isEqualToString:@"注册"]){

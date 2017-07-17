@@ -100,9 +100,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     
     btn_Thumb = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn_Thumb.adjustsImageWhenHighlighted =NO;
     [btn_Thumb setBackgroundImage:[UIImage imageNamed:@"iconZanDef"] forState:UIControlStateNormal];
     [btn_Thumb setEnlargeEdgeWithTop:10 right:10 bottom:10 left:15];
-    
+    [btn_Thumb addTarget:self action:@selector(back_likes:) forControlEvents:UIControlEventTouchUpInside];
     btn_Thumb.badgeValue = @"0";
     btn_Thumb.badgeBGColor   = [UIColor clearColor];
     btn_Thumb.badgeTextColor = [UIColor colorWithRed:177/255.0f green:182/255.0f blue:189/255.0f alpha:1];
@@ -245,20 +246,22 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     line.whc_LeftSpaceEqualView(lab_name).whc_RightSpace(0).whc_TopSpaceToView(15,btn_back).whc_Height(0.5f);
     self.whc_TableViewWidth = SCREEN_WIDTH;
 }
--(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow{
+-(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments{
 
     if (postsmodel) {
         
-        [image_head sd_setImageWithURL:[NSURL URLWithString:postsmodel.author_avatar] placeholderImage:[UIImage imageNamed:@"head"]];
+        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,postsmodel.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_name.text = postsmodel.author;
         lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
         btn_Thumb.badgeValue = [NSString stringWithFormat:@"%ld",(long)postsmodel.likes];
-        btn_back.tag = 200+row;
+        if (isAllcomments)btn_back.tag = 200+row;
+        else btn_back.tag = 100+row;
+        btn_Thumb.tag = postsmodel.id;
         if (!isfather) {
            
             lab_deatil.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
             //如果有图片 开始图片布局
-            if (postsmodel.images&&![postsmodel.images isEqualToString:@""]) {
+            if (postsmodel.images&&postsmodel.images.count>0) {
 
                 //有图片
                 stack_imageview.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(20,lab_deatil).whc_RightSpaceEqualView(lab_deatil).whc_HeightAuto();
@@ -274,14 +277,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             
             if(size.height>25){
         
-                [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:8.5];
+//                [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:8.5];
             }
         }else{
         
             lab_father_name.text = postsmodel.father.author;
             lab_father_deatil.text = [postsmodel.father.content stringByReplacingEmojiCheatCodesToUnicode];
             lab_father_back.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
-            btn_father_open.tag = 200+row;
+            if (isAllcomments)btn_father_open.tag = 200+row;
+            else btn_father_open.tag = 100+row;
             
             CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, MAXFLOAT)];
             //判断父评论有否有图片
@@ -313,7 +317,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     //内容
     if(size.height>20){
         
-        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+//        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
     }
     //是否展示
     if (isopen) {
@@ -353,11 +357,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
         }else{
             
-            [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+//            [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
         }
     }else{
         
-        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
+//        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
         if (isopen) {
             
             lab_father_deatil.numberOfLines = 0 ;
@@ -381,7 +385,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)son_comment:(Posts *)postsmodel{
 
     //如果评论带照片
-    if (postsmodel.images&&![postsmodel.images isEqualToString:@""]) {
+    if (postsmodel.images&&postsmodel.images.count>0) {
         
         stack_imageview.whc_LeadingSpaceEqualView(lab_father_back).whc_RightSpaceEqualView(lab_father_back).whc_TopSpaceToView(20,lab_father_back).whc_HeightAuto();
         [self imageurl:postsmodel];
@@ -396,7 +400,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     CGSize size_two =[self sizeWithString:lab_father_back.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, MAXFLOAT)];
     if(size_two.height>25){
         
-        [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
+//        [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
     }
 }
 //图片地址解析处理
@@ -404,9 +408,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
 
     NSArray *arr_image;
-    if ([BWCommon DoesItInclude:postsmodel.images withString:@"##"]) {
+    if (postsmodel.images.count>0) {
         //有多张
-        arr_image = [postsmodel.images componentsSeparatedByString:@"##"];
+        arr_image = [NSArray arrayWithArray:postsmodel.images];
     }else{
         //只有一张
         arr_image = [NSArray arrayWithObjects:postsmodel.image, nil];
@@ -536,6 +540,18 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                           @"type":@"回复楼层"};
     if (self.delegateSignal) [self.delegateSignal sendNext:dic];
     
+}
+
+/**
+ 点赞
+
+ */
+-(void)back_likes:(UIButton *)btn{
+
+    NSDictionary *dic = @{@"btn":btn,
+                          @"type":@"评论点赞"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+
 }
 
 /**

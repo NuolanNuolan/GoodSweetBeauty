@@ -9,9 +9,7 @@
 //#import "YYKit.h"
 #import "WBModel.h"
 
-/**
- 很多都写死单例了，毕竟只是 Demo。。
- */
+
 @interface WBStatusHelper : NSObject
 
 /// 微博图片资源 bundle

@@ -19,7 +19,7 @@
     //time
     UILabel *lab_time;
     //@内容
-    XXLinkLabel *lab_atme_content;
+    UILabel *lab_atme_content;
     //帖子图片
     UIImageView *image_post;
     //帖子标题
@@ -76,11 +76,9 @@
     [lab_time setFont:[UIFont systemFontOfSize:11]];
     [lab_time sizeToFit];
     
-    lab_atme_content = [XXLinkLabel new];
+    lab_atme_content = [UILabel new];
     [lab_atme_content setTextColor:RGB(51, 51, 51)];
     [lab_atme_content setFont:[UIFont systemFontOfSize:17]];
-    lab_atme_content.linkTextColor = GETMAINCOLOR;
-    lab_atme_content.regularType = XXLinkLabelRegularTypeAboat;
     lab_atme_content.numberOfLines = 2;
     [lab_atme_content sizeToFit];
     
@@ -165,7 +163,7 @@
 //        }
         if (size_deatil.height>22) {
             
-            [UILabel changeLineSpaceForLabel:lab_post_deatil WithSpace:6];
+//            [UILabel changeLineSpaceForLabel:lab_post_deatil WithSpace:6];
         }
     }
     

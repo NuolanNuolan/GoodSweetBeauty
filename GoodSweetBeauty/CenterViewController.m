@@ -257,9 +257,9 @@
 }
 //上传头像
 -(void)UploadPhoto:(UIImage *)image{
-    //上传图片
+    
     @weakify(self);
-    [HttpEngine uploadfile:image comlete:^(BOOL susccess, id responseObjecct) {
+    [HttpEngine headimageuploadfile:image comlete:^(BOOL susccess, id responseObjecct) {
         if (susccess) {
             
             MYLOG(@"%@",responseObjecct);

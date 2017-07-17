@@ -7,12 +7,72 @@
 //
 
 #import "BBSTitleDeatilTableViewCell.h"
+/*
+ 将每行的 baseline 位置固定下来，不受不同字体的 ascent/descent 影响。
+ 
+ 注意，Heiti SC 中，    ascent + descent = font size，
+ 但是在 PingFang SC 中，ascent + descent > font size。
+ 所以这里统一用 Heiti SC (0.86 ascent, 0.14 descent) 作为顶部和底部标准，保证不同系统下的显示一致性。
+ 间距仍然用字体默认
+ */
+@implementation WBTextLinePositionModifier
+
+- (instancetype)init {
+    self = [super init];
+    
+    if (kiOS9Later) {
+        _lineHeightMultiple = 1.34;   // for PingFang SC
+    } else {
+        _lineHeightMultiple = 1.3125; // for Heiti SC
+    }
+    
+    return self;
+}
+
+- (void)modifyLines:(NSArray *)lines fromText:(NSAttributedString *)text inContainer:(YYTextContainer *)container {
+    //CGFloat ascent = _font.ascender;
+    CGFloat ascent = _font.pointSize * 0.86;
+    
+    CGFloat lineHeight = _font.pointSize * _lineHeightMultiple;
+    for (YYTextLine *line in lines) {
+        CGPoint position = line.position;
+        position.y = _paddingTop + ascent + line.row  * lineHeight;
+        line.position = position;
+    }
+}
+
+- (id)copyWithZone:(NSZone *)zone {
+    WBTextLinePositionModifier *one = [self.class new];
+    one->_font = _font;
+    one->_paddingTop = _paddingTop;
+    one->_paddingBottom = _paddingBottom;
+    one->_lineHeightMultiple = _lineHeightMultiple;
+    return one;
+}
+
+- (CGFloat)heightForLineCount:(NSUInteger)lineCount {
+    if (lineCount == 0) return 0;
+    //    CGFloat ascent = _font.ascender;
+    //    CGFloat descent = -_font.descender;
+    CGFloat ascent = _font.pointSize * 0.86;
+    CGFloat descent = _font.pointSize * 0.14;
+    CGFloat lineHeight = _font.pointSize * _lineHeightMultiple;
+    return _paddingTop + _paddingBottom + ascent + descent + (lineCount - 1) * lineHeight;
+}
+
+@end
+
 @interface BBSTitleDeatilTableViewCell(){
 
+    BOOL _trackingTouch;
+    
     //title
     UILabel *lab_title;
     //deatil
     XXLinkLabel *lab_deatil;
+    
+    YYTextLayout *textLayout; //文本
+
     
     
 }
@@ -47,11 +107,9 @@
     lab_deatil = [XXLinkLabel new];
     lab_deatil.linkTextColor = GETMAINCOLOR;
     lab_deatil.regularType = XXLinkLabelRegularTypeAboat;
-    lab_deatil.selectedBackgroudColor = [UIColor whiteColor];
-//    | XXLinkLabelRegularTypeTopic | XXLinkLabelRegularTypeUrl;
-    [lab_deatil setTextColor:RGB(51, 51, 51)];
-    [lab_deatil setFont:[UIFont systemFontOfSize:18]];
+    lab_deatil.selectedBackgroudColor = UIColorHex(bfdffe);
     lab_deatil.numberOfLines = 0;
+    [lab_deatil sizeToFit];
     
     [self.contentView addSubview:lab_title];
     [self.contentView addSubview:lab_deatil];
@@ -64,43 +122,20 @@
 
     if (model) {
         
-        lab_title.text = [model.master_posts.subject stringByReplacingEmojiCheatCodesToUnicode];
+//        lab_title.text = [model.master_posts.subject stringByReplacingEmojiCheatCodesToUnicode];
         
-        //判断是否有@的人
-//        if (model.master_posts.ats.count>0) {
-            
-//            NSString  * str_at = [NSString stringWithFormat:@" @%@ ",model.master_posts.ats.uname];
-//            lab_deatil.text = [NSString stringWithFormat:@"%@%@",[model.master_posts.stripd_content stringByReplacingEmojiCheatCodesToUnicode],str_at];
-//            lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
-////                self.showClickTextLabel.text = [NSString stringWithFormat:@"----点击了文字----\n%@",clickedString];
-//                MYLOG(@"----block点击了文字----\n%@",clickedString);
-//            };
-            
-//        }else{
-        
-            lab_deatil.text = [model.master_posts.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
-//        }
+        lab_title.attributedText = [BWCommon textWithStatus:model.master_posts.subject Atarr:nil font:[UIFont boldSystemFontOfSize:22] LineSpacing:11 textColor:GETFONTCOLOR];
         
         
-        CGSize size =[self sizeWithString:lab_title.text font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
-        CGSize sizeone =[self sizeWithString:lab_deatil.text font:[UIFont boldSystemFontOfSize:22] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
-        if (size.height>30) {
-            
-            [UILabel changeLineSpaceForLabel:lab_title WithSpace:11];
-        }
-        if (sizeone.height>30) {
-            
-            [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:11];
-        }
+        NSMutableAttributedString *text  = [BWCommon textWithStatus:model.master_posts.stripd_content Atarr:model.master_posts.ats font:[UIFont systemFontOfSize:18] LineSpacing:11 textColor:GETFONTCOLOR];
+        lab_deatil.attributedText = text;
+        lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
+        
+                MYLOG(@"----block点击了文字----\n%@",clickedString);
+            };
     }
 }
-//这里做一个判断行数吧..
-- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
-{
-    NSDictionary *dict = @{NSFontAttributeName : font};
-    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
-    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
-    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    return size;
-}
+
+
+
 @end

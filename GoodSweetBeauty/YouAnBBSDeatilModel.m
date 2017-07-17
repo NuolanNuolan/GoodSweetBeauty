@@ -8,46 +8,19 @@
 
 #import "YouAnBBSDeatilModel.h"
 
-@implementation YouAnBBSDeatilModel
 
-@end
 @implementation Ats
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        [self whc_Decode:decoder];
-    }
-    return self;
-}
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [self whc_Encode:encoder];
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return [self whc_Copy];
-}
 
 @end
+@implementation Author_profile
 
+@end
 @implementation Master_posts
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        [self whc_Decode:decoder];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [self whc_Encode:encoder];
-}
-
-- (id)copyWithZone:(NSZone *)zone {
-    return [self whc_Copy];
-}
 
 @end
 
-@implementation Hot_posts
+@implementation Profile
 
 @end
 @implementation Rewards
@@ -57,22 +30,17 @@
 
 @end
 @implementation Father
-- (id)initWithCoder:(NSCoder *)decoder {
-    if (self = [super init]) {
-        [self whc_Decode:decoder];
-    }
-    return self;
-}
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [self whc_Encode:encoder];
-}
 
-- (id)copyWithZone:(NSZone *)zone {
-    return [self whc_Copy];
+@end
+@implementation YouAnBBSDeatilModel
+
+/// 模型数组/字典元素对象可自定义类<替换实际属性名,实际类>
++ (NSDictionary <NSString *, Class> *)whc_ModelReplaceContainerElementClassMapper{
+    
+    return @{@"hot_posts":[Posts class]};
 }
 
 @end
-
 
 

@@ -85,7 +85,7 @@
 -(void)closeImage{
     
     //判断图片是否有多张
-    if ([BWCommon DoesItInclude:Detailmodel.master_posts.images withString:@"#"]) {
+    if (Detailmodel.master_posts.images.count>1) {
         btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(85,14).whc_CenterX(0);
         btn_ToMore.hidden = NO;
         

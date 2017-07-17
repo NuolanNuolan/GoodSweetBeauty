@@ -11,34 +11,28 @@
 @implementation WBStatusHelper
 
 + (NSBundle *)bundle {
-    static NSBundle *bundle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:path];
-    });
+    NSBundle *bundle;
+
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"ResourceWeibo" ofType:@"bundle"];
+    bundle = [NSBundle bundleWithPath:path];
+    
     return bundle;
 }
 
 + (NSBundle *)emoticonBundle {
-    static NSBundle *bundle;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
-        bundle = [NSBundle bundleWithPath:bundlePath];
-    });
-    return bundle;
+
+    
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
+
+    return [NSBundle bundleWithPath:bundlePath];
 }
 
 + (YYMemoryCache *)imageCache {
-    static YYMemoryCache *cache;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        cache = [YYMemoryCache new];
-        cache.shouldRemoveAllObjectsOnMemoryWarning = NO;
-        cache.shouldRemoveAllObjectsWhenEnteringBackground = NO;
-        cache.name = @"WeiboImageCache";
-    });
+
+    YYMemoryCache * cache = [YYMemoryCache new];
+    cache.shouldRemoveAllObjectsOnMemoryWarning = NO;
+    cache.shouldRemoveAllObjectsWhenEnteringBackground = NO;
+    cache.name = @"WeiboImageCache";
     return cache;
 }
 
@@ -79,41 +73,38 @@
 }
 
 + (YYWebImageManager *)avatarImageManager {
-    static YYWebImageManager *manager;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *path = [[UIApplication sharedApplication].cachesPath stringByAppendingPathComponent:@"weibo.avatar"];
-        YYImageCache *cache = [[YYImageCache alloc] initWithPath:path];
-        manager = [[YYWebImageManager alloc] initWithCache:cache queue:[YYWebImageManager sharedManager].queue];
-        manager.sharedTransformBlock = ^(UIImage *image, NSURL *url) {
-            if (!image) return image;
-            return [image imageByRoundCornerRadius:100]; // a large value
-        };
-    });
+    
+    NSString *path = [[UIApplication sharedApplication].cachesPath stringByAppendingPathComponent:@"bbshead.avatar"];
+    YYImageCache *cache = [[YYImageCache alloc] initWithPath:path];
+    YYWebImageManager *manager = [[YYWebImageManager alloc] initWithCache:cache queue:[YYWebImageManager sharedManager].queue];
+    manager.sharedTransformBlock = ^(UIImage *image, NSURL *url) {
+        if (!image) return image;
+        return [image imageByRoundCornerRadius:100]; // a large value
+    };
+    
     return manager;
 }
 
 + (NSString *)stringWithTimelineDate:(NSDate *)date {
     if (!date) return @"";
     
-    static NSDateFormatter *formatterYesterday;
-    static NSDateFormatter *formatterSameYear;
-    static NSDateFormatter *formatterFullDate;
+     NSDateFormatter *formatterYesterday;
+     NSDateFormatter *formatterSameYear;
+     NSDateFormatter *formatterFullDate;
     
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        formatterYesterday = [[NSDateFormatter alloc] init];
-        [formatterYesterday setDateFormat:@"昨天 HH:mm"];
-        [formatterYesterday setLocale:[NSLocale currentLocale]];
-        
-        formatterSameYear = [[NSDateFormatter alloc] init];
-        [formatterSameYear setDateFormat:@"M-d"];
-        [formatterSameYear setLocale:[NSLocale currentLocale]];
-        
-        formatterFullDate = [[NSDateFormatter alloc] init];
-        [formatterFullDate setDateFormat:@"yy-M-dd"];
-        [formatterFullDate setLocale:[NSLocale currentLocale]];
-    });
+
+    formatterYesterday = [[NSDateFormatter alloc] init];
+    [formatterYesterday setDateFormat:@"昨天 HH:mm"];
+    [formatterYesterday setLocale:[NSLocale currentLocale]];
+    
+    formatterSameYear = [[NSDateFormatter alloc] init];
+    [formatterSameYear setDateFormat:@"M-d"];
+    [formatterSameYear setLocale:[NSLocale currentLocale]];
+    
+    formatterFullDate = [[NSDateFormatter alloc] init];
+    [formatterFullDate setDateFormat:@"yy-M-dd"];
+    [formatterFullDate setLocale:[NSLocale currentLocale]];
+    
     
     NSDate *now = [NSDate new];
     NSTimeInterval delta = now.timeIntervalSince1970 - date.timeIntervalSince1970;
@@ -180,41 +171,35 @@
 }
 
 + (NSRegularExpression *)regexAt {
-    static NSRegularExpression *regex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        // 微博的 At 只允许 英文数字下划线连字符，和 unicode 4E00~9FA5 范围内的中文字符，这里保持和微博一致。。
-        // 目前中文字符范围比这个大
-        regex = [NSRegularExpression regularExpressionWithPattern:@"@[-_a-zA-Z0-9\u4E00-\u9FA5]+ " options:kNilOptions error:NULL];
-    });
+    // 微博的 At 只允许 英文数字下划线连字符，和 unicode 4E00~9FA5 范围内的中文字符，这里保持和微博一致。。
+    // 目前中文字符范围比这个大
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"@[-_a-zA-Z0-9\u4E00-\u9FA5]+ " options:kNilOptions error:NULL];
+    
     return regex;
 }
 
 + (NSRegularExpression *)regexTopic {
-    static NSRegularExpression *regex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        regex = [NSRegularExpression regularExpressionWithPattern:@"#[^@#]+?#" options:kNilOptions error:NULL];
-    });
+    NSRegularExpression *regex;
+
+    regex = [NSRegularExpression regularExpressionWithPattern:@"#[^@#]+?#" options:kNilOptions error:NULL];
+    
     return regex;
 }
 
 + (NSRegularExpression *)regexEmoticon {
-    static NSRegularExpression *regex;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        regex = [NSRegularExpression regularExpressionWithPattern:@"\\[[^ \\[\\]]+?\\]" options:kNilOptions error:NULL];
-    });
+    NSRegularExpression *regex;
+
+    regex = [NSRegularExpression regularExpressionWithPattern:@"\\[[^ \\[\\]]+?\\]" options:kNilOptions error:NULL];
+    
     return regex;
 }
 
 + (NSDictionary *)emoticonDic {
-    static NSMutableDictionary *dic;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
-        dic = [self _emoticonDicFromPath:emoticonBundlePath];
-    });
+    NSMutableDictionary *dic;
+
+    NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"EmoticonWeibo" ofType:@"bundle"];
+    dic = [self _emoticonDicFromPath:emoticonBundlePath];
+    
     return dic;
 }
 
@@ -252,51 +237,50 @@
 }
 
 + (NSArray<WBEmoticonGroup *> *)emoticonGroups {
-    static NSMutableArray *groups;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"Emoji" ofType:@"bundle"];
-        NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
-        NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
-        NSArray *packages = plist[@"packages"];
-        groups = (NSMutableArray *)[NSArray modelArrayWithClass:[WBEmoticonGroup class] json:packages];
-        
-        NSMutableDictionary *groupDic = [NSMutableDictionary new];
-        for (int i = 0, max = (int)groups.count; i < max; i++) {
-            WBEmoticonGroup *group = groups[i];
-            if (group.groupID.length == 0) {
-                [groups removeObjectAtIndex:i];
-                i--;
-                max--;
-                continue;
-            }
-            NSString *path = [emoticonBundlePath stringByAppendingPathComponent:group.groupID];
-            NSString *infoPlistPath = [path stringByAppendingPathComponent:@"info.plist"];
-            NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:infoPlistPath];
-            [group modelSetWithDictionary:info];
-            if (group.emoticons.count == 0) {
-                i--;
-                max--;
-                continue;
-            }
-            groupDic[group.groupID] = group;
+    NSMutableArray *groups;
+
+    NSString *emoticonBundlePath = [[NSBundle mainBundle] pathForResource:@"Emoji" ofType:@"bundle"];
+    NSString *emoticonPlistPath = [emoticonBundlePath stringByAppendingPathComponent:@"emoticons.plist"];
+    NSDictionary *plist = [NSDictionary dictionaryWithContentsOfFile:emoticonPlistPath];
+    NSArray *packages = plist[@"packages"];
+    groups = (NSMutableArray *)[NSArray modelArrayWithClass:[WBEmoticonGroup class] json:packages];
+    
+    NSMutableDictionary *groupDic = [NSMutableDictionary new];
+    for (int i = 0, max = (int)groups.count; i < max; i++) {
+        WBEmoticonGroup *group = groups[i];
+        if (group.groupID.length == 0) {
+            [groups removeObjectAtIndex:i];
+            i--;
+            max--;
+            continue;
         }
-        
-        NSArray<NSString *> *additionals = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[emoticonBundlePath stringByAppendingPathComponent:@"additional"] error:nil];
-        for (NSString *path in additionals) {
-            WBEmoticonGroup *group = groupDic[path];
-            if (!group) continue;
-            NSString *infoJSONPath = [[[emoticonBundlePath stringByAppendingPathComponent:@"additional"] stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"info.json"];
-            NSData *infoJSON = [NSData dataWithContentsOfFile:infoJSONPath];
-            WBEmoticonGroup *addGroup = [WBEmoticonGroup modelWithJSON:infoJSON];
-            if (addGroup.emoticons.count) {
-                for (WBEmoticon *emoticon in addGroup.emoticons) {
-                    emoticon.group = group;
-                }
-                [((NSMutableArray *)group.emoticons) insertObjects:addGroup.emoticons atIndex:0];
-            }
+        NSString *path = [emoticonBundlePath stringByAppendingPathComponent:group.groupID];
+        NSString *infoPlistPath = [path stringByAppendingPathComponent:@"info.plist"];
+        NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile:infoPlistPath];
+        [group modelSetWithDictionary:info];
+        if (group.emoticons.count == 0) {
+            i--;
+            max--;
+            continue;
         }
-    });
+        groupDic[group.groupID] = group;
+    }
+    
+    NSArray<NSString *> *additionals = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[emoticonBundlePath stringByAppendingPathComponent:@"additional"] error:nil];
+    for (NSString *path in additionals) {
+        WBEmoticonGroup *group = groupDic[path];
+        if (!group) continue;
+        NSString *infoJSONPath = [[[emoticonBundlePath stringByAppendingPathComponent:@"additional"] stringByAppendingPathComponent:path] stringByAppendingPathComponent:@"info.json"];
+        NSData *infoJSON = [NSData dataWithContentsOfFile:infoJSONPath];
+        WBEmoticonGroup *addGroup = [WBEmoticonGroup modelWithJSON:infoJSON];
+        if (addGroup.emoticons.count) {
+            for (WBEmoticon *emoticon in addGroup.emoticons) {
+                emoticon.group = group;
+            }
+            [((NSMutableArray *)group.emoticons) insertObjects:addGroup.emoticons atIndex:0];
+        }
+    }
+    
     [groups removeFirstObject];
     [groups removeLastObject];
     return groups;

@@ -32,7 +32,6 @@
 #import "WHC_AutoLayout.h"
 #import "HJViewController.h"
 #import "MainTabbarController.h"
-#import "UILabel+ChangeLineSpaceAndWordSpace.h"
 #import "SDCycleScrollView.h"
 #import "LoginViewController.h"
 #import "JYPagingView.h"
@@ -41,17 +40,16 @@
 #import "YNPageScrollViewController.h"
 #import "LJRunLoopWork.h"
 #import "UITableViewCell_CellExtension.h"
-//#import "YYText.h"
 #import "YYKit.h"
-//#import "YYKeyboardManager.h"
 #import "MSSBrowseDefine.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "UserPostingViewController.h"
 #import "UIButton+Badge.h"
-#import "YYLabel.h"
+
 #import "ZFCWaveActivityIndicatorView.h"
 #import "NSString+TYHEmoji.h"
 #import "WBStatusComposeTextParser.h"
+#import "WBStatusHelper.h"
 #import "XXLinkLabel.h"
 
 
@@ -95,10 +93,14 @@
 //测试接口地址
 #define ADDRESS_API @"http://121.40.52.49:8010"
 //正式接口地址
-//#define ADDRESS_API 
+//#define ADDRESS_API
+//图片测试接口地址
+#define ADDRESS_IMG @"http://121.40.52.49/media/"
 
 //主色调
 #define GETMAINCOLOR [UIColor colorWithRed:64/255.0f green:121/255.0f blue:186/255.0f alpha:1]
+//默认字体颜色
+#define GETFONTCOLOR RGB(51, 51, 51)
 //弹出框默认按钮颜色
 #define SheetDefaultColor [UIColor colorWithRed:64.0f/255.0f green:64.0f/255.0f blue:64.0f/255.0f alpha:1.0f]
 

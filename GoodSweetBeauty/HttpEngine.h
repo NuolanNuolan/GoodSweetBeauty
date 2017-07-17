@@ -15,6 +15,11 @@
 +(void)Login_Success:(NSDictionary *)responseObjecct;
 //图片上传统一接口
 +(void)uploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
+
+/**
+ 头像上传
+ */
++(void)headimageuploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
 //提交注册
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 //登录
@@ -88,4 +93,9 @@
  传入变动类型
  */
 +(void)CoinsRecord:(NSInteger )page type:(NSString * )type complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 帖子点赞
+ */
++(void)Posetlike:(NSInteger )post_id commentid:(NSInteger )commentid complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

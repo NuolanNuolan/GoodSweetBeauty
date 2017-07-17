@@ -46,6 +46,44 @@
     
     
 }
+/**
+ 头像上传
+ */
++(void)headimageuploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete{
+
+    NSString*str=[NSString stringWithFormat:@"%@/members/avatar/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSArray *Arrimage = [NSArray arrayWithObjects:image, nil];
+    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:nil imageScale:1 imageType:@"jpeg" progress:^(NSProgress *progress) {
+        
+        MYLOG(@"%f",progress.fractionCompleted);
+        
+    } success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            if (dic) {
+                
+                complete(NO,dic);
+                
+            }else{
+                
+                complete(NO,@"服务器繁忙");
+            }
+        }else{
+            
+            complete(NO,@"服务器繁忙");
+        }
+        
+    }];
+}
 //提交注册
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
 
@@ -547,7 +585,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/sms/send/",ADDRESS_API];
     //参数
     NSDictionary *dic = @{@"mobile":phone,
-                          @"code_type":[type isEqualToString:@"register"]? @"register":@"forgetpwd",
+                          @"code_type":type,
                           @"time":[BWCommon GetNowTimestamps],
                           @"token":[[NSString stringWithFormat:@"%@|%@|yabbs!@#$",phone,[BWCommon GetNowTimestamps]] md5String]};
     [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
@@ -577,7 +615,7 @@
     NSString *url = [NSString stringWithFormat:@"%@/sms/verify/",ADDRESS_API];
     //参数
     NSDictionary *dic = @{@"mobile":phone,
-                          @"code_type":[type isEqualToString:@"register"]? @"register":@"forgetpwd",
+                          @"code_type":type,
                           @"code":code};
     [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
         
@@ -653,6 +691,35 @@
             
             MYLOG(@"%@",dic);
             complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 帖子点赞
+ */
++(void)Posetlike:(NSInteger )post_id commentid:(NSInteger )commentid complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/posts/threads/%@/like/",ADDRESS_API,[NSNumber numberWithInteger:post_id]];
+    //参数
+    NSDictionary *dic = @{@"pid":[NSNumber numberWithInteger:commentid]};
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        MYLOG(@"%@", responseObject);
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSError *errort = error.userInfo[@"NSUnderlyingError"];
+        NSData*data=errort.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            
+            NSString *str =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            MYLOG(@"%@",str);
+            complete(NO,str);
         }else{
             
             complete(NO,nil);

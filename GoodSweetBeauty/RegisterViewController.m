@@ -168,8 +168,19 @@
     //注册
     //验证码登录
     //忘记密码
+    NSString *type = @"";
+    if ([self.type isEqualToString:@"注册"]) {
+        
+        type = @"register";
+    }else if ([self.type isEqualToString:@"忘记密码"]){
+    
+        type = @"forgetpwd";
+    }else if ([self.type isEqualToString:@"验证码登录"]){
+        
+        type = @"signin";
+    }
     @weakify(self)
-    [HttpEngine SendMes:self.text_username.text Type:[self.type isEqualToString:@"注册"]?@"register":@"forgetpwd" complete:^(BOOL success, id responseObject) {
+    [HttpEngine SendMes:self.text_username.text Type:type complete:^(BOOL success, id responseObject) {
         @strongify(self);
         if (success) {
             [MBProgressHUD showSuccess:@"发送成功"];

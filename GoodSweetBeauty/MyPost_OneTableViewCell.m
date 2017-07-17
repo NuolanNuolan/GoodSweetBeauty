@@ -107,11 +107,11 @@
         CGSize size_deatil = [self sizeWithString:lab_detail.text font:[UIFont systemFontOfSize:14] maxSize:CGSizeMake(SCREEN_WIDTH-71.6, MAXFLOAT)];
         if (size_title.height>25) {
             
-            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
+//            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
         }
         if (size_deatil.height>18) {
             
-            [UILabel changeLineSpaceForLabel:lab_detail WithSpace:7];
+//            [UILabel changeLineSpaceForLabel:lab_detail WithSpace:7];
         }
         
         
