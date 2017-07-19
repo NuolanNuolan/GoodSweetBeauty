@@ -25,7 +25,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     UIButton *btn_back;
     
     //内容
-    UILabel *lab_deatil;
+    XXLinkLabel *lab_deatil;
     WHC_StackView *stack_imageview;
     
     //楼层回复的图片
@@ -35,11 +35,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     //name
     UILabel *lab_father_name;
     //deatil
-    UILabel *lab_father_deatil;
+    XXLinkLabel *lab_father_deatil;
     //展开
     UIButton *btn_father_open;
     //回复内容
-    UILabel *lab_father_back;
+    XXLinkLabel *lab_father_back;
     //view
     UIView *view_father_line;
     
@@ -54,6 +54,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     
 }
+@property(nonatomic,strong)Posts *PostsModel;
 @end
 @implementation CommentsDeatilTableViewCell
 
@@ -74,11 +75,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 }
 -(void)InitFarme:(NSString *)reuseIdentifier{
 
-    
-    
-    image_head = [UIImageView new];
-    image_head.layer.masksToBounds = YES;
-    image_head.layer.cornerRadius = 20.0f;
+    image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     image_head.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(head_click:)];
     [image_head addGestureRecognizer:tap];
@@ -104,14 +101,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [btn_Thumb setBackgroundImage:[UIImage imageNamed:@"iconZanDef"] forState:UIControlStateNormal];
     [btn_Thumb setEnlargeEdgeWithTop:10 right:10 bottom:10 left:15];
     [btn_Thumb addTarget:self action:@selector(back_likes:) forControlEvents:UIControlEventTouchUpInside];
-    btn_Thumb.badgeValue = @"0";
-    btn_Thumb.badgeBGColor   = [UIColor clearColor];
-    btn_Thumb.badgeTextColor = [UIColor colorWithRed:177/255.0f green:182/255.0f blue:189/255.0f alpha:1];
-    btn_Thumb.badgeFont      = [UIFont systemFontOfSize:11.0];
-    btn_Thumb.badgePadding   = 6;
-    btn_Thumb.badgeMinSize   = 8;
-    btn_Thumb.badgeOriginX   = 12;
-    btn_Thumb.badgeOriginY   = -10;
+//    btn_Thumb.badgeValue = @"0";
+//    btn_Thumb.badgeBGColor   = [UIColor clearColor];
+//    btn_Thumb.badgeTextColor = [UIColor colorWithRed:177/255.0f green:182/255.0f blue:189/255.0f alpha:1];
+//    btn_Thumb.badgeFont      = [UIFont systemFontOfSize:11.0];
+//    btn_Thumb.badgePadding   = 6;
+//    btn_Thumb.badgeMinSize   = 8;
+//    btn_Thumb.badgeOriginX   = 12;
+//    btn_Thumb.badgeOriginY   = -10;
+    
     
     btn_back = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn_back setBackgroundImage:[UIImage imageNamed:@"iconHuifu"] forState:UIControlStateNormal];
@@ -120,11 +118,12 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     if ([reuseIdentifier isEqualToString:kMycommentsCellIdentifier] ) {
         
-        lab_deatil = [UILabel new];
+        lab_deatil = [XXLinkLabel new];
         [lab_deatil sizeToFit];
         lab_deatil.numberOfLines = 0;
-        [lab_deatil setFont:[UIFont systemFontOfSize:17]];
-        [lab_deatil setTextColor:RGB(51, 51, 51)];
+        lab_deatil.linkTextColor = GETMAINCOLOR;
+        lab_deatil.regularType = XXLinkLabelRegularTypeAboat;
+        lab_deatil.selectedBackgroudColor = [UIColor whiteColor];
         
         //图片
         stack_imageview = [WHC_StackView new];
@@ -166,9 +165,12 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [lab_father_name setFont:[UIFont systemFontOfSize:15]];
         [lab_father_name setTextColor:RGB(51, 51, 51)];
         
-        lab_father_deatil = [UILabel new];
+        lab_father_deatil = [XXLinkLabel new];
         [lab_father_deatil sizeToFit];
         lab_father_deatil.numberOfLines =2;
+        lab_father_deatil.linkTextColor = GETMAINCOLOR;
+        lab_father_deatil.regularType = XXLinkLabelRegularTypeAboat;
+        lab_father_deatil.selectedBackgroudColor = [UIColor whiteColor];
         [lab_father_deatil setFont:[UIFont systemFontOfSize:15]];
         [lab_father_deatil setTextColor:RGB(136, 136, 136)];
         
@@ -192,11 +194,12 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         stack_imageview_floor.whc_ElementHeightWidthRatio = 1 / 1;
         stack_imageview_floor.whc_Orientation = All;        // 横竖混合布局
         
-        lab_father_back = [UILabel new];
+        lab_father_back = [XXLinkLabel new];
         [lab_father_back sizeToFit];
         lab_father_back.numberOfLines = 0;
-        [lab_father_back setTextColor:RGB(51, 51, 51)];
-        [lab_father_back setFont:[UIFont systemFontOfSize:17]];
+        lab_father_back.linkTextColor = GETMAINCOLOR;
+        lab_father_back.regularType = XXLinkLabelRegularTypeAboat;
+        lab_father_back.selectedBackgroudColor = [UIColor whiteColor];
         
         stack_imageview = [WHC_StackView new];
         stack_imageview.backgroundColor = [UIColor clearColor];
@@ -249,20 +252,32 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments{
 
     if (postsmodel) {
-        
+        self.PostsModel = postsmodel;
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,postsmodel.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_name.text = postsmodel.author;
         lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
-        btn_Thumb.badgeValue = [NSString stringWithFormat:@"%ld",(long)postsmodel.likes];
+        //设置点赞数以及是否点赞
+        [self ThunmbValue:[NSString stringWithFormat:@"%ld",(long)postsmodel.likes]Posts:postsmodel];
+
         if (isAllcomments)btn_back.tag = 200+row;
         else btn_back.tag = 100+row;
         btn_Thumb.tag = postsmodel.id;
         if (!isfather) {
            
-            lab_deatil.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
+            lab_deatil.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-85];
+            @weakify(self);
+            lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
+                @strongify(self);
+                //正则提取出来的内容 包含@和空格
+                NSString *str_result =  [clickedString substringFromIndex:1];
+                
+                str_result = [str_result substringToIndex:str_result.length-1];
+                
+                [self AtsBlock_isAllcomments:isAllcomments str_result:str_result row:[NSString stringWithFormat:@"%ld",(long)row] isfather:@"NO"];
+            };
+            
             //如果有图片 开始图片布局
             if (postsmodel.images&&postsmodel.images.count>0) {
-
                 //有图片
                 stack_imageview.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(20,lab_deatil).whc_RightSpaceEqualView(lab_deatil).whc_HeightAuto();
                 [self imageurl:postsmodel];
@@ -273,21 +288,34 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 stack_imageview.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(0,lab_deatil).whc_RightSpaceEqualView(lab_deatil).whc_Height(0);
                 
             }
-            CGSize size =[self sizeWithString:lab_deatil.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, MAXFLOAT)];
-            
-            if(size.height>25){
-        
-//                [UILabel changeLineSpaceForLabel:lab_deatil WithSpace:8.5];
-            }
         }else{
         
             lab_father_name.text = postsmodel.father.author;
-            lab_father_deatil.text = [postsmodel.father.content stringByReplacingEmojiCheatCodesToUnicode];
-            lab_father_back.text = [postsmodel.stripd_content stringByReplacingEmojiCheatCodesToUnicode];
+            lab_father_deatil.attributedText = [BWCommon textWithStatus:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
+            @weakify(self);
+            lab_father_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
+                @strongify(self);
+                //正则提取出来的内容 包含@和空格
+                NSString *str_result =  [clickedString substringFromIndex:1];
+                
+                str_result = [str_result substringToIndex:str_result.length-1];
+                
+                [self AtsBlock_isAllcomments:isAllcomments str_result:str_result row:[NSString stringWithFormat:@"%ld",(long)row] isfather:@"YES"];
+            };
+            lab_father_back.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-75];
+            lab_father_back.regularLinkClickBlock = ^(NSString *clickedString) {
+                @strongify(self);
+                //正则提取出来的内容 包含@和空格
+                NSString *str_result =  [clickedString substringFromIndex:1];
+                
+                str_result = [str_result substringToIndex:str_result.length-1];
+                
+                [self AtsBlock_isAllcomments:isAllcomments str_result:str_result row:[NSString stringWithFormat:@"%ld",(long)row] isfather:@"NO"];
+            };
             if (isAllcomments)btn_father_open.tag = 200+row;
             else btn_father_open.tag = 100+row;
             
-            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-99, MAXFLOAT)];
+            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-89, MAXFLOAT)];
             //判断父评论有否有图片
             if (![postsmodel.father.image isEqualToString:@""]) {
 
@@ -314,11 +342,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)comment_floor_Yesimage:(CGSize )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
 
-    //内容
-    if(size.height>20){
-        
-//        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
-    }
     //是否展示
     if (isopen) {
         
@@ -355,13 +378,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         if (size.height<20) {
             
             view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
-        }else{
-            
-//            [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
         }
     }else{
         
-//        [UILabel changeLineSpaceForLabel:lab_father_deatil WithSpace:7.5];
         if (isopen) {
             
             lab_father_deatil.numberOfLines = 0 ;
@@ -396,26 +415,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         stack_imageview.whc_LeadingSpaceEqualView(lab_father_back).whc_RightSpaceEqualView(lab_father_back).whc_TopSpaceToView(0,lab_father_back).whc_Height(0);
         
     }
-    //评论父评论的内容
-    CGSize size_two =[self sizeWithString:lab_father_back.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-85, MAXFLOAT)];
-    if(size_two.height>25){
-        
-//        [UILabel changeLineSpaceForLabel:lab_father_back WithSpace:8.5];
-    }
 }
 //图片地址解析处理
 -(void)imageurl:(Posts *)postsmodel{
 
-
-    NSArray *arr_image;
-    if (postsmodel.images.count>0) {
-        //有多张
-        arr_image = [NSArray arrayWithArray:postsmodel.images];
-    }else{
-        //只有一张
-        arr_image = [NSArray arrayWithObjects:postsmodel.image, nil];
-        arr_image = [NSArray arrayWithObjects:@"http://img06.tooopen.com/images/20161022/tooopen_sy_182719487645.jpg",@"http://mpic.tiankong.com/24e/8d6/24e8d6c91347f82125e85b880fcbc92a/640.jpg@360h",@"http://mpic.tiankong.com/24e/8d6/24e8d6c91347f82125e85b880fcbc92a/640.jpg@360h",@"http://www.quanjing.com/image/2016index/wlkj1.jpg", nil];
-    }
+    NSArray * arr_image = [NSArray arrayWithArray:postsmodel.images];
     [self resetstack:postsmodel withimagearr:arr_image];
     Arr_image_main = nil;
     Arr_image_main = [NSArray arrayWithArray:arr_image];
@@ -457,7 +461,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:arr_image[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr_image[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
         [stack_imageview addSubview:imageView];
     }
     [stack_imageview whc_StartLayout];
@@ -486,6 +490,28 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [stack_imageview_floor whc_StartLayout];
     
 }
+//点赞数设置
+-(void)ThunmbValue:(NSString *)value Posts:(Posts *)postsModel{
+    
+    if (![value isEqualToString:@"0"]) {
+     
+        btn_Thumb.badgeValue = value;
+        btn_Thumb.badgeBGColor   = [UIColor clearColor];
+        btn_Thumb.badgeTextColor = [UIColor colorWithRed:177/255.0f green:182/255.0f blue:189/255.0f alpha:1];
+        btn_Thumb.badgeFont      = [UIFont systemFontOfSize:11.0];
+        btn_Thumb.badgePadding   = 6;
+        btn_Thumb.badgeMinSize   = 8;
+        btn_Thumb.badgeOriginX   = 12;
+        btn_Thumb.badgeOriginY   = -10;
+    }
+//    else{
+//    
+//        btn_Thumb.badgeValue = @"0";
+//    }
+    if (postsModel.if_like) [btn_Thumb setBackgroundImage:[UIImage imageNamed:@"iconZanActive"] forState:UIControlStateNormal];
+    else [btn_Thumb setBackgroundImage:[UIImage imageNamed:@"iconZanDef"] forState:UIControlStateNormal];
+    
+}
 /**
  图片放大
  */
@@ -496,7 +522,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     for (int i=0; i<Arr_image_main.count; i++) {
         
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = Arr_image_main[i];// 加载网络图片大图地址
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image_main[i]];// 加载网络图片大图地址
         browseItem.smallImageView = stack_imageview.subviews[i];// 小图
         [arr_image_view addObject:browseItem];
     }
@@ -548,14 +574,48 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)back_likes:(UIButton *)btn{
 
-    NSDictionary *dic = @{@"btn":btn,
-                          @"type":@"评论点赞"};
-    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
-
+//    NSDictionary *dic = @{@"btn":btn,
+//                          @"type":@"评论点赞"};
+//    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+    
+    @weakify(self);
+    [HttpEngine Posetlike:self.PostsModel.tid commentid:btn.tag complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            if ([responseObject[@"msg"] isEqualToString:@"帖子点赞成功"]) {
+                
+                NSInteger badgevalue ;
+                if (!btn.badgeValue) {
+                    
+                    badgevalue = 1;
+                }else{
+                
+                    badgevalue = [btn.badgeValue integerValue]+1;
+                }
+                self.PostsModel.if_like = YES;
+                [self ThunmbValue:[NSString stringWithFormat:@"%ld",(long)badgevalue] Posts:self.PostsModel];
+            }else{
+                
+                self.PostsModel.if_like = NO;
+                [self ThunmbValue:[NSString stringWithFormat:@"%ld",[btn.badgeValue integerValue]-1] Posts:self.PostsModel];
+            }
+        }
+    }];
+    
+    
+    
 }
-
 /**
- 
+ at
+ */
+-(void)AtsBlock_isAllcomments:(BOOL )isAllcomments str_result:(NSString *)str_result row:(NSString *)row isfather:(NSString *)isfather{
+
+    if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":isAllcomments?@"AllComments":@"HotComents",
+                                                             @"name":str_result,
+                                                             @"row":row,
+                                                             @"father":isfather}];
+}
+/**
  展开
  */
 -(void)open_click:(UIButton *)btn{

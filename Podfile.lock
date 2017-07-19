@@ -53,6 +53,7 @@ PODS:
   - YYKit/no-arc (1.0.9)
   - ZFPlayer (2.1.5):
     - Masonry
+  - ZYCornerRadius (1.0.2)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
@@ -74,6 +75,7 @@ DEPENDENCIES:
   - WHC_Model
   - YYKit
   - ZFPlayer
+  - ZYCornerRadius
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -98,7 +100,8 @@ SPEC CHECKSUMS:
   WHC_Model: 4e71317ab23072d2313e079278ead75bd97e7e96
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
+  ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 0e18d719659cd7a01165f2f372a40fb9340060d0
+PODFILE CHECKSUM: f0b4dd303ef2e2f1cedc9317923b75611069a8a6
 
 COCOAPODS: 1.2.1

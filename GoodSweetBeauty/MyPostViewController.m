@@ -50,6 +50,7 @@
     [super viewDidLoad];
     [self InitData];
     [self CreateUI];
+    
     [self LoadData:self.page_master withtype:StatusMaster];
     [self LoadData:self.page_comment withtype:StatusComments];
     // Do any additional setup after loading the view.
@@ -67,8 +68,10 @@
     NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page],
                           @"if_master":[NSNumber numberWithInteger:type]};
     @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine UserPostting_master_comment:dic complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         if (success) {

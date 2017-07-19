@@ -58,10 +58,10 @@
 
 -(void)setLayout{
 
-    image_head = [UIImageView new];
-    image_head.layer.masksToBounds =YES;
-    image_head.layer.cornerRadius = 20.0f;
+    image_head = [[UIImageView alloc]initWithRoundingRectImageView];
+    
     image_head.userInteractionEnabled =YES;
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
     [image_head addGestureRecognizer:tap];
     
@@ -127,6 +127,24 @@
 -(void)SetSection:(NSInteger )sention withmodel:(YouAnBBSModel *)model{
 
     image_head.tag = sention;
+    
+    [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+    //判断等级以及是否关注等
+    if (model.author_profile.vip == 0) {
+        image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(0,0).whc_CenterYToView(0,lab_username);
+    }else{
+        
+        image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(11,9).whc_CenterYToView(0,lab_username);
+        //这里根据判断显示哪张图片
+        
+    }
+    if (model.author_profile.level == 0) {
+        image_level.whc_Size(0,0).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
+    }else{
+        
+        image_level.whc_Size(12,11).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
+        image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
+    }
     lab_username.text = model.author;
     lab_deatil.text = model.subject;
     lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];

@@ -8,6 +8,7 @@
 
 #import "HJViewController.h"
 
+
 @interface PostingDeatilViewController : HJViewController
 
 

@@ -10,7 +10,7 @@
 #import "Exceptional_view.h"
 @interface BBSExceptionalTableViewCell(){
 
-    //打赏安妮
+    //打赏按钮
     UIButton *btn_exceptional;
     //打赏人数 金额
     UILabel *lab_count_amount;
@@ -18,7 +18,11 @@
     WHC_StackView  * stack_imageview;
     
     
+    
+    
 }
+@property(nonatomic,strong)NSMutableArray * arr_uid;
+@property(nonatomic,strong)NSMutableArray * arr_imagehead;
 @end
 
 @implementation BBSExceptionalTableViewCell
@@ -47,7 +51,8 @@
         [lab_count_amount sizeToFit];
         
         stack_imageview = [WHC_StackView new];
-        stack_imageview.whc_Column = 1;               // 最大3列
+//        stack_imageview.whc_Column = 10;               // 最大列
+//        stack_imageview.whc_Column
         stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
         stack_imageview.whc_VSpace = 5;              // 垂直间隙
         stack_imageview.whc_HSpace = -5;              // 垂直间隙
@@ -73,31 +78,44 @@
         
         lab_count_amount.whc_TopSpaceToView(15,btn_exceptional).whc_CenterX(0);
         stack_imageview.whc_CenterX(0).whc_WidthAuto().whc_HeightAuto().whc_TopSpaceToView(15,lab_count_amount);
-        //遍历UID
-        NSMutableArray *arr_uid = [NSMutableArray arrayWithCapacity:0];
-        NSInteger uid_id = 0;
+        
+        [self.arr_imagehead removeAllObjects];
+        [self.arr_uid removeAllObjects];
         NSInteger balance = 0;
         for (Rewards *rewardsmodel in model.rewards) {
             //有几个人
-            if (rewardsmodel.uid !=uid_id) {
-                
-                uid_id =rewardsmodel.uid ;
-                [arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
-                
-            }
+            [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
             //总金额
             balance+=rewardsmodel.coins ;
             //头像
-            
+            [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
         }
-        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",balance] collor:GETMAINCOLOR];
+        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",balance] collor:GETMAINCOLOR];
+        [self ActionLayut];
     }else{
     
         lab_count_amount.whc_TopSpaceToView(0,btn_exceptional).whc_CenterX(0);
         stack_imageview.whc_CenterX(0).whc_Size(0,0).whc_TopSpaceToView(0,lab_count_amount);
     }
 }
+//开始布局
+-(void)ActionLayut{
 
+    [stack_imageview whc_RemoveAllSubviews];
+    stack_imageview.whc_Column = self.arr_imagehead.count;
+    for (int i =0; i<self.arr_imagehead.count; i++) {
+        
+        UIImageView * imageView = [[UIImageView alloc]initWithRoundingRectImageView];
+        imageView.tag = i;
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,self.arr_imagehead[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+//        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,self.arr_imagehead[i]]] placeholderImage:[UIImage imageNamed:@"1"]];
+        stack_imageview.whc_SubViewWidth = 28;
+        stack_imageview.whc_SubViewHeight = 28;
+        [stack_imageview addSubview:imageView];
+    }
+    [stack_imageview whc_StartLayout];
+    
+}
 /**
  打赏
  */
@@ -131,5 +149,21 @@
     }else {
         return [highlightText copy];
     }
+}
+-(NSMutableArray *)arr_uid{
+
+
+    if (!_arr_uid) {
+        _arr_uid = [NSMutableArray arrayWithCapacity:0];
+        
+    }
+    return _arr_uid;
+}
+-(NSMutableArray *)arr_imagehead{
+
+    if (!_arr_imagehead) {
+        _arr_imagehead = [NSMutableArray arrayWithCapacity:0];
+    }
+    return _arr_imagehead;
 }
 @end

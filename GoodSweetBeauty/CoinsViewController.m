@@ -233,12 +233,12 @@
         
         [self.Arr_data removeAllObjects];
     }
-    if ([(NSArray *)responseObject count]<10) {
+    if ([(NSArray *)responseObject[@"results"] count]<10) {
         
         self.isNoMoreData_record =YES;
         
     }
-    for (NSDictionary *dic in responseObject) {
+    for (NSDictionary *dic in responseObject[@"results"]) {
         
         self.Model_Conis = [YouAnConisRecordModel whc_ModelWithJson:dic];
         

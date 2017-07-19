@@ -7,7 +7,9 @@
 //
 
 #import "YouAnUserPosttingModel.h"
-
+//@implementation Author_profile
+//
+//@end
 @implementation YouAnUserPosttingModel
 
 @end

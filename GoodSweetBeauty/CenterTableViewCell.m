@@ -43,7 +43,7 @@
         [lab_title setTextColor:RGB(51, 51, 51)];
         [lab_title sizeToFit];
         
-        image_red_unread = [UIImageView new];
+        image_red_unread = [[UIImageView alloc]init];;
         image_red_unread.backgroundColor = [UIColor clearColor];
         image_red_unread.layer.masksToBounds =YES;
         image_red_unread.layer.cornerRadius = 4.0f;

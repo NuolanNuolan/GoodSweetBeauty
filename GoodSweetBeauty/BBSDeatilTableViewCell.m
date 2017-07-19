@@ -47,9 +47,9 @@
 }
 -(void)SetFarme{
 
-    image_head = [UIImageView new];
-    image_head.layer.masksToBounds = YES;
-    image_head.layer.cornerRadius = 20.0f;
+    image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
+//    image_head.layer.masksToBounds = YES;
+//    image_head.layer.cornerRadius = 20.0f;
     
     lab_username = [UILabel new];
     [lab_username sizeToFit];

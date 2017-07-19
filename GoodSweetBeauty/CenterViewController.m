@@ -145,10 +145,7 @@
         _view_head = [UIView new];
         _view_head.backgroundColor = GETMAINCOLOR;
         //头像
-        self.image_head = [UIImageView new];
-        self.image_head.layer.masksToBounds = YES;
-        self.image_head.layer.cornerRadius = 40.0f;
-        self.image_head.backgroundColor = RGB(25, 138, 240);
+        self.image_head = [[UIImageView alloc]initWithRoundingRectImageView];
         self.image_head.userInteractionEnabled =YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Change_head)];
         [self.image_head addGestureRecognizer:tap];
@@ -189,7 +186,7 @@
     [self.attri appendAttributedString:self.string_attributed];
     [self.attri appendAttributedString:self.attri1];
     self.lab_balance.attributedText = self.attri;
-    
+    [self.image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,_usermodel.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
     return _view_head;
 }
 -(void)Change_head{

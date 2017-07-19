@@ -51,6 +51,7 @@
 #import "WBStatusComposeTextParser.h"
 #import "WBStatusHelper.h"
 #import "XXLinkLabel.h"
+#import "UIImageView+CornerRadius.h"
 
 
 

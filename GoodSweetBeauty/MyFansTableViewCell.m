@@ -15,8 +15,9 @@
     _btn_Focus.layer.masksToBounds = YES;
     _btn_Focus.layer.cornerRadius = 14.0f;
     _btn_Focus.layer.borderWidth = 0.5f;
-    _image_head.layer.masksToBounds = YES;
-    _image_head.layer.cornerRadius = 30.0f;
+//    _image_head.layer.masksToBounds = YES;
+//    _image_head.layer.cornerRadius = 30.0f;
+    [_image_head zy_cornerRadiusAdvance:30.0f rectCornerType:UIRectCornerAllCorners];
     // Initialization code
 }
 

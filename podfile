@@ -21,6 +21,7 @@ pod 'ZFPlayer'
 #pod 'YYKeyboardManager'
 pod 'UIBarButtonItem-Badge-Coding'
 pod 'YYKit'
+pod 'ZYCornerRadius'
 
 
 end

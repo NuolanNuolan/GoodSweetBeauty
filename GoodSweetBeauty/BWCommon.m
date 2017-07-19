@@ -442,7 +442,8 @@
                                         Atarr:(NSArray <Ats *> *)ats_arr
                                          font:(UIFont *)font
                                   LineSpacing:(CGFloat)LineSpacing
-                                    textColor:(UIColor *)textColor{
+                                    textColor:(UIColor *)textColor
+                                screenPadding:(CGFloat )padding{
 
     NSMutableString *string = [[str_centent stringByReplacingEmojiCheatCodesToUnicode]mutableCopy];
     //判断是否有@的 添加在最后面
@@ -455,18 +456,24 @@
         [string appendString:str_at];
     }
     
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string attributes: @{NSBaselineOffsetAttributeName:@(0)}];
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
     text.font = font;
     text.color = textColor;
-
     //行间距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragraphStyle setLineSpacing:LineSpacing];
     
-    [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
-    
-    [text addAttribute:NSBaselineOffsetAttributeName value:@(0) range:NSMakeRange(0, [string length])];
-    
+    NSDictionary *attrs = @{
+                            NSFontAttributeName : font,
+                            NSParagraphStyleAttributeName : paragraphStyle
+                            };
+    // 计算一行文本的高度
+    CGFloat oneHeight = [@"测试Test" boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    CGFloat rowHeight = [string boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    if (rowHeight>oneHeight) {
+        
+        [paragraphStyle setLineSpacing:LineSpacing];
+        [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+    }
     return text;
 
 }

@@ -7,7 +7,9 @@
 //
 
 #import "YouAnBBSModel.h"
+@implementation author_profile
 
+@end
 @implementation YouAnBBSModel
 
 @end

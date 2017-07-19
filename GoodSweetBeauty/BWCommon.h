@@ -76,7 +76,8 @@
                                         Atarr:(NSArray <Ats *> *)ats_arr
                                          font:(UIFont *)font
                                   LineSpacing:(CGFloat)LineSpacing
-                                    textColor:(UIColor *)textColor ;
+                                    textColor:(UIColor *)textColor
+                                screenPadding:(CGFloat )padding;
 
 @end
 

@@ -108,8 +108,8 @@
             
             if (self.page ==1) [self.Arr_data removeAllObjects];
             if ([(NSArray *)responseObject count]>0) {
-                if ([(NSArray *)responseObject count]<10)[self.tableview.mj_footer endRefreshingWithNoMoreData];
-                for (NSDictionary *dic in responseObject) {
+                if ([(NSArray *)responseObject[@"results"] count]<10)[self.tableview.mj_footer endRefreshingWithNoMoreData];
+                for (NSDictionary *dic in responseObject[@"results"]) {
                     
                     self.model = [YouAnConisRecordModel whc_ModelWithJson:dic];
                     [self.Arr_data addObject:self.model];

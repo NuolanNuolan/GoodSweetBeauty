@@ -823,9 +823,7 @@
                                     dic_at[@"content"],@"content",
                                     [BWCommon getIpAddresses],@"user_ip",
                                     dic_at[@"at"],@"at",
-                                    nil];
-
-    
+                                    nil];    
     @weakify(self);
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
         @strongify(self);
@@ -834,6 +832,8 @@
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+//    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 

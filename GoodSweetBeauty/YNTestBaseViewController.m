@@ -412,9 +412,9 @@
         
         _view_userhead = [[UIView alloc] initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 235)];
         _view_userhead.backgroundColor = GETMAINCOLOR;
-        self.image_head = [UIImageView new];
-        self.image_head.layer.masksToBounds =YES;
-        self.image_head.layer.cornerRadius =40.0F;
+        self.image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
+//        self.image_head.layer.masksToBounds =YES;
+//        self.image_head.layer.cornerRadius =40.0F;
         self.image_head.backgroundColor = [UIColor grayColor];
         
         self.lab_username = [UILabel new];

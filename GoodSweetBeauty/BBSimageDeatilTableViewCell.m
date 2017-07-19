@@ -103,7 +103,8 @@
     btn_ToMore.whc_TopSpaceToView(0,stack_imageview).whc_Size(0,0).whc_CenterX(0);
     btn_ToMore.hidden =YES;
     //对图片地址进行处理
-    Arr_image = [NSMutableArray arrayWithObjects:@"1",@"12",@"21",@"21", nil];
+    Arr_image = [NSMutableArray arrayWithArray:Detailmodel.master_posts.images];
+    
     [self SetFarmeimageview:Arr_image];
     
     
@@ -120,8 +121,7 @@
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        //        [imageView sd_setImageWithURL:[NSURL URLWithString:arr[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
-        [imageView sd_setImageWithURL:[NSURL URLWithString:@"http://img06.tooopen.com/images/20161022/tooopen_sy_182719487645.jpg"] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
         stack_imageview.whc_SubViewWidth = ScreenWidth-30;
         stack_imageview.whc_SubViewHeight = (ScreenWidth-30)*166/345;
         [stack_imageview addSubview:imageView];
@@ -138,8 +138,7 @@
     for (int i =0; i<Arr_image.count; i++) {
         
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-//        browseItem.bigImageUrl = Arr_image[i];
-        browseItem.bigImageUrl = @"http://img06.tooopen.com/images/20161022/tooopen_sy_182719487645.jpg";// 加载网络图片大图地址
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image[i]];
         browseItem.smallImageView = stack_imageview.subviews[i];// 小图
         [arr_image_view addObject:browseItem];
     }
