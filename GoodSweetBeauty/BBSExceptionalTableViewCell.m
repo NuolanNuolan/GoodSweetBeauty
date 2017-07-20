@@ -90,7 +90,7 @@
             //头像
             [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
         }
-        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",balance] collor:GETMAINCOLOR];
+        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",(long)balance] collor:GETMAINCOLOR];
         [self ActionLayut];
     }else{
     

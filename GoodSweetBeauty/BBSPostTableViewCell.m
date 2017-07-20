@@ -173,7 +173,7 @@
             stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;// 图片高宽比
             stack_imageview.whc_Column = 3;
         }
-        [self resetstack:model withimagearr:arr_image];
+        [self resetstackwithimagearr:arr_image];
         Arr_image_main = nil;
         Arr_image_main = [NSArray arrayWithArray:arr_image];
     }else{
@@ -181,11 +181,10 @@
         [stack_imageview whc_RemoveAllSubviews];
         stack_imageview.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(0,lab_deatil).whc_RightSpace(15).whc_Height(0);
     }
-    model_bbs = nil;
     model_bbs = model;
     
 }
--(void)resetstack:(YouAnBBSModel *)model withimagearr:(NSArray *)arr_image{
+-(void)resetstackwithimagearr:(NSArray *)arr_image{
 
     [stack_imageview whc_RemoveAllSubviews];
     NSInteger newCount = arr_image.count;
@@ -263,11 +262,34 @@
     if (model) {
      
         image_head.tag = row;
+        
+        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+        //判断等级以及是否关注等
+        if (model.author_profile.vip == 0) {
+            image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(0,0).whc_CenterYToView(0,lab_username);
+        }else{
+            
+            image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(11,9).whc_CenterYToView(0,lab_username);
+            //这里根据判断显示哪张图片
+            
+        }
+        if (model.author_profile.level == 0) {
+            image_level.whc_Size(0,0).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
+        }else{
+            
+            image_level.whc_Size(12,11).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
+            image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
+        }
         lab_username.text = model.author;
         lab_deatil.text = model.subject;
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
         lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
-
+        
+        
+        
+        
+        
+        
     }
     
 }

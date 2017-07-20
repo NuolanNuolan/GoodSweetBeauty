@@ -170,17 +170,27 @@
 }
 
 
-//at人点击
+//点击
 -(void)AtPerson:(NSDictionary *)dic{
 
-    _model = [self.Arr_data objectAtIndex:[dic[@"row"] integerValue]];
-    for (Ats *atmodel in _model.ats) {
+    if ([dic[@"type"]isEqualToString:@"AT"]) {
         
-        if ([dic[@"name"] isEqualToString:atmodel.uname]) {
+        _model = [self.Arr_data objectAtIndex:[dic[@"row"] integerValue]];
+        for (Ats *atmodel in _model.ats) {
             
-            MYLOG(@"@的ID是:%ld",(long)atmodel.uid)
+            if ([dic[@"name"] isEqualToString:atmodel.uname]) {
+                
+                MYLOG(@"@的ID是:%ld",(long)atmodel.uid)
+            }
         }
+    }else if ([dic[@"type"]isEqualToString:@"PUSH"]){
+    
+        NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[dic[@"row"] integerValue]];
+        [self.tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)];
+        [self.tableview.delegate tableView:self.tableview didSelectRowAtIndexPath:path];
     }
+
+
     
 }
 

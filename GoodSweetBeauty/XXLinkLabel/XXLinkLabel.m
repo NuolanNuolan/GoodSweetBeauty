@@ -358,6 +358,7 @@
         [self modifySelectedAttribute:NO];
         return;
     }
+    
     [self modifySelectedAttribute:NO];
     if ([self.delegate respondsToSelector:@selector(labelClickedWithExtend:)]) {
         [self.delegate labelClickedWithExtend:self.extend];
@@ -373,17 +374,17 @@
 }
 //长按事件
 -(void) timerBegin{
-//    NSLog(@"长按开始");
+    MYLOG(@"长按开始");
     _count = 0;
     _timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target: self selector: @selector(handleTimer) userInfo: nil repeats: YES];
     [_timer fire];
 }
 
 -(void) timerEnd{
-//    NSLog(@"长按结束");
+    MYLOG(@"长按结束");
     [_timer invalidate];
     _timer = nil;
-//    NSLog(@"count = %f",_count);
+    MYLOG(@"count = %f",_count);
 }
 
 -(void) handleTimer{
@@ -412,7 +413,7 @@
         }
         [self timerEnd];        
     }
-//    NSLog(@"%f",_count);
+    MYLOG(@"%f",_count);
 }
 
 - (NSRange)linkRangeAtLocation:(CGPoint)location {
@@ -436,6 +437,7 @@
 
 
 - (void)modifySelectedAttribute:(BOOL)isSet {
+
     if (self.selectedRange.location == 0 && self.selectedRange.length == 0) {
         return;
     }

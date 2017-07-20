@@ -54,7 +54,7 @@
     [self.contentView addSubview:btn_ToMore];
     
     stack_imageview.whc_TopSpace(30).whc_LeftSpace(15).whc_RightSpace(15).whc_HeightAuto();
-    btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(85,14).whc_CenterX(0);
+    btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
     
     stack_imageview.whc_Column = 1;               // 最大3列
     stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
@@ -86,7 +86,7 @@
     
     //判断图片是否有多张
     if (Detailmodel.master_posts.images.count>1) {
-        btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(85,14).whc_CenterX(0);
+        btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
         btn_ToMore.hidden = NO;
         
     }else{

@@ -104,7 +104,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //请求
 -(void)LoadData:(NSInteger )page{
     
-    
     @weakify(self);
     [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 if_master:self.if_master complete:^(BOOL success, id responseObject) {
         @strongify(self);
@@ -401,7 +400,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     switch (indexPath.section) {
         case 0:{
             BBSDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
@@ -580,7 +578,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             if (self.Arr_comments_all.count>0){
             
                 [view_head addSubview:self.view_head_all];
-                [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",self.Deatilmodel.posts_count]];
+                [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",(long)self.Deatilmodel.posts_count]];
                 return view_head;
                 
             }else{
@@ -868,7 +866,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         _view_head_all.backgroundColor = [UIColor whiteColor];
         
         _lab_all_comments = [[UILabel alloc]initWithFrame:CGMAKE(15, 0, ScreenWidth, 28)];
-        [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",self.Deatilmodel.posts_count]];
+        [_lab_all_comments setText:[NSString stringWithFormat:@"全部评论(%lu)",(long)self.Deatilmodel.posts_count]];
         [_lab_all_comments setFont:[UIFont systemFontOfSize:14]];
         [_lab_all_comments setTextColor:RGB(102, 102, 102)];
         

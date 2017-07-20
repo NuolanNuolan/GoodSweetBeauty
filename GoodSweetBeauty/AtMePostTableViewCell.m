@@ -75,6 +75,7 @@
     [lab_time sizeToFit];
     
     lab_atme_content = [XXLinkLabel new];
+    
 //    [lab_atme_content setTextColor:RGB(51, 51, 51)];
 //    [lab_atme_content setFont:[UIFont systemFontOfSize:17]];
     lab_atme_content.numberOfLines = 0;
@@ -172,7 +173,14 @@
             
             
             if (self.delegateSignal) [self.delegateSignal sendNext:@{@"name": str_result,
-                                                                     @"row":[NSString stringWithFormat:@"%ld",(long)row]}];
+                                                                     @"row":[NSString stringWithFormat:@"%ld",(long)row],
+                                                                     @"type":@"AT"}];
+            
+        };
+        lab_atme_content.labelClickedBlock = ^(id extend){
+            @strongify(self);
+            //如果没有数据的话 要通知到view  跳转到下个页面
+            if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"PUSH",@"row":[NSString stringWithFormat:@"%ld",(long)row]}];
             
         };
         if (![model.image isEqualToString:@""]||!model.image) {
