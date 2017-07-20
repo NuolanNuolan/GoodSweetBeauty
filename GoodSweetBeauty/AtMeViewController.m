@@ -9,6 +9,7 @@
 #import "AtMeViewController.h"
 #import "YouAnAtMeModel.h"
 #import "AtMePostTableViewCell.h"
+#import "PostingDeatilViewController.h"
 
 @interface AtMeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -72,8 +73,10 @@
 -(void)LoadData{
 
     @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine AtMePosts:self.page complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
         [self.tableview.mj_footer endRefreshing];
         [self.tableview.mj_header endRefreshing];
         if (success) {
@@ -144,7 +147,13 @@
     
     AtMePostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([AtMePostTableViewCell class])];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell SetModel:self.Arr_data[indexPath.section]];
+    [cell SetModel:self.Arr_data[indexPath.section]withrow:indexPath.section];
+    cell.delegateSignal = [RACSubject subject];
+    @weakify(self);
+    [cell.delegateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        [self AtPerson:x];
+    }];
     return cell;
     
     
@@ -153,11 +162,27 @@
 //select-tableview
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-
+    PostingDeatilViewController *view = [PostingDeatilViewController new];
+    self.model = self.Arr_data[indexPath.section];
+    view.posting_id = self.model.tid;
+    [self.navigationController pushViewController:view animated:YES];
     
 }
 
 
+//at人点击
+-(void)AtPerson:(NSDictionary *)dic{
+
+    _model = [self.Arr_data objectAtIndex:[dic[@"row"] integerValue]];
+    for (Ats *atmodel in _model.ats) {
+        
+        if ([dic[@"name"] isEqualToString:atmodel.uname]) {
+            
+            MYLOG(@"@的ID是:%ld",(long)atmodel.uid)
+        }
+    }
+    
+}
 
 
 

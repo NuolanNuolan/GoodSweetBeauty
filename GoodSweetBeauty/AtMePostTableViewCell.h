@@ -9,8 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "YouAnAtMeModel.h"
 @interface AtMePostTableViewCell : UITableViewCell
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
-
--(void)SetModel:(YouAnAtMeModel *)model;
+-(void)SetModel:(YouAnAtMeModel *)model withrow:(NSInteger )row;
 
 @end

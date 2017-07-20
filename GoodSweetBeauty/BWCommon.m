@@ -472,8 +472,10 @@
     if (rowHeight>oneHeight) {
         
         [paragraphStyle setLineSpacing:LineSpacing];
+        [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
         [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
     }
+    
     return text;
 
 }

@@ -84,28 +84,9 @@
     if (model) {
         
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
-        
-        lab_title.text = [NSString stringWithFormat:@"Re: %@",[model.stripd_content stringByReplacingEmojiCheatCodesToUnicode]];
-
+        lab_title.attributedText = [BWCommon textWithStatus:[NSString stringWithFormat:@"Re: %@",model.stripd_content] Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-30];
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
-        CGSize size_title = [self sizeWithString:lab_title.text font:[UIFont systemFontOfSize:17] maxSize:CGSizeMake(SCREEN_WIDTH-30, MAXFLOAT)];
-//        MYLOG(@"%f",size_title.height);
-        if (size_title.height>25) {
-            
-//            [UILabel changeLineSpaceForLabel:lab_title WithSpace:7];
-        }
-
-        
-        
     }
     
-}
-- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
-{
-    NSDictionary *dict = @{NSFontAttributeName : font};
-    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
-    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
-    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    return size;
 }
 @end
