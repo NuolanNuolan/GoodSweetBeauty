@@ -773,10 +773,11 @@
                                 dic_at[@"content"],@"content",
                                 dic_at[@"at"],@"at",
                                 [BWCommon getIpAddresses],@"user_ip", nil];
+    [ZFCWaveActivityIndicatorView show:self.view];
     @weakify(self);
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
-        
+        [ZFCWaveActivityIndicatorView hid:self.view];
         MYLOG(@"%@",responseObject);
         [self dismissViewControllerAnimated:YES completion:nil];
         
@@ -788,33 +789,6 @@
  发表对于楼主的回复
  */
 -(void)ReplytoPoster{
-
-//    NSString *utf8str = [BWCommon UTF8string:self.str_posting_deatil];
-//    MYLOG(@"%@",utf8str);
-//    
-//    MYLOG(@"%@",[BWCommon stringByRemovingPercentEncoding:utf8str]);
-    
-//    NSString *emotionPattern = @"/([0-9|#][\\x{20E3}])|[\\x{00ae}|\\x{00a9}|\\x{203C}|\\x{2047}|\\x{2048}|\\x{2049}|\\x{3030}|\\x{303D}|\\x{2139}|\\x{2122}|\\x{3297}|\\x{3299}][\\x{FE00}-\\x{FEFF}]?|[\\x{2190}-\\x{21FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2300}-\\x{23FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2460}-\\x{24FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{25A0}-\\x{25FF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2600}-\\x{27BF}][\\x{FE00}-\\x{FEFF}]?|[\\x{2900}-\\x{297F}][\\x{FE00}-\\x{FEFF}]?|[\\x{2B00}-\\x{2BF0}][\\x{FE00}-\\x{FEFF}]?|[\\x{1F000}-\\x{1F6FF}][\\x{FE00}-\\x{FEFF}]?/u";
-//     NSString *pattern = [NSString stringWithFormat:@"%@", emotionPattern];
-//    NSRegularExpression *regex = [[NSRegularExpression alloc] initWithPattern:pattern options:0 error:nil];
-//    // 2.测试字符串
-//    NSArray *results = [regex matchesInString:self.str_posting_deatil options:0 range:NSMakeRange(0, self.str_posting_deatil.length)];
-//    // 3.遍历结果
-//    for (NSTextCheckingResult *result in results) {
-//        NSLog(@"%@ %@", NSStringFromRange(result.range), [self.str_posting_deatil substringWithRange:result.range]);
-//    }
-//
-//    NSString *encodedString = (NSString *)
-//    
-//    CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-//                                                              
-//                                                              (CFStringRef)[self.str_posting_deatil stringByReplacingEmojiUnicodeToCheatCodes],
-//                                                              
-//                                                              NULL,
-//                                                              
-//                                                              (CFStringRef)@"!*'();:@&=+$,/?%#[]",
-//                                                              
-//                                                              kCFStringEncodingUTF8));
     
     NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
     MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
@@ -825,10 +799,12 @@
                                     dic_at[@"at"],@"at",
                                     nil];    
     @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [ZFCWaveActivityIndicatorView show:self.view];
         MYLOG(@"%@", responseObject);
-        //返回之前存入一个值 需要刷新
+        
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
@@ -851,14 +827,19 @@
                                 dic_at[@"at"],@"at",
                                 [NSNumber numberWithInteger:self.postsmodel.id],@"father_id",nil];
     
+    
     @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
         @strongify(self);
         MYLOG(@"%@", responseObject);
+        [ZFCWaveActivityIndicatorView hid:self.view];
         //返回之前存入一个值 需要刷新
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
+//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+//    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

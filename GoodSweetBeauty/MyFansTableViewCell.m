@@ -40,8 +40,14 @@
         _btn_Focus.tag = row;
         _lab_username.text = model.username;
         _lab_count.text = [NSString stringWithFormat:@"粉丝 %ld",(long)model.my_fans_count];
+        [_image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         _image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.level]];
         _image_v.image = model.vip ? [UIImage imageNamed:@"iconVRed"] : nil;
+        
+        
+        
+        
+        
         
         BOOL isFocus = [type isEqualToString:@"粉丝"]? model.if_each_fan :model.isfocus;
             if (isFocus) {

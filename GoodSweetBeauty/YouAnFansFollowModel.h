@@ -15,6 +15,8 @@
 @property (nonatomic , assign) NSInteger              my_message_count;
 @property (nonatomic , assign) BOOL              new_follow;
 @property (nonatomic , assign) NSInteger              reply_me_count;
+@property (nonatomic , assign) BOOL              new_letter;
+@property (nonatomic , assign) BOOL              new_favor_reply;
 @property (nonatomic , assign) NSInteger              vip;
 @property (nonatomic , assign) NSInteger              coins;
 @property (nonatomic , assign) BOOL              new_reply;
@@ -25,6 +27,7 @@
 @property (nonatomic , copy) NSString              * username;
 @property (nonatomic , assign) NSInteger              posts_collect_count;
 @property (nonatomic , assign) BOOL              if_each_fan;
+@property (nonatomic , assign) BOOL              new_message;
 //自定义一个字段来判断自己的关注
 @property (nonatomic , assign) BOOL                  isfocus;
 //用户名拼音

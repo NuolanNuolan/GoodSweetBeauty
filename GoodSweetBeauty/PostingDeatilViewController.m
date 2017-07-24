@@ -253,15 +253,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [self.btn_back setTitle:@"立即回复" forState:UIControlStateNormal];
     self.btn_back.titleLabel.font =[UIFont systemFontOfSize:16];
     
-    UIView *view_share = [UIView new];
-    view_share.backgroundColor = [UIColor whiteColor];
-    self.btn_share =[self create_btn_bot:@"分享" withimage:@"iconBottombarShare"];
-    [view_share addSubview:self.btn_share];
+    UIView *view_share = [self create_btn_bot:@"分享" withimage:@"iconBottombarShare"];
+    ;
+    UIView *view_collection = [self create_btn_bot:@"收藏" withimage:@"iconBottombarShoucang"];
+
     
-    UIView *view_collection = [UIView new];
-    view_collection.backgroundColor = [UIColor whiteColor];
-    self.btn_collection =[self create_btn_bot:@"收藏" withimage:@"iconBottombarShoucang"];
-    [view_collection addSubview:self.btn_collection];
     
     [view_btn addSubview:view_line];
     [view_btn addSubview:view_share];
@@ -271,26 +267,44 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     view_share.whc_LeftSpace(0).whc_TopSpace(0.5).whc_BottomSpace(0).whc_RightSpaceToView(0,view_collection);
     view_collection.whc_LeftSpaceToView(0,view_share).whc_TopSpaceEqualView(view_share).whc_RightSpaceToView(0,self.btn_back).whc_BottomSpaceEqualView(view_share).whc_WidthEqualView(view_share);
-    self.btn_share.whc_CenterX(0).whc_TopSpace(6.5);
-    self.btn_collection.whc_CenterX(-20).whc_TopSpace(8);
+//    self.btn_share.whc_CenterX(0).whc_TopSpace(6.5);
+//    self.btn_collection.whc_CenterX(-20).whc_TopSpace(8);
 }
 //底部按钮封装
--(UIButton *)create_btn_bot:(NSString *)title withimage:(NSString *)imagename{
+-(UIView *)create_btn_bot:(NSString *)title withimage:(NSString *)imagename{
 
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setBackgroundImage:[UIImage imageNamed:imagename] forState:UIControlStateNormal];
     btn.adjustsImageWhenHighlighted = NO;
-    [btn setTitle:title forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:11];
-    [btn setTitleColor:RGB(144, 148, 153) forState:UIControlStateNormal];
-    btn.contentVerticalAlignment = UIControlContentVerticalAlignmentBottom;
-    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-    [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -18,0)];
-    [btn setEnlargeEdgeWithTop:0 right:10 bottom:20 left:20];
+    [btn setEnlargeEdgeWithTop:0 right:30 bottom:40 left:40];
     [btn addTarget:self action:@selector(btn_bot_click:) forControlEvents:UIControlEventTouchUpInside];
-    if ([title isEqualToString:@"分享"])  [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -18,0)];
-    else if ([title isEqualToString:@"收藏"]) [btn setTitleEdgeInsets:UIEdgeInsetsMake(0 ,0, -20,0)];
-    return btn;
+    UILabel *lab_title = [UILabel new];
+    [lab_title setText:title];
+    [lab_title setFont:[UIFont systemFontOfSize:11]];
+    [lab_title setTextColor:RGB(144, 148, 153)];
+    [lab_title setTextAlignment:NSTextAlignmentCenter];
+    
+    [view addSubview:btn];
+    [view addSubview:lab_title];
+    
+    if ([title isEqualToString:@"分享"]) {
+        self.btn_share = btn;
+        btn.whc_Size(21,21).whc_TopSpace(6.5).whc_LeftSpace(27.5);
+        lab_title.whc_TopSpace(34).whc_Size(30,11).whc_CenterXToView(0,btn);
+        
+    }else{
+    
+        self.btn_collection = btn;
+        btn.whc_Size(19,17.4).whc_TopSpace(9).whc_LeftSpace(13);
+        lab_title.whc_TopSpace(34).whc_Size(30,11).whc_CenterXToView(0,btn);
+    }
+    
+    
+    return view;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -773,7 +787,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)btn_bot_click:(UIButton *)btn{
 
-    if ([btn.titleLabel.text isEqualToString:@"分享"]) {
+    if ([btn isEqual:self.btn_share]) {
      
         MYLOG(@"分享");
     }else{

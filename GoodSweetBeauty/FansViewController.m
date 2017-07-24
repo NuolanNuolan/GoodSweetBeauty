@@ -57,12 +57,14 @@
     self.Arr_data = [NSMutableArray arrayWithCapacity:0];
 }
 -(void)LoadData{
-
+    
+    [ZFCWaveActivityIndicatorView show:self.view];
     //判断是请求粉丝还是关注
     if ([self.type isEqualToString:@"粉丝"]) {
         @weakify(self);
         [HttpEngine UserFanspage:self.page pagesize:10 complete:^(BOOL success, id responseObject) {
             @strongify(self);
+            [ZFCWaveActivityIndicatorView hid:self.view];
             [self.tableview.mj_header endRefreshing];
             [self.tableview.mj_footer endRefreshing];
             if (success) {
@@ -89,6 +91,7 @@
         @weakify(self);
         [HttpEngine Userfollowupspage:self.page pagesize:10 complete:^(BOOL success, id responseObject) {
             @strongify(self);
+            [ZFCWaveActivityIndicatorView hid:self.view];
             [self.tableview.mj_header endRefreshing];
             [self.tableview.mj_footer endRefreshing];
             if (success) {
