@@ -41,6 +41,12 @@
         }else if ([model.action isEqualToString:@"gift"]){
         
             str = @"商品兑换";
+        }else if ([model.action isEqualToString:@"reward"]){
+            
+            str = @"打赏帖子";
+        }else if ([model.action isEqualToString:@"get_reward"]){
+            
+            str = @"收到打赏";
         }
         self.lab_type.text = str;
         NSString * str_coins = @"";
@@ -51,7 +57,7 @@
             
         }else{
         
-            str_coins = [NSString stringWithFormat:@"-%ld",(long)model.coins];
+            str_coins = [NSString stringWithFormat:@"%ld",(long)model.coins];
             [self.lab_banlance setTextColor:RGB(237, 67, 67)];
         }
         self.lab_banlance.text = str_coins;

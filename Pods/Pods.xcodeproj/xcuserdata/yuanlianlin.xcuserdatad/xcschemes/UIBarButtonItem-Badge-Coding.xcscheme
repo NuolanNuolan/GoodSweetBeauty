@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '41C4E60822A650F6545910C5EF3E97F1'
+               BlueprintIdentifier = '9CA2A8C5C0DAAB15C92C9745DBB35ABC'
                BlueprintName = 'UIBarButtonItem-Badge-Coding'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libUIBarButtonItem-Badge-Coding.a'>

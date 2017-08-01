@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BBSDeatilTableViewCell : UITableViewCell
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
 -(void)setmodel:(YouAnBBSDeatilModel *)model;
 

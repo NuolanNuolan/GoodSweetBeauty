@@ -14,6 +14,14 @@
 #import "YouAnFansFollowModel.h"
 
 @implementation BWCommon
++ (instancetype)sharebwcommn {
+    static BWCommon *v;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        v = [self new];
+    });
+    return v;
+}
 //是否手机号
 + (BOOL)checkInputMobile:(NSString *)_text
 {
@@ -475,8 +483,221 @@
         [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
         [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
     }
-    
     return text;
-
 }
+/**
+ 设置AT文本 返回高度
+ */
++ (NSDictionary *)textWithStatusRowHeight:(NSString *)str_centent
+                                        Atarr:(NSArray <Ats *> *)ats_arr
+                                         font:(UIFont *)font
+                                  LineSpacing:(CGFloat)LineSpacing
+                                    textColor:(UIColor *)textColor
+                                screenPadding:(CGFloat )padding{
+    
+    NSMutableString *string = [[str_centent stringByReplacingEmojiCheatCodesToUnicode]mutableCopy];
+    //判断是否有@的 添加在最后面
+    if (ats_arr.count>0&&ats_arr) {
+        NSString *str_at = @"";
+        for (Ats *at_model in ats_arr) {
+            
+            str_at = [str_at stringByAppendingString:[NSString stringWithFormat:@"@%@ ",at_model.uname]];
+        }
+        [string appendString:str_at];
+    }
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
+    text.font = font;
+    text.color = textColor;
+    //行间距
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    NSDictionary *attrs = @{
+                            NSFontAttributeName : font,
+                            NSParagraphStyleAttributeName : paragraphStyle
+                            };
+    // 计算一行文本的高度
+    CGFloat oneHeight = [@"测试Test" boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    CGFloat rowHeight = [string boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    if (rowHeight>oneHeight) {
+        
+        [paragraphStyle setLineSpacing:LineSpacing];
+        [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+        [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+    }
+    return @{@"height":[NSString stringWithFormat:@"%f",rowHeight],
+             @"text":text};
+}
+
+/**
+ 跳转到登录页面然后返回
+ */
++(void)PushTo_Login:(UIViewController *)viewcontroller{
+    
+    LoginViewController *view = [LoginViewController new];
+    view.hidesBottomBarWhenPushed =YES;
+    [viewcontroller.navigationController pushViewController:view animated:YES];
+    
+}
+/**
+ 用户详情页
+ */
+-(UIViewController *)UserDeatil:(YouAnBusinessCardModel *)model{
+
+    
+    CenterOneViewController *one = [CenterOneViewController new];
+    one.model = model;
+    CenterTwoViewController *two = [CenterTwoViewController new];
+    two.model = model;
+    //配置信息
+    YNPageScrollViewMenuConfigration *configration = [[YNPageScrollViewMenuConfigration alloc]init];
+    configration.scrollViewBackgroundColor = [UIColor whiteColor];
+    configration.aligmentModeCenter = NO;
+    configration.lineWidthEqualFontWidth = YES;
+    configration.normalItemColor = RGB(51, 51, 51);
+    configration.selectedItemColor = GETMAINCOLOR;
+    configration.lineColor = GETMAINCOLOR;
+    configration.scrollMenu =NO;
+    configration.lineHeight = 2;
+    configration.pageScrollViewMenuStyle = YNPageScrollViewMenuStyleSuspension;
+    
+    CenterMainViewController *vc = [CenterMainViewController pageScrollViewControllerWithControllers:@[one,two] titles:@[@"商务名片",@"口碑评价"] Configration:configration];
+    vc.dataSource = self;
+    //头部headerView
+    vc.headerView = [self view_userhead:model];
+    
+    return vc;
+}
+-(UIView *)view_userhead:(YouAnBusinessCardModel *)model{
+    
+    
+    UIView *view_userhead = [[UIView alloc] initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 235)];
+    view_userhead.backgroundColor = GETMAINCOLOR;
+    UIImageView * image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
+    [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,[model.profile.avatar stringByReplacingOccurrencesOfString:@"small" withString:@"middle"]]] placeholderImage:[UIImage imageNamed:@"head"]];
+    
+    UILabel * lab_username = [UILabel new];
+    [lab_username setTextColor:[UIColor whiteColor]];
+    [lab_username setFont:[UIFont boldSystemFontOfSize:16]];
+    [lab_username setText:model.profile.username];
+    [lab_username sizeToFit];
+    
+    //添加一个view 装name 和图标
+    UIView *view_lab_v_level = [UIView new];
+    
+    UIView * view_v_level = [UIView new];
+    view_v_level.backgroundColor = RGB(247, 247, 247);
+    view_v_level.layer.masksToBounds =YES;
+    view_v_level.layer.cornerRadius =8;
+    
+    UIImageView* image_v = [UIImageView new];
+    
+    
+    UIImageView* image_level = [UIImageView new];
+    
+    
+    UIView * view_btn_gap = [UIView new];
+    view_btn_gap.backgroundColor = [UIColor clearColor];
+    
+    NSArray *arr = [NSArray arrayWithObjects:@"关注",@"粉丝",@"帖子", nil];
+    NSArray *dataarr = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld",(long)model.profile.my_follower_count],[NSString stringWithFormat:@"%ld",(long)model.profile.my_fans_count],[NSString stringWithFormat:@"%ld",(long)model.profile.my_posts_count], nil];
+    for (int i =0; i<arr.count; i++) {
+        
+        UIView *view = [[UIView alloc]initWithFrame:CGMAKE(SCREEN_WIDTH/3*i, 0, SCREEN_WIDTH/3, 65)];
+        view.backgroundColor = [UIColor whiteColor];
+        
+        UILabel * lab_detail = [UILabel new];
+        [lab_detail setTextColor:RGB(51, 51, 51)];
+        [lab_detail setFont:[UIFont systemFontOfSize:18]];
+        [lab_detail sizeToFit];
+        [lab_detail setText:dataarr[i]];
+        
+        UILabel *lab = [UILabel new];
+        [lab setTextColor:RGB(102, 102, 102)];
+        [lab setFont:[UIFont systemFontOfSize:12]];
+        [lab sizeToFit];
+        [lab setText:arr[i]];
+        
+        
+        
+        [view addSubview:lab_detail];
+        [view addSubview:lab];
+        [view_btn_gap addSubview:view];
+        
+        
+        lab_detail.whc_TopSpace(15).whc_CenterX(0).whc_Height(13);
+        lab.whc_TopSpaceToView(10,lab_detail).whc_CenterX(0);
+    }
+    UIView *view_gap = [[UIView alloc]initWithFrame:CGMAKE(0, 65, SCREEN_WIDTH, 10)];
+    view_gap.backgroundColor = RGB(247, 247, 247);
+    [view_btn_gap addSubview:view_gap];
+    
+    [view_v_level addSubview:image_v];
+    [view_v_level addSubview:image_level];
+    [view_lab_v_level addSubview:lab_username];
+    [view_lab_v_level addSubview:view_v_level];
+    [view_userhead addSubview:image_head];
+    [view_userhead addSubview:view_lab_v_level];
+    [view_userhead addSubview:view_btn_gap];
+    
+    image_head.whc_Size(80,80).whc_CenterX(0).whc_TopSpace(5);
+    
+    view_lab_v_level.whc_TopSpaceToView(15,image_head).whc_CenterXToView(0,image_head).whc_WidthAuto().whc_HeightAuto();
+    lab_username.whc_LeftSpace(0).whc_TopSpace(0).whc_RightSpaceToView(5,view_v_level);
+    
+    NSInteger hiddenview = YES;
+    if (model.profile.vip==0) {
+        
+        image_v.hidden =YES;
+    }else{
+        
+        hiddenview = NO;
+        image_v.whc_Size(11,9).whc_LeftSpace(7).whc_CenterY(0).whc_RightSpaceToView(5,image_level);
+        image_v.image = [UIImage imageNamed:@"iconVRed"];
+    }
+    if (model.profile.level==0) {
+        
+        image_level.hidden =YES;
+        
+    }else{
+        
+        hiddenview =NO;
+        image_level.whc_Size(12,11).whc_RightSpace(7.5).whc_CenterY(0).whc_LeftSpaceToView(5,image_v);
+        image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.profile.level]];
+        
+    }
+    if (hiddenview) {
+        
+        view_v_level.whc_Width(0).whc_RightSpace(0).whc_Height(0).whc_CenterYToView(0,lab_username);
+    }else{
+        
+        view_v_level.whc_WidthAuto().whc_RightSpace(0).whc_Height(16).whc_CenterYToView(0,lab_username);
+    }
+    
+    
+    view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(60,view_lab_v_level).whc_Height(65);
+    
+    return view_userhead;
+}
+#pragma mark - YNPageScrollViewControllerDataSource
+- (UITableView *)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= (CenterBaseViewController *)pageScrollViewController.currentViewController;
+    return [VC tableView];
+    
+}
+- (BOOL)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController headerViewIsRefreshingForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= (CenterBaseViewController *)pageScrollViewController.currentViewController;
+    return [[[VC tableView] mj_header ] isRefreshing];
+}
+
+- (void)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewHeaderAndFooterEndRefreshForIndex:(NSInteger)index{
+    
+    CenterBaseViewController *VC= pageScrollViewController.viewControllers[index];
+    [[[VC tableView] mj_header] endRefreshing];
+    [[[VC tableView] mj_footer] endRefreshing];
+}
+
+
 @end

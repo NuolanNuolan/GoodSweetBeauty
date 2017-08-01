@@ -31,5 +31,6 @@
 @property (nonatomic , copy) NSString              * html_content;
 @property (nonatomic , assign) NSInteger              tid;
 @property (nonatomic , copy) NSString              * content;
+@property (nonatomic , assign) NSInteger              replies;
 
 @end

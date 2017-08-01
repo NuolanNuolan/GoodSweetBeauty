@@ -149,8 +149,9 @@
             
             
         }else{
-            image_isvip.whc_LeftSpaceToView(5,lab_name).whc_Size(0,0).whc_CenterYToView(0,lab_name);
-            //这里判断vip类型
+            image_isvip.whc_LeftSpaceToView(5,lab_name).whc_Size(11,9).whc_CenterYToView(0,lab_name);
+            //这里根据判断显示哪张图片
+            image_isvip.image = [UIImage imageNamed:@"iconVRed"];
             
         }
         if (model.author_profile.level==0) {

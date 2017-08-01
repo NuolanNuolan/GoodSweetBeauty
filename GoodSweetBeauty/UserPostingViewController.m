@@ -15,6 +15,9 @@
 #import "BackCommentTableViewCell.h"
 #import "WBEmoticonInputView.h"
 #import "AtChooseViewController.h"
+#import "PostStarTableViewCell.h"
+#import "ChooseProductTableViewCell.h"
+
 
 @interface UserPostingViewController ()<UITableViewDataSource,UITableViewDelegate,YYTextKeyboardObserver,TZImagePickerControllerDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate,UIScrollViewDelegate,WBStatusComposeEmoticonViewDelegate,YYTextViewDelegate>
 
@@ -40,6 +43,9 @@
 //回复的时候@的人
 @property(nonatomic,strong)NSMutableArray *Arr_at;
 
+//口碑评价
+@property(nonatomic,assign)NSInteger product_score;
+@property(nonatomic,assign)NSInteger service_score;
 
 @property(nonatomic,strong)UITableView *tableview;
 @end
@@ -59,7 +65,7 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 - (void)viewDidLoad {
@@ -113,7 +119,10 @@
             [self.tableview registerNib:[UINib nibWithNibName:@"BackCommentTableViewCell"bundle:[NSBundle mainBundle]]forCellReuseIdentifier:@"cell"];
             break;
         case YouAnStatusComposeViewTypePostKouBei:
-            self.title = @"发帖";
+            self.title = @"发表评论";
+            [self.tableview registerClass:[PostStarTableViewCell class] forCellReuseIdentifier:NSStringFromClass([PostStarTableViewCell class])];
+            [self.tableview registerNib:[UINib nibWithNibName:@"ChooseProductTableViewCell"bundle:[NSBundle mainBundle]]forCellReuseIdentifier:@"cell"];
+            self.tableview.backgroundColor = [UIColor whiteColor];
             break;
     }
 }
@@ -195,7 +204,7 @@
             return 3;
             break;
         case YouAnStatusComposeViewTypePostKouBei:
-            return 1;
+            return 4;
             break;
     }
     return 1;
@@ -233,6 +242,7 @@
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
                     
+                    return 100;
                     
                 }
                     break;
@@ -258,7 +268,7 @@
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
                     
-                    
+                    return 55.5f;
                 }
                     break;
             }
@@ -283,11 +293,33 @@
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
                     
-                    
+                    return 150;
                 }
                     break;
             }
-
+        }
+        case 3:{
+            switch (_type) {
+                case YouAnStatusComposeViewTypePostTing:{
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeStatus:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypeComment:{
+                    
+                    
+                }
+                    break;
+                case YouAnStatusComposeViewTypePostKouBei:{
+                    
+                   return [PostingImageTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+                }
+                    break;
+            }
         }
             break;
             
@@ -320,14 +352,9 @@
                     PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                    cell.delegateSignal = [RACSubject subject];
+
                     self.textView = cell.textView;
                     self.textView.delegate =self;
-//                    @weakify(self);
-//                    [cell.delegateSignal subscribeNext:^(id x) {
-//                        @strongify(self);
-//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-//                    }];
                     return cell;
                 }
                     break;
@@ -342,7 +369,10 @@
                     break;
                 case YouAnStatusComposeViewTypePostKouBei:{
                     
+                    PostStarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostStarTableViewCell class])];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     
+                    return cell;
                 }
                     break;
             }
@@ -352,19 +382,14 @@
             break;
         case 1:{
             switch (_type) {
-                case YouAnStatusComposeViewTypePostTing:{
+                case YouAnStatusComposeViewTypePostTing:
+                case YouAnStatusComposeViewTypeComment:{
                     
                     PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
                     [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                    cell.delegateSignal = [RACSubject subject];
                     self.textView = cell.textView;
                     self.textView.delegate =self;
-//                    @weakify(self);
-//                    [cell.delegateSignal subscribeNext:^(id x) {
-//                        @strongify(self);
-//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-//                    }];
                     return cell;
                 }
                     break;
@@ -392,25 +417,29 @@
                     
                 }
                     break;
-                case YouAnStatusComposeViewTypeComment:{
-                    
-                    PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
-                    [cell settype:_type];
-                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//                    cell.delegateSignal = [RACSubject subject];
-                    self.textView = cell.textView;
-                    self.textView.delegate =self;
-//                    @weakify(self);
-//                    [cell.delegateSignal subscribeNext:^(id x) {
-//                        @strongify(self);
-//                        self.str_posting_deatil = [NSString stringWithFormat:@"%@",x];
-//                    }];
-                    return cell;
-                }
-                    break;
                 case YouAnStatusComposeViewTypePostKouBei:{
                     
-                    
+                    ChooseProductTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+                    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        
+                        if ([x[@"type"] isEqualToString:@"productname"]) {
+                            
+                            self.str_title = [NSString stringWithFormat:@"%@",x[@"productname"]];
+                        }else if ([x[@"type"] isEqualToString:@"product_score"]){
+                        
+                            self.product_score = [x[@"product_score"] intValue];
+                            
+                        }else if ([x[@"type"] isEqualToString:@"service_score"]){
+                            
+                            self.service_score = [x[@"service_score"] intValue];
+                        }
+                        
+                    }];
+                    return cell;
                 }
                     break;
             }
@@ -418,7 +447,8 @@
             break;
         case 2:{
             switch (_type) {
-                case YouAnStatusComposeViewTypePostTing:{
+                case YouAnStatusComposeViewTypePostTing :
+                case YouAnStatusComposeViewTypeComment  :{
                     
                     PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
                     [cell Setimage:self.arr_image];
@@ -445,34 +475,42 @@
                     
                 }
                     break;
-                case YouAnStatusComposeViewTypeComment:{
-                    
-                    PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
-                    [cell Setimage:self.arr_image];
+                case YouAnStatusComposeViewTypePostKouBei:{
+                
+                    PostingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingTableViewCell class])];
+                    cell.contentView.backgroundColor = [UIColor whiteColor];
+                    [cell settype:_type];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                    cell.delegateSignal = [RACSubject subject];
-                    @weakify(self);
-                    [cell.delegateSignal subscribeNext:^(id x) {
-                        @strongify(self);
-                        if ([x isKindOfClass:[NSString class]]) {
-                            
-                            [self CancelImageupload:x];
-                            
-                        }else{
-                            
-                            [self ToViewLarger:x];
-                        }
-                        
-                    }];
+                    
+                    self.textView = cell.textView;
+                    self.textView.delegate =self;
                     return cell;
                 }
                     break;
-                case YouAnStatusComposeViewTypePostKouBei:{
-                    
-                    
-                }
-                    break;
             }
+        }
+            break;
+        case 3:{
+
+            PostingImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostingImageTableViewCell class])];
+            cell.contentView.backgroundColor = [UIColor whiteColor];
+            [cell Setimage:self.arr_image];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.delegateSignal = [RACSubject subject];
+            @weakify(self);
+            [cell.delegateSignal subscribeNext:^(id x) {
+                @strongify(self);
+                if ([x isKindOfClass:[NSString class]]) {
+                    
+                    [self CancelImageupload:x];
+                    
+                }else{
+                    
+                    [self ToViewLarger:x];
+                }
+                
+            }];
+            return cell;
         }
             break;
     }
@@ -648,7 +686,7 @@
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
             
-            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:3];
         }
             break;
     }
@@ -678,7 +716,7 @@
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
             
-            
+            indexpathone = [NSIndexPath indexPathForItem:0 inSection:3];
         }
             break;
     }
@@ -753,7 +791,11 @@
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
             
-            
+            if (!self.str_posting_deatil||[self.str_posting_deatil isEqualToString:@""]) {
+                
+                return;
+            }
+            [self Postrating];
         }
             break;
     }
@@ -767,7 +809,10 @@
     
     NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
     MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
-    
+    if ([dic_at[@"content"] isEqualToString:@""]) {
+        [MBProgressHUD showError:@"内容不能为空"];
+        return;
+    }
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 [self.str_title stringByReplacingEmojiUnicodeToCheatCodes],@"subject",
                                 dic_at[@"content"],@"content",
@@ -778,8 +823,15 @@
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [ZFCWaveActivityIndicatorView hid:self.view];
-        MYLOG(@"%@",responseObject);
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if (success) {
+            
+            MYLOG(@"%@",responseObject);
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+        
+            
+        }
+        
         
         
     }];
@@ -792,6 +844,10 @@
     
     NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
     MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    if ([dic_at[@"content"] isEqualToString:@""]) {
+        [MBProgressHUD showError:@"内容不能为空"];
+        return;
+    }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                     dic_at[@"content"],@"content",
@@ -803,13 +859,18 @@
     [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:_pk complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [ZFCWaveActivityIndicatorView show:self.view];
-        MYLOG(@"%@", responseObject);
         
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if (success) {
+            MYLOG(@"%@", responseObject);
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+        
+            
+        }
+        
     }];
-//    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
-//    [self dismissViewControllerAnimated:YES completion:nil];
+
     
 }
 
@@ -820,6 +881,10 @@
 
     NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
     MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    if ([dic_at[@"content"] isEqualToString:@""]) {
+        [MBProgressHUD showError:@"内容不能为空"];
+        return;
+    }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                 dic_at[@"content"],@"content",
@@ -834,15 +899,71 @@
         @strongify(self);
         MYLOG(@"%@", responseObject);
         [ZFCWaveActivityIndicatorView hid:self.view];
-        //返回之前存入一个值 需要刷新
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
-        [self dismissViewControllerAnimated:YES completion:nil];
+        if (success) {
+            
+            //返回之前存入一个值 需要刷新
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        }else{
+        
+
+        }
+        
+
     }];
 //    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"ISREFRESH"];
 //    [self dismissViewControllerAnimated:YES completion:nil];
 }
+/**
+ 口碑评价
+ */
+-(void)Postrating{
 
+    
+    if ([self.str_title isEqualToString:@""]) {
+        
+        [MBProgressHUD showError:@"产品名称不能为空"];
+        return;
+    }
+    NSDictionary *dic_at = [BWCommon PredicateAt:self.str_posting_deatil Atarr:self.Arr_at];
+    MYLOG(@"内容:%@@的人:%@",dic_at[@"content"],dic_at[@"at"]);
+    if ([dic_at[@"content"] isEqualToString:@""]) {
+        [MBProgressHUD showError:@"评论内容不能为空"];
+        return;
+    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                dic_at[@"content"],@"content",
+                                [BWCommon getIpAddresses],@"user_ip",
+                                dic_at[@"at"],@"at",
+                                self.product_score==0?[NSNumber numberWithInteger:5]:[NSNumber numberWithInteger:self.product_score],@"product_score",
+                                self.service_score==0?[NSNumber numberWithInteger:5]:[NSNumber numberWithInteger:self.service_score],@"service_score",
+                                [NSNumber numberWithInteger:self.member_id],@"member_id",
+                                self.str_title,@"product_name",nil];
+    
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine UserPostting:dic witharrimage:self.arr_image withtype:_type withpk:0 complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        MYLOG(@"%@", responseObject);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            //返回之前存入一个值 需要刷新
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        }else{
+            
+            
+        }
+        
+        
+    }];
+    
+    
+    
 
+}
 //浏览大图
 -(void)ToViewLarger:(id )x{
 

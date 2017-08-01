@@ -254,6 +254,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     if (postsmodel) {
         self.PostsModel = postsmodel;
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,postsmodel.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+        image_head.tag = postsmodel.author_id;
         lab_name.text = postsmodel.author;
         lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
         //设置点赞数以及是否点赞
@@ -291,7 +292,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }else{
         
             lab_father_name.text = postsmodel.father.author;
-            lab_father_deatil.attributedText = [BWCommon textWithStatus:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
+            
+//            lab_father_deatil.attributedText = [BWCommon textWithStatus:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
+            
+            NSDictionary *dic = [BWCommon textWithStatusRowHeight:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
+            
+            lab_father_deatil.attributedText = dic[@"text"];
+            
             @weakify(self);
             lab_father_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
                 @strongify(self);
@@ -315,15 +322,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             if (isAllcomments)btn_father_open.tag = 200+row;
             else btn_father_open.tag = 100+row;
             
-            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-89, MAXFLOAT)];
+//            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-89, MAXFLOAT)];
             //判断父评论有否有图片
             if (![postsmodel.father.image isEqualToString:@""]) {
 
-                [self comment_floor_Yesimage:size with:postsmodel withisopen:isopen];
+                [self comment_floor_Yesimage:0 with:postsmodel withisopen:isopen];
                 
             }else{
             
-                [self comment_floor_NOimage:size with:postsmodel withisopen:isopen];
+                [self comment_floor_NOimage:[dic[@"height"] floatValue] with:postsmodel withisopen:isopen];
             }
             //子评论操作
             [self son_comment:postsmodel];
@@ -340,7 +347,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 /***
  父评论有图片
  */
--(void)comment_floor_Yesimage:(CGSize )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
+-(void)comment_floor_Yesimage:(CGFloat )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
 
     //是否展示
     if (isopen) {
@@ -365,17 +372,17 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 /***
  父评论没图片
  */
--(void)comment_floor_NOimage:(CGSize )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
+-(void)comment_floor_NOimage:(CGFloat )size with:(Posts *)postsmodel withisopen:(BOOL )isopen{
 
     //没图片
     [stack_imageview_floor whc_RemoveAllSubviews];
     stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(0,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_Height(0);
     
-    if (size.height<70) {
+    if (size<70) {
         
         btn_father_open.hidden = YES;
         btn_father_open.whc_TopSpaceToView(0,stack_imageview_floor).whc_LeftSpaceEqualView(lab_father_name).whc_Size(0,0);
-        if (size.height<20) {
+        if (size<20) {
             
             view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(lab_father_deatil,0);
         }
@@ -555,7 +562,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)head_click:(UITapGestureRecognizer *)tap{
 
-    
+    NSDictionary *dic = @{@"authid":[NSString stringWithFormat:@"%ld",tap.view.tag],
+                          @"type":@"头像点击"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
 /**
  回复楼层
@@ -577,6 +586,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //    NSDictionary *dic = @{@"btn":btn,
 //                          @"type":@"评论点赞"};
 //    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:[BWCommon Superview:self.contentView]];
+        return;
+    }
     
     @weakify(self);
     [HttpEngine Posetlike:self.PostsModel.tid commentid:btn.tag complete:^(BOOL success, id responseObject) {
@@ -624,12 +637,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                           @"type":@"展开评论"};
     if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
-- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
-{
-    NSDictionary *dict = @{NSFontAttributeName : font};
-    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
-    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
-    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-    return size;
-}
+//- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
+//{
+//    MYLOG(@"%@",str)
+//    NSDictionary *dict = @{NSFontAttributeName : font};
+//    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
+//    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
+//    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
+//    return size;
+//}
 @end

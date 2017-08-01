@@ -75,8 +75,26 @@
 }
 -(void)SetModel:(YouAnFansFollowModel *)model{
 
-    [image_head sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"head"]];
+    [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
     [lab_name setText:model.username];
+    if (model.vip==0) {
+        image_isvip.whc_LeftSpaceToView(5,lab_name).whc_Size(0,0).whc_CenterYToView(0,lab_name);
+    }else{
+    
+        image_isvip.whc_LeftSpaceToView(5,lab_name).whc_Size(11,9).whc_CenterYToView(0,lab_name);
+        //这里根据判断显示哪张图片
+        image_isvip.image = [UIImage imageNamed:@"iconVRed"];
+    }
+    if (model.level==0) {
+        image_level.whc_LeftSpaceToView(5,image_isvip).whc_Size(0,0).whc_CenterYToView(0,lab_name);
+    }else{
+    
+        image_level.whc_LeftSpaceToView(5,image_isvip).whc_Size(12,11).whc_CenterYToView(0,lab_name);
+        image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.level]];
+    }
+    
+    
+    
     
     
 }

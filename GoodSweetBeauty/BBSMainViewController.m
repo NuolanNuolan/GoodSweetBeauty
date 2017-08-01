@@ -17,7 +17,7 @@
 -(void)viewWillAppear:(BOOL)animated{
     
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
@@ -44,7 +44,7 @@
 }
 -(void)CreateUI{
     
-//    self.navigationItem.title = @"有安";
+    self.navigationItem.title = @"有安";
     self.view.backgroundColor = RGB(247, 247, 247);
     UIBarButtonItem *btn_right = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"iconTitlebarSearch"] style:UIBarButtonItemStyleDone target:self action:@selector(PushSearch)];
     self.navigationItem.rightBarButtonItem = btn_right;
@@ -67,6 +67,11 @@
 -(void)Btn_Posting{
     
     MYLOG(@"发帖");
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
+    
     UserPostingViewController *view = [UserPostingViewController new];
     view.type = YouAnStatusComposeViewTypePostTing;
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
@@ -77,9 +82,9 @@
 -(void)PushSearch{
     
     MYLOG(@"搜索");
-    LoginViewController *view = [LoginViewController new];
-    view.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:view animated:YES];
+//    LoginViewController *view = [LoginViewController new];
+//    view.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:view animated:YES];
 }
 
 @end

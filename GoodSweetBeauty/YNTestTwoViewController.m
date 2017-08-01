@@ -22,38 +22,4 @@
 }
 
 
-
-#pragma mark - life cycle
-#pragma mark - life cycle
-
-
-//- (void)viewWillDisappear:(BOOL)animated{
-//    
-//    [super viewWillDisappear:animated];
-//    NSLog(@"two - viewWillDisappear");
-//}
-//
-//- (void)viewDidDisappear:(BOOL)animated{
-//    
-//    [super viewDidDisappear:animated];
-//    NSLog(@"two - viewDidDisappear");
-//}
-//
-//- (void)viewWillAppear:(BOOL)animated{
-//    
-//    [super viewWillAppear:animated];
-//    
-//    NSLog(@"two - viewWillAppear");
-//    
-//}
-//
-//- (void)viewDidAppear:(BOOL)animated{
-//    
-//    [super viewDidAppear:animated];
-//    
-//    NSLog(@"two - viewDidAppear ");
-//}
-//
-
-
 @end

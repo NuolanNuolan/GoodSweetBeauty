@@ -36,5 +36,6 @@ typedef NS_ENUM(NSUInteger, YouAnUserVerifyType){
 @property (nonatomic , assign) NSInteger              hits;
 @property (nonatomic , assign) NSInteger              last_post;
 @property (nonatomic , assign) BOOL              if_feature;
+@property (nonatomic , strong) NSArray<NSString *>              * images;
 @property (nonatomic , copy) NSString              * content;
 @end

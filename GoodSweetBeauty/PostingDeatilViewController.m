@@ -18,6 +18,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 
 
 
+
 @interface PostingDeatilViewController ()<UITableViewDelegate,UITableViewDataSource>{
 
     
@@ -65,6 +66,8 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 @property(nonatomic,strong)UILabel *lab_footer;
 //是否需要隐藏尾部视图
 @property(nonatomic,assign)BOOL     ishidden_lab_footer;
+//用户主页相关
+@property(nonatomic,strong)YouAnBusinessCardModel *busmodel;
 
 @end
 
@@ -75,7 +78,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"ISREFRESH"]) {
         [[NSUserDefaults standardUserDefaults]removeObjectForKey:@"ISREFRESH"];
@@ -419,6 +422,16 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             BBSDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSDeatilTableViewCell class])];
             [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
             [cell setmodel:_Deatilmodel];
+            cell.delegateSignal = [RACSubject subject];
+            @weakify(self);
+            [cell.delegateSignal subscribeNext:^(id x) {
+                @strongify(self);
+                 if ([x[@"type"] isEqualToString:@"头像点击"]){
+                     
+                    [self headimg:[x[@"authid"] integerValue]];
+                 }
+            }];
+
             return cell;
             
         }
@@ -508,9 +521,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                     }else if ([x[@"type"] isEqualToString:@"展开评论"]){
                         
                         [self opencomment:x[@"btn"]];
-                    }else if ([x[@"type"] isEqualToString:@"评论点赞"]){
+                    }else if ([x[@"type"] isEqualToString:@"头像点击"]){
                         
-                        [self commentlike:x[@"btn"]];
+                        [self headimg:[x[@"authid"] integerValue]];
                     }else if([x[@"type"] isEqualToString:@"AllComments"]||[x[@"type"] isEqualToString:@"HotComents"]){
                     
                         [self Atscreening:x];
@@ -548,9 +561,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                     }else if ([x[@"type"] isEqualToString:@"展开评论"]){
                     
                         [self opencomment:x[@"btn"]];
-                    }else if ([x[@"type"] isEqualToString:@"评论点赞"]){
-                    
-                        [self commentlike:x[@"btn"]];
+                    }else if ([x[@"type"] isEqualToString:@"头像点击"]){
+                        
+                        [self headimg:[x[@"authid"] integerValue]];
                     }else if([x[@"type"] isEqualToString:@"AllComments"]||[x[@"type"] isEqualToString:@"HotComents"]){
                         
                         [self Atscreening:x];
@@ -628,6 +641,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)more_click{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     @weakify(self);
     LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"收藏",@"跳页",@"举报",@"复制链接"] titlecolor:GETMAINCOLOR handler:^(LPActionSheet *actionSheet, NSInteger index) {
         @strongify(self);
@@ -660,7 +677,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)Poster_click{
 
-    
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     self.if_master = !self.if_master;
     if (self.if_master) {
         
@@ -679,6 +699,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)back_click{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     UserPostingViewController *view = [[UserPostingViewController alloc]init];
     view.type = YouAnStatusComposeViewTypeStatus;
     view.pk = self.posting_id;
@@ -690,6 +714,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)backtoTheFloor:(UIButton *)btn{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     UserPostingViewController *view = [[UserPostingViewController alloc]init];
     view.type = YouAnStatusComposeViewTypeComment;
     view.pk = self.posting_id;
@@ -736,25 +764,29 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 }
 
 /**
- 评论点赞
-
+ 头像点击
  */
--(void)commentlike:(UIButton *)btn{
+-(void)headimg:(NSInteger )authid{
 
-//    @weakify(self);
-//    [HttpEngine Posetlike:self.Deatilmodel.id commentid:btn.tag complete:^(BOOL success, id responseObject) {
-//        @strongify(self);
-//        if (success) {
-//            if ([responseObject[@"msg"] isEqualToString:@"帖子点赞成功"]) {
-//                
-//                [btn setBackgroundImage:[UIImage imageNamed:@"iconZanActive"] forState:UIControlStateNormal];
-//            }else{
-//            
-//                [btn setBackgroundImage:[UIImage imageNamed:@"iconZanDef"] forState:UIControlStateNormal];
-//            }
-//        }
-//    }];
-    
+
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine BusinessCard:authid complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+            
+            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
+            view.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:view animated:YES];
+            
+        }else{
+            
+            [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+        }
+    }];
           
     
 }
@@ -791,7 +823,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
      
         MYLOG(@"分享");
     }else{
-    
+        if(![BWCommon islogin]){
+            [BWCommon PushTo_Login:self];
+            return;
+        }
         MYLOG(@"收藏");
         [HttpEngine Posttingcollection:self.Deatilmodel.id complete:^(BOOL success, id responseObject) {
             
@@ -821,6 +856,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             if ([atmodel.uname isEqualToString:x[@"name"]]) {
                 
                 MYLOG(@"@的id:%ld",(long)atmodel.uid)
+                [self headimg:atmodel.uid];
             }
         }
     }else{
@@ -832,6 +868,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             if ([atmodel.uname isEqualToString:x[@"name"]]) {
                 
                 MYLOG(@"@的id:%ld",(long)atmodel.uid)
+                [self headimg:atmodel.uid];
             }
             
         }
@@ -843,6 +880,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
  */
 -(void)more_posts{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     MYLOG(@"加载下一页,需要判断时候登录");
     self.ishidden_lab_footer = YES;
     self.tableview.mj_footer.hidden =NO;

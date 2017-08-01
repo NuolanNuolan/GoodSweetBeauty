@@ -110,16 +110,20 @@
     
     image_level.whc_Size(12,11).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
     
-    lab_deatil.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(15,image_head).whc_RightSpace(38);
+    lab_deatil.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(15,image_head).whc_RightSpace(20);
     
     stack_imageview.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(15,lab_deatil).whc_RightSpace(15).whc_HeightAuto();
     stack_imageview.whc_Column = 3;               // 最大3列
     stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
-    stack_imageview.whc_HSpace = 3;                // 图片之间的空隙为4
+    stack_imageview.whc_HSpace = 3;                // 图片之间的空隙为3
     stack_imageview.whc_Orientation = Horizontal;        // 横竖混合布局
-    //        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;// 图片高宽比
+    stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;// 图片高宽比
+    
     lab_time.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(20,stack_imageview);
     lab_read_back.whc_RightSpace(15).whc_TopSpaceEqualView(lab_time);
+    
+    /// 设置cell底部间隙
+    self.whc_CellBottomView = lab_time;
     self.whc_CellBottomOffset = 20;
     self.whc_TableViewWidth = self.whc_sw;
     
@@ -127,60 +131,55 @@
 -(void)SetSection:(NSInteger )sention withmodel:(YouAnBBSModel *)model{
 
     image_head.tag = sention;
-    
     [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
-    //判断等级以及是否关注等
+    
+    //判断等级
     if (model.author_profile.vip == 0) {
         image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(0,0).whc_CenterYToView(0,lab_username);
+
     }else{
-        
+
         image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(11,9).whc_CenterYToView(0,lab_username);
         //这里根据判断显示哪张图片
+        image_v.image = [UIImage imageNamed:@"iconVRed"];
         
     }
     if (model.author_profile.level == 0) {
         image_level.whc_Size(0,0).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
+        
     }else{
         
         image_level.whc_Size(12,11).whc_CenterYToView(0,lab_username).whc_LeftSpaceToView(5,image_v);
         image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
     }
+    
     lab_username.text = model.author;
-    lab_deatil.text = model.subject;
+    lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-35];
     lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
     lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
-    if (model.image&&![model.image isEqualToString:@""]) {
-        stack_imageview.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(15,lab_deatil).whc_RightSpace(15).whc_HeightAuto();
-        NSArray * arr_image;
-        //判断是否有多张
-        if ([BWCommon DoesItInclude:model.image withString:@"##"]) {
-            
-            arr_image = [model.image componentsSeparatedByString:@"##"];
-            
-        }else{
-        
-            arr_image = [NSArray arrayWithObjects:model.image, nil];
-            arr_image = [NSArray arrayWithObjects:@"http://img06.tooopen.com/images/20161022/tooopen_sy_182719487645.jpg",@"http://mpic.tiankong.com/24e/8d6/24e8d6c91347f82125e85b880fcbc92a/640.jpg@360h",@"http://mpic.tiankong.com/24e/8d6/24e8d6c91347f82125e85b880fcbc92a/640.jpg@360h",@"http://www.quanjing.com/image/2016index/wlkj1.jpg", nil];
-        }
-        if (arr_image.count==1){
-        
-            stack_imageview.whc_SubViewWidth = ScreenWidth-30;
-            stack_imageview.whc_SubViewHeight = (ScreenWidth-30)*166/345;
-            stack_imageview.whc_Column = 1;
-            
-        }else {
-            
-            stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;// 图片高宽比
-            stack_imageview.whc_Column = 3;
-        }
-        [self resetstackwithimagearr:arr_image];
-        Arr_image_main = nil;
-        Arr_image_main = [NSArray arrayWithArray:arr_image];
-    }else{
+
+    NSArray * arr_image = [NSArray arrayWithArray:model.images];
     
-        [stack_imageview whc_RemoveAllSubviews];
-        stack_imageview.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(0,lab_deatil).whc_RightSpace(15).whc_Height(0);
+    if (arr_image.count==0) {
+        
+        lab_time.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(5,stack_imageview);
+        
     }
+//    else if(arr_image.count==1){
+//        
+////        stack_imageview.whc_SubViewWidth = ScreenWidth-30;
+////        stack_imageview.whc_SubViewHeight = (ScreenWidth-30)*166/345;
+//        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
+//        stack_imageview.whc_Column = 3;
+//    }else{
+//        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
+//        stack_imageview.whc_Column = 3;
+//    }
+    
+    [self resetstackwithimagearr:arr_image];
+    Arr_image_main = nil;
+    Arr_image_main = [NSArray arrayWithArray:arr_image];
+
     model_bbs = model;
     
 }
@@ -199,7 +198,7 @@
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:arr_image[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr_image[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
         
         [stack_imageview addSubview:imageView];
         if (countDiff>3) {
@@ -208,7 +207,7 @@
                 view_mask.backgroundColor = [UIColor colorWithRed:64/255.0f green:121/255.0f blue:186/255.0f alpha:0.9];
                 UILabel *lab_count = [UILabel new];
                 [lab_count setTextColor:[UIColor whiteColor]];
-                [lab_count setText:[NSString stringWithFormat:@"+%lu",arr_image.count-3]];
+                [lab_count setText:[NSString stringWithFormat:@"+%lu",arr_image.count-2]];
                 [lab_count setFont:[UIFont systemFontOfSize:17]];
                 [lab_count sizeToFit];
                 [view_mask addSubview:lab_count];
@@ -232,7 +231,7 @@
     for (int i=0; i<Arr_image_main.count; i++) {
     
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = Arr_image_main[i];// 加载网络图片大图地址
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image_main[i]];// 加载网络图片大图地址
         if (i<3) {
 
             browseItem.smallImageView = stack_imageview.subviews[i];// 小图
@@ -260,9 +259,8 @@
 -(void)SetRow:(NSInteger )row withmodel:(YouAnCollectionModel *)model{
 
     if (model) {
-     
-        image_head.tag = row;
         
+        image_head.tag = row;
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         //判断等级以及是否关注等
         if (model.author_profile.vip == 0) {
@@ -271,6 +269,7 @@
             
             image_v.whc_LeftSpaceToView(5,lab_username).whc_Size(11,9).whc_CenterYToView(0,lab_username);
             //这里根据判断显示哪张图片
+            image_v.image = [UIImage imageNamed:@"iconVRed"];
             
         }
         if (model.author_profile.level == 0) {
@@ -281,19 +280,22 @@
             image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
         }
         lab_username.text = model.author;
-        lab_deatil.text = model.subject;
+        lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-35];;
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
         lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
+        //判断是否有多张
+        NSArray * arr_image = [NSArray arrayWithArray:model.images];
         
+        if (arr_image.count==0) {
+            
+            lab_time.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(5,stack_imageview);   
+        }
         
-        
-        
-        
-        
+        [self resetstackwithimagearr:arr_image];
+        Arr_image_main = nil;
+        Arr_image_main = [NSArray arrayWithArray:arr_image];
     }
-    
 }
-
 
 
 

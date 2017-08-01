@@ -11,6 +11,8 @@
 @interface AppDelegate (Sunday)
 
 
+
 -(void)ResRelated;
+-(void)GetMes:(YouAnMessageModel *)model;
 
 @end

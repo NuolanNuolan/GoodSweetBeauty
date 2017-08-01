@@ -24,4 +24,8 @@ typedef NS_ENUM(NSUInteger, YouAnStatusComposeViewType) {
 
 @property (nonatomic, strong) Posts *postsmodel;
 
+
+//口碑评价评分对象
+@property (nonatomic, assign) NSInteger member_id;
+
 @end

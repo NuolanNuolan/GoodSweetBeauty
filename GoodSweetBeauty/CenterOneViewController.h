@@ -7,7 +7,11 @@
 //
 
 #import "CenterBaseViewController.h"
+#import "YouAnBusinessCardModel.h"
 
 @interface CenterOneViewController : CenterBaseViewController
 
+
+
+@property(nonatomic,strong)YouAnBusinessCardModel *model;
 @end

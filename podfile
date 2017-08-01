@@ -22,6 +22,7 @@ pod 'ZFPlayer'
 pod 'UIBarButtonItem-Badge-Coding'
 pod 'YYKit'
 pod 'ZYCornerRadius'
-
+#pod 'DWURunLoopWorkDistribution'
+pod 'WHC_ModelSqliteKit'
 
 end

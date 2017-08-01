@@ -19,6 +19,8 @@
     
     [self.view addSubview:self.tableView];
     self.tableView.whc_LeftSpace(0).whc_TopSpace(0).whc_BottomSpace(50).whc_RightSpace(0);
+    
+    
     // Do any additional setup after loading the view.
 }
 #pragma mark - UITableViewDataSource
@@ -27,10 +29,12 @@
     static NSString *cellIdentifier = @"cell";
     
     UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     if(!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        
     }
-    cell.textLabel.text = [NSString stringWithFormat:@"%tu----%@----%@",self.ynPageScrollViewController.pageIndex,@(indexPath.section),@(indexPath.row)];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -46,7 +50,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 80.f;
+    
+    return 80.0f;
     
 }
 
@@ -71,7 +76,6 @@
     
     if (!_tableView) {
         
-//        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
         _tableView = [[UITableView alloc]init];
         _tableView.delegate = self;
         _tableView.dataSource = self;

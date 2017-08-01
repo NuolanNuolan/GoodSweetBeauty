@@ -45,7 +45,7 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 - (void)viewDidLoad {
@@ -273,6 +273,8 @@
         [MBProgressHUD hideHUDForView:self.view];
 //        [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
+            
+            
             
             [self.navigationController popViewControllerAnimated:YES];
             

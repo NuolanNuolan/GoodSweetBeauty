@@ -32,7 +32,7 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 //判断是充值记录还是历史记录

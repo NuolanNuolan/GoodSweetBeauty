@@ -84,7 +84,7 @@
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
             
-            
+            _textView.placeholderText = @"写评论";
         }
             break;
     }

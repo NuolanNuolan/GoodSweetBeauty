@@ -61,7 +61,7 @@
     self.title = @"联系人";
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
     UIBarButtonItem *button_left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(Pop_click)];
     [button_left setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17],

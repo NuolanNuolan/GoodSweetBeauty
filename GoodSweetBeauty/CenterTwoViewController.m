@@ -7,6 +7,7 @@
 //
 
 #import "CenterTwoViewController.h"
+#import "UserPostingViewController.h"
 
 @interface CenterTwoViewController ()
 
@@ -58,6 +59,11 @@
 -(void)Postcomment{
      
     MYLOG(@"发口碑")
+    UserPostingViewController *view = [[UserPostingViewController alloc]init];
+    view.type = YouAnStatusComposeViewTypePostKouBei;
+    view.member_id = self.model.profile.id;
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:view];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 

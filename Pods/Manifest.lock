@@ -48,6 +48,9 @@ PODS:
   - WHC_AutoLayoutKit (2.7.2)
   - WHC_Debuger (1.0.2)
   - WHC_Model (1.6.9)
+  - WHC_ModelSqliteKit (1.2.6):
+    - WHC_ModelSqliteKit/standard (= 1.2.6)
+  - WHC_ModelSqliteKit/standard (1.2.6)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -73,6 +76,7 @@ DEPENDENCIES:
   - WHC_AutoLayoutKit
   - WHC_Debuger
   - WHC_Model
+  - WHC_ModelSqliteKit
   - YYKit
   - ZFPlayer
   - ZYCornerRadius
@@ -98,10 +102,11 @@ SPEC CHECKSUMS:
   WHC_AutoLayoutKit: 63c83f35be38d1836b046acdc0a101aa00d2b466
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
   WHC_Model: 4e71317ab23072d2313e079278ead75bd97e7e96
+  WHC_ModelSqliteKit: 8600471b427856c5babe389686297d97ed94f5d8
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: f0b4dd303ef2e2f1cedc9317923b75611069a8a6
+PODFILE CHECKSUM: 29275c51e81f5c85f77c3169ca3a4c21797cfbf0
 
 COCOAPODS: 1.2.1

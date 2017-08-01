@@ -85,7 +85,7 @@
         
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
         lab_title.attributedText = [BWCommon textWithStatus:[NSString stringWithFormat:@"Re: %@",model.stripd_content] Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-30];
-        lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
+        lab_read_back.text = [NSString stringWithFormat:@"回复 %ld",(long)model.replies];
     }
     
 }

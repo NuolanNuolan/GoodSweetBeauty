@@ -18,6 +18,12 @@
     [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"username"] forKey:@"NAME"];
     //phone
     [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"mobile"] forKey:@"PHONE"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+    //id
+    [[NSUserDefaults standardUserDefaults]setInteger:[[responseObjecct[@"user"]objectForKey:@"id"] integerValue] forKey:@"USERID"];
+    //发出一个通知
+    NSNotification *notification = [NSNotification notificationWithName:@"LOGINSUCCNOTIFI" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotification:notification];
     
 }
 //图片上传统一接口
@@ -273,7 +279,10 @@
     }
     NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
     
-    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+    [PPNetworkHelper GET:url parameters:dic responseCache:^(id responseCache) {
+        
+        complete(YES,responseCache[@"results"]);
+    } success:^(id responseObject) {
         
         complete(YES,responseObject[@"results"]);
         
@@ -281,6 +290,16 @@
         
         complete(NO,nil);
     }];
+    
+//    
+//    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+//        
+//        complete(YES,responseObject[@"results"]);
+//        
+//    } failure:^(NSError *error) {
+//        
+//        complete(NO,nil);
+//    }];
 }
 //发帖
 +(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete{
@@ -305,7 +324,7 @@
             break;
         case YouAnStatusComposeViewTypePostKouBei:{
             
-            
+            url = [NSString stringWithFormat:@"%@/rating/record/",ADDRESS_API];
         }
             break;
     }
@@ -334,7 +353,6 @@
                 
                 imagestr = [NSString stringWithFormat:@"%@",[arr_image_url firstObject]];
                 
-                
             }else{
             
                 for (NSString *str_image in arr_image_url) {
@@ -349,7 +367,7 @@
             NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
             NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
             [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-            
+            MYLOG(@"%@",dic)
             [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
                 
                 MYLOG(@"%@",responseObject);
@@ -357,8 +375,13 @@
                 
                 
             } failure:^(NSError *error) {
-               
-                
+               NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+                if (data) {
+                    NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                    
+                    MYLOG(@"%@",dic);
+                }
+                complete(NO,nil);
             }];
             
         });
@@ -379,6 +402,7 @@
 
                 MYLOG(@"%@",dic);
             }
+            complete(NO,nil);
             
         }];
     }
@@ -398,10 +422,8 @@
         dic =@{@"page":[NSNumber numberWithInteger:page]};
     }
     
-    
-    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
-    if (![token isEqualToString:@""]||!token) {
-        
+    if ([BWCommon islogin]) {
+        NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
         NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
         [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
     }
@@ -706,6 +728,9 @@
     NSString *url = [NSString stringWithFormat:@"%@/posts/threads/%@/like/",ADDRESS_API,[NSNumber numberWithInteger:post_id]];
     //参数
     NSDictionary *dic = @{@"pid":[NSNumber numberWithInteger:commentid]};
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
     [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
         
         MYLOG(@"%@", responseObject);
@@ -713,13 +738,169 @@
         
     } failure:^(NSError *error) {
         
-        NSError *errort = error.userInfo[@"NSUnderlyingError"];
-        NSData*data=errort.userInfo[@"com.alamofire.serialization.response.error.data"];
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
         if (data) {
             
             NSString *str =[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
             MYLOG(@"%@",str);
             complete(NO,str);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 获取私信接口
+ */
++(void)Getmessagescomplete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/my-letters/",ADDRESS_API];
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    [PPNetworkHelper GET:url parameters:nil success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
+/**
+ 点对点私信
+ */
++(void)GetPointMessage:(NSInteger )userid page:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/%ld/my-letters/",ADDRESS_API,(long)userid];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+       
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+       
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 发私信
+ */
++(void)SendPointMes:(NSInteger )userid withcontent:(NSString *)content complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/letter/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    NSDictionary *dic = @{@"to_member_id":[NSNumber numberWithInteger:userid],
+                          @"content":content};
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+       
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+       
+        complete(NO,nil);
+        
+    }];
+    
+    
+    
+    
+}
+/**
+ 商务名片
+ */
++(void)BusinessCard:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/%ld/business-card/",ADDRESS_API,(long)userid];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper GET:url parameters:nil success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+    
+}
+/**
+ 发表口碑评论
+ */
++(void)PostRating:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/rating/record/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        complete(NO,nil);
+    }];
+}
+/**
+ 我发表的口碑评价
+ */
++(void)MyCommentspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/rating/record/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
+    
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
         }else{
             
             complete(NO,nil);

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="-64" id="KGk-i7-Jjw" customClass="ChooseProductTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="444" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="444" height="55.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所选产品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rai-Ak-roq">
+                        <rect key="frame" x="15" y="23" width="58" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-ny-J3e">
+                        <rect key="frame" x="0.0" y="0.0" width="444" height="5"/>
+                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="5" id="p9Y-KC-KDo"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qOo-BA-F1X">
+                        <rect key="frame" x="0.0" y="55" width="444" height="0.5"/>
+                        <color key="backgroundColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="8eM-tv-6Hl"/>
+                        </constraints>
+                    </view>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入产品名称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Er6-WJ-ps8">
+                        <rect key="frame" x="83" y="8" width="346" height="47"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="qOo-BA-F1X" firstAttribute="top" secondItem="Er6-WJ-ps8" secondAttribute="bottom" id="7AX-v3-9w1"/>
+                    <constraint firstItem="rai-Ak-roq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="9l7-iF-yDH"/>
+                    <constraint firstAttribute="trailing" secondItem="8FP-ny-J3e" secondAttribute="trailing" id="AJB-zB-a4P"/>
+                    <constraint firstItem="qOo-BA-F1X" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Bd6-NM-nmG"/>
+                    <constraint firstAttribute="trailing" secondItem="qOo-BA-F1X" secondAttribute="trailing" id="CWt-Um-gDR"/>
+                    <constraint firstItem="8FP-ny-J3e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Klj-h2-lXW"/>
+                    <constraint firstItem="Er6-WJ-ps8" firstAttribute="top" secondItem="8FP-ny-J3e" secondAttribute="bottom" constant="3" id="OuR-rz-Vjs"/>
+                    <constraint firstAttribute="bottom" secondItem="qOo-BA-F1X" secondAttribute="bottom" id="Ywg-Wn-X5y"/>
+                    <constraint firstItem="Er6-WJ-ps8" firstAttribute="leading" secondItem="rai-Ak-roq" secondAttribute="trailing" constant="10" id="mVD-cX-7Tn"/>
+                    <constraint firstAttribute="trailing" secondItem="Er6-WJ-ps8" secondAttribute="trailing" constant="15" id="oaO-Lr-Njn"/>
+                    <constraint firstItem="rai-Ak-roq" firstAttribute="top" secondItem="8FP-ny-J3e" secondAttribute="bottom" constant="18" id="qzP-fn-VIR"/>
+                    <constraint firstItem="8FP-ny-J3e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="yzD-B9-ERd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="text_product_name" destination="Er6-WJ-ps8" id="Hup-oC-V0F"/>
+            </connections>
+            <point key="canvasLocation" x="-76" y="65"/>
+        </tableViewCell>
+    </objects>
+</document>

@@ -48,8 +48,9 @@
 -(void)SetFarme{
 
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
-//    image_head.layer.masksToBounds = YES;
-//    image_head.layer.cornerRadius = 20.0f;
+    image_head.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(head_click:)];
+    [image_head addGestureRecognizer:tap];
     
     lab_username = [UILabel new];
     [lab_username sizeToFit];
@@ -96,7 +97,7 @@
 
     if (model) {
         model_cell = model;
-
+        image_head.tag = model.author_id;
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_username.text = [NSString stringWithFormat:@"%@",model.author];
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
@@ -108,6 +109,7 @@
             
             image_auth.whc_Size(11,9).whc_LeftSpaceToView(5,lab_username).whc_CenterYToView(0,lab_username);
             //这里根据判断显示哪张图片
+            image_auth.image = [UIImage imageNamed:@"iconVRed"];
             
         }
         if (model.author_profile.level == 0) {
@@ -135,7 +137,13 @@
 //关注非关注点击
 -(void)focus_click:(UIButton *)btn{
 
+    
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:[BWCommon Superview:btn]];
+        return;
+    }
     MYLOG(@"%@",btn.titleLabel.text)
+    
     if ([btn.titleLabel.text isEqualToString:@"关注"]) {
         //关注
         [HttpEngine UserFocususerid:model_cell.author_id complete:^(BOOL success, id responseObject) {
@@ -158,5 +166,14 @@
             }
         }];
     }
+}
+/**
+ 头像点击
+ */
+-(void)head_click:(UITapGestureRecognizer *)tap{
+    
+    NSDictionary *dic = @{@"authid":[NSString stringWithFormat:@"%ld",tap.view.tag],
+                          @"type":@"头像点击"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
 @end

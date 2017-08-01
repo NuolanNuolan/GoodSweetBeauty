@@ -7,8 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "YNPageScrollViewController.h"
+#import "CenterOneViewController.h"
+#import "CenterTwoViewController.h"
+#import "CenterMainViewController.h"
 
-@interface BWCommon : NSObject
+@interface BWCommon : NSObject<YNPageScrollViewControllerDataSource>
+
++(instancetype)sharebwcommn;
+
 //是否手机号
 + (BOOL)checkInputMobile:(NSString *)_text;
 //字典转JSON
@@ -73,11 +80,26 @@
  设置AT文本
  */
 + (NSMutableAttributedString *)textWithStatus:(NSString *)str_centent
-                                        Atarr:(NSArray <Ats *> *)ats_arr
-                                         font:(UIFont *)font
-                                  LineSpacing:(CGFloat)LineSpacing
-                                    textColor:(UIColor *)textColor
-                                screenPadding:(CGFloat )padding;
+                 Atarr:(NSArray <Ats *> *)ats_arr
+                  font:(UIFont *)font
+           LineSpacing:(CGFloat)LineSpacing
+             textColor:(UIColor *)textColor
+         screenPadding:(CGFloat )padding;
++ (NSDictionary *)textWithStatusRowHeight:(NSString *)str_centent
+                                    Atarr:(NSArray <Ats *> *)ats_arr
+                                     font:(UIFont *)font
+                              LineSpacing:(CGFloat)LineSpacing
+                                textColor:(UIColor *)textColor
+                            screenPadding:(CGFloat )padding;
+/**
+ 未登录的 跳转到登录页面然后返回
+ */
++(void)PushTo_Login:(UIViewController *)viewcontroller;
 
+
+/**
+ 用户详情页
+ */
+-(UIViewController *)UserDeatil:(YouAnBusinessCardModel *)model;
 @end
 

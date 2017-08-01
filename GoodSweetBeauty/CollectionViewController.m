@@ -9,6 +9,7 @@
 #import "CollectionViewController.h"
 #import "YouAnCollectionModel.h"
 #import "BBSPostTableViewCell.h"
+#import "PostingDeatilViewController.h"
 
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView *tableView;
@@ -27,7 +28,7 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
     [self.navigationController.navigationBar setTintColor:[UIColor blackColor ]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
 }
 - (void)viewDidLoad {
@@ -145,6 +146,13 @@
 }
 //select-tableview
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    _model = self.Arr_data[indexPath.section];
+    PostingDeatilViewController *view = [PostingDeatilViewController new];
+    view.posting_id = _model.id;
+    view.hidesBottomBarWhenPushed =YES;
+    [self.navigationController pushViewController:view animated:YES];
+    
     
 //    PostingDeatilViewController *view = [PostingDeatilViewController new];
 //    switch (self.ynPageScrollViewController.pageIndex) {

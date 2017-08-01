@@ -11,7 +11,7 @@
 #import "HJViewController.h"
 
 @interface AppDelegate ()
-
+@property(nonatomic,strong)YouAnMessageModel *MesModel;
 @end
 
 @implementation AppDelegate
@@ -20,6 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self ResRelated];
+    [self GetMes:_MesModel];
     
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     self.window.rootViewController = [[MainTabbarController alloc]init];

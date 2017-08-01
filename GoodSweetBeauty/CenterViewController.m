@@ -16,6 +16,7 @@
 #import "AtMeViewController.h"
 #import "CoinsViewController.h"
 #import "MyImMessagesViewController.h"
+#import "MycommentViewController.h"
 
 
 
@@ -46,11 +47,11 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
-    [self LoadData];
+    if([BWCommon islogin])[self LoadData];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -68,7 +69,8 @@
 }
 //会员资料
 -(void)LoadData{
-
+    
+    
     @weakify(self);
     [HttpEngine UserDetailcomplete:^(BOOL success, id responseObject) {
         @strongify(self);
@@ -108,7 +110,7 @@
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return 10;
+    return 9;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -186,11 +188,16 @@
     [self.attri appendAttributedString:self.string_attributed];
     [self.attri appendAttributedString:self.attri1];
     self.lab_balance.attributedText = self.attri;
-    [self.image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,_usermodel.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+    [self.image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,[_usermodel.avatar stringByReplacingOccurrencesOfString:@"small" withString:@"middle"]]] placeholderImage:[UIImage imageNamed:@"head"]];
+    [[NSUserDefaults standardUserDefaults]setObject:_usermodel.avatar forKey:@"USERIMAGEHEAD"];
     return _view_head;
 }
 -(void)Change_head{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     @weakify(self);
     LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"更换头像" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"拍照",@"从相册选择"]  titlecolor:SheetDefaultColor handler:^(LPActionSheet *actionSheet, NSInteger index) {
         @strongify(self);
@@ -256,10 +263,15 @@
 -(void)UploadPhoto:(UIImage *)image{
     
     @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine headimageuploadfile:image comlete:^(BOOL susccess, id responseObjecct) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
         if (susccess) {
             
             MYLOG(@"%@",responseObjecct);
+
+            [self.image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,responseObjecct[@"filename"]]] placeholderImage:[UIImage imageNamed:@"head"]];
             
         }else{
         
@@ -270,6 +282,10 @@
 }
 #pragma mark 事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     HJViewController *view;
     switch (indexPath.section) {
         case 0:{
@@ -301,7 +317,7 @@
             break;
         case 5:{
             
-            
+            view = [MycommentViewController new];
         }
             break;
         case 6:{
@@ -337,7 +353,10 @@
 -(void)PushSettting{
 
 //        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:8] animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-    
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     SettingViewController *view = [SettingViewController new];
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];

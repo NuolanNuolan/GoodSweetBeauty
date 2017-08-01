@@ -102,7 +102,7 @@
         lab_month.text = [NSString stringWithFormat:@"%@月",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM"]];
         lab_title.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-71.6];
         lab_detail.attributedText = [BWCommon textWithStatus:model.stripd_content Atarr:nil font:[UIFont systemFontOfSize:14] LineSpacing:7 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-71.6];
-        lab_read_back.text = [NSString stringWithFormat:@"阅读 %@  回复 %@",@"0",@"0"];
+        lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld  回复 %ld",(long)model.favors,(long)model.replies];
     }
 
 }

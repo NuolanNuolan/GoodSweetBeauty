@@ -18,6 +18,12 @@
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

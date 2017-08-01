@@ -10,4 +10,8 @@
 
 @interface MesListTableViewCell : UITableViewCell
 
+
+
+-(void)cellformodel:(Results *)model;
+
 @end

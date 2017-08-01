@@ -83,12 +83,15 @@
         [self.arr_uid removeAllObjects];
         NSInteger balance = 0;
         for (Rewards *rewardsmodel in model.rewards) {
-            //有几个人
-            [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
-            //总金额
-            balance+=rewardsmodel.coins ;
-            //头像
-            [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
+            if ((rewardsmodel.tid==rewardsmodel.pid)) {
+                
+                //有几个人
+                [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
+                //总金额
+                balance+=rewardsmodel.coins ;
+                //头像
+                [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
+            }
         }
         lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",(long)balance] collor:GETMAINCOLOR];
         [self ActionLayut];
@@ -121,6 +124,10 @@
  */
 -(void)exceptional_click{
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:[BWCommon Superview:self.contentView]];
+        return;
+    }
     @weakify(self);
     Exceptional_view *view = [Exceptional_view alertViewExceptional:100 withAmount:[NSArray arrayWithObjects:@"1",@"2",@"5",@"10",@"50",@"100", nil] except_title:@"写的不错, 打赏一下" exceptionalblockclick:^(Exceptional_view *view, NSInteger Amount) {
         @strongify(self);

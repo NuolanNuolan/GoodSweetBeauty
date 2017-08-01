@@ -154,6 +154,10 @@
 -(void)OnPicture{
 
     MYLOG(@"展开图片");
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:[BWCommon Superview:self.contentView]];
+        return;
+    }
     if (self.delegateSignal) [self.delegateSignal sendNext:nil];
 
 }

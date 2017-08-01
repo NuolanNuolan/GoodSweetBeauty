@@ -17,6 +17,7 @@
 
 
 
+
 #define imageRender(imageName) [[UIImage imageNamed:(imageName)] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
 
 @interface MainTabbarController ()<YNPageScrollViewControllerDataSource,SDCycleScrollViewDelegate,YNPageScrollViewControllerDelegate>
@@ -30,6 +31,9 @@
     [super viewDidLoad];
     [self CreateUI];
     [self CreateController];
+
+    
+    
 //    [self CancelTabbar];
     // Do any additional setup after loading the view.
 }
@@ -104,11 +108,11 @@
     vc3.navigationController.navigationBar.translucent = NO;
     
     
-    [vc1.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [vc1.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                     NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [vc2.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [vc2.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                      NSForegroundColorAttributeName:[UIColor blackColor]}];
-    [vc3.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],
+    [vc3.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [nvc1.navigationBar setTintColor:[UIColor whiteColor ]];
     [nvc2.navigationBar setTintColor:[UIColor whiteColor ]];

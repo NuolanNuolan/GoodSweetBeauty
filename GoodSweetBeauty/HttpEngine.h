@@ -98,4 +98,29 @@
  帖子点赞
  */
 +(void)Posetlike:(NSInteger )post_id commentid:(NSInteger )commentid complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ 获取私信接口
+ */
++(void)Getmessagescomplete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 点对点私信
+ */
++(void)GetPointMessage:(NSInteger )userid page:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 发私信
+ */
++(void)SendPointMes:(NSInteger )userid withcontent:(NSString *)content complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 商务名片
+ */
++(void)BusinessCard:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 发表口碑评论
+ */
++(void)PostRating:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 我发表的口碑评价
+ */
++(void)MyCommentspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
 @end

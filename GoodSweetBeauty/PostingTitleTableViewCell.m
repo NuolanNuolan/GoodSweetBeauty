@@ -17,8 +17,9 @@
     [_txt_title setPlaceholder:@"讨论标题"];
     [_txt_title becomeFirstResponder];
     //监听
+    @weakify(self);
     [[self.txt_title rac_textSignal]subscribeNext:^(id x) {
-       
+        @strongify(self);
         if (self.delegateSignal) [self.delegateSignal sendNext:x];
         
     }];
