@@ -25,6 +25,8 @@
 @property (nonatomic , assign) NSInteger              created;
 @property (nonatomic , strong) NSArray<NSString *>              * images;
 @property (nonatomic , assign) NSInteger              member_id;
+//添加一个评论是否展开
+@property (nonatomic , assign) BOOL              isopen;
 
 @end
 

@@ -119,6 +119,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }else{
         
             self.page =page-1;
+            [self.tableview.mj_footer endRefreshingWithNoMoreData];
         }
     }];
 }

@@ -11,7 +11,9 @@
 
 @interface CommentsTableViewCell : UITableViewCell
 
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
--(void)SetModel:(commentsresults *)resmodel;
+
+-(void)SetModel:(commentsresults *)resmodel withsection:(NSInteger )section;
 
 @end

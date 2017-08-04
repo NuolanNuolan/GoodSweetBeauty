@@ -20,6 +20,7 @@
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)NSMutableArray *Arr_data;
 @property(nonatomic,strong)YouAnMyCommentModel *model;
+@property(nonatomic,strong)commentsresults *commmentmodel;
 
 @end
 
@@ -92,6 +93,7 @@
     }
     for (commentsresults *res in self.model.results) {
         
+        res.isopen = NO;
         [self.Arr_data addObject:res];
         
     }
@@ -101,7 +103,6 @@
 #pragma mark tableviewdelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    
     return 1;
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -114,7 +115,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (section==0)return 161;
+    if (section==0)return 171;
     return 0.001;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -127,16 +128,47 @@
     }
     return nil;
 }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return [CommentsTableViewCell whc_CellHeightForIndexPath:indexPath tableView:tableView];
+}
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
     CommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([CommentsTableViewCell class])];
     
-    [cell SetModel:self.Arr_data[indexPath.section]];
+    [cell SetModel:self.Arr_data[indexPath.section] withsection:indexPath.section];
+    @weakify(self);
+    cell.delegateSignal = [RACSubject subject];
+    [cell.delegateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        
+        //回调数据处理
+        [self DealData:x];
+    }];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
 
 
+
+/**
+ 
+ 回调数据处理
+ */
+-(void)DealData:(NSDictionary *)dic{
+
+    if ([dic[@"type"]isEqualToString:@"open"]) {
+        
+        _commmentmodel = self.Arr_data[[dic[@"value"] integerValue]];
+        _commmentmodel.isopen =YES;
+        //刷新表格
+        [self.tableView reloadSection:[dic[@"value"] integerValue] withRowAnimation:UITableViewRowAnimationNone];
+    }else if ([dic[@"type"]isEqualToString:@"at"]){
+    
+        
+        
+    }
+}
 @end

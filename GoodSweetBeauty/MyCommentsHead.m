@@ -39,7 +39,7 @@
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     
     view_All = [UIView new];
-    view_All.backgroundColor = [UIColor redColor];
+    view_All.backgroundColor = [UIColor clearColor];
     
     lab_name = [UILabel new];
     [lab_name setTextColor:[UIColor whiteColor]];
@@ -60,6 +60,8 @@
     [lab_count setFont:[UIFont systemFontOfSize:12]];
     [lab_count sizeToFit];
     
+    UIView *view_bot = [UIView new];
+    view_bot.backgroundColor = RGB(247, 247, 247);
     
     
     [self.contentView addSubview:image_head];
@@ -69,10 +71,13 @@
     [view_All addSubview:view_v_level];
     [self.contentView addSubview:view_All];
     [self.contentView addSubview:lab_count];
+    [self.contentView addSubview:view_bot];
     
     image_head.whc_Size(80,80).whc_TopSpace(6).whc_CenterX(0);
     
     lab_count.whc_TopSpaceToView(40,image_head).whc_CenterX(0);
+    
+    view_bot.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(23,lab_count).whc_Height(10);
     
 
     

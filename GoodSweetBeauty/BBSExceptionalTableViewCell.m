@@ -83,7 +83,7 @@
         [self.arr_uid removeAllObjects];
         NSInteger balance = 0;
         for (Rewards *rewardsmodel in model.rewards) {
-            if ((rewardsmodel.tid==rewardsmodel.pid)) {
+//            if ((rewardsmodel.tid==rewardsmodel.pid)) {
                 
                 //有几个人
                 [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
@@ -91,7 +91,7 @@
                 balance+=rewardsmodel.coins ;
                 //头像
                 [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
-            }
+//            }
         }
         lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",(long)balance] collor:GETMAINCOLOR];
         [self ActionLayut];

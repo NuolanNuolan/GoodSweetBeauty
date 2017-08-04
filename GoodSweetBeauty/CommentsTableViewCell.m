@@ -24,7 +24,7 @@
     //项目名称
     UILabel *lab_productname;
     //主评论
-    UILabel * lab_comments;
+    XXLinkLabel * lab_comments;
     //评论图片
     WHC_StackView *stack_imageview;
     //展开按钮
@@ -32,6 +32,8 @@
     //分享按钮 删除按钮
     UIButton *btn_share;
     UIButton *btn_del;
+    
+    commentsresults * momdel_comment;
     
     
     
@@ -75,28 +77,23 @@
     [lab_star setText:@"打分"];
     [lab_star sizeToFit];
     
-//    for (int i=0; i<5; i++) {
-//        
-//        image_star = [UIImageView new];
-//        image_star.image = [UIImage imageNamed:@"dafenDefault"];
-//        image_star.tag = 100+i;
-//        [self.contentView addSubview:image_star];
-//        
-//        image_star.whc_Size(11,11).whc_CenterYToView(0,lab_star).whc_LeftSpaceToView(5+(i*14),lab_star);
-//        
-//    }
     
     lab_productname = [UILabel new];
     [lab_productname setTextColor:RGB(51, 51, 51)];
     [lab_productname setFont:[UIFont systemFontOfSize:17]];
     [lab_productname sizeToFit];
     
-    lab_comments = [UILabel new];
+    lab_comments = [XXLinkLabel new];
+    lab_comments.userInteractionEnabled =YES;
+    lab_comments.linkTextColor = GETMAINCOLOR;
+    lab_comments.regularType = XXLinkLabelRegularTypeAboat;
+    lab_comments.selectedBackgroudColor = [UIColor whiteColor];
     [lab_comments sizeToFit];
     
     btn_open = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn_open setTitle:@"展开" forState:UIControlStateNormal];
     [btn_open setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+    [btn_open addTarget:self action:@selector(open_click:) forControlEvents:UIControlEventTouchUpInside];
     btn_open.titleLabel.font = [UIFont systemFontOfSize:14];
     
     stack_imageview = [WHC_StackView new];
@@ -108,7 +105,7 @@
     stack_imageview.whc_Orientation = All;        // 横竖混合布局
     
     btn_share = [UIButton buttonWithType:UIButtonTypeCustom];
-    
+    btn_share.adjustsImageWhenHighlighted = NO;
     [btn_share setTitle:@"分享" forState:UIControlStateNormal];
     [btn_share addTarget:self action:@selector(btn_share_click) forControlEvents:UIControlEventTouchUpInside];
     btn_share.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -116,19 +113,21 @@
     btn_share.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     btn_share.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn_share setTitleEdgeInsets:UIEdgeInsetsMake(0,7,0,0)];
+    [btn_share setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     [btn_share setImage:[UIImage imageNamed:@"iconShareSm"] forState:UIControlStateNormal];
     
+    btn_del = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn_del.adjustsImageWhenHighlighted = NO;
     [btn_del setTitle:@"删除" forState:UIControlStateNormal];
     [btn_del addTarget:self action:@selector(btn_del_click) forControlEvents:UIControlEventTouchUpInside];
     btn_del.titleLabel.font = [UIFont systemFontOfSize:14];
-    [btn_del setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+    [btn_del setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     btn_del.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     btn_del.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [btn_del setTitleEdgeInsets:UIEdgeInsetsMake(0,7,0,0)];
-    [btn_del setImage:[UIImage imageNamed:@"iconShareSm"] forState:UIControlStateNormal];
+    [btn_del setImage:[UIImage imageNamed:@"iconDel"] forState:UIControlStateNormal];
     
-    self.whc_CellBottomView = btn_share;
-    self.whc_CellBottomOffset = 15;
+   
     
     [self.contentView addSubview:image_head];
     [self.contentView addSubview:lab_username];
@@ -164,27 +163,35 @@
     
     lab_comments.whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(15,lab_productname).whc_RightSpace(15);
     
-    btn_open.whc_Size(35,15).whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(10,lab_comments);
+    btn_open.whc_Size(35,15).whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(0,lab_comments);
     
     stack_imageview.whc_LeftSpaceEqualView(lab_username).whc_RightSpace(15).whc_TopSpaceToView(15,btn_open).whc_HeightAuto();
     
-//    btn_del.whc_RightSpace(15).whc_TopSpaceToView(15,stack_imageview).whc_Size(60,14);
+    btn_del.whc_RightSpace(15).whc_TopSpaceToView(15,stack_imageview).whc_Size(55,14);
     
-//    btn_share.whc_RightSpaceToView(40,btn_share).whc_TopSpaceEqualView(btn_del).whc_SizeEqualView(btn_del);
+    btn_share.whc_RightSpaceToView(40,btn_del).whc_TopSpaceEqualView(btn_del).whc_SizeEqualView(btn_del);
     
+    self.whc_TableViewWidth = SCREEN_WIDTH;
+    self.whc_CellBottomOffset = 15;
 }
 
--(void)SetModel:(commentsresults *)resmodel{
+-(void)SetModel:(commentsresults *)resmodel withsection:(NSInteger )section{
 
     if (resmodel) {
         
         [image_head sd_setImageWithURL:[NSURL URLWithString:resmodel.from_member.avatar] placeholderImage:[UIImage imageNamed:@"head"]];
         [lab_username setText:resmodel.from_member_name];
+        
         [lab_time setText:[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)resmodel.created] withtype:@"MM-dd"]];
+        //打分
         [self DealStar:resmodel.total_score];
         [lab_productname setText:[NSString stringWithFormat:@"产品: %@",resmodel.product_name]];
-        [self DealComment:resmodel];
-        
+        //评论
+        [self DealComment:resmodel withsection:section];
+        //@用户点击
+        [self DealAt:resmodel withsection:section];
+        //图片
+        [self DealImage:resmodel];
         
     }
 }
@@ -197,16 +204,80 @@
         starview.image = [UIImage imageNamed:@"dafenActive"];
     }
 }
-//处理评论以及图片
--(void)DealComment:(commentsresults *)resmodel{
+//处理评论
+-(void)DealComment:(commentsresults *)resmodel withsection:(NSInteger )section{
 
-//    lab_comments.attributedText = [BWCommon textWithStatus:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
-    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+//    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+    NSDictionary *dic = [BWCommon textWithStatusRowHeight:@"专业设计团队，从需求分析到市场定位，执专业设计团队，从需求分析到" Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+    //判断是否有展开按钮
+    CGFloat height = [dic[@"height"] floatValue];
+    btn_open.tag = section;
+    if (height<61) {
+        //行数小于三行 不需要展开按钮
+        lab_comments.numberOfLines = 0;
+        btn_open.hidden =YES;
+        btn_open.whc_Size(0,0).whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(0,lab_comments);
+        
+    }else{
+    
+        //看用户是否需要展开
+        if (resmodel.isopen) {
+            //展开
+            lab_comments.numberOfLines = 0;
+            btn_open.hidden =YES;
+            btn_open.whc_Size(0,0).whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(0,lab_comments);
+        }else{
+            
+            //不展开
+            lab_comments.numberOfLines = 3;
+            btn_open.hidden = NO;
+            btn_open.whc_Size(35,15).whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(0,lab_comments);
+        }
+    }
     lab_comments.attributedText = dic[@"text"];
     
-    MYLOG(@"%@",dic[@"height"])
+}
+-(void)DealAt:(commentsresults *)resmodel withsection:(NSInteger )section{
+
+    @weakify(self);
+    lab_comments.regularLinkClickBlock = ^(NSString *clickedString) {
+        @strongify(self);
+        //正则提取出来的内容 包含@和空格
+        NSString *str_result =  [clickedString substringFromIndex:1];
+        
+        str_result = [str_result substringToIndex:str_result.length-1];
+        
+        MYLOG(@"@的人: %@",str_result)
+        if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"at",
+                                                                 @"value":str_result,
+                                                                 @"section":[NSString stringWithFormat:@"%ld",(long)section]}];
+    };
+}
+//处理图片
+-(void)DealImage:(commentsresults *)resmodel{
+
+    momdel_comment = resmodel;
+    [stack_imageview whc_RemoveAllSubviews];
     
     
+    
+    NSInteger newCount = resmodel.images.count;
+    NSInteger oldCount = stack_imageview.subviews.count;
+    NSInteger countDiff = newCount - oldCount;
+    
+    for (int i =0; i<countDiff; i++) {
+        
+        UIImageView * imageView = [UIImageView new];
+        imageView.userInteractionEnabled = YES;
+        imageView.tag = oldCount + i;
+        UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
+        [imageView addGestureRecognizer:tapGesture];
+        imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,resmodel.images[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [stack_imageview addSubview:imageView];
+    }
+    [stack_imageview whc_StartLayout];
+
 }
 
 -(void)btn_share_click{
@@ -216,5 +287,29 @@
 -(void)btn_del_click{
 
     MYLOG(@"删除")
+}
+- (void)tapImageGesture:(UITapGestureRecognizer *)tapGesture {
+    
+    
+    NSMutableArray *arr_image_view = [NSMutableArray arrayWithCapacity:0];
+    //要遍历所有的图片URL
+    for (int i=0; i<momdel_comment.images.count; i++) {
+        
+        MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,momdel_comment.images[i]];// 加载网络图片大图地址
+        browseItem.smallImageView = stack_imageview.subviews[i];// 小图
+        [arr_image_view addObject:browseItem];
+    }
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tapGesture.view.tag];
+    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    [bvc showBrowseViewController:nil];
+    
+}
+//展开评论
+-(void)open_click:(UIButton *)sender{
+
+    //回调到主页面刷新
+    if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"open",
+                                                             @"value":[NSString stringWithFormat:@"%ld",(long)sender.tag]}];
 }
 @end
