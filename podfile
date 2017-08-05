@@ -24,5 +24,6 @@ pod 'YYKit'
 pod 'ZYCornerRadius'
 #pod 'DWURunLoopWorkDistribution'
 pod 'WHC_ModelSqliteKit'
+pod 'WechatOpenSDK'
 
 end

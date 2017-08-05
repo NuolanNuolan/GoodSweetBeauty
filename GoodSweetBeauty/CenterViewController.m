@@ -44,6 +44,7 @@
 @implementation CenterViewController
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.tabBarItem.badgeValue = nil;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
@@ -65,6 +66,9 @@
     [super viewDidLoad];
     
     [self CreateUI];
+    
+    //添加通知
+    [self addnotifation];
     
 }
 //会员资料
@@ -99,6 +103,12 @@
     topView.backgroundColor = GETMAINCOLOR;
     [_tableView addSubview:topView];
     [self.view addSubview:self.tableView];
+    
+}
+-(void)addnotifation{
+
+    //添加私信通知
+//    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(Change_badge:) name:NLETTERNAME object:nil];
     
 }
 
@@ -361,4 +371,14 @@
     view.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:view animated:YES];
 }
+/**
+ 
+ 收到通知改变 badge
+ */
+//-(void)Change_badge:(NSNotification *)notification{
+//
+//    
+//    self.tabBarItem.badgeValue = notification.userInfo[@"badge"];
+//    
+//}
 @end

@@ -45,6 +45,7 @@ PODS:
     - SDWebImage/Core
   - TZImagePickerController (1.8.1)
   - UIBarButtonItem-Badge-Coding (0.0.1)
+  - WechatOpenSDK (1.7.9)
   - WHC_AutoLayoutKit (2.7.2)
   - WHC_Debuger (1.0.2)
   - WHC_Model (1.6.9)
@@ -73,6 +74,7 @@ DEPENDENCIES:
   - SDWebImage
   - TZImagePickerController
   - UIBarButtonItem-Badge-Coding
+  - WechatOpenSDK
   - WHC_AutoLayoutKit
   - WHC_Debuger
   - WHC_Model
@@ -99,6 +101,7 @@ SPEC CHECKSUMS:
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   TZImagePickerController: 086034156913375cb19c8e4103562f15322c3b36
   UIBarButtonItem-Badge-Coding: 3f8e96f75f7d7c7516c1a1706b566892bf2db134
+  WechatOpenSDK: 1fe7e3b07db860d6a936c3ff4a5aba6b890958d9
   WHC_AutoLayoutKit: 63c83f35be38d1836b046acdc0a101aa00d2b466
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
   WHC_Model: 4e71317ab23072d2313e079278ead75bd97e7e96
@@ -107,6 +110,6 @@ SPEC CHECKSUMS:
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 29275c51e81f5c85f77c3169ca3a4c21797cfbf0
+PODFILE CHECKSUM: 6322bf5d49275061cb50650d63e22cf6db6f1d69
 
 COCOAPODS: 1.2.1

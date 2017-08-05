@@ -21,6 +21,7 @@
 @property(nonatomic,strong)NSMutableArray *Arr_data;
 @property(nonatomic,strong)YouAnMyCommentModel *model;
 @property(nonatomic,strong)commentsresults *commmentmodel;
+@property(nonatomic,strong)YouAnBusinessCardModel *busmodel;
 
 @end
 
@@ -167,8 +168,47 @@
         [self.tableView reloadSection:[dic[@"value"] integerValue] withRowAnimation:UITableViewRowAnimationNone];
     }else if ([dic[@"type"]isEqualToString:@"at"]){
     
-        
+        _commmentmodel = self.Arr_data[[dic[@"section"] integerValue]];
+        //找出这个人的id
+        for (Ats *at in _commmentmodel
+             .ats) {
+            if ([at.uname isEqualToString:dic[@"value"]]) {
+                
+                //找到了这个id
+                [self headimg:at.uid];
+                break;
+            }
+        }
         
     }
+}
+//跳转
+-(void)headimg:(NSInteger )uid{
+
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine BusinessCard:uid complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+            
+            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
+            view.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:view animated:YES];
+            
+        }else{
+            
+            if (responseObject[@"msg"]) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+                
+            }else{
+                
+                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            }
+        }
+    }];
 }
 @end

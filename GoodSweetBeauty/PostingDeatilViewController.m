@@ -110,6 +110,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     @weakify(self);
     [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 if_master:self.if_master complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [self.tableview.mj_header endRefreshing];
         [self.tableview.mj_footer endRefreshing];
         [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
@@ -209,10 +210,13 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [self LoadData:++self.page];
         
     }];
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        @strongify(self);
+        self.page=1;
+        [self LoadData:self.page];
+        
+    }];
     [ZFCWaveActivityIndicatorView show:self.view];
-
-    
-    
     
 }
 -(void)CreateRightBtn{
@@ -785,11 +789,16 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             
         }else{
             
-            [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            if (responseObject[@"msg"]) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+                
+            }else{
+                
+                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            }
         }
     }];
-          
-    
 }
 /**
  打赏
@@ -823,6 +832,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     if ([btn isEqual:self.btn_share]) {
      
         MYLOG(@"分享");
+        AppShareView *view = [[AppShareView alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)];
+        [view show];
+        
     }else{
         if(![BWCommon islogin]){
             [BWCommon PushTo_Login:self];
@@ -858,6 +870,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 MYLOG(@"@的id:%ld",(long)atmodel.uid)
                 [self headimg:atmodel.uid];
+                break;
             }
         }
     }else{
@@ -870,6 +883,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 MYLOG(@"@的id:%ld",(long)atmodel.uid)
                 [self headimg:atmodel.uid];
+                break;
             }
             
         }

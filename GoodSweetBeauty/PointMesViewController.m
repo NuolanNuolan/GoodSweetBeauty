@@ -226,7 +226,9 @@
 }
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
+    MYLOG(@"%f",scrollView.contentOffset.y)
 //    [self.view endEditing:YES];
+    
 }
 #pragma mark @protocol YYTextKeyboardObserver
 - (void)keyboardChangedWithTransition:(YYTextKeyboardTransition)transition {

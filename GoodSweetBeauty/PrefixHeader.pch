@@ -11,6 +11,7 @@
 #import "YouAnBBSDeatilModel.h"
 #import "YouAnMessageModel.h"
 #import "YouAnBusinessCardModel.h"
+#import "YouAnBusinessCardModel.h"
 
 
 #import<QuartzCore/QuartzCore.h>
@@ -42,6 +43,7 @@
 #import "YNPageScrollViewController.h"
 #import "JX_GCDTimerManager.h"
 #import "WHC_ModelSqlite.h"
+#import "AppShareView.h"
 
 #import "YYKit.h"
 #import "MSSBrowseDefine.h"
@@ -93,6 +95,19 @@
 #define MYLOG(...);
 #define LOG_METHOD;
 #endif
+
+
+#define KQQAPPID @"1106165573"
+#define KQQKEY @"Q0xKEgeNZAAismsU"
+#define KWXAPPID @"wx5dd1ae2ac598f207"
+#define KWXSECRET @"9d53596d37eaa1e0635d3155e5808e42"
+
+
+
+
+//私信通知key
+#define NLETTERNAME @"NLETTERNAME"
+
 
 //测试接口地址
 #define ADDRESS_API @"http://121.40.52.49:8010"

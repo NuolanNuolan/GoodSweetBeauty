@@ -179,7 +179,7 @@
 
     if (resmodel) {
         
-        [image_head sd_setImageWithURL:[NSURL URLWithString:resmodel.from_member.avatar] placeholderImage:[UIImage imageNamed:@"head"]];
+        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,resmodel.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         [lab_username setText:resmodel.from_member_name];
         
         [lab_time setText:[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)resmodel.created] withtype:@"MM-dd"]];
@@ -207,8 +207,8 @@
 //处理评论
 -(void)DealComment:(commentsresults *)resmodel withsection:(NSInteger )section{
 
-//    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
-    NSDictionary *dic = [BWCommon textWithStatusRowHeight:@"专业设计团队，从需求分析到市场定位，执专业设计团队，从需求分析到" Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+//    NSDictionary *dic = [BWCommon textWithStatusRowHeight:@"专业设计团队，从需求分析到市场定位，执专业设计团队，从需求分析到" Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
     //判断是否有展开按钮
     CGFloat height = [dic[@"height"] floatValue];
     btn_open.tag = section;
@@ -258,10 +258,10 @@
 
     momdel_comment = resmodel;
     [stack_imageview whc_RemoveAllSubviews];
-    
-    
-    
     NSInteger newCount = resmodel.images.count;
+    if (newCount==0) stack_imageview.whc_LeftSpaceEqualView(lab_username).whc_RightSpace(15).whc_TopSpaceToView(0,btn_open).whc_HeightAuto();
+    else stack_imageview.whc_LeftSpaceEqualView(lab_username).whc_RightSpace(15).whc_TopSpaceToView(15,btn_open).whc_HeightAuto();
+    
     NSInteger oldCount = stack_imageview.subviews.count;
     NSInteger countDiff = newCount - oldCount;
     

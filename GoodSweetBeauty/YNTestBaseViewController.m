@@ -402,7 +402,14 @@
             
         }else{
         
-            [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            if (responseObject[@"msg"]) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+                
+            }else{
+                
+                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            }
         }
     }];
     

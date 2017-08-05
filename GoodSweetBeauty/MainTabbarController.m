@@ -23,6 +23,12 @@
 @interface MainTabbarController ()<YNPageScrollViewControllerDataSource,SDCycleScrollViewDelegate,YNPageScrollViewControllerDelegate>
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 
+@property(nonatomic,strong)UIViewController *vc1;
+
+@property(nonatomic,strong)ToolsViewController *vc2;
+
+@property(nonatomic,strong)CenterViewController *vc3;
+
 @end
 
 @implementation MainTabbarController
@@ -31,10 +37,9 @@
     [super viewDidLoad];
     [self CreateUI];
     [self CreateController];
-
     
+    [self addnotifation];
     
-//    [self CancelTabbar];
     // Do any additional setup after loading the view.
 }
 -(void)CreateUI{
@@ -42,12 +47,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBar.backgroundColor = [UIColor whiteColor];
     self.tabBar.tintColor =GETMAINCOLOR;
-//    [UITabBar appearance].translucent = NO;
-    //上部分阴影
-//
-//    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc] init]];
-//    [[UITabBar appearance] setBackgroundColor:[UIColor whiteColor]];
-//    [[UITabBar appearance] setShadowImage:[UIImage imageNamed:@"tapbar_top_line"]];
 }
 //去掉tabbar上部分黑线
 -(void)CancelTabbar
@@ -77,42 +76,42 @@
     NSMutableArray *ChildVCArray = [NSMutableArray arrayWithCapacity:0];
     
     
-    UIViewController *vc1 = [self CreateUIMain];
-    ToolsViewController *vc2 = [ToolsViewController new];
-    CenterViewController *vc3 = [CenterViewController new];
-    vc1.tabBarItem.title = @"论坛";
-    vc2.tabBarItem.title = @"工具";
-    vc3.tabBarItem.title = @"我的";
-    
-    vc1.tabBarItem.image = imageRender(@"iconBottombarHomeDef");
-    vc1.tabBarItem.selectedImage = imageRender(@"iconBottombarHomeCur");
-    
-    vc2.tabBarItem.image = imageRender(@"iconBottombarToolDef");
-    vc2.tabBarItem.selectedImage = imageRender(@"iconBottombarToolCur");
-    
-    vc3.tabBarItem.image = imageRender(@"iconBottombarMeDef");
-    vc3.tabBarItem.selectedImage = imageRender(@"iconBottombarMeCur");
-    
-//    [[UITabBarItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:GETMAINCOLOR, NSForegroundColorAttributeName, nil] forState:UIControlStateSelected];
-    
-    UINavigationController *nvc1 = [[UINavigationController alloc]initWithRootViewController:vc1];
-    UINavigationController *nvc2 = [[UINavigationController alloc]initWithRootViewController:vc2];
-    UINavigationController *nvc3 = [[UINavigationController alloc]initWithRootViewController:vc3];
-    
-    vc1.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
-    vc2.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
-    vc3.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
-    
-    vc1.navigationController.navigationBar.translucent = NO;
-    vc2.navigationController.navigationBar.translucent = NO;
-    vc3.navigationController.navigationBar.translucent = NO;
+    self.vc1 = [self CreateUIMain];
+    self.vc2 = [ToolsViewController new];
+    self.vc3 = [CenterViewController new];
+    self.vc1.tabBarItem.title = @"论坛";
+    self.vc2.tabBarItem.title = @"工具";
+    self.vc3.tabBarItem.title = @"我的";
     
     
-    [vc1.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+    self.vc1.tabBarItem.image = imageRender(@"iconBottombarHomeDef");
+    self.vc1.tabBarItem.selectedImage = imageRender(@"iconBottombarHomeCur");
+    
+    self.vc2.tabBarItem.image = imageRender(@"iconBottombarToolDef");
+    self.vc2.tabBarItem.selectedImage = imageRender(@"iconBottombarToolCur");
+    
+    self.vc3.tabBarItem.image = imageRender(@"iconBottombarMeDef");
+    self.vc3.tabBarItem.selectedImage = imageRender(@"iconBottombarMeCur");
+
+    
+    UINavigationController *nvc1 = [[UINavigationController alloc]initWithRootViewController:self.vc1];
+    UINavigationController *nvc2 = [[UINavigationController alloc]initWithRootViewController:self.vc2];
+    UINavigationController *nvc3 = [[UINavigationController alloc]initWithRootViewController:self.vc3];
+    
+    self.vc1.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+    self.vc2.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
+    self.vc3.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+    
+    self.vc1.navigationController.navigationBar.translucent = NO;
+    self.vc2.navigationController.navigationBar.translucent = NO;
+    self.vc3.navigationController.navigationBar.translucent = NO;
+    
+    
+    [self.vc1.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                     NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    [vc2.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+    [self.vc2.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                      NSForegroundColorAttributeName:[UIColor blackColor]}];
-    [vc3.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
+    [self.vc3.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
     [nvc1.navigationBar setTintColor:[UIColor whiteColor ]];
     [nvc2.navigationBar setTintColor:[UIColor whiteColor ]];
@@ -154,7 +153,6 @@
     //头部headerView
     UIView *headerView2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 163)];
     //轮播器
-    
     NSArray *imagesURLStrings = @[
                                   @"https://ss2.baidu.com/-vo3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a4b3d7085dee3d6d2293d48b252b5910/0e2442a7d933c89524cd5cd4d51373f0830200ea.jpg",
                                   @"https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/super/whfpf%3D425%2C260%2C50/sign=a41eb338dd33c895a62bcb3bb72e47c2/5fdf8db1cb134954a2192ccb524e9258d1094a1e.jpg",
@@ -191,7 +189,7 @@
 }
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index{
     
-    NSLog(@"轮播图 点击 Index : %zd",index);
+    MYLOG(@"轮播图 点击 Index : %zd",index);
 //    LoginViewController *view = [LoginViewController new];
 //    view.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:view animated:YES];
@@ -216,4 +214,24 @@
     [[[VC tableView] mj_footer] endRefreshing];
 }
 
+-(void)addnotifation{
+    
+    //添加私信通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(Change_badge:) name:NLETTERNAME object:nil];
+    
+}
+/**
+ 
+  收到通知改变 badge
+  */
+-(void)Change_badge:(NSNotification *)notification{
+    
+    GCD_MAIN(
+    
+    self.vc3.tabBarItem.badgeValue = notification.userInfo[@"badge"];
+             
+             );
+    
+    
+}
 @end

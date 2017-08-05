@@ -9,7 +9,8 @@
 static NSString * GETMESSAGE = @"GetMes";
 
 #import "AppDelegate+Sunday.h"
-
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "WXApi.h"
 
 @implementation AppDelegate (Sunday)
 
@@ -18,6 +19,10 @@ static NSString * GETMESSAGE = @"GetMes";
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [WXApi registerApp:KWXAPPID];
+    TencentOAuth *tecentauth = [[TencentOAuth alloc]initWithAppId:KQQAPPID andDelegate:nil];
+    MYLOG(@"QQ的tecentauth.accessToken%@:",tecentauth.accessToken)
+    
     //添加一个登录的通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(login_success:) name:@"LOGINSUCCNOTIFI" object:nil];
 }
@@ -63,6 +68,7 @@ static NSString * GETMESSAGE = @"GetMes";
     if (Arr_Model.count==0) {
         //第一次登录 或者是没有历史私信
         MYLOG(@"有%lu条新信息",(unsigned long)model.results.count)
+        [self PostNotiBadge:model.results.count];
         //写入数据库
         for (Results *res in model.results) {
             res.new_mes =YES;
@@ -89,6 +95,7 @@ static NSString * GETMESSAGE = @"GetMes";
             }else{
             
                 MYLOG(@"有%ld条新信息",(long)count)
+                [self PostNotiBadge:count];
                 
             }
             
@@ -99,6 +106,7 @@ static NSString * GETMESSAGE = @"GetMes";
             MYLOG(@"不是同一个用户 删除数据库 重新写入")
             [WHCSqlite clear:[YouAnMessageModel class]];
             MYLOG(@"有%lu条新信息",(unsigned long)model.results.count)
+            [self PostNotiBadge:model.results.count];
             for (Results *res in model.results) {
                 res.new_mes =YES;
             }
@@ -134,7 +142,15 @@ static NSString * GETMESSAGE = @"GetMes";
     return newcount;
     
 }
+/**
+ 
+ 有新消息  通知发送
+ */
+-(void)PostNotiBadge:(NSInteger)count{
 
+    [[NSNotificationCenter defaultCenter]postNotificationName:NLETTERNAME object:nil userInfo:@{@"badge":[NSString stringWithFormat:@"%ld",(long)count]}];
+    
+}
 -(void)login_success:(NSNotification *)notification{
 
     [self GetMes:[YouAnMessageModel new]];

@@ -17,6 +17,7 @@
 @property(nonatomic,assign)NSInteger page;
 @property(nonatomic,strong)YouAnAtMeModel *model;
 @property(nonatomic,strong)NSMutableArray *Arr_data;
+@property(nonatomic,strong)YouAnBusinessCardModel *busmodel;
 @end
 
 @implementation AtMeViewController
@@ -180,7 +181,8 @@
             
             if ([dic[@"name"] isEqualToString:atmodel.uname]) {
                 
-                MYLOG(@"@的ID是:%ld",(long)atmodel.uid)
+                [self headimg:atmodel.uid];
+                break;
             }
         }
     }else if ([dic[@"type"]isEqualToString:@"PUSH"]){
@@ -189,11 +191,35 @@
         [self.tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)];
         [self.tableview.delegate tableView:self.tableview didSelectRowAtIndexPath:path];
     }
-
-
-    
 }
-
+//跳转
+-(void)headimg:(NSInteger )uid{
+    
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine BusinessCard:uid complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+            
+            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
+            view.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:view animated:YES];
+            
+        }else{
+            if (responseObject[@"msg"]) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+                
+            }else{
+            
+               [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+            }
+        }
+    }];
+}
 
 
 

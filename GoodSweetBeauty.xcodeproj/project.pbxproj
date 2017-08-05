@@ -26,6 +26,17 @@
 		EA10A1751F2ED399000CF031 /* MyCommentsHead.m in Sources */ = {isa = PBXBuildFile; fileRef = EA10A1741F2ED399000CF031 /* MyCommentsHead.m */; };
 		EA10A1781F2EFEA3000CF031 /* CommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA10A1771F2EFEA3000CF031 /* CommentsTableViewCell.m */; };
 		EA1202441EF224940014F927 /* ZFCWaveActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */; };
+		EA138C8E1F3440C000C0BBD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = EA138C8C1F3440C000C0BBD5 /* TencentOpenApi_IOS_Bundle.bundle */; };
+		EA138C8F1F3440C000C0BBD5 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C8D1F3440C000C0BBD5 /* TencentOpenAPI.framework */; };
+		EA138C911F34419C00C0BBD5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C901F34419C00C0BBD5 /* Security.framework */; };
+		EA138C931F3441A700C0BBD5 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C921F3441A700C0BBD5 /* libiconv.tbd */; };
+		EA138C951F3441C400C0BBD5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C941F3441C400C0BBD5 /* SystemConfiguration.framework */; };
+		EA138C971F3441CE00C0BBD5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C961F3441CE00C0BBD5 /* CoreGraphics.framework */; };
+		EA138C991F3441DC00C0BBD5 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C981F3441DC00C0BBD5 /* libsqlite3.tbd */; };
+		EA138C9B1F3441E600C0BBD5 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C9A1F3441E600C0BBD5 /* CoreTelephony.framework */; };
+		EA138C9D1F3441F000C0BBD5 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C9C1F3441F000C0BBD5 /* libstdc++.tbd */; };
+		EA138C9F1F3441FA00C0BBD5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C9E1F3441FA00C0BBD5 /* libz.tbd */; };
+		EA138CA31F34457D00C0BBD5 /* AppShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA138CA21F34457D00C0BBD5 /* AppShareView.m */; };
 		EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */; };
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
@@ -218,6 +229,18 @@
 		EA10A1771F2EFEA3000CF031 /* CommentsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsTableViewCell.m; sourceTree = "<group>"; };
 		EA1202421EF224940014F927 /* ZFCWaveActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCWaveActivityIndicatorView.h; sourceTree = "<group>"; };
 		EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCWaveActivityIndicatorView.m; sourceTree = "<group>"; };
+		EA138C8C1F3440C000C0BBD5 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		EA138C8D1F3440C000C0BBD5 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		EA138C901F34419C00C0BBD5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		EA138C921F3441A700C0BBD5 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		EA138C941F3441C400C0BBD5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		EA138C961F3441CE00C0BBD5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		EA138C981F3441DC00C0BBD5 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		EA138C9A1F3441E600C0BBD5 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		EA138C9C1F3441F000C0BBD5 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		EA138C9E1F3441FA00C0BBD5 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		EA138CA11F34457D00C0BBD5 /* AppShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppShareView.h; sourceTree = "<group>"; };
+		EA138CA21F34457D00C0BBD5 /* AppShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppShareView.m; sourceTree = "<group>"; };
 		EA15CB461EBF471200034741 /* MyPost_OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost_OneTableViewCell.h; sourceTree = "<group>"; };
 		EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost_OneTableViewCell.m; sourceTree = "<group>"; };
 		EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
@@ -486,7 +509,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA138C9F1F3441FA00C0BBD5 /* libz.tbd in Frameworks */,
+				EA138C9D1F3441F000C0BBD5 /* libstdc++.tbd in Frameworks */,
+				EA138C9B1F3441E600C0BBD5 /* CoreTelephony.framework in Frameworks */,
+				EA138C991F3441DC00C0BBD5 /* libsqlite3.tbd in Frameworks */,
+				EA138C971F3441CE00C0BBD5 /* CoreGraphics.framework in Frameworks */,
+				EA138C951F3441C400C0BBD5 /* SystemConfiguration.framework in Frameworks */,
+				EA138C931F3441A700C0BBD5 /* libiconv.tbd in Frameworks */,
+				EA138C911F34419C00C0BBD5 /* Security.framework in Frameworks */,
 				EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */,
+				EA138C8F1F3440C000C0BBD5 /* TencentOpenAPI.framework in Frameworks */,
 				A2E09EEE0211A6ACCFEA81FC /* libPods-GoodSweetBeauty.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,6 +552,16 @@
 		A020200C6E504BE2ED592B29 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EA138C9E1F3441FA00C0BBD5 /* libz.tbd */,
+				EA138C9C1F3441F000C0BBD5 /* libstdc++.tbd */,
+				EA138C9A1F3441E600C0BBD5 /* CoreTelephony.framework */,
+				EA138C981F3441DC00C0BBD5 /* libsqlite3.tbd */,
+				EA138C961F3441CE00C0BBD5 /* CoreGraphics.framework */,
+				EA138C941F3441C400C0BBD5 /* SystemConfiguration.framework */,
+				EA138C921F3441A700C0BBD5 /* libiconv.tbd */,
+				EA138C901F34419C00C0BBD5 /* Security.framework */,
+				EA138C8C1F3440C000C0BBD5 /* TencentOpenApi_IOS_Bundle.bundle */,
+				EA138C8D1F3440C000C0BBD5 /* TencentOpenAPI.framework */,
 				EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */,
 				5D9E78C5DD548AFD7E4F0D26 /* libPods-GoodSweetBeauty.a */,
 			);
@@ -637,6 +679,15 @@
 				EA1202431EF224940014F927 /* ZFCWaveActivityIndicatorView.m */,
 			);
 			name = ZFCWaveHUD;
+			sourceTree = "<group>";
+		};
+		EA138CA01F34457100C0BBD5 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				EA138CA11F34457D00C0BBD5 /* AppShareView.h */,
+				EA138CA21F34457D00C0BBD5 /* AppShareView.m */,
+			);
+			name = Share;
 			sourceTree = "<group>";
 		};
 		EA26E3EF1ECEC783003D5F6C /* @我的 */ = {
@@ -1274,6 +1325,7 @@
 		EAAE62B41EBDDCE600AB9280 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				EA138CA01F34457100C0BBD5 /* Share */,
 				EA9DBB151EC6D8F3000FA93A /* Login */,
 			);
 			name = Public;
@@ -1478,6 +1530,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EA138C8E1F3440C000C0BBD5 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				EA52120C1F1374CE006EFD7F /* CoinsOneTableViewCell.xib in Resources */,
 				EA9CF61B1E80D3CD0050BA8B /* LaunchScreen.storyboard in Resources */,
 				EA52121C1F146389006EFD7F /* HistoryCoinsTableViewCell.xib in Resources */,
@@ -1636,6 +1689,7 @@
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
 				EA343B6A1F1859F8001F1FB1 /* MesListTableViewCell.m in Sources */,
+				EA138CA31F34457D00C0BBD5 /* AppShareView.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
@@ -1847,11 +1901,78 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodSweetBeauty/PrefixHeader.pch";
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"CocoaAsyncSocket\"",
+					"-l\"DACircularProgress\"",
+					"-l\"FLAnimatedImage\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"KIZBehavior\"",
+					"-l\"KMNavigationBarTransition\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PYPhotoBrowser\"",
+					"-l\"PYSearch\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"TZImagePickerController\"",
+					"-l\"UIBarButtonItem-Badge-Coding\"",
+					"-l\"WHC_AutoLayoutKit\"",
+					"-l\"WHC_Debuger\"",
+					"-l\"WHC_Model\"",
+					"-l\"WHC_ModelSqliteKit\"",
+					"-l\"YYKit\"",
+					"-l\"ZFPlayer\"",
+					"-l\"ZYCornerRadius\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+					"-fobjc-arc",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.youan.bbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1863,11 +1984,78 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/GoodSweetBeauty/PrefixHeader.pch";
 				INFOPLIST_FILE = GoodSweetBeauty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"CocoaAsyncSocket\"",
+					"-l\"DACircularProgress\"",
+					"-l\"FLAnimatedImage\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"KIZBehavior\"",
+					"-l\"KMNavigationBarTransition\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PYPhotoBrowser\"",
+					"-l\"PYSearch\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"SDCycleScrollView\"",
+					"-l\"SDWebImage\"",
+					"-l\"TZImagePickerController\"",
+					"-l\"UIBarButtonItem-Badge-Coding\"",
+					"-l\"WHC_AutoLayoutKit\"",
+					"-l\"WHC_Debuger\"",
+					"-l\"WHC_Model\"",
+					"-l\"WHC_ModelSqliteKit\"",
+					"-l\"YYKit\"",
+					"-l\"ZFPlayer\"",
+					"-l\"ZYCornerRadius\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MediaPlayer\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"WebP\"",
+					"-fobjc-arc",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.youan.bbs;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

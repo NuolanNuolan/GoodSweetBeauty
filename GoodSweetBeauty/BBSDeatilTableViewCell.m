@@ -152,6 +152,12 @@
                 btn.layer.borderColor = RGB(136, 136, 136).CGColor;
                 [btn setTitleColor:RGB(136, 136, 136) forState:UIControlStateNormal];
                 [btn setTitle:@"已关注" forState:UIControlStateNormal];
+            }else{
+            
+                if (responseObject[@"msg"]) {
+                    
+                    [MBProgressHUD showError:responseObject[@"msg"]];
+                }
             }
         }];
     }else{

@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "AppDelegate+Sunday.h"
 #import "HJViewController.h"
+#import "WXApi.h"
 
 @interface AppDelegate ()
 @property(nonatomic,strong)YouAnMessageModel *MesModel;

@@ -237,6 +237,7 @@
             NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
             if (dic) {
                 MYLOG(@"%@",dic)
+                complete(NO,dic);
             }
         }
         complete(NO,nil);
