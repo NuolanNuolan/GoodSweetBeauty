@@ -157,7 +157,37 @@
     switch (section) {
         case 0:
             lab_title.text = @"输入新密码";
+            text_input.placeholder = @"请输入密码";
             text_input.tag= 101;
+            text_input.secureTextEntry = YES;
+            [text_input becomeFirstResponder];
+            break;
+    }
+}
+//修改密码的
+-(void)ModifyPwd:(NSInteger )section{
+
+    switch (section) {
+        case 0:
+            lab_title.text = @"旧密码";
+            text_input.tag= 100;
+            text_input.placeholder = @"输入旧密码";
+            text_input.secureTextEntry = YES;
+            [text_input becomeFirstResponder];
+            break;
+        case 1:
+            lab_title.text = @"新密码";
+            text_input.placeholder = @"输入新密码";
+            text_input.tag= 101;
+            text_input.secureTextEntry = YES;
+            
+            break;
+        case 2:
+            lab_title.text = @"确认密码";
+            text_input.placeholder = @"再次输入新密码";
+            text_input.tag= 102;
+            text_input.secureTextEntry = YES;
+            
             break;
     }
 }

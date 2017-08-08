@@ -16,7 +16,7 @@
 
 @interface MSSBrowseBaseViewController ()
 
-@property (nonatomic,strong)NSArray *browseItemArray;
+@property (nonatomic,copy)NSArray *browseItemArray;
 @property (nonatomic,assign)NSInteger currentIndex;
 @property (nonatomic,assign)BOOL isRotate;// 判断是否正在切换横竖屏
 @property (nonatomic,strong)UILabel *countLabel;// 当前图片位置

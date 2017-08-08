@@ -9,9 +9,9 @@
 #import "BBSimageDeatilTableViewCell.h"
 @interface BBSimageDeatilTableViewCell(){
 
-    WHC_StackView  * stack_imageview;
+//    WHC_StackView  * stack_imageview;
     //查看更多图片
-    UIButton *btn_ToMore;
+//    UIButton *btn_ToMore;
     //model
     YouAnBBSDeatilModel *Detailmodel;
     //图片URL数组
@@ -42,24 +42,24 @@
 }
 -(void)SetFarme{
 
-    stack_imageview = [WHC_StackView new];
+//    stack_imageview = [WHC_StackView new];
     
-    btn_ToMore = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn_ToMore setTitle:@"查看更多图片" forState:UIControlStateNormal];
-    [btn_ToMore setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
-    [btn_ToMore addTarget:self action:@selector(OnPicture) forControlEvents:UIControlEventTouchUpInside];
-    btn_ToMore.titleLabel.font = [UIFont systemFontOfSize:14];
+//    btn_ToMore = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [btn_ToMore setTitle:@"查看更多图片" forState:UIControlStateNormal];
+//    [btn_ToMore setTitleColor:GETMAINCOLOR forState:UIControlStateNormal];
+//    [btn_ToMore addTarget:self action:@selector(OnPicture) forControlEvents:UIControlEventTouchUpInside];
+//    btn_ToMore.titleLabel.font = [UIFont systemFontOfSize:14];
     
-    [self.contentView addSubview:stack_imageview];
-    [self.contentView addSubview:btn_ToMore];
+//    [self.contentView addSubview:stack_imageview];
+//    [self.contentView addSubview:btn_ToMore];
     
-    stack_imageview.whc_TopSpace(30).whc_LeftSpace(15).whc_RightSpace(15).whc_HeightAuto();
-    btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
+//    stack_imageview.whc_TopSpace(30).whc_LeftSpace(15).whc_RightSpace(15).whc_HeightAuto();
+//    btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
     
-    stack_imageview.whc_Column = 1;
-    stack_imageview.whc_Edge = UIEdgeInsetsZero;
-    stack_imageview.whc_VSpace = 5;
-    stack_imageview.whc_Orientation = Vertical;
+//    stack_imageview.whc_Column = 1;
+//    stack_imageview.whc_Edge = UIEdgeInsetsZero;
+//    stack_imageview.whc_VSpace = 5;
+//    stack_imageview.whc_Orientation = Vertical;
     
     self.whc_TableViewWidth = self.whc_sw;
     
@@ -87,12 +87,12 @@
     
     //判断图片是否有多张
     if (Detailmodel.master_posts.images.count>1) {
-        btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
-        btn_ToMore.hidden = NO;
+//        btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
+//        btn_ToMore.hidden = NO;
         
     }else{
-        btn_ToMore.whc_TopSpaceToView(0,stack_imageview).whc_Size(0,0).whc_CenterX(0);
-        btn_ToMore.hidden =YES;
+//        btn_ToMore.whc_TopSpaceToView(0,stack_imageview).whc_Size(0,0).whc_CenterX(0);
+//        btn_ToMore.hidden =YES;
         
     }
     Arr_image = [NSMutableArray arrayWithObjects:Detailmodel.master_posts.image, nil];
@@ -101,8 +101,8 @@
 //展开
 -(void)openImage{
     
-    btn_ToMore.whc_TopSpaceToView(0,stack_imageview).whc_Size(0,0).whc_CenterX(0);
-    btn_ToMore.hidden =YES;
+//    btn_ToMore.whc_TopSpaceToView(0,stack_imageview).whc_Size(0,0).whc_CenterX(0);
+//    btn_ToMore.hidden =YES;
     //对图片地址进行处理
     Arr_image = [NSMutableArray arrayWithArray:Detailmodel.master_posts.images];
     
@@ -113,35 +113,29 @@
 
 //图片布局方法
 -(void)SetFarmeimageview:(NSMutableArray *)arr{
-    [stack_imageview whc_RemoveAllSubviews];
+
     for (int i =0; i<arr.count; i++) {
         
         UIImageView * imageView = [UIImageView new];
+        [self.contentView addSubview:imageView];
         imageView.userInteractionEnabled = YES;
-        imageView.tag = i;
+        imageView.tag = 100+i;
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
-        
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-            
            CGRect rect =   [image mss_getBigImageRectSizeWithScreenWidth:ScreenWidth-30 screenHeight:ScreenHeight];
-            
-            MYLOG(@"%f--%f",rect.size.width,rect.size.height)
-//            imageView.whc_Size(rect.size.width,rect.size.height);
-            
-//            imageView.whc_Size(rect.size.width,rect.size.height);
-            
-            imageView.whc_HeightWeight =rect.size.height/rect.size.width;
-//            stack_imageview.whc_SubViewWidth = rect.size.width;
-//            stack_imageview.whc_SubViewHeight = rect.size.height;
-            
-            
+            if (i==0) {
+                imageView.whc_LeftSpace(15).whc_RightSpace(15).whc_TopSpace(30).whc_Height(rect.size.height);
+            }else{
+                
+                UIImageView *image_view = [self.contentView viewWithTag:i+100-1];
+                
+                imageView.whc_LeftSpaceEqualView(image_view).whc_RightSpaceEqualView(image_view).whc_TopSpaceToView(5,image_view).whc_Height(rect.size.height);
+            }
         }];
-        [stack_imageview addSubview:imageView];
     }
-    [stack_imageview whc_StartLayout];
+
 }
 
 //第一张图片放大
@@ -154,12 +148,12 @@
         
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
         browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image[i]];
-        browseItem.smallImageView = stack_imageview.subviews[i];// 小图
+        browseItem.smallImageView = [self.contentView viewWithTag:100+i];// 小图
         [arr_image_view addObject:browseItem];
     }
-    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tap.view.tag];
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:tap.view.tag-100];
     MYLOG(@"%ld",tap.view.tag);
-    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    bvc.isEqualRatio = YES;// 大图小图不等比时需要设置这个属性（建议等比）
     [bvc showBrowseViewController:nil];
 }
 

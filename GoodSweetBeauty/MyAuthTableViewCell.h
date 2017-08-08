@@ -17,4 +17,6 @@
 
 //设置密码的
 -(void)SetPwd:(NSInteger )section;
+//修改密码的
+-(void)ModifyPwd:(NSInteger )section;
 @end

@@ -95,6 +95,7 @@
     [self.text_code setTextColor:RGB(51, 51, 51)];
     [self.text_code setKeyboardType:UIKeyboardTypeNumberPad];
     [self.text_code setReturnKeyType:UIReturnKeyNext];
+    [self.text_code becomeFirstResponder];
     self.text_code.rightView = self.btn_code;
     self.text_code.rightViewMode = UITextFieldViewModeAlways;
     [self.text_code setPlaceholder:@"请输入验证码"];

@@ -9,6 +9,10 @@
 #import "SettingViewController.h"
 #import "SettingTableViewCell.h"
 #import "SettingSwitchTableViewCell.h"
+#import "AccountSecurityViewController.h"
+#import "FeedbackViewController.h"
+#import "AboutUsViewController.h"
+#import "VersionInformationViewController.h"
 
 @interface SettingViewController()<UITableViewDelegate,UITableViewDataSource>
 
@@ -109,21 +113,27 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
-
+    HJViewController *view;
     switch (indexPath.section) {
         case 0:
             MYLOG(@"账号安全");
+            view = [AccountSecurityViewController new];
             break;
         case 1:
             MYLOG(@"关于有安");
+            view = [AboutUsViewController new];
             break;
         case 3:
             MYLOG(@"版本信息");
+            view = [VersionInformationViewController new];
             break;
         case 4:
             MYLOG(@"意见反馈");
+            view = [FeedbackViewController new];
             break;
     }
+    view.hidesBottomBarWhenPushed =YES;
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 

@@ -16,7 +16,7 @@
 @interface MSSBrowseActionSheet ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView;
-@property (nonatomic,strong)NSArray *titleArray;
+@property (nonatomic,copy)NSArray *titleArray;
 @property (nonatomic,copy)NSString *cancelTitle;
 @property (nonatomic,copy)MSSBrowseActionSheetDidSelectedAtIndexBlock selectedBlock;
 @property (nonatomic,assign)CGFloat tableViewHeight;

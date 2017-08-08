@@ -72,6 +72,7 @@
 #define GCD_GETGLOBAL_QUEUE(Block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{Block})
 //判断系统版本号
 #define SYSTEMVERSION [[UIDevice currentDevice] systemVersion]
+#define GETAPPVERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 ///得到沙盒路径
 #define kDocumentPath [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
 //颜色处理

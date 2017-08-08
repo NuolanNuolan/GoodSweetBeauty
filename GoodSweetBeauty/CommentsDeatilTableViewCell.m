@@ -59,9 +59,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     NSArray *Arr_image_main;
     //楼中楼的图片
     NSArray *Arr_image_floor;
-
-    
-    
 }
 @property(nonatomic,strong)Posts *PostsModel;
 @end

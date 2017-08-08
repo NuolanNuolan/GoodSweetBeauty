@@ -66,7 +66,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //按时间 按热度
 @property(nonatomic,strong)UILabel *lab_timeOrhot;
 @property(nonatomic,strong)UIButton *btn_timeOrhot;
-@property(nonatomic,strong)NSArray *arr_items;
+@property(nonatomic,copy)NSArray *arr_items;
 
 //尾部视图
 @property(nonatomic,strong)UILabel *lab_footer;
@@ -269,9 +269,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     UIView *view_share = [self create_btn_bot:@"分享" withimage:@"iconBottombarShare"];
     ;
-    UIView *view_collection = [self create_btn_bot:@"收藏" withimage:@"iconBottombarShoucang"];
-
+//    view_share.backgroundColor = [UIColor yellowColor];
     
+    UIView *view_collection = [self create_btn_bot:@"收藏" withimage:@"iconBottombarShoucang"];
+//    view_collection.backgroundColor = [UIColor blueColor];
     
     [view_btn addSubview:view_line];
     [view_btn addSubview:view_share];
@@ -307,13 +308,16 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     if ([title isEqualToString:@"分享"]) {
         self.btn_share = btn;
-        btn.whc_Size(21,21).whc_TopSpace(6.5).whc_LeftSpace(27.5);
+//        btn.whc_Size(21,21).whc_TopSpace(6.5).whc_LeftSpace(27.5);
+        btn.whc_Size(21,21).whc_TopSpace(6.5).whc_CenterX(0);
+        
         lab_title.whc_TopSpace(34).whc_Size(30,11).whc_CenterXToView(0,btn);
         
     }else{
     
         self.btn_collection = btn;
-        btn.whc_Size(19,17.4).whc_TopSpace(9).whc_LeftSpace(13);
+//        btn.whc_Size(19,17.4).whc_TopSpace(9).whc_LeftSpace(13);
+        btn.whc_Size(19,17.4).whc_TopSpace(9).whc_CenterX(0);
         lab_title.whc_TopSpace(34).whc_Size(30,11).whc_CenterXToView(0,btn);
     }
     
@@ -819,8 +823,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)Exceptional:(NSString *)conins{
 
     MYLOG(@"%@",conins);
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine Exceptional:[conins integerValue] withpk:self.Deatilmodel.id complete:^(BOOL success, id responseObject) {
-        
+        [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
             [MBProgressHUD showSuccess:responseObject[@"msg"] toView:self.view];
             //刷新有安币打赏的表格
@@ -839,7 +844,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }
     }];
 }
-
 /**
  帖子底部按钮操作
  */
