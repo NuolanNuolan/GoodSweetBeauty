@@ -7,6 +7,7 @@
 //
 
 #import "CommentsDeatilTableViewCell.h"
+#import "YCXMenu.h"
 static NSString *const kMycommentsCellIdentifier = @"kMycommentsCellIdentifier";
 static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCellIdentifier";
 
@@ -23,6 +24,14 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     //点赞按钮 回复按钮
     UIButton *btn_Thumb;
     UIButton *btn_back;
+    //等级图标 是否vip图标 是否是楼主图标
+    UIImageView * image_auth;
+    UIImageView * image_level;
+    UIImageView * image_OriginalPoster;
+    
+    
+    
+    
     
     //内容
     XXLinkLabel *lab_deatil;
@@ -74,7 +83,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     return self;
 }
 -(void)InitFarme:(NSString *)reuseIdentifier{
-
+    
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     image_head.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(head_click:)];
@@ -86,6 +95,12 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [lab_name setFont:[UIFont systemFontOfSize:15]];
     [lab_name setTextColor:RGB(51, 51, 51)];
     
+    image_auth = [UIImageView new];
+    
+    image_level = [UIImageView new];
+    
+    image_OriginalPoster = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"labelLouzhu"]];
+    
     lab_time_floor = [UILabel new];
     [lab_time_floor sizeToFit];
     [lab_time_floor setTextColor:RGB(153, 153, 153)];
@@ -94,6 +109,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     btn_report = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn_report setEnlargeEdgeWithTop:15 right:15 bottom:0 left:15];
     [btn_report setBackgroundImage:[UIImage imageNamed:@"iconDetailMore"] forState:UIControlStateNormal];
+    [btn_report addTarget:self action:@selector(btn_report_click:) forControlEvents:UIControlEventTouchUpInside];
     
     
     btn_Thumb = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -144,9 +160,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [self.contentView addSubview:btn_report];
         [self.contentView addSubview:btn_back];
         [self.contentView addSubview:lab_deatil];
+        [self.contentView addSubview:image_auth];
+        [self.contentView addSubview:image_level];
+        [self.contentView addSubview:image_OriginalPoster];
         
         image_head.whc_Size(40,40).whc_LeftSpace(15).whc_TopSpace(15);
-        lab_name.whc_TopSpace(20.5).whc_LeftSpaceToView(10,image_head).whc_RightSpaceToView(7.5,btn_report);
+        lab_name.whc_TopSpace(20.5).whc_LeftSpaceToView(10,image_head);
+        image_auth.whc_Size(11,9).whc_LeftSpaceToView(5,lab_name).whc_CenterYToView(0,lab_name);
+        image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(12,11).whc_CenterYToView(0,lab_name);
+        image_OriginalPoster.whc_LeftSpaceToView(5,image_level).whc_Size(24,14).whc_CenterYToView(0,lab_name);
         lab_time_floor.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(5.5,lab_name);
         btn_report.whc_RightSpace(15).whc_Size(4,18).whc_TopSpaceEqualView(lab_name);
         lab_deatil.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(20,lab_time_floor).whc_RightSpace(20);
@@ -224,9 +246,15 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [self.contentView addSubview:btn_father_open];
         [self.contentView addSubview:view_father_line];
         [self.contentView addSubview:lab_father_back];
+        [self.contentView addSubview:image_auth];
+        [self.contentView addSubview:image_level];
+        [self.contentView addSubview:image_OriginalPoster];
         
         image_head.whc_Size(40,40).whc_LeftSpace(15).whc_TopSpace(15);
-        lab_name.whc_TopSpace(20.5).whc_LeftSpaceToView(10,image_head).whc_RightSpaceToView(7.5,btn_report);
+        lab_name.whc_TopSpace(20.5).whc_LeftSpaceToView(10,image_head);
+        image_auth.whc_Size(11,9).whc_LeftSpaceToView(5,lab_name).whc_CenterYToView(0,lab_name);
+        image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(12,11).whc_CenterYToView(0,lab_name);
+        image_OriginalPoster.whc_LeftSpaceToView(5,image_level).whc_Size(24,14).whc_CenterYToView(0,lab_name);
         lab_time_floor.whc_LeftSpaceEqualView(lab_name).whc_TopSpaceToView(5.5,lab_name);
         btn_report.whc_RightSpace(15).whc_Size(4,18).whc_TopSpaceEqualView(lab_name);
         view_father_line.whc_LeftSpaceEqualView(lab_name).whc_Width(4).whc_TopSpaceToView(19,lab_time_floor).whc_BottomSpaceEqualViewOffset(btn_father_open,0);
@@ -249,20 +277,69 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     line.whc_LeftSpaceEqualView(lab_name).whc_RightSpace(0).whc_TopSpaceToView(15,btn_back).whc_Height(0.5f);
     self.whc_TableViewWidth = SCREEN_WIDTH;
 }
--(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments{
+/**
+ 相关处理
+ */
+-(void)DealwithUI:(Posts *)postsmodel withrow:(NSInteger) row withisAllcomments:(BOOL )isAllcomments masterid:(NSInteger )masterid{
+
+    [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,postsmodel.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+    image_head.tag = postsmodel.author_id;
+    lab_name.text = postsmodel.author;
+    lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
+    //设置点赞数以及是否点赞
+    [self ThunmbValue:[NSString stringWithFormat:@"%ld",(long)postsmodel.likes]Posts:postsmodel];
+    //设置举报的id
+    if (isAllcomments){
+        
+        btn_back.tag = 200+row;
+        btn_report.tag = 200+row;
+    }
+    else {
+        
+        btn_back.tag = 100+row;
+        btn_report.tag = 100+row;
+        
+    }
+    btn_Thumb.tag = postsmodel.id;
+    
+    //判断等级以及是否关注等
+    if (postsmodel.author_profile.vip == 0) {
+        image_auth.whc_Size(0,0).whc_LeftSpaceToView(5,lab_name).whc_CenterYToView(0,lab_name);
+    }else{
+        
+        image_auth.whc_Size(11,9).whc_LeftSpaceToView(5,lab_name).whc_CenterYToView(0,lab_name);
+        //这里根据判断显示哪张图片
+        image_auth.image = [UIImage imageNamed:@"iconVRed"];
+        
+    }
+    if (postsmodel.author_profile.level == 0) {
+        image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(0,0).whc_CenterYToView(0,lab_name);
+    }else{
+        
+        image_level.whc_LeftSpaceToView(5,image_auth).whc_Size(12,11).whc_CenterYToView(0,lab_name);
+        image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)postsmodel.author_profile.level]];
+    }
+    if (postsmodel.author_id==masterid) {
+        //是楼主
+        image_OriginalPoster.hidden =NO;
+        
+    }else{
+    
+        image_OriginalPoster.hidden =YES;
+    }
+    
+    
+    
+    
+}
+-(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments masterid:(NSInteger )masterid{
 
     if (postsmodel) {
         self.PostsModel = postsmodel;
-        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,postsmodel.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
-        image_head.tag = postsmodel.author_id;
-        lab_name.text = postsmodel.author;
-        lab_time_floor.text = [NSString stringWithFormat:@"第%ld楼 %@",(long)row+1,[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)                                             postsmodel.created] withtype:@"MM-dd HH:mm:ss"]];
-        //设置点赞数以及是否点赞
-        [self ThunmbValue:[NSString stringWithFormat:@"%ld",(long)postsmodel.likes]Posts:postsmodel];
 
-        if (isAllcomments)btn_back.tag = 200+row;
-        else btn_back.tag = 100+row;
-        btn_Thumb.tag = postsmodel.id;
+        [self DealwithUI:postsmodel withrow:row withisAllcomments:isAllcomments masterid:masterid];
+        
+
         if (!isfather) {
            
             lab_deatil.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-85];
@@ -637,13 +714,17 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                           @"type":@"展开评论"};
     if (self.delegateSignal) [self.delegateSignal sendNext:dic];
 }
-//- (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
-//{
-//    MYLOG(@"%@",str)
-//    NSDictionary *dict = @{NSFontAttributeName : font};
-//    // 如果将来计算的文字的范围超出了指定的范围,返回的就是指定的范围
-//    // 如果将来计算的文字的范围小于指定的范围, 返回的就是真实的范围
-//    CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
-//    return size;
-//}
+/**
+ 举报
+ */
+-(void)btn_report_click:(UIButton *)btn{
+
+    NSDictionary *dic = @{@"btn":btn,
+                          @"type":@"举报"};
+    if (self.delegateSignal) [self.delegateSignal sendNext:dic];
+    
+}
+
+
+
 @end

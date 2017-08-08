@@ -15,6 +15,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 #import "BBSimageDeatilTableViewCell.h"
 #import "BBSExceptionalTableViewCell.h"
 #import "CommentsDeatilTableViewCell.h"
+#import "YCXMenu.h"
 
 
 
@@ -61,6 +62,11 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 @property(nonatomic,strong)UILabel *lab_all_comments;
 
 @property(nonatomic,strong)UIView *view_head_line;
+
+//按时间 按热度
+@property(nonatomic,strong)UILabel *lab_timeOrhot;
+@property(nonatomic,strong)UIButton *btn_timeOrhot;
+@property(nonatomic,strong)NSArray *arr_items;
 
 //尾部视图
 @property(nonatomic,strong)UILabel *lab_footer;
@@ -378,6 +384,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }
     return 0.001;
 }
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
      
     switch (indexPath.section) {
@@ -514,7 +521,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 Posts *postsmodel = self.Arr_comments_hot[indexPath.row];
                 CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:postsmodel.father_id ==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
-                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_hot.count isAllcomments:NO];
+                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_hot.count isAllcomments:NO masterid:self.Deatilmodel.author_id];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 cell.delegateSignal = [RACSubject subject];
                 @weakify(self);
@@ -532,6 +539,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                     }else if([x[@"type"] isEqualToString:@"AllComments"]||[x[@"type"] isEqualToString:@"HotComents"]){
                     
                         [self Atscreening:x];
+                    }else if ([x[@"type"] isEqualToString:@"举报"]){
+                    
+                    
+                        [self report_click:x];
                     }
                 }];
                 return cell;
@@ -553,8 +564,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 Posts *postsmodel = self.Arr_comments_all[indexPath.row];
                 CommentsDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:postsmodel.father_id ==0?kMycommentsCellIdentifier:kMycommentsfatherCellIdentifier];
-                
-                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_all.count isAllcomments:YES];
+                [cell SetAllPotsModel:postsmodel withisopen:postsmodel.isopen withrow:indexPath.row isfather:postsmodel.father_id ==0?NO:YES withAllrow:self.Arr_comments_all.count isAllcomments:YES masterid:self.Deatilmodel.author_id];
                 [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
                 cell.delegateSignal = [RACSubject subject];
                 @weakify(self);
@@ -572,6 +582,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                     }else if([x[@"type"] isEqualToString:@"AllComments"]||[x[@"type"] isEqualToString:@"HotComents"]){
                         
                         [self Atscreening:x];
+                    }else if ([x[@"type"] isEqualToString:@"举报"]){
+                        
+                        
+                        [self report_click:x];
                     }
 
                     
@@ -751,7 +765,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     NSIndexPath *  indexpathone ;
 
-    
     if (btn.tag>=200) {
         //全部评论
         Posts *postsmodel = [self.Arr_comments_all objectAtIndex:btn.tag-200];
@@ -810,6 +823,9 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         
         if (success) {
             [MBProgressHUD showSuccess:responseObject[@"msg"] toView:self.view];
+            //刷新有安币打赏的表格
+            self.page=1;
+            [self LoadData:self.page];
         }else{
         
             if (responseObject) {
@@ -907,7 +923,77 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     
     
 }
-#pragma mark 懒加载视图
+/**
+ 点击弹出框
+ */
+-(void)tap_view_click{
+
+    MYLOG(@"弹出框")
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
+    @weakify(self);
+    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"按时间",@"按热度"] titlecolor:GETMAINCOLOR handler:^(LPActionSheet *actionSheet, NSInteger index) {
+        @strongify(self);
+        switch (index) {
+            case 1:{
+                
+                MYLOG(@"按时间")
+            }
+                break;
+            case 2:{
+                
+                MYLOG(@"按热度")
+            }
+                break;
+        }
+    }];
+    [sheet show];
+    
+}
+/**
+ 
+ 举报
+ */
+-(void)report_click:(NSDictionary *)dic{
+
+    MYLOG(@"弹出框")
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
+    @weakify(self);
+    LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"举报"] titlecolor:GETMAINCOLOR handler:^(LPActionSheet *actionSheet, NSInteger index) {
+        @strongify(self);
+        switch (index) {
+            case 1:{
+                //获取tag值
+                NSInteger tag = ((UIButton *)dic[@"btn"]).tag;
+                Posts *postmodel = tag>=200?self.Arr_comments_all[tag-200]:self.Arr_comments_hot[tag-100];
+                MYLOG(@"举报帖子:%@",postmodel.stripd_content)
+            }
+                break;
+        }
+    }];
+    [sheet show];
+}
+#pragma mark 懒加载
+-(NSArray *)arr_items{
+
+    if (!_arr_items) {
+        YCXMenuItem *Titletime = [YCXMenuItem menuTitle:@"按时间" WithIcon:nil];
+        Titletime.foreColor = RGB(102, 102, 102);
+        Titletime.titleFont = [UIFont systemFontOfSize:14.0f];
+        
+        
+        YCXMenuItem *Titlehot = [YCXMenuItem menuTitle:@"按热度" WithIcon:nil];
+        Titlehot.foreColor = RGB(102, 102, 102);
+        Titlehot.titleFont = [UIFont systemFontOfSize:14.0f];
+        _arr_items = [NSArray arrayWithObjects:Titletime,Titlehot, nil];
+    }
+    return _arr_items;
+}
 -(UIView *)view_head_hot{
 
     if (!_view_head_hot) {
@@ -940,11 +1026,30 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [_lab_all_comments setFont:[UIFont systemFontOfSize:14]];
         [_lab_all_comments setTextColor:RGB(102, 102, 102)];
         
+        
+        _btn_timeOrhot = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_btn_timeOrhot setImage:[UIImage imageNamed:@"iconDetailArrowDown"] forState:UIControlStateNormal];
+        _btn_timeOrhot.frame = CGMAKE(ScreenWidth-15-12, 11, 12, 7);
+        [_btn_timeOrhot addTarget:self action:@selector(tap_view_click) forControlEvents:UIControlEventTouchUpInside];
+        [_btn_timeOrhot setEnlargeEdgeWithTop:10 right:15 bottom:10 left:0];
+        
+        _lab_timeOrhot = [[UILabel alloc]initWithFrame:CGMAKE(ScreenWidth-32-40, 0, 40, 27)];
+        _lab_timeOrhot.userInteractionEnabled =YES;
+        [_lab_timeOrhot setText:@"按时间"];
+        [_lab_timeOrhot setFont:[UIFont systemFontOfSize:12]];
+        [_lab_timeOrhot setTextColor:RGB(102, 102, 102)];
+        [_lab_timeOrhot setTextAlignment:NSTextAlignmentRight];
+        //添加手势
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tap_view_click)];
+        [_lab_timeOrhot addGestureRecognizer:tap];
+        
         UIView *view_line = [[UIView alloc]initWithFrame:CGMAKE(0, 27.5, ScreenWidth, 0.5)];
         [view_line setBackgroundColor:RGB(229, 229, 229)];
         
         [_view_head_all addSubview:view_line];
         [_view_head_all addSubview:_lab_all_comments];
+        [_view_head_all addSubview:_lab_timeOrhot];
+        [_view_head_all addSubview:_btn_timeOrhot];
     }
     return _view_head_all;
 }

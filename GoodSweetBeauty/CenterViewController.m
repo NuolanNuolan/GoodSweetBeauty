@@ -52,7 +52,14 @@
                                                                      NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor ]];
-    if([BWCommon islogin])[self LoadData];
+    if([BWCommon islogin]){
+    
+        [self LoadData];
+    }else{
+    
+        self.usermodel = nil;
+        [self.tableView reloadData];
+    }
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

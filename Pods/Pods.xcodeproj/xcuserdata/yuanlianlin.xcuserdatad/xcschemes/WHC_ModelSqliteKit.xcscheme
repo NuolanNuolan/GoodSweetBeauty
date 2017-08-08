@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'AD7656AE4DB5B26C19499711EE945283'
+               BlueprintIdentifier = 'AD971E9DFC4E75E2FD87A0A842B1287F'
                BlueprintName = 'WHC_ModelSqliteKit'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libWHC_ModelSqliteKit.a'>

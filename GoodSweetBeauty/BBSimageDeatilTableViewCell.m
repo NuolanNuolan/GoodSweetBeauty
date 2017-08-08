@@ -56,10 +56,10 @@
     stack_imageview.whc_TopSpace(30).whc_LeftSpace(15).whc_RightSpace(15).whc_HeightAuto();
     btn_ToMore.whc_TopSpaceToView(18,stack_imageview).whc_Size(100,14).whc_CenterX(0);
     
-    stack_imageview.whc_Column = 1;               // 最大3列
-    stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
-    stack_imageview.whc_VSpace = 5;              // 垂直间隙
-    stack_imageview.whc_Orientation = Vertical;        // 横竖混合布局
+    stack_imageview.whc_Column = 1;
+    stack_imageview.whc_Edge = UIEdgeInsetsZero;
+    stack_imageview.whc_VSpace = 5;
+    stack_imageview.whc_Orientation = Vertical;
     
     self.whc_TableViewWidth = self.whc_sw;
     
@@ -68,6 +68,7 @@
 -(void)setmodel:(YouAnBBSDeatilModel *)model isopen:(BOOL)isopen{
 
     Detailmodel = model;
+    isopen =YES;
     if (![model.master_posts.image isEqualToString:@""]||!model.master_posts.image) {
         
         if (isopen) {
@@ -122,8 +123,22 @@
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
-        stack_imageview.whc_SubViewWidth = ScreenWidth-30;
-        stack_imageview.whc_SubViewHeight = (ScreenWidth-30)*166/345;
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            
+           CGRect rect =   [image mss_getBigImageRectSizeWithScreenWidth:ScreenWidth-30 screenHeight:ScreenHeight];
+            
+            MYLOG(@"%f--%f",rect.size.width,rect.size.height)
+//            imageView.whc_Size(rect.size.width,rect.size.height);
+            
+//            imageView.whc_Size(rect.size.width,rect.size.height);
+            
+            imageView.whc_HeightWeight =rect.size.height/rect.size.width;
+//            stack_imageview.whc_SubViewWidth = rect.size.width;
+//            stack_imageview.whc_SubViewHeight = rect.size.height;
+            
+            
+        }];
         [stack_imageview addSubview:imageView];
     }
     [stack_imageview whc_StartLayout];

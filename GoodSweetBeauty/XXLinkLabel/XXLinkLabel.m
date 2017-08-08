@@ -386,9 +386,39 @@
     _timer = nil;
     MYLOG(@"count = %f",_count);
 }
+-(void)menuCopyBtnPressed:(UIMenuItem *)menuItem
+
+{
+    
+    [UIPasteboard generalPasteboard].string = self.text;
+    
+}
+-(BOOL)canBecomeFirstResponder {
+    return YES;
+}
+-(BOOL)canPerformAction:(SEL)action withSender:(id)sender {
+    if (action == @selector(menuCopyBtnPressed:)) {
+        return YES;
+    }
+    return NO;
+}
+
 
 -(void) handleTimer{
     _count = _count + 0.1;
+    
+    if (_count==0.6) {
+        
+        [self becomeFirstResponder];
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        UIMenuItem *copyItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(menuCopyBtnPressed:)];menuController.menuItems = @[copyItem];
+        [menuController setTargetRect:self.frame inView:self.superview];
+        [menuController setMenuVisible:YES animated:YES];
+        [UIMenuController sharedMenuController].menuItems=nil;
+
+    }
+    
+    
     if (_count >= 0.8) {
         //通过model传入链接  包括图片和 网络链接
         for (XXLinkLabelModel *messageModel in self.messageModels) {

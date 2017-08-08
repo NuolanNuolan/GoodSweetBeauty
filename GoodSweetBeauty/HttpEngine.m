@@ -35,7 +35,7 @@
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
     NSArray *Arrimage = [NSArray arrayWithObjects:image, nil];
-    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:nil imageScale:1 imageType:@"jpeg" progress:^(NSProgress *progress) {
+    [PPNetworkHelper uploadImagesWithURL:str parameters:nil name:@"file" images:Arrimage fileNames:nil imageScale:0.5 imageType:@"jpeg" progress:^(NSProgress *progress) {
         
         MYLOG(@"%f",progress.fractionCompleted);
         

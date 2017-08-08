@@ -130,5 +130,15 @@
 -(void)LoginOut{
 
     MYLOG(@"退出登录");
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSDictionary *dic = [userDefaults dictionaryRepresentation];
+    for (id  key in dic) {
+        MYLOG(@"%@",key);
+        [userDefaults removeObjectForKey:key];
+    }
+    [userDefaults synchronize];
+    [self.navigationController popViewControllerAnimated:YES];
+    
 }
 @end

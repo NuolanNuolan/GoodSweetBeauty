@@ -105,13 +105,22 @@
 -(void)ActionLayut{
 
     [stack_imageview whc_RemoveAllSubviews];
-    stack_imageview.whc_Column = self.arr_imagehead.count;
+    if (28*self.arr_imagehead.count-5*(self.arr_imagehead.count-1)>ScreenWidth-30) {
+        //超出了一排
+        //求出一排能排列几个
+        NSInteger count = (ScreenWidth-30+5)/23;
+        stack_imageview.whc_Column = count;
+        
+    }else{
+    
+        stack_imageview.whc_Column = self.arr_imagehead.count;
+    }
+    
     for (int i =0; i<self.arr_imagehead.count; i++) {
         
         UIImageView * imageView = [[UIImageView alloc]initWithRoundingRectImageView];
         imageView.tag = i;
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,self.arr_imagehead[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
-//        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,self.arr_imagehead[i]]] placeholderImage:[UIImage imageNamed:@"1"]];
         stack_imageview.whc_SubViewWidth = 28;
         stack_imageview.whc_SubViewHeight = 28;
         [stack_imageview addSubview:imageView];
@@ -129,7 +138,7 @@
         return;
     }
     @weakify(self);
-    Exceptional_view *view = [Exceptional_view alertViewExceptional:100 withAmount:[NSArray arrayWithObjects:@"1",@"2",@"5",@"10",@"50",@"100", nil] except_title:@"写的不错, 打赏一下" exceptionalblockclick:^(Exceptional_view *view, NSInteger Amount) {
+    Exceptional_view *view = [Exceptional_view alertViewExceptional:0 withAmount:[NSArray arrayWithObjects:@"1",@"2",@"5",@"10",@"50",@"100", nil] except_title:@"写的不错, 打赏一下" exceptionalblockclick:^(Exceptional_view *view, NSInteger Amount) {
         @strongify(self);
         [view dismiss];
         if (self.delegateSignal) [self.delegateSignal sendNext:[NSString stringWithFormat:@"%ld",(long)Amount]];

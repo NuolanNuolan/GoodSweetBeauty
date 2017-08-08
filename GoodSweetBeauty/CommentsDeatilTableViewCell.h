@@ -17,6 +17,6 @@
 /**
  全部评论 热门评论 具体model 行数是否需要? 是否展开? 是否有father评论? 总行数
  */
--(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments;
+-(void)SetAllPotsModel:(Posts *)postsmodel withisopen:(BOOL )isopen withrow:(NSInteger )row isfather:(BOOL )isfather withAllrow:(NSInteger )AllRow isAllcomments:(BOOL )isAllcomments masterid:(NSInteger )masterid;
 
 @end

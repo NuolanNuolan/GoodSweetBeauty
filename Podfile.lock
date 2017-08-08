@@ -52,6 +52,7 @@ PODS:
   - WHC_ModelSqliteKit (1.2.6):
     - WHC_ModelSqliteKit/standard (= 1.2.6)
   - WHC_ModelSqliteKit/standard (1.2.6)
+  - YCXMenu (0.0.11)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
   - YYKit/no-arc (1.0.9)
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - WHC_Debuger
   - WHC_Model
   - WHC_ModelSqliteKit
+  - YCXMenu
   - YYKit
   - ZFPlayer
   - ZYCornerRadius
@@ -106,10 +108,11 @@ SPEC CHECKSUMS:
   WHC_Debuger: 713867ec4e87b99ceab48051c8812ef155ef00b2
   WHC_Model: 4e71317ab23072d2313e079278ead75bd97e7e96
   WHC_ModelSqliteKit: 8600471b427856c5babe389686297d97ed94f5d8
+  YCXMenu: 6003bcd20d8ac72e3eb3c442c97ed21948c6dc1f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
   ZFPlayer: 8a80bf8eb4638b97fbceaefcd3ca9978e9f17c9d
   ZYCornerRadius: f0af817be7805b5c63d793042ca7a03f81e14069
 
-PODFILE CHECKSUM: 6322bf5d49275061cb50650d63e22cf6db6f1d69
+PODFILE CHECKSUM: 3b52281be4b4ef514a5047aa190d4abe23b38aee
 
 COCOAPODS: 1.2.1

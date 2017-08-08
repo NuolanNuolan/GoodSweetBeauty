@@ -60,12 +60,15 @@
 
     self = [super initWithFrame:CGRectZero];
     if (self) {
+        
         self.Arr_Amount = [NSArray arrayWithArray:Arr_Amount];
         self.balance = balance;
         self.exceptional_block = exceptionalblock;
         self.title = title;
         //布局
         [self InitFarme];
+        //需要联网获取自己的有安币数量
+        [self LoadCoins];
     }
     return self;
 }
@@ -229,5 +232,18 @@
     
     
 }
-
+-(void)LoadCoins{
+    
+    @weakify(self);
+    [HttpEngine UserDetailcomplete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        if (success) {
+            self.balance = [responseObject[@"coins"] integerValue];
+            [self.lab_balance setText:[NSString stringWithFormat:@"可用有安币: %ld",(long)self.balance]];
+        }else{
+        
+            [self.lab_balance setText:[NSString stringWithFormat:@"获取可用有安币失败"]];
+        }
+    }];
+}
 @end

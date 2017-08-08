@@ -96,6 +96,7 @@
  */
 +(void)PushTo_Login:(UIViewController *)viewcontroller;
 
++ (CGSize)neededSizeForPhoto:(CGSize )bubbleSize;
 
 /**
  用户详情页

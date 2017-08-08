@@ -66,9 +66,12 @@
     [image_head addGestureRecognizer:tap];
     
     lab_username = [UILabel new];
-    [lab_username setTextColor:RGB(51, 51, 51)];
+    [lab_username setTextColor:GETMAINCOLOR];
     [lab_username setFont:[UIFont systemFontOfSize:15]];
     [lab_username sizeToFit];
+    lab_username.userInteractionEnabled =YES;
+    UITapGestureRecognizer *tap_username = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
+    [lab_username addGestureRecognizer:tap_username];
     
     image_v = [UIImageView new];
     
@@ -131,6 +134,7 @@
 -(void)SetSection:(NSInteger )sention withmodel:(YouAnBBSModel *)model{
 
     image_head.tag = sention;
+    lab_username.tag = sention;
     [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
     
     //判断等级
@@ -165,17 +169,6 @@
         lab_time.whc_LeftSpaceEqualView(image_head).whc_TopSpaceToView(5,stack_imageview);
         
     }
-//    else if(arr_image.count==1){
-//        
-////        stack_imageview.whc_SubViewWidth = ScreenWidth-30;
-////        stack_imageview.whc_SubViewHeight = (ScreenWidth-30)*166/345;
-//        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
-//        stack_imageview.whc_Column = 3;
-//    }else{
-//        stack_imageview.whc_ElementHeightWidthRatio = 1 / 1;
-//        stack_imageview.whc_Column = 3;
-//    }
-    
     [self resetstackwithimagearr:arr_image];
     Arr_image_main = nil;
     Arr_image_main = [NSArray arrayWithArray:arr_image];

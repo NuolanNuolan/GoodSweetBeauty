@@ -12,6 +12,13 @@
 #import <ifaddrs.h>
 #import <arpa/inet.h>
 #import "YouAnFansFollowModel.h"
+@interface BWCommon(){
+
+    UIImageView * image_head;
+    YouAnBusinessCardModel *BusinessCardModel;
+    
+}
+@end
 
 @implementation BWCommon
 + (instancetype)sharebwcommn {
@@ -539,6 +546,41 @@
     [viewcontroller.navigationController pushViewController:view animated:YES];
     
 }
++ (CGSize)neededSizeForPhoto:(CGSize )bubbleSize {
+    //bubbleSize  原尺寸
+    if (bubbleSize.width>ScreenWidth-30) {
+        
+    }
+    
+    
+    
+    
+//    CGFloat maxWidth = ScreenWidth * 0.46;
+//    //限制最大宽度或高度
+//    CGFloat imageViewW = bubbleSize.width/2;
+//    CGFloat imageViewH = bubbleSize.height/2;
+//    CGFloat factor = 1.0f;
+//    if(imageViewW > imageViewH){
+//        if(imageViewW > maxWidth){
+//            factor = maxWidth/imageViewW;
+//            imageViewW = imageViewW*factor;
+//            imageViewH = imageViewH*factor;
+//        }
+//    }
+//    else{
+//        
+//        if(imageViewH > maxWidth){
+//            
+//            factor = maxWidth/imageViewH;
+//            imageViewW = MAX(imageViewW*factor,46.0);
+//            //限制宽度不能超过46.0
+//            imageViewH = imageViewH*factor;
+//        }
+//    }
+//    bubbleSize = CGSizeMake(imageViewW, imageViewH);
+    return bubbleSize;
+}
+    
 /**
  用户详情页
  */
@@ -570,10 +612,14 @@
 }
 -(UIView *)view_userhead:(YouAnBusinessCardModel *)model{
     
-    
+    BusinessCardModel = nil;
+    BusinessCardModel = model;
     UIView *view_userhead = [[UIView alloc] initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, 235)];
     view_userhead.backgroundColor = GETMAINCOLOR;
-    UIImageView * image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
+    image_head = [[UIImageView alloc]initWithRoundingRectImageView];
+    image_head.userInteractionEnabled =YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(amplification)];
+    [image_head addGestureRecognizer:tap];
     [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,[model.profile.avatar stringByReplacingOccurrencesOfString:@"small" withString:@"middle"]]] placeholderImage:[UIImage imageNamed:@"head"]];
     
     UILabel * lab_username = [UILabel new];
@@ -678,6 +724,17 @@
     view_btn_gap.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpaceToView(60,view_lab_v_level).whc_Height(65);
     
     return view_userhead;
+}
+-(void)amplification{
+
+    NSMutableArray *arr_image_view = [NSMutableArray arrayWithCapacity:0];
+    MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
+    browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,[BusinessCardModel.profile.avatar stringByReplacingOccurrencesOfString:@"small" withString:@"big"]];// 加载网络图片大图地址
+    browseItem.smallImageView = image_head;// 小图
+    [arr_image_view addObject:browseItem];
+    MSSBrowseNetworkViewController *bvc = [[MSSBrowseNetworkViewController alloc]initWithBrowseItemArray:arr_image_view currentIndex:0];
+    bvc.isEqualRatio = NO;// 大图小图不等比时需要设置这个属性（建议等比）
+    [bvc showBrowseViewController:nil];
 }
 #pragma mark - YNPageScrollViewControllerDataSource
 - (UITableView *)pageScrollViewController:(YNPageScrollViewController *)pageScrollViewController scrollViewForIndex:(NSInteger)index{
