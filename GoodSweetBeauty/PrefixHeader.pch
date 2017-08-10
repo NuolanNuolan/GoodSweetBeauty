@@ -44,6 +44,8 @@
 #import "JX_GCDTimerManager.h"
 #import "WHC_ModelSqlite.h"
 #import "AppShareView.h"
+#import <WebKit/WebKit.h>
+#import "WebViewController.h"
 
 #import "YYKit.h"
 #import "MSSBrowseDefine.h"

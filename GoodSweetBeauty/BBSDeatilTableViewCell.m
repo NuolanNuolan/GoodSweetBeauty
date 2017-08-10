@@ -57,6 +57,10 @@
     lab_username.numberOfLines = 0;
     [lab_username setTextColor:RGB(51, 51, 51)];
     [lab_username setFont:[UIFont boldSystemFontOfSize:15]];
+    lab_username.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap_name = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(head_click:)];
+    [lab_username addGestureRecognizer:tap_name];
+    
     
     image_auth = [UIImageView new];
     
@@ -98,6 +102,7 @@
     if (model) {
         model_cell = model;
         image_head.tag = model.author_id;
+        lab_username.tag = model.author_id;
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         lab_username.text = [NSString stringWithFormat:@"%@",model.author];
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];

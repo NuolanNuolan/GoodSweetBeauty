@@ -53,7 +53,7 @@
     else  self.title = @"获取验证码";
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.image_logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Loginlogo"]];
+    self.image_logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iosTemplate180"]];
     
     self.image_user_left = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iconSignMobile"]];
     self.image_user_left.frame = CGMAKE(0, 19, 13, 20);
@@ -201,7 +201,8 @@
 }
 //用户协议
 -(void)userdelegate{
-
     
+    WebViewController *view = [[WebViewController alloc]initWithTitle:@"注册协议" withurl:@"http://yabbs.baiwei.org/public/protocol.html"];
+    [self.navigationController pushViewController:view animated:YES];
 }
 @end

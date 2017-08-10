@@ -17,6 +17,7 @@
 #import "CoinsViewController.h"
 #import "MyImMessagesViewController.h"
 #import "MycommentViewController.h"
+#import "RevertMyViewController.h"
 
 
 
@@ -317,7 +318,7 @@
             break;
         case 2:{
             
-            
+            view = [RevertMyViewController new];
         }
         break;
         case 3:{

@@ -18,7 +18,7 @@ static NSString * GETMESSAGE = @"GetMes";
 
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+//    [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [WXApi registerApp:KWXAPPID];
     TencentOAuth *tecentauth = [[TencentOAuth alloc]initWithAppId:KQQAPPID andDelegate:nil];
     MYLOG(@"QQ的tecentauth.accessToken%@:",tecentauth.accessToken)

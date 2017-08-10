@@ -226,7 +226,6 @@
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
         browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image_main[i]];// 加载网络图片大图地址
         if (i<3) {
-
             browseItem.smallImageView = stack_imageview.subviews[i];// 小图
         }else{
         

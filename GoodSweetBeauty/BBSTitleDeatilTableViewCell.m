@@ -69,8 +69,10 @@
     if (model) {
         
         lab_title.attributedText = [BWCommon textWithStatus:model.master_posts.subject Atarr:nil font:[UIFont boldSystemFontOfSize:22] LineSpacing:11 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-30];
+//        lab_title.attributedText = [BWCommon textWithStatus:model.master_posts.subject Atarr:nil font:[UIFont fontWithName:@"SourceHanSansCN-Bold" size:22] LineSpacing:11 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-30];
         
         NSMutableAttributedString *text  = [BWCommon textWithStatus:model.master_posts.stripd_content Atarr:model.master_posts.ats font:[UIFont systemFontOfSize:18] LineSpacing:11 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-30];
+//        NSMutableAttributedString *text  = [BWCommon textWithStatus:model.master_posts.stripd_content Atarr:model.master_posts.ats font:[UIFont fontWithName:@"SourceHanSansCN-Normal" size:18] LineSpacing:11 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-30];
         lab_deatil.attributedText = text;
         @weakify(self);
         lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {

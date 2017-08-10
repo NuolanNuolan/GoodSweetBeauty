@@ -160,6 +160,9 @@
 		EAB6C8A11F2B2AD9007581CD /* YouAnBusinessCardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB6C8A01F2B2AD9007581CD /* YouAnBusinessCardModel.m */; };
 		EAB781691F39CB060027B2CB /* AboutUsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB781681F39CB060027B2CB /* AboutUsViewController.m */; };
 		EAB7816D1F39CD600027B2CB /* VersionInformationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB7816C1F39CD600027B2CB /* VersionInformationViewController.m */; };
+		EABB6E0A1F3AED1A00A265FE /* RevertMyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABB6E091F3AED1A00A265FE /* RevertMyViewController.m */; };
+		EABB6E0E1F3AFC3700A265FE /* RevertMyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EABB6E0D1F3AFC3700A265FE /* RevertMyTableViewCell.m */; };
+		EABB6E121F3BFDEB00A265FE /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EABB6E111F3BFDEB00A265FE /* WebViewController.m */; };
 		EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */; };
 		EAD926191ECD8D2D00B6048D /* DynamicItem.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926131ECD8D2D00B6048D /* DynamicItem.m */; };
 		EAD9261A1ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD926151ECD8D2D00B6048D /* UIView+WhenTappedBlocks.m */; };
@@ -484,6 +487,12 @@
 		EAB781681F39CB060027B2CB /* AboutUsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsViewController.m; sourceTree = "<group>"; };
 		EAB7816B1F39CD600027B2CB /* VersionInformationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionInformationViewController.h; sourceTree = "<group>"; };
 		EAB7816C1F39CD600027B2CB /* VersionInformationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionInformationViewController.m; sourceTree = "<group>"; };
+		EABB6E081F3AED1A00A265FE /* RevertMyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevertMyViewController.h; sourceTree = "<group>"; };
+		EABB6E091F3AED1A00A265FE /* RevertMyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevertMyViewController.m; sourceTree = "<group>"; };
+		EABB6E0C1F3AFC3700A265FE /* RevertMyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevertMyTableViewCell.h; sourceTree = "<group>"; };
+		EABB6E0D1F3AFC3700A265FE /* RevertMyTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevertMyTableViewCell.m; sourceTree = "<group>"; };
+		EABB6E101F3BFDEB00A265FE /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
+		EABB6E111F3BFDEB00A265FE /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		EAD9260F1ECD8D2D00B6048D /* JYPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JYPagingView.h; sourceTree = "<group>"; };
 		EAD926101ECD8D2D00B6048D /* HHHorizontalPagingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHHorizontalPagingView.h; sourceTree = "<group>"; };
 		EAD926111ECD8D2D00B6048D /* HHHorizontalPagingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HHHorizontalPagingView.m; sourceTree = "<group>"; };
@@ -1260,6 +1269,7 @@
 		EAAE62AC1EBDDC9D00AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EABB6E0B1F3AEFF300A265FE /* 回复我的 */,
 				EA10A1721F2ED361000CF031 /* 发出的口碑评价 */,
 				EA10A1711F2ED355000CF031 /* @我的 */,
 				EA10A1701F2ED34C000CF031 /* 认证 */,
@@ -1277,6 +1287,7 @@
 		EAAE62AD1EBDDCA400AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EABB6E071F3AECF900A265FE /* 回复我的 */,
 				EA10A1631F2EC1E5000CF031 /* 我的评价 */,
 				EA343B631F185694001F1FB1 /* 我的私信 */,
 				EA5212031F135C6C006EFD7F /* 我的有安币 */,
@@ -1359,6 +1370,7 @@
 		EAAE62B41EBDDCE600AB9280 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				EABB6E0F1F3BFD9900A265FE /* RegistrationInformation */,
 				EA138CA01F34457100C0BBD5 /* Share */,
 				EA9DBB151EC6D8F3000FA93A /* Login */,
 			);
@@ -1381,6 +1393,33 @@
 				EAB7816C1F39CD600027B2CB /* VersionInformationViewController.m */,
 			);
 			name = "版本信息";
+			sourceTree = "<group>";
+		};
+		EABB6E071F3AECF900A265FE /* 回复我的 */ = {
+			isa = PBXGroup;
+			children = (
+				EABB6E081F3AED1A00A265FE /* RevertMyViewController.h */,
+				EABB6E091F3AED1A00A265FE /* RevertMyViewController.m */,
+			);
+			name = "回复我的";
+			sourceTree = "<group>";
+		};
+		EABB6E0B1F3AEFF300A265FE /* 回复我的 */ = {
+			isa = PBXGroup;
+			children = (
+				EABB6E0C1F3AFC3700A265FE /* RevertMyTableViewCell.h */,
+				EABB6E0D1F3AFC3700A265FE /* RevertMyTableViewCell.m */,
+			);
+			name = "回复我的";
+			sourceTree = "<group>";
+		};
+		EABB6E0F1F3BFD9900A265FE /* RegistrationInformation */ = {
+			isa = PBXGroup;
+			children = (
+				EABB6E101F3BFDEB00A265FE /* WebViewController.h */,
+				EABB6E111F3BFDEB00A265FE /* WebViewController.m */,
+			);
+			name = RegistrationInformation;
 			sourceTree = "<group>";
 		};
 		EAD926011ECD7DC400B6048D /* HHHorizontalPagingView */ = {
@@ -1762,8 +1801,10 @@
 				EA6371221ED6C4D5003E6BC3 /* UIView+YNCategory.m in Sources */,
 				EA9DBB1C1EC6E9AF000FA93A /* LoginTextField.m in Sources */,
 				EA6371061ED6C1AD003E6BC3 /* BBSMainViewController.m in Sources */,
+				EABB6E0E1F3AFC3700A265FE /* RevertMyTableViewCell.m in Sources */,
 				EAE1EC291EE11B8A00FA2882 /* UIButton+EnlargeTouchArea.m in Sources */,
 				EA9CF7691E825C5B0050BA8B /* NSString+MD5.m in Sources */,
+				EABB6E121F3BFDEB00A265FE /* WebViewController.m in Sources */,
 				EA6371281ED6C4D5003E6BC3 /* YNPageScrollViewMenuConfigration.m in Sources */,
 				EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */,
 				EA5211FF1F132CD6006EFD7F /* YouAnAtMeModel.m in Sources */,
@@ -1787,6 +1828,7 @@
 				EAA98A981EDFFBD300F294BE /* BBSExceptionalTableViewCell.m in Sources */,
 				EA9DBB221EC704D5000FA93A /* ResSendCodeViewController.m in Sources */,
 				EA10A1611F2CF064000CF031 /* ChooseProductTableViewCell.m in Sources */,
+				EABB6E0A1F3AED1A00A265FE /* RevertMyViewController.m in Sources */,
 				EA9CF60D1E80D3CD0050BA8B /* main.m in Sources */,
 				EAA5A2F81EF3CDCC002585C3 /* PPNetworkCache.m in Sources */,
 				EA63710F1ED6C38A003E6BC3 /* YNTestTwoViewController.m in Sources */,
@@ -1956,6 +1998,7 @@
 			baseConfigurationReference = 9C98951ED82DD8E11B40A258 /* Pods-GoodSweetBeauty.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2040,6 +2083,7 @@
 			baseConfigurationReference = 56C84516CE68F8AE23B46AD7 /* Pods-GoodSweetBeauty.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = BrandAsset;
 				DEVELOPMENT_TEAM = EFW772SY3Z;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

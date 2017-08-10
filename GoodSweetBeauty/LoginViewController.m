@@ -60,7 +60,7 @@
 
     self.title = @"登录";
     self.view.backgroundColor = [UIColor whiteColor];
-    self.image_logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"Loginlogo"]];
+    self.image_logo = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iosTemplate180"]];
     
     self.image_user_left = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iconSignUsername"]];
     self.image_user_left.frame = CGMAKE(0, 19, 19, 20);

@@ -76,9 +76,10 @@
 -(void)LoadDataWithpage:(NSInteger )page{
 
     @weakify(self);
-    
+    [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine MyCollectionWithpage:page complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView.mj_header endRefreshing];
         if (success) {
