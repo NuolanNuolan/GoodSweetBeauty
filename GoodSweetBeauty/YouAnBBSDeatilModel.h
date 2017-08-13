@@ -22,7 +22,11 @@
 @property (nonatomic , copy) NSString              * avatar;
 
 @end
+@interface Images :NSObject
+@property (nonatomic , copy) NSString              * image;
+@property (nonatomic , copy) NSString              * size;
 
+@end
 @interface Master_posts :NSObject
 @property (nonatomic , assign) NSInteger              id;
 @property (nonatomic , copy) NSString              * subject;
@@ -38,7 +42,7 @@
 @property (nonatomic , strong) Author_profile              * author_profile;
 @property (nonatomic , copy) NSString              * user_ip;
 @property (nonatomic , assign) NSInteger              created;
-@property (nonatomic , strong) NSArray<NSString *>              * images;
+@property (nonatomic , strong) NSArray<Images *>              * images;
 @property (nonatomic , copy) NSString              * html_content;
 @property (nonatomic , assign) NSInteger              tid;
 @property (nonatomic , copy) NSString              * content;

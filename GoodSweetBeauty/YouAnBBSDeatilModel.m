@@ -16,6 +16,9 @@
 @implementation Author_profile
 
 @end
+@implementation Images
+
+@end
 @implementation Master_posts
 
 @end

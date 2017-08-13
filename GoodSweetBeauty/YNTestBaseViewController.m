@@ -124,8 +124,11 @@
         [tableview.mj_footer endRefreshing];
         if (success) {
             
-            [self ProcessTheData:tableview withdata:responseObject withpage:page];
-            
+            if (responseObject) {
+                
+                [self ProcessTheData:tableview withdata:responseObject withpage:page];
+            }
+
         }else{
             
             [MBProgressHUD showError:@"网络错误"];

@@ -791,6 +791,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)headimg:(NSInteger )authid{
 
 
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     @weakify(self);
     [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine BusinessCard:authid complete:^(BOOL success, id responseObject) {
@@ -942,8 +946,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         @strongify(self);
         switch (index) {
             case 1:{
-                
-                MYLOG(@"按时间")
+                MYLOG(@"按时间哈哈哈")
             }
                 break;
             case 2:{

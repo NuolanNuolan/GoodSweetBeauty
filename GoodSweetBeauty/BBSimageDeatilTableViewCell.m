@@ -15,7 +15,9 @@
     //model
     YouAnBBSDeatilModel *Detailmodel;
     //图片URL数组
-    NSMutableArray *Arr_image;
+    NSMutableArray <Images*> * Arr_image;
+    //图片数组参数
+    Images *images_model;
     
     
     
@@ -116,6 +118,8 @@
 
     for (int i =0; i<arr.count; i++) {
         
+        images_model = arr[i];
+        
         UIImageView * imageView = [UIImageView new];
         [self.contentView addSubview:imageView];
         imageView.userInteractionEnabled = YES;
@@ -123,17 +127,19 @@
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"] completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
-           CGRect rect =   [image mss_getBigImageRectSizeWithScreenWidth:ScreenWidth-30 screenHeight:ScreenHeight];
-            if (i==0) {
-                imageView.whc_LeftSpace(15).whc_RightSpace(15).whc_TopSpace(30).whc_Height(rect.size.height);
-            }else{
-                
-                UIImageView *image_view = [self.contentView viewWithTag:i+100-1];
-                
-                imageView.whc_LeftSpaceEqualView(image_view).whc_RightSpaceEqualView(image_view).whc_TopSpaceToView(5,image_view).whc_Height(rect.size.height);
-            }
-        }];
+        
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,images_model.image]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        //这里需要计算高度
+        CGSize image_size = [self Computationssize:images_model.size];
+        if (i==0) {
+            
+            imageView.whc_LeftSpace(15).whc_RightSpace(15).whc_TopSpace(30).whc_Height(image_size.height);
+        }else{
+            
+            UIImageView *image_view = [self.contentView viewWithTag:i+100-1];
+            
+            imageView.whc_LeftSpaceEqualView(image_view).whc_RightSpaceEqualView(image_view).whc_TopSpaceToView(5,image_view).whc_Height(image_size.height);
+        }
     }
 
 }
@@ -147,7 +153,7 @@
     for (int i =0; i<Arr_image.count; i++) {
         
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image[i]];
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image[i].image];
         browseItem.smallImageView = [self.contentView viewWithTag:100+i];// 小图
         [arr_image_view addObject:browseItem];
     }
@@ -169,5 +175,23 @@
     }
     if (self.delegateSignal) [self.delegateSignal sendNext:nil];
 
+}
+/**
+ 这里计算高度
+ */
+-(CGSize )Computationssize:(NSString *)size{
+
+    //分割
+    //判断是否存在,
+    if ([BWCommon DoesItInclude:size withString:@","]) {
+        
+        NSArray *arr_size = [size componentsSeparatedByString:@","];
+        
+        return CGSizeMake(ScreenWidth-30, (ScreenWidth-30)*[arr_size[1] floatValue]/[arr_size[0] floatValue]);
+    }
+    return CGSizeMake(ScreenWidth-30, 166);
+    
+    
+    
 }
 @end

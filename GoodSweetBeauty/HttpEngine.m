@@ -282,7 +282,10 @@
     
     [PPNetworkHelper GET:url parameters:dic responseCache:^(id responseCache) {
         
-        complete(YES,responseCache[@"results"]);
+        if (responseCache) {
+           
+            complete(YES,responseCache[@"results"]);
+        }
     } success:^(id responseObject) {
         
         complete(YES,responseObject[@"results"]);
