@@ -10,4 +10,9 @@
 
 @interface SetPwdViewController : HJViewController
 
+//传入验证码
+@property(nonatomic,copy)NSString *Verification_code;
+//手机号
+@property(nonatomic,copy)NSString *phone;
+
 @end

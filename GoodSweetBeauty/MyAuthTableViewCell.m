@@ -43,14 +43,14 @@
     if (self) {
         
         lab_title = [UILabel new];
-        [lab_title setTextColor:RGB(51, 51, 51)];
+        [lab_title setTextColor:GETFONTCOLOR];
         [lab_title setFont:[UIFont systemFontOfSize:16]];
         [lab_title sizeToFit];
         
         if ([reuseIdentifier isEqualToString:@"0"]) {
             self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             lab_type = [UILabel new];
-            [lab_type setTextColor:RGB(51, 51, 51)];
+            [lab_type setTextColor:GETFONTCOLOR];
             [lab_type setFont:[UIFont systemFontOfSize:16]];
             lab_type.userInteractionEnabled =YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(choose_type)];
@@ -65,7 +65,7 @@
             text_input.delegate = self;
             [text_input setTintColor:GETMAINCOLOR];
             [text_input setFont:[UIFont systemFontOfSize:16]];
-            [text_input setTextColor:RGB(51, 51, 51)];
+            [text_input setTextColor:GETFONTCOLOR];
             [self.contentView addSubview:text_input];
             
             text_input.whc_LeftSpace(100).whc_Height(50).whc_TopSpace(0).whc_RightSpace(20);

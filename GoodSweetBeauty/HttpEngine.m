@@ -413,18 +413,18 @@
 
 }
 //帖子详情
-+(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size if_master:(BOOL)if_master complete:(void(^)(BOOL success ,id responseObject))complete{
++(void)PostingDeatil:(NSInteger )postintID withdic:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
 
     NSString *url = [NSString stringWithFormat:@"%@/posts/threads/%@/",ADDRESS_API,[NSNumber numberWithInteger:postintID]];
-    NSDictionary *dic ;
-    if (if_master) {
-        
-        dic =@{@"page":[NSNumber numberWithInteger:page],
-               @"if_master":[NSNumber numberWithInteger:1]};
-    }else{
-    
-        dic =@{@"page":[NSNumber numberWithInteger:page]};
-    }
+//    NSDictionary *dic ;
+//    if (if_master) {
+//        
+//        dic =@{@"page":[NSNumber numberWithInteger:page],
+//               @"if_master":[NSNumber numberWithInteger:1]};
+//    }else{
+//    
+//        dic =@{@"page":[NSNumber numberWithInteger:page]};
+//    }
     
     if ([BWCommon islogin]) {
         NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
@@ -910,6 +910,155 @@
             complete(NO,nil);
         }
         
+    }];
+}
+/**
+ 修改密码接口
+ */
++(void)ModifyPas:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    
+    NSString *url = [NSString stringWithFormat:@"%@/auth/password/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 忘记密码 短信找回
+ */
++(void)ForGotPas_Mes:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/sms/password/",ADDRESS_API];
+    
+//    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+//    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+//    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper POST:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            MYLOG(@"%@",dic);
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 签到
+ */
++(void)UserSignincomplete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/members/coins-signin/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper POST:url parameters:nil success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            complete(NO,dic);
+        }else{
+            
+            complete(NO,nil);
+        }
+        
+    }];
+}
+/**
+ 删除发表的口碑评价
+ */
++(void)Delete_Comments:(NSInteger )cid complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/rating/record/%ld/",ADDRESS_API,(long)cid];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    /**
+     这里使用第三方框架取到afhttpmanger
+     */
+    [PPNetworkHelper setAFHTTPSessionManagerProperty:^(AFHTTPSessionManager *sessionManager) {
+        [sessionManager.requestSerializer setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+        
+        [sessionManager DELETE:url parameters:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            
+            complete(YES,responseObject);
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+            if (data) {
+                NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+                
+                complete(NO,dic);
+            }else{
+                
+                complete(NO,nil);
+            }
+        }];
+    }];
+    
+}
+/**
+ 搜索内容接口
+ */
++(void)Search:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete{
+
+    NSString *url = [NSString stringWithFormat:@"%@/search/",ADDRESS_API];
+    
+    NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
+    NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
+    [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
+    
+    [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+        complete(YES,responseObject);
+        
+    } failure:^(NSError *error) {
+        
+        NSData*data=error.userInfo[@"com.alamofire.serialization.response.error.data"];
+        if (data) {
+            NSDictionary*dic=[NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+            
+            complete(NO,dic);
+            
+        }else{
+            
+            complete(NO,nil);
+        }
     }];
 }
 @end

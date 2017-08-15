@@ -60,7 +60,7 @@
     image_head.userInteractionEnabled = YES;
     
     lab_name = [UILabel new];
-    [lab_name setTextColor:RGB(51, 51, 51)];
+    [lab_name setTextColor:GETFONTCOLOR];
     [lab_name setFont:[UIFont systemFontOfSize:14]];
     lab_name.numberOfLines = 1;
     [lab_name sizeToFit];
@@ -76,7 +76,7 @@
     
     lab_atme_content = [XXLinkLabel new];
     
-//    [lab_atme_content setTextColor:RGB(51, 51, 51)];
+//    [lab_atme_content setTextColor:GETFONTCOLOR];
 //    [lab_atme_content setFont:[UIFont systemFontOfSize:17]];
     lab_atme_content.numberOfLines = 0;
 //    [lab_atme_content sizeToFit];
@@ -88,7 +88,7 @@
     image_post.backgroundColor = RGB(233, 233, 233);
     
     lab_post_title = [UILabel new];
-    [lab_post_title setTextColor:RGB(51, 51, 51)];
+    [lab_post_title setTextColor:GETFONTCOLOR];
     lab_post_title.numberOfLines = 1;
     [lab_post_title sizeToFit];
     [lab_post_title setFont:[UIFont systemFontOfSize:15]];
@@ -163,7 +163,7 @@
             image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
         }
         
-        lab_atme_content.attributedText = [BWCommon textWithStatus:model.stripd_content Atarr:model.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-30];
+        lab_atme_content.attributedText = [BWCommon textWithStatus:model.stripd_content Atarr:model.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:ScreenWidth-30];
         @weakify(self);
         lab_atme_content.regularLinkClickBlock = ^(NSString *clickedString) {
             @strongify(self);

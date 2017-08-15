@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "YouAnFansFollowModel.h"
+#import "YouAnSearchMemberModel.h"
 
 @interface MyFansTableViewCell : UITableViewCell
 //头像
@@ -36,6 +37,11 @@
 
 @property (nonatomic, strong) RACSubject *delegateSignal;
 
+//粉丝//关注的
 -(void)SetModel:(YouAnFansFollowModel *)model withtype:(NSString *)type withrow:(NSInteger) row;
+
+
+//搜索出来的用户
+-(void)SetMemberResults:(MemberResults *)model withrow:(NSInteger) row withkeyword:(NSString *)keyword;
 
 @end

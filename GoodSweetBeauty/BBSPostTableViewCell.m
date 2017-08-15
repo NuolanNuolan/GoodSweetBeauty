@@ -78,7 +78,7 @@
     image_level = [UIImageView new];
     
     lab_deatil = [UILabel new];
-    [lab_deatil setTextColor:RGB(51, 51, 51)];
+    [lab_deatil setTextColor:GETFONTCOLOR];
     [lab_deatil setFont:[UIFont systemFontOfSize:17]];
     lab_deatil.numberOfLines = 2;
     [lab_deatil sizeToFit];
@@ -158,7 +158,7 @@
     }
     
     lab_username.text = model.author;
-    lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-35];
+    lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:ScreenWidth-35];
     lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
     lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
 
@@ -272,7 +272,7 @@
             image_level.image = [UIImage imageNamed:[NSString stringWithFormat:@"iconLv%ld",(long)model.author_profile.level]];
         }
         lab_username.text = model.author;
-        lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-35];;
+        lab_deatil.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:ScreenWidth-35];;
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld 回复 %ld",(long)model.hits,(long)model.replies];
         lab_time.text = [NSString stringWithFormat:@"%@",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"]];
         //判断是否有多张

@@ -57,7 +57,7 @@
         
         
         lab_mes = [MesPaddingLabel new];
-        [lab_mes setTextColor:RGB(51, 51, 51)];
+        [lab_mes setTextColor:GETFONTCOLOR];
         [lab_mes setFont:[UIFont systemFontOfSize:16]];
         [lab_mes setNumberOfLines:0];
         [lab_mes sizeToFit];
@@ -74,7 +74,7 @@
         
         if ([reuseIdentifier isEqualToString:@"mesleft"]) {
             image_bg.backgroundColor = [UIColor whiteColor];
-            lab_mes.textColor = RGB(51, 51, 51);
+            lab_mes.textColor = GETFONTCOLOR;
             [self LeftFrame];
             
         }else{
@@ -128,7 +128,7 @@
         
         lab_mes.text = model.content;
         
-//        lab_mes.attributedText = [BWCommon textWithStatus:model.content Atarr:nil font:[UIFont systemFontOfSize:16] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-96];
+//        lab_mes.attributedText = [BWCommon textWithStatus:model.content Atarr:nil font:[UIFont systemFontOfSize:16] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-96];
   
     }
     else{

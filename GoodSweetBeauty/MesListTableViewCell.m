@@ -40,7 +40,7 @@
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     
     lab_username = [UILabel new];
-    [lab_username setTextColor:RGB(51, 51, 51)];
+    [lab_username setTextColor:GETFONTCOLOR];
     [lab_username setFont:[UIFont systemFontOfSize:15]];
     [lab_username sizeToFit];
     lab_username.numberOfLines = 1;

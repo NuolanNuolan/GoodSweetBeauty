@@ -48,7 +48,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.lab_title = [UILabel new];
     [self.lab_title setText:@"设置用户名和密码"];
-    [self.lab_title setTextColor:RGB(51, 51, 51)];
+    [self.lab_title setTextColor:GETFONTCOLOR];
     [self.lab_title setFont:[UIFont systemFontOfSize:24]];
     [self.lab_title sizeToFit];
     
@@ -62,7 +62,7 @@
     //    self.text_username.backgroundColor = [UIColor redColor];
     [self.text_username setTintColor:GETMAINCOLOR];
     [self.text_username setFont:[UIFont boldSystemFontOfSize:18]];
-    [self.text_username setTextColor:RGB(51, 51, 51)];
+    [self.text_username setTextColor:GETFONTCOLOR];
     [self.text_username setReturnKeyType:UIReturnKeyNext];
     self.text_username.leftView = self.image_user_left;
     self.text_username.leftViewMode = UITextFieldViewModeAlways;
@@ -92,7 +92,7 @@
     //    self.text_pwd.backgroundColor = [UIColor redColor];
     [self.text_pwd setTintColor:GETMAINCOLOR];
     [self.text_pwd setFont:[UIFont boldSystemFontOfSize:18]];
-    [self.text_pwd setTextColor:RGB(51, 51, 51)];
+    [self.text_pwd setTextColor:GETFONTCOLOR];
     [self.text_pwd setReturnKeyType:UIReturnKeyGo];
     [self.text_pwd setSecureTextEntry:YES];
     self.text_pwd.leftView = self.image_pwd_left;

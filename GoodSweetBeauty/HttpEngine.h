@@ -12,29 +12,50 @@
 
 
 @interface HttpEngine : NSObject
+/**
+ 登录成功处理
+ */
 +(void)Login_Success:(NSDictionary *)responseObjecct;
-//图片上传统一接口
+/**
+ 图片上传统一接口
+ */
 +(void)uploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
 
 /**
  头像上传
  */
 +(void)headimageuploadfile:(UIImage *)image comlete:(void(^)(BOOL susccess , id responseObjecct))complete;
-//提交注册
+/**
+ 提交注册
+ */
 +(void)RegistrationInput:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
-//登录
+/**
+ 登录
+ */
 +(void)UserLogin:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
-//会员资料
+/**
+ 会员资料
+ */
 +(void)UserDetailcomplete:(void(^)(BOOL success ,id responseObject))complete;
-//我的粉丝
+/**
+ 我的粉丝
+ */
 +(void)UserFanspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete;
-//我的关注
+/**
+ 我的关注
+ */
 +(void)Userfollowupspage:(NSInteger )page pagesize:(NSInteger )pagesize complete:(void(^)(BOOL success ,id responseObject))complete;
-//关注
+/**
+ 关注
+ */
 +(void)UserFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
-//取消关注
+/**
+ 取消关注
+ */
 +(void)UserCancelFocususerid:(NSInteger )userid complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
 //请求帖子
+ */
 +(void)BBSGetPost:(NSInteger )type withpage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
 
 /**
@@ -46,8 +67,11 @@
  @param complete 返回参数
  */
 +(void)UserPostting:(NSMutableDictionary *)dic witharrimage:(NSMutableArray *)Arrimage withtype:(YouAnStatusComposeViewType )type_status withpk:(NSInteger)pk complete:(void(^)(BOOL success ,id responseObject))complete;
-//帖子详情
-+(void)PostingDeatil:(NSInteger )postintID withpage:(NSInteger )page withpige_size:(NSInteger )page_size if_master:(BOOL)if_master complete:(void(^)(BOOL success ,id responseObject))complete;
+
+/**
+ //帖子详情 按时间 按热度
+ */
++(void)PostingDeatil:(NSInteger )postintID withdic:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 
 /**
  打赏
@@ -123,4 +147,25 @@
  我发表的口碑评价
  */
 +(void)MyCommentspage:(NSInteger )page complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 修改密码接口
+ */
++(void)ModifyPas:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 忘记密码 短信找回
+ */
++(void)ForGotPas_Mes:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 签到
+ */
++(void)UserSignincomplete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 删除发表的口碑评价
+ */
++(void)Delete_Comments:(NSInteger )cid complete:(void(^)(BOOL success ,id responseObject))complete;
+/**
+ 搜索内容接口
+ */
++(void)Search:(NSDictionary *)dic complete:(void(^)(BOOL success ,id responseObject))complete;
 @end
+

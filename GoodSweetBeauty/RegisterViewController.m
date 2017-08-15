@@ -62,7 +62,7 @@
     [self.text_username setTintColor:GETMAINCOLOR];
     [self.text_username setFont:[UIFont boldSystemFontOfSize:18]];
     [self.text_username setKeyboardType:UIKeyboardTypeNumberPad];
-    [self.text_username setTextColor:RGB(51, 51, 51)];
+    [self.text_username setTextColor:GETFONTCOLOR];
     [self.text_username becomeFirstResponder];
     [self.text_username setReturnKeyType:UIReturnKeyNext];
     self.text_username.leftView = self.image_user_left;

@@ -67,6 +67,22 @@
     topView.backgroundColor = GETMAINCOLOR;
     [_tableView addSubview:topView];
     [self.view addSubview:self.tableView];
+    @weakify(self);
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+//        @strongify(self);
+//        self.page = 1;
+//        [self.tableView.mj_footer resetNoMoreData];
+//        [self LoadData];
+//        
+//    }];
+    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        @strongify(self);
+        
+        self.page++;
+        [self LoadData];
+        
+    }];
+    
 }
 -(void)LoadData{
 
@@ -74,6 +90,7 @@
     [ZFCWaveActivityIndicatorView show:self.view];
     [HttpEngine MyCommentspage:self.page complete:^(BOOL success, id responseObject) {
         @strongify(self);
+        [self.tableView.mj_footer endRefreshing];
         [ZFCWaveActivityIndicatorView hid:self.view];
         if (success) {
             
@@ -91,6 +108,10 @@
     if (page==1) {
         
         [self.Arr_data removeAllObjects];
+    }
+    if (self.model.results.count<10) {
+        
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
     }
     for (commentsresults *res in self.model.results) {
         
@@ -117,7 +138,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section==0)return 171;
-    return 0.001;
+    return 10;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
@@ -143,7 +164,6 @@
     cell.delegateSignal = [RACSubject subject];
     [cell.delegateSignal subscribeNext:^(id x) {
         @strongify(self);
-        
         //回调数据处理
         [self DealData:x];
     }];
@@ -180,6 +200,14 @@
             }
         }
         
+    }else if ([dic[@"type"] isEqualToString:@"top_at"]){
+    
+        [self headimg:[dic[@"value"] integerValue]];
+    }else if ([dic[@"type"] isEqualToString:@"delete"]){
+    
+        //找到这个评论的id
+        _commmentmodel = self.Arr_data[[dic[@"value"] integerValue]];
+        [self Delete_Comment:_commmentmodel.id withindex:[dic[@"value"] integerValue]];
     }
 }
 //跳转
@@ -209,6 +237,40 @@
                 [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
             }
         }
+    }];
+}
+/**
+ 删除评论
+ */
+-(void)Delete_Comment:(NSInteger )cid withindex:(NSInteger )index{
+
+    UIAlertController *AltController = [UIAlertController alertControllerWithTitle:@"" message:@"确定删除评价吗??" preferredStyle:UIAlertControllerStyleAlert];
+    [AltController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self Delete_cid:cid withindex:index];
+        
+    }]];
+    [AltController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:AltController animated:YES completion:nil];
+}
+-(void)Delete_cid:(NSInteger )cid withindex:(NSInteger )index{
+
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine Delete_Comments:cid complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            [self.Arr_data removeObjectAtIndex:index];
+            [self.tableView reloadData];
+
+        }else{
+        
+            MYLOG(@"%@",responseObject)
+        }
+        
     }];
 }
 @end

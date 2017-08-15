@@ -9,6 +9,17 @@
 #import "CommentsTableViewCell.h"
 @interface CommentsTableViewCell(){
     
+    //被评价人view
+    UIView *view_Byevaluation;
+    //被评价人头像
+    UIImageView *image_head_Byevaluation;
+    //被评价人name
+    UILabel *lab_username_Byevaluation;
+    //箭头
+    UIImageView *image_arrow_Byevaluation;
+    //line
+    UIView *view_Byevaluation_line;
+    
     //头像
     UIImageView *image_head;
     //用户name
@@ -59,10 +70,29 @@
 }
 -(void)SetFrameForComments{
 
+    view_Byevaluation = [UIView new];
+    view_Byevaluation.userInteractionEnabled=YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(user_click:)];
+    [view_Byevaluation addGestureRecognizer:tap];
+    view_Byevaluation.backgroundColor = [UIColor whiteColor];
+    
+    image_head_Byevaluation = [[UIImageView alloc]initWithRoundingRectImageView];
+    image_head_Byevaluation.image = [UIImage imageNamed:@"bw_pla"];
+    
+    lab_username_Byevaluation = [UILabel new];
+    [lab_username_Byevaluation setTextColor:GETFONTCOLOR];
+    [lab_username_Byevaluation setFont:[UIFont boldSystemFontOfSize:15]];
+    [lab_username_Byevaluation sizeToFit];
+    
+    image_arrow_Byevaluation = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iconArowRight"]];
+    
+    view_Byevaluation_line = [UIView new];
+    [view_Byevaluation_line setBackgroundColor:RGB(247, 247, 247)];
+
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     
     lab_username = [UILabel new];
-    [lab_username setTextColor:RGB(51, 51, 51)];
+    [lab_username setTextColor:GETFONTCOLOR];
     [lab_username setFont:[UIFont systemFontOfSize:15]];
     [lab_username sizeToFit];
     
@@ -72,14 +102,14 @@
     [lab_time sizeToFit];
     
     lab_star = [UILabel new];
-    [lab_star setTextColor:RGB(51, 51, 51)];
+    [lab_star setTextColor:GETFONTCOLOR];
     [lab_star setFont:[UIFont systemFontOfSize:11]];
     [lab_star setText:@"打分"];
     [lab_star sizeToFit];
     
     
     lab_productname = [UILabel new];
-    [lab_productname setTextColor:RGB(51, 51, 51)];
+    [lab_productname setTextColor:GETFONTCOLOR];
     [lab_productname setFont:[UIFont systemFontOfSize:17]];
     [lab_productname sizeToFit];
     
@@ -119,7 +149,7 @@
     btn_del = [UIButton buttonWithType:UIButtonTypeCustom];
     btn_del.adjustsImageWhenHighlighted = NO;
     [btn_del setTitle:@"删除" forState:UIControlStateNormal];
-    [btn_del addTarget:self action:@selector(btn_del_click) forControlEvents:UIControlEventTouchUpInside];
+    [btn_del addTarget:self action:@selector(btn_del_click:) forControlEvents:UIControlEventTouchUpInside];
     btn_del.titleLabel.font = [UIFont systemFontOfSize:14];
     [btn_del setTitleColor:RGB(153, 153, 153) forState:UIControlStateNormal];
     btn_del.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -140,6 +170,12 @@
     [self.contentView addSubview:btn_del];
     [self.contentView addSubview:stack_imageview];
     
+    [self.contentView addSubview:view_Byevaluation];
+    [view_Byevaluation addSubview:image_arrow_Byevaluation];
+    [view_Byevaluation addSubview:image_head_Byevaluation];
+    [view_Byevaluation addSubview:lab_username_Byevaluation];
+    [view_Byevaluation addSubview:view_Byevaluation_line];
+    
     for (int i=0; i<5; i++) {
         
         image_star = [UIImageView new];
@@ -151,11 +187,18 @@
         
     }
     
-    image_head.whc_Size(40,40).whc_LeftSpace(15).whc_TopSpace(15);
+    view_Byevaluation.whc_LeftSpace(0).whc_RightSpace(0).whc_TopSpace(0).whc_Height(50);
+    image_head_Byevaluation.whc_LeftSpace(15).whc_CenterY(0).whc_Size(28,28);
+    lab_username_Byevaluation.whc_LeftSpaceToView(10,image_head_Byevaluation).whc_CenterY(0);
+    image_arrow_Byevaluation.whc_RightSpace(15).whc_Size(7,13).whc_CenterY(0);
     
-    lab_username.whc_LeftSpaceToView(10,image_head).whc_TopSpace(20);
+    view_Byevaluation_line.whc_LeftSpace(0).whc_RightSpace(0).whc_Height(0.5).whc_BottomSpace(0);
     
-    lab_time.whc_RightSpace(15).whc_TopSpace(21);
+    image_head.whc_Size(40,40).whc_LeftSpace(15).whc_TopSpaceToView(15,view_Byevaluation);
+    
+    lab_username.whc_LeftSpaceToView(10,image_head).whc_TopSpaceToView(20,view_Byevaluation);
+    
+    lab_time.whc_RightSpace(15).whc_TopSpaceToView(21,view_Byevaluation);
     
     lab_star.whc_LeftSpaceEqualView(lab_username).whc_TopSpaceToView(6,lab_username);
     
@@ -182,6 +225,12 @@
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,resmodel.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
         [lab_username setText:resmodel.from_member_name];
         
+        view_Byevaluation.tag = resmodel.member_id;
+        
+        btn_del.tag = section;
+        
+        lab_username_Byevaluation.text = resmodel.member_name;
+        
         [lab_time setText:[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)resmodel.created] withtype:@"MM-dd"]];
         //打分
         [self DealStar:resmodel.total_score];
@@ -207,8 +256,7 @@
 //处理评论
 -(void)DealComment:(commentsresults *)resmodel withsection:(NSInteger )section{
 
-    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
-//    NSDictionary *dic = [BWCommon textWithStatusRowHeight:@"专业设计团队，从需求分析到市场定位，执专业设计团队，从需求分析到" Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:RGB(51, 51, 51) screenPadding:ScreenWidth-80];
+    NSDictionary *dic = [BWCommon textWithStatusRowHeight:resmodel.content Atarr:resmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:ScreenWidth-80];
     //判断是否有展开按钮
     CGFloat height = [dic[@"height"] floatValue];
     btn_open.tag = section;
@@ -253,6 +301,11 @@
                                                                  @"section":[NSString stringWithFormat:@"%ld",(long)section]}];
     };
 }
+-(void)user_click:(UITapGestureRecognizer *)tap{
+
+    if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"top_at",
+                                                             @"value":[NSNumber numberWithInteger:tap.view.tag]}];
+}
 //处理图片
 -(void)DealImage:(commentsresults *)resmodel{
 
@@ -284,9 +337,12 @@
 
     MYLOG(@"分享")
 }
--(void)btn_del_click{
+-(void)btn_del_click:(UIButton *)btn{
 
     MYLOG(@"删除")
+    if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"delete",
+                                                             @"value":[NSNumber numberWithInteger:btn.tag]}];
+    
 }
 - (void)tapImageGesture:(UITapGestureRecognizer *)tapGesture {
     

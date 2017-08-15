@@ -88,7 +88,7 @@
     [self.lab_title sizeToFit];
     [self.lab_title setFont:[UIFont systemFontOfSize:14]];
     [self.lab_title  setText:self.title];
-    [self.lab_title setTextColor:RGB(51, 51, 51)];
+    [self.lab_title setTextColor:GETFONTCOLOR];
     
     self.lab_balance = [UILabel new];
     [self.lab_balance sizeToFit];

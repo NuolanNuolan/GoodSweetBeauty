@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,17 +20,30 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="get_coin" translatesAutoresizingMaskIntoConstraints="NO" id="kyZ-ty-bAl">
-                        <rect key="frame" x="0.0" y="0.0" width="374" height="169.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="374" height="170"/>
                     </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ATb-4d-AbV">
+                        <rect key="frame" x="0.0" y="0.0" width="187" height="85"/>
+                        <connections>
+                            <action selector="Sign_click:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pik-WJ-nFN"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="ATb-4d-AbV" firstAttribute="height" secondItem="kyZ-ty-bAl" secondAttribute="height" multiplier="1:2" id="Byq-km-bMa"/>
                     <constraint firstItem="kyZ-ty-bAl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="CYF-B8-SkD"/>
+                    <constraint firstItem="ATb-4d-AbV" firstAttribute="width" secondItem="kyZ-ty-bAl" secondAttribute="width" multiplier="1:2" id="EVI-q9-GKG"/>
+                    <constraint firstItem="ATb-4d-AbV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Red-9j-htM"/>
+                    <constraint firstItem="ATb-4d-AbV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Xbe-Yi-I3N"/>
                     <constraint firstAttribute="trailing" secondItem="kyZ-ty-bAl" secondAttribute="trailing" id="aNr-37-KA6"/>
                     <constraint firstItem="kyZ-ty-bAl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="vEy-H6-42P"/>
                     <constraint firstAttribute="bottom" secondItem="kyZ-ty-bAl" secondAttribute="bottom" id="vYl-Wu-Uls"/>
                 </constraints>
             </tableViewCellContentView>
-            <point key="canvasLocation" x="61" y="180"/>
+            <connections>
+                <outlet property="Sign_btn" destination="ATb-4d-AbV" id="U8G-rQ-lTy"/>
+            </connections>
+            <point key="canvasLocation" x="58" y="187"/>
         </tableViewCell>
     </objects>
     <resources>

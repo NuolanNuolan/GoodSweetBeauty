@@ -53,7 +53,7 @@
     self.text_search.leftViewMode = UITextFieldViewModeAlways;
     self.text_search.tintColor = GETMAINCOLOR;
     self.text_search.font = [UIFont systemFontOfSize:14];
-    self.text_search.textColor = RGB(51, 51, 51);
+    self.text_search.textColor = GETFONTCOLOR;
     UIColor * color = RGB(153, 153, 153);
     [self.text_search setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     UIFont * font = [UIFont systemFontOfSize:14];

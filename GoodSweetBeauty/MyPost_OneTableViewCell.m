@@ -43,7 +43,7 @@
     if (self) {
         
         lab_day = [UILabel new];
-        [lab_day setTextColor:RGB(51, 51, 51)];
+        [lab_day setTextColor:GETFONTCOLOR];
         [lab_day setFont:[UIFont systemFontOfSize:17]];
         [lab_day sizeToFit];
         
@@ -54,7 +54,7 @@
         
         lab_title = [UILabel new];
         [lab_title setFont:[UIFont systemFontOfSize:17]];
-        [lab_title setTextColor:RGB(51, 51, 51)];
+        [lab_title setTextColor:GETFONTCOLOR];
         lab_title.numberOfLines = 2;
         [lab_title sizeToFit];
         
@@ -100,7 +100,7 @@
         
         lab_day.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"dd"];
         lab_month.text = [NSString stringWithFormat:@"%@月",[BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM"]];
-        lab_title.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-71.6];
+        lab_title.attributedText = [BWCommon textWithStatus:model.subject Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-71.6];
         lab_detail.attributedText = [BWCommon textWithStatus:model.stripd_content Atarr:nil font:[UIFont systemFontOfSize:14] LineSpacing:7 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-71.6];
         lab_read_back.text = [NSString stringWithFormat:@"阅读 %ld  回复 %ld",(long)model.favors,(long)model.replies];
     }

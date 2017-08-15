@@ -139,7 +139,7 @@
         [self LoadData];
         
     }];
-    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+    self.tableview.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
          @strongify(self);
         self.page++;
         [self LoadData];

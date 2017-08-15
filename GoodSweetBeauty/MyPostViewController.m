@@ -157,7 +157,7 @@
     self.btn_back.selected=NO;
     self.btn_back.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.btn_back addTarget:self action:@selector(Btn_switch:) forControlEvents:UIControlEventTouchUpInside];
-    [self.btn_back setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    [self.btn_back setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
     self.view_line = [UIView new];
     self.view_line.backgroundColor = GETMAINCOLOR;
     
@@ -313,7 +313,7 @@
     sender.selected=YES;
     if (sender==self.btn_main) {
         
-        [self.btn_back setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [self.btn_back setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         self.btn_back.selected=NO;
         MYLOG(@"主贴");
         
@@ -321,7 +321,7 @@
         
     }else{
     
-        [self.btn_main setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [self.btn_main setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         self.btn_main.selected = NO;
         MYLOG(@"回帖");
     }

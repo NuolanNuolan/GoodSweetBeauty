@@ -40,7 +40,7 @@
     self.textview.delegate =self;
     self.textview.backgroundColor = [UIColor clearColor];
     self.textview.backgroundColor = [UIColor clearColor];
-    self.textview.textColor = RGB(51, 51, 51);
+    self.textview.textColor = GETFONTCOLOR;
     self.textview.font = [UIFont systemFontOfSize:16];
     self.textview.showsVerticalScrollIndicator =NO;
     self.textview.textContainerInset = UIEdgeInsetsMake(15, 15, 12, 15);

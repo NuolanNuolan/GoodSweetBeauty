@@ -66,7 +66,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //按时间 按热度
 @property(nonatomic,strong)UILabel *lab_timeOrhot;
 @property(nonatomic,strong)UIButton *btn_timeOrhot;
-@property(nonatomic,copy)NSArray *arr_items;
 
 //尾部视图
 @property(nonatomic,strong)UILabel *lab_footer;
@@ -113,8 +112,24 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 //请求
 -(void)LoadData:(NSInteger )page{
     
+    
+    //组建参数
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    [dic setValue:[NSNumber numberWithInteger:page] forKey:@"page"];
+    if (self.if_master) {
+        
+        [dic setValue:[NSNumber numberWithInteger:1] forKey:@"if_master"];
+    }
+    if (self.lab_timeOrhot) {
+        //如果不存在 默认按时间  如果存在  判断text
+        if ([self.lab_timeOrhot.text isEqualToString:@"按热度"]) {
+            
+            [dic setValue:@"likes" forKey:@"ordering"];
+        }
+    }
+    
     @weakify(self);
-    [HttpEngine PostingDeatil:self.posting_id withpage:page withpige_size:0 if_master:self.if_master complete:^(BOOL success, id responseObject) {
+    [HttpEngine PostingDeatil:self.posting_id withdic:dic complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableview.mj_header endRefreshing];
         [self.tableview.mj_footer endRefreshing];
@@ -170,16 +185,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         }
     }
 
-//    if (page==1) [self.tableview reloadData];
-//    else{
-//        
-//        [UIView performWithoutAnimation:^{
-//            
-////            [self.tableview reloadSections:[NSIndexSet indexSetWithIndex:6] withRowAnimation:UITableViewRowAnimationNone];
-//            [self.tableview reloadSection:5 withRowAnimation:UITableViewRowAnimationNone];
-////            [self.tableview reloadData];
-//        }];
-//    }
     [self.tableview reloadData];
     
 }
@@ -232,7 +237,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     self.btn_Poster.titleLabel.font = [UIFont systemFontOfSize:12];
     [self.btn_Poster setTitle:@"楼主" forState:UIControlStateNormal];
     [self.btn_Poster setEnlargeEdgeWithTop:20 right:10 bottom:20 left:30];
-    [self.btn_Poster setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    [self.btn_Poster setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
     [self.btn_Poster addTarget:self action:@selector(Poster_click) forControlEvents:UIControlEventTouchUpInside];
     self.btn_Poster.layer.masksToBounds =YES;
     self.btn_Poster.layer.borderColor = RGB(102, 102, 102).CGColor;
@@ -944,23 +949,43 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     @weakify(self);
     LPActionSheet *sheet = [[LPActionSheet alloc]initWithTitle:@"" cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"按时间",@"按热度"] titlecolor:GETMAINCOLOR handler:^(LPActionSheet *actionSheet, NSInteger index) {
         @strongify(self);
-        switch (index) {
-            case 1:{
-                MYLOG(@"按时间哈哈哈")
-            }
-                break;
-            case 2:{
-                
-                MYLOG(@"按热度")
-            }
-                break;
-        }
+        [self DealWithTime_Hot:index];
+
     }];
     [sheet show];
     
 }
 /**
- 
+ 处理按时间按热度
+ */
+-(void)DealWithTime_Hot:(NSInteger )index{
+    
+    switch (index) {
+        case 1:{
+            if ([self.lab_timeOrhot.text isEqualToString:@"按时间"]) {
+                return;
+            }
+            self.lab_timeOrhot.text = @"按时间";
+            self.page = 1;
+            [self LoadData:self.page];
+        }
+            break;
+        case 2:{
+            
+            if ([self.lab_timeOrhot.text isEqualToString:@"按热度"]) {
+                return;
+            }
+            self.lab_timeOrhot.text = @"按热度";
+            self.page = 1;
+            [self LoadData:self.page];
+            
+        }
+            break;
+    }
+
+    
+}
+/**
  举报
  */
 -(void)report_click:(NSDictionary *)dic{
@@ -986,21 +1011,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     [sheet show];
 }
 #pragma mark 懒加载
--(NSArray *)arr_items{
 
-    if (!_arr_items) {
-        YCXMenuItem *Titletime = [YCXMenuItem menuTitle:@"按时间" WithIcon:nil];
-        Titletime.foreColor = RGB(102, 102, 102);
-        Titletime.titleFont = [UIFont systemFontOfSize:14.0f];
-        
-        
-        YCXMenuItem *Titlehot = [YCXMenuItem menuTitle:@"按热度" WithIcon:nil];
-        Titlehot.foreColor = RGB(102, 102, 102);
-        Titlehot.titleFont = [UIFont systemFontOfSize:14.0f];
-        _arr_items = [NSArray arrayWithObjects:Titletime,Titlehot, nil];
-    }
-    return _arr_items;
-}
 -(UIView *)view_head_hot{
 
     if (!_view_head_hot) {

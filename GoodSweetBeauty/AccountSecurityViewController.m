@@ -154,9 +154,35 @@
 }
 -(void)Btn_input{
     
-    //取到原密码进行判断
     MYLOG(@"%@",self.Arr_text);
     
+    if (![self.Arr_text[1]isEqualToString:self.Arr_text[2]]) {
+        
+        [MBProgressHUD showError:@"两次输入的密码不同"];
+        return;
+    }
+    NSDictionary *dic = @{@"old_password":self.Arr_text[0],
+                          @"password":self.Arr_text[1]};
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:self.view];
+    [HttpEngine ModifyPas:dic complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:self.view];
+        if (success) {
+            
+            MYLOG(@"%@",responseObject)
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            GCD_AFTER(0.5,
+                      [self.navigationController popViewControllerAnimated:YES];
+                      );
+            
+        }else{
+        
+            MYLOG(@"%@",responseObject)
+            [MBProgressHUD showError:responseObject[@"msg"]];
+            
+        }
+    }];
     
 }
 

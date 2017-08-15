@@ -65,7 +65,7 @@
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
     UIBarButtonItem *button_left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(Pop_click)];
     [button_left setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17],
-                                          NSForegroundColorAttributeName :RGB(51, 51, 51)} forState:UIControlStateNormal];
+                                          NSForegroundColorAttributeName :GETFONTCOLOR} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = button_left;
     
     self.tableview=[[UITableView alloc]initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, SCREEN_HEIGHT-44) style:UITableViewStylePlain];
@@ -105,7 +105,7 @@
     self.text_search.leftViewMode = UITextFieldViewModeAlways;
     self.text_search.tintColor = GETMAINCOLOR;
     self.text_search.font = [UIFont systemFontOfSize:14];
-    self.text_search.textColor = RGB(51, 51, 51);
+    self.text_search.textColor = GETFONTCOLOR;
     UIColor * color = RGB(153, 153, 153);
     [self.text_search setValue:color forKeyPath:@"_placeholderLabel.textColor"];
     UIFont * font = [UIFont systemFontOfSize:14];

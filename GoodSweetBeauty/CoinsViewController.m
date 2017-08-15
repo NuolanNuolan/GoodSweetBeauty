@@ -115,7 +115,7 @@
     self.btn_record.selected=NO;
     self.btn_record.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.btn_record addTarget:self action:@selector(Btn_switch:) forControlEvents:UIControlEventTouchUpInside];
-    [self.btn_record setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+    [self.btn_record setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
     self.view_line = [UIView new];
     self.view_line.backgroundColor = RGB(250, 111, 42);
     
@@ -186,12 +186,12 @@
     sender.selected=YES;
     if (sender==self.btn_coins) {
         
-        [self.btn_record setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [self.btn_record setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         self.btn_record.selected=NO;
         MYLOG(@"有安币");
     }else{
         
-        [self.btn_coins setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [self.btn_coins setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         self.btn_coins.selected = NO;
         MYLOG(@"兑换记录");
     }

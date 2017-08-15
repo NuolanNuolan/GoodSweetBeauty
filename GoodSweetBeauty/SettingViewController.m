@@ -100,7 +100,7 @@
     view.backgroundColor = [UIColor clearColor];
     if (section==4) {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [btn setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         [btn setTitle:@"退出登录" forState:UIControlStateNormal];
         [btn setBackgroundColor:[UIColor whiteColor]];
         btn.titleLabel.font =[UIFont systemFontOfSize:16];

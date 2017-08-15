@@ -21,4 +21,21 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)Sign_click:(UIButton *)sender {
+    
+    //签到
+    
+    [HttpEngine UserSignincomplete:^(BOOL success, id responseObject) {
+       
+        MYLOG(@"%@",responseObject);
+        if (success) {
+            
+            [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            
+        }else{
+        
+            [MBProgressHUD showError:responseObject[@"msg"]];
+        }
+    }];
+}
 @end

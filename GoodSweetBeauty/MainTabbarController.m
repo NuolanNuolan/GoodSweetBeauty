@@ -140,7 +140,7 @@
     configration.scrollViewBackgroundColor = [UIColor whiteColor];
     configration.aligmentModeCenter = NO;
     configration.lineWidthEqualFontWidth = YES;
-    configration.normalItemColor = RGB(51, 51, 51);
+    configration.normalItemColor = GETFONTCOLOR;
     configration.selectedItemColor = GETMAINCOLOR;
     configration.lineColor = GETMAINCOLOR;
     configration.scrollMenu =NO;

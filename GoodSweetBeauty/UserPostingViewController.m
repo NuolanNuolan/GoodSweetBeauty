@@ -82,7 +82,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem *button_left = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
     [button_left setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17],
-                                     NSForegroundColorAttributeName :RGB(51, 51, 51)} forState:UIControlStateNormal];
+                                     NSForegroundColorAttributeName :GETFONTCOLOR} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = button_left;
 
     UIBarButtonItem *button_right = [[UIBarButtonItem alloc] initWithTitle:@"发表" style:UIBarButtonItemStylePlain target:self action:@selector(input)];
@@ -371,6 +371,22 @@
                     
                     PostStarTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([PostStarTableViewCell class])];
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.delegateSignal = [RACSubject subject];
+                    @weakify(self);
+                    [cell.delegateSignal subscribeNext:^(id x) {
+                        @strongify(self);
+                        
+                        if ([x[@"type"] isEqualToString:@"product_score"]){
+                            
+                            self.product_score = [x[@"product_score"] intValue];
+                            
+                        }else if ([x[@"type"] isEqualToString:@"service_score"]){
+                            
+                            self.service_score = [x[@"service_score"] intValue];
+                        }
+                        
+                    }];
+                    
                     
                     return cell;
                 }

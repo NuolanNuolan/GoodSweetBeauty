@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CoinsOneTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIButton *Sign_btn;
+- (IBAction)Sign_click:(UIButton *)sender;
 
 @end

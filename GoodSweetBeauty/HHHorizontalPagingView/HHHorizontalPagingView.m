@@ -267,7 +267,7 @@ static NSInteger pagingScrollViewTag             = 2000;
             UIButton *segmentButton = self.segmentButtons[i];
             [segmentButton removeConstraints:self.segmentButtonConstraintArray];
             segmentButton.tag = pagingButtonTag+i;
-            [segmentButton setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+            [segmentButton setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
             [segmentButton setTitleColor:GETMAINCOLOR forState:UIControlStateDisabled];
             [segmentButton addTarget:self action:@selector(segmentButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
             [_segmentView addSubview:segmentButton];

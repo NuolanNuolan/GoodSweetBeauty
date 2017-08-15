@@ -41,7 +41,7 @@
         UIButton *cancelBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
         cancelBtn.tag=0;
-        [cancelBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [cancelBtn setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [cancelBtn addTarget:self action:@selector(dismiss) forControlEvents:UIControlEventTouchUpInside];
         
@@ -49,7 +49,7 @@
         UIButton *sureBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         [sureBtn setTitle:@"确定" forState:UIControlStateNormal];
         sureBtn.tag=1;
-        [sureBtn setTitleColor:RGB(51, 51, 51) forState:UIControlStateNormal];
+        [sureBtn setTitleColor:GETFONTCOLOR forState:UIControlStateNormal];
         sureBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [sureBtn addTarget:self action:@selector(sure) forControlEvents:UIControlEventTouchUpInside];
         
@@ -124,7 +124,7 @@
         lbl = [[UILabel alloc]init];
         lbl.font = [UIFont boldSystemFontOfSize:18];
         [lbl setTextAlignment:NSTextAlignmentCenter];
-        lbl.textColor = RGB(51, 51, 51);
+        lbl.textColor = GETFONTCOLOR;
         [lbl setBackgroundColor:[UIColor clearColor]];
     }
     

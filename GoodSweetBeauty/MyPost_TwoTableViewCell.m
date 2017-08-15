@@ -42,7 +42,7 @@
         
         lab_title = [UILabel new];
         [lab_title setFont:[UIFont systemFontOfSize:17]];
-        [lab_title setTextColor:RGB(51, 51, 51)];
+        [lab_title setTextColor:GETFONTCOLOR];
         lab_title.numberOfLines = 2;
         [lab_title sizeToFit];
         
@@ -84,7 +84,7 @@
     if (model) {
         
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
-        lab_title.attributedText = [BWCommon textWithStatus:[NSString stringWithFormat:@"Re: %@",model.stripd_content] Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-30];
+        lab_title.attributedText = [BWCommon textWithStatus:[NSString stringWithFormat:@"Re: %@",model.stripd_content] Atarr:nil font:[UIFont systemFontOfSize:17] LineSpacing:7 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-30];
         lab_read_back.text = [NSString stringWithFormat:@"回复 %ld",(long)model.replies];
     }
     

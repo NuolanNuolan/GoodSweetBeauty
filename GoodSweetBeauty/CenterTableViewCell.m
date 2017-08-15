@@ -40,7 +40,7 @@
         
         lab_title = [UILabel new];
         [lab_title setFont: [UIFont systemFontOfSize:16]];
-        [lab_title setTextColor:RGB(51, 51, 51)];
+        [lab_title setTextColor:GETFONTCOLOR];
         [lab_title sizeToFit];
         
         image_red_unread = [[UIImageView alloc]init];;

@@ -43,7 +43,6 @@
     dispatch_once(&onceToken, ^{
         
        [self RegistryNetworkNotice];
-        //注册HUD
         
         
     });

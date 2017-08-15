@@ -43,16 +43,16 @@
 
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];
     image_head.userInteractionEnabled =YES;
-    UIGestureRecognizer *tap = [[UIGestureRecognizer alloc]initWithTarget:self action:@selector(click_head:)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(click_head:)];
     [image_head addGestureRecognizer:tap];
     
     lab_username = [UILabel new];
     [lab_username setFont:[UIFont systemFontOfSize:15]];
-    [lab_username setTextColor:RGB(51, 51, 51)];
+    [lab_username setTextColor:GETFONTCOLOR];
     [lab_username sizeToFit];
     
     lab_deatil = [XXLinkLabel new];
-    //    [lab_atme_content setTextColor:RGB(51, 51, 51)];
+    //    [lab_atme_content setTextColor:GETFONTCOLOR];
     //    [lab_atme_content setFont:[UIFont systemFontOfSize:17]];
     lab_deatil.numberOfLines = 0;
     //    [lab_atme_content sizeToFit];

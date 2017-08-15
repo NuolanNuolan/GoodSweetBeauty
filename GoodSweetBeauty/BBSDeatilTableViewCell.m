@@ -55,7 +55,7 @@
     lab_username = [UILabel new];
     [lab_username sizeToFit];
     lab_username.numberOfLines = 0;
-    [lab_username setTextColor:RGB(51, 51, 51)];
+    [lab_username setTextColor:GETFONTCOLOR];
     [lab_username setFont:[UIFont boldSystemFontOfSize:15]];
     lab_username.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap_name = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(head_click:)];

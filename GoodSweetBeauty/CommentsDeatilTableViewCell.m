@@ -90,7 +90,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     lab_name.numberOfLines = 0;
     [lab_name sizeToFit];
     [lab_name setFont:[UIFont systemFontOfSize:15]];
-    [lab_name setTextColor:RGB(51, 51, 51)];
+    [lab_name setTextColor:GETFONTCOLOR];
     
     image_auth = [UIImageView new];
     
@@ -182,7 +182,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [lab_father_name sizeToFit];
 //        lab_father_name.numberOfLines = 0;
         [lab_father_name setFont:[UIFont systemFontOfSize:15]];
-        [lab_father_name setTextColor:RGB(51, 51, 51)];
+        [lab_father_name setTextColor:GETFONTCOLOR];
         
         lab_father_deatil = [XXLinkLabel new];
         [lab_father_deatil sizeToFit];
@@ -335,11 +335,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         self.PostsModel = postsmodel;
 
         [self DealwithUI:postsmodel withrow:row withisAllcomments:isAllcomments masterid:masterid];
-        
 
         if (!isfather) {
            
-            lab_deatil.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-85];
+            lab_deatil.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-85];
             @weakify(self);
             lab_deatil.regularLinkClickBlock = ^(NSString *clickedString) {
                 @strongify(self);
@@ -369,7 +368,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             
 //            lab_father_deatil.attributedText = [BWCommon textWithStatus:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
             
-            NSDictionary *dic = [BWCommon textWithStatusRowHeight:postsmodel.father.stripd_content Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
+            NSDictionary *dic = [BWCommon textWithStatusRowHeight:postsmodel.father.stripd_content Atarr:postsmodel.father.ats font:[UIFont systemFontOfSize:15] LineSpacing:8.5 textColor:RGB(136, 136, 136) screenPadding:SCREEN_WIDTH-89];
             
             lab_father_deatil.attributedText = dic[@"text"];
             
@@ -383,7 +382,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
                 
                 [self AtsBlock_isAllcomments:isAllcomments str_result:str_result row:[NSString stringWithFormat:@"%ld",(long)row] isfather:@"YES"];
             };
-            lab_father_back.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-75];
+            lab_father_back.attributedText = [BWCommon textWithStatus:postsmodel.stripd_content Atarr:postsmodel.ats font:[UIFont systemFontOfSize:17] LineSpacing:8.5 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-75];
             lab_father_back.regularLinkClickBlock = ^(NSString *clickedString) {
                 @strongify(self);
                 //正则提取出来的内容 包含@和空格
@@ -396,7 +395,6 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
             if (isAllcomments)btn_father_open.tag = 200+row;
             else btn_father_open.tag = 100+row;
             
-//            CGSize size =[self sizeWithString:lab_father_deatil.text font:[UIFont systemFontOfSize:15] maxSize:CGSizeMake(SCREEN_WIDTH-89, MAXFLOAT)];
             //判断父评论有否有图片
             if (![postsmodel.father.image isEqualToString:@""]) {
 
@@ -513,17 +511,10 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
 -(void)floor_image_url:(Father *)father{
 
     stack_imageview_floor.whc_LeftSpaceEqualView(lab_father_deatil).whc_TopSpaceToView(20,lab_father_deatil).whc_RightSpaceEqualView(lab_father_deatil).whc_HeightAuto();
-    NSArray *arr_image;
-    if ([BWCommon DoesItInclude:father.image withString:@"##"]) {
-        //有多张
-        arr_image = [father.image componentsSeparatedByString:@"##"];
-    }else{
-        //只有一张
-        arr_image = [NSArray arrayWithObjects:father.image, nil];
-        arr_image = [NSArray arrayWithObjects:@"http://farm4.staticflickr.com/3795/9269794168_3ac58fc15c_b.jpg",@"http://pic1.win4000.com/wallpaper/6/512ab98606b0c.jpg",@"http://image5.tuku.cn/wallpaper/Landscape%20Wallpapers/8294_2560x1600.jpg",@"http://desk.fd.zol-img.com.cn/t_s960x600c5/g5/M00/00/0A/ChMkJ1cpupiIW7yaABC-KDRTyM8AARBAQNvQmYAEL5A375.jpg", nil];
-    }
+    NSArray *arr_image = [NSArray arrayWithArray:father.images];
+
     [self resetstack_father:father withimagearr:arr_image];
-    Arr_image_floor = nil;
+    
     Arr_image_floor = [NSArray arrayWithArray:arr_image];
 }
 //普通回复图片
@@ -564,7 +555,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapImageGesture_floor:)];
         [imageView addGestureRecognizer:tapGesture];
         imageView.backgroundColor = UIColorFromHex(0xE5E5E5);
-        [imageView sd_setImageWithURL:[NSURL URLWithString:arr_image[i]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,arr_image[i]]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
         
         [stack_imageview_floor addSubview:imageView];
     }
@@ -623,7 +614,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     for (int i=0; i<Arr_image_floor.count; i++) {
         
         MSSBrowseModel *browseItem = [[MSSBrowseModel alloc]init];
-        browseItem.bigImageUrl = Arr_image_floor[i];// 加载网络图片大图地址
+        browseItem.bigImageUrl = [NSString stringWithFormat:@"%@%@",ADDRESS_IMG,Arr_image_floor[i]];// 加载网络图片大图地址
         browseItem.smallImageView = stack_imageview_floor.subviews[i];// 小图
         [arr_image_view addObject:browseItem];
     }

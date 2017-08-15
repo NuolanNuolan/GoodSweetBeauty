@@ -59,13 +59,13 @@
     
     self.lab_title = [UILabel new];
     [self.lab_title setText:@"已发送短信验证码到"];
-    [self.lab_title setTextColor:RGB(51, 51, 51)];
+    [self.lab_title setTextColor:GETFONTCOLOR];
     [self.lab_title setFont:[UIFont systemFontOfSize:18]];
     [self.lab_title sizeToFit];
     
     self.lab_phone = [UILabel new];
     [self.lab_phone setText:[NSString stringWithFormat:@"+86 %@",self.phone]];
-    [self.lab_phone setTextColor:RGB(51, 51, 51)];
+    [self.lab_phone setTextColor:GETFONTCOLOR];
     [self.lab_phone setFont:[UIFont boldSystemFontOfSize:22]];
     [self.lab_phone sizeToFit];
     
@@ -92,7 +92,7 @@
     //    self.text_username.backgroundColor = [UIColor redColor];
     [self.text_code setTintColor:GETMAINCOLOR];
     [self.text_code setFont:[UIFont boldSystemFontOfSize:18]];
-    [self.text_code setTextColor:RGB(51, 51, 51)];
+    [self.text_code setTextColor:GETFONTCOLOR];
     [self.text_code setKeyboardType:UIKeyboardTypeNumberPad];
     [self.text_code setReturnKeyType:UIReturnKeyNext];
     [self.text_code becomeFirstResponder];
@@ -244,6 +244,8 @@
                 
                 MYLOG(@"重新设置密码");
                 SetPwdViewController *view = [SetPwdViewController new];
+                view.Verification_code = self.text_code.text;
+                view.phone = self.phone;
                 [self.navigationController pushViewController:view animated:YES];
             }
             

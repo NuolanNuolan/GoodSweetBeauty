@@ -47,13 +47,16 @@
         }else if ([model.action isEqualToString:@"get_reward"]){
             
             str = @"收到打赏";
+        }else if ([model.action isEqualToString:@"signin"]){
+            
+            str = @"每日签到";
         }
         self.lab_type.text = str;
         NSString * str_coins = @"";
         if (model.coins>0) {
             
             str_coins = [NSString stringWithFormat:@"+%ld",(long)model.coins];
-            [self.lab_banlance setTextColor:RGB(51, 51, 51)];
+            [self.lab_banlance setTextColor:GETFONTCOLOR];
             
         }else{
         

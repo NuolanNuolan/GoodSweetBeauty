@@ -35,7 +35,7 @@
         _textView.placeholderFont = [UIFont systemFontOfSize:15];
         _textView.placeholderTextColor = RGB(199, 199, 199);
         _textView.backgroundColor = [UIColor clearColor];
-        _textView.textColor = RGB(51, 51, 51);
+        _textView.textColor = GETFONTCOLOR;
         _textView.font = [UIFont systemFontOfSize:14];
         _textView.showsVerticalScrollIndicator =NO;
         _textView.textContainerInset = UIEdgeInsetsMake(15, 15, 12, 15);

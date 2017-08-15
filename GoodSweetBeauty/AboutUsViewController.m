@@ -33,7 +33,7 @@
     
     UILabel *lab = [UILabel new];
     lab.numberOfLines = 0;
-    lab.attributedText = [BWCommon textWithStatus:@" 我们旨在赋能企业改变营销、销售和经营的方式。我们为商家、品牌及其他企业提供基本的互联网基础设施以及营销平台，让其可借助互联网的力量与用户和客户互动。我们的业务包括核心电商、云计算、数字媒体和娱乐以及创新项目和其他业务。我们并通过所投资的关联公司菜鸟网络及口碑，参与物流和本地服务行业，同时拥有蚂蚁金融服务集团的利润分成权益，该金融服务集团主要通过中国领先的第三方网上支付平台支付宝运营。" Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8 textColor:RGB(51, 51, 51) screenPadding:SCREEN_WIDTH-40];
+    lab.attributedText = [BWCommon textWithStatus:@" 我们旨在赋能企业改变营销、销售和经营的方式。我们为商家、品牌及其他企业提供基本的互联网基础设施以及营销平台，让其可借助互联网的力量与用户和客户互动。我们的业务包括核心电商、云计算、数字媒体和娱乐以及创新项目和其他业务。我们并通过所投资的关联公司菜鸟网络及口碑，参与物流和本地服务行业，同时拥有蚂蚁金融服务集团的利润分成权益，该金融服务集团主要通过中国领先的第三方网上支付平台支付宝运营。" Atarr:nil font:[UIFont systemFontOfSize:15] LineSpacing:8 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-40];
     
     [self.view addSubview:image_view];
     [self.view addSubview:lab];

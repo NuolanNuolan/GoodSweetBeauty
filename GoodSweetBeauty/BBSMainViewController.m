@@ -8,6 +8,7 @@
 
 #import "BBSMainViewController.h"
 #import "UserPostingViewController.h"
+#import "SearchViewController.h"
 
 @interface BBSMainViewController ()<YNPageScrollViewControllerDelegate>
 
@@ -81,10 +82,19 @@
 }
 -(void)PushSearch{
     
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:self];
+        return;
+    }
     MYLOG(@"搜索");
-//    LoginViewController *view = [LoginViewController new];
-//    view.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:view animated:YES];
+    SearchViewController *searchview = [[SearchViewController alloc]init];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:searchview];
+    //    viewLogin.navigationController.navigationBar.translucent = NO;
+    [[[UIApplication sharedApplication].delegate window].rootViewController presentViewController:navigationController animated:NO completion:^{
+        
+    }];
+
+    
 }
 
 @end

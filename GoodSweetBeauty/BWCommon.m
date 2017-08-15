@@ -274,22 +274,7 @@
     
     return timeString;
 }
-#pragma mark - 富文本部分颜色
-+(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightText:(NSString *)highlightText collor:(UIColor *)color{
-    NSRange hightlightTextRange = [text rangeOfString:highlightText];
-    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text];
-    if (hightlightTextRange.length > 0) {
-        [attributeStr addAttribute:NSForegroundColorAttributeName
-                             value:color
-                             range:hightlightTextRange];
-        [attributeStr addAttribute:NSUnderlineStyleAttributeName
-                             value:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
-                             range:hightlightTextRange];
-        return attributeStr;
-    }else {
-        return [highlightText copy];
-    }
-}
+
 //是否登录
 +(BOOL)islogin{
     
@@ -450,6 +435,82 @@
     CGSize size =  [str boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:dict context:nil].size;
     return size;
 }
+#pragma mark - 富文本部分颜色
++(NSMutableAttributedString *)setupAttributeString:(NSString *)text highlightText:(NSString *)highlightText collor:(UIColor *)color{
+    NSRange hightlightTextRange = [text rangeOfString:highlightText];
+    NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc] initWithString:text];
+    if (hightlightTextRange.length > 0) {
+        [attributeStr addAttribute:NSForegroundColorAttributeName
+                             value:color
+                             range:hightlightTextRange];
+        [attributeStr addAttribute:NSUnderlineStyleAttributeName
+                             value:[NSNumber numberWithInteger:NSUnderlineStyleSingle]
+                             range:hightlightTextRange];
+        return attributeStr;
+    }else {
+        return [highlightText copy];
+    }
+}
+/**
+ 搜索出来的帖子 富文本 文字变颜色
+ */
++ (NSMutableAttributedString *)textColorWithString:(NSString *)str_centent
+                                             Atarr:(NSArray <Ats *> *)ats_arr
+                                              font:(UIFont *)font
+                                       LineSpacing:(CGFloat)LineSpacing
+                                         textColor:(UIColor *)textColor
+                                     screenPadding:(CGFloat )padding
+                                    ChangeColorStr:(NSString *)highlightText
+                                             Color:(UIColor *)color{
+
+    NSMutableString *string = [[str_centent stringByReplacingEmojiCheatCodesToUnicode]mutableCopy];
+    //判断是否有@的 添加在最后面
+    if (ats_arr.count>0&&ats_arr) {
+        NSString *str_at = @"";
+        for (Ats *at_model in ats_arr) {
+            
+            str_at = [str_at stringByAppendingString:[NSString stringWithFormat:@"@%@ ",at_model.uname]];
+        }
+        [string appendString:str_at];
+    }
+    
+    NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
+    text.font = font;
+    text.color = textColor;
+    
+    //使用正则匹配需要变颜色的文字
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"%@",highlightText] options:0 error:nil];
+    NSArray *results = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
+    if (results.count>0) {
+        
+        for (NSTextCheckingResult *result in results) {
+            
+            MYLOG(@"%@ %@", NSStringFromRange(result.range), [string substringWithRange:result.range]);
+            [text addAttribute:NSForegroundColorAttributeName
+                         value:color
+                         range:result.range];
+        }
+    }
+    
+    //行间距
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    
+    NSDictionary *attrs = @{
+                            NSFontAttributeName : font,
+                            NSParagraphStyleAttributeName : paragraphStyle
+                            };
+    // 计算一行文本的高度
+    CGFloat oneHeight = [@"测试Test" boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    CGFloat rowHeight = [string boundingRectWithSize:CGSizeMake(padding, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size.height;
+    if (rowHeight>oneHeight) {
+        
+        [paragraphStyle setLineSpacing:LineSpacing];
+        [paragraphStyle setLineBreakMode:NSLineBreakByTruncatingTail];
+        [text addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [string length])];
+    }
+    return text;
+
+}
 /**
  设置AT文本
  */
@@ -596,7 +657,7 @@
     configration.scrollViewBackgroundColor = [UIColor whiteColor];
     configration.aligmentModeCenter = NO;
     configration.lineWidthEqualFontWidth = YES;
-    configration.normalItemColor = RGB(51, 51, 51);
+    configration.normalItemColor = GETFONTCOLOR;
     configration.selectedItemColor = GETMAINCOLOR;
     configration.lineColor = GETMAINCOLOR;
     configration.scrollMenu =NO;
@@ -653,7 +714,7 @@
         view.backgroundColor = [UIColor whiteColor];
         
         UILabel * lab_detail = [UILabel new];
-        [lab_detail setTextColor:RGB(51, 51, 51)];
+        [lab_detail setTextColor:GETFONTCOLOR];
         [lab_detail setFont:[UIFont systemFontOfSize:18]];
         [lab_detail sizeToFit];
         [lab_detail setText:dataarr[i]];

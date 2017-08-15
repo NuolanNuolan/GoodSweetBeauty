@@ -102,5 +102,16 @@
  用户详情页
  */
 -(UIViewController *)UserDeatil:(YouAnBusinessCardModel *)model;
+/**
+ 搜索出来的帖子 富文本 文字变颜色
+ */
++ (NSMutableAttributedString *)textColorWithString:(NSString *)str_centent
+                                             Atarr:(NSArray <Ats *> *)ats_arr
+                                              font:(UIFont *)font
+                                       LineSpacing:(CGFloat)LineSpacing
+                                         textColor:(UIColor *)textColor
+                                     screenPadding:(CGFloat )padding
+                                    ChangeColorStr:(NSString *)highlightText
+                                             Color:(UIColor *)color;
 @end
 

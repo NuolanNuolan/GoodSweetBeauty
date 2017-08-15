@@ -45,7 +45,7 @@
     lab_title_quality = [UILabel new];
     [lab_title_quality setFont:[UIFont systemFontOfSize:14]];
     [lab_title_quality setText:@"质量"];
-    [lab_title_quality setTextColor:RGB(51, 51, 51)];
+    [lab_title_quality setTextColor:GETFONTCOLOR];
     [lab_title_quality sizeToFit];
     
     starview_quality = [[XHStarRateView alloc]initWithFrame:CGMAKE((ScreenWidth/2)-85, 20, 170, 17)];
@@ -63,7 +63,7 @@
     lab_title_service = [UILabel new];
     [lab_title_service setFont:[UIFont systemFontOfSize:14]];
     [lab_title_service setText:@"服务"];
-    [lab_title_service setTextColor:RGB(51, 51, 51)];
+    [lab_title_service setTextColor:GETFONTCOLOR];
     [lab_title_service sizeToFit];
     
     starview_service = [[XHStarRateView alloc]initWithFrame:CGMAKE((ScreenWidth/2)-85, 59, 170, 17)];

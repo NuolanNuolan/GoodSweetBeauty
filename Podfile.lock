@@ -17,7 +17,7 @@ PODS:
   - CocoaAsyncSocket (7.6.1)
   - DACircularProgress (2.3.1)
   - FLAnimatedImage (1.0.12)
-  - IQKeyboardManager (4.0.10)
+  - IQKeyboardManager (4.0.11)
   - KIZBehavior (0.0.1)
   - KMNavigationBarTransition (1.0.0)
   - Masonry (1.0.2)
@@ -35,7 +35,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - SDCycleScrollView (1.66):
+  - SDCycleScrollView (1.73):
     - SDWebImage (~> 4.0.0)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -43,7 +43,7 @@ PODS:
   - SDWebImage/GIF (4.0.0):
     - FLAnimatedImage (~> 1.0)
     - SDWebImage/Core
-  - TZImagePickerController (1.8.1)
+  - TZImagePickerController (1.8.8)
   - UIBarButtonItem-Badge-Coding (0.0.1)
   - WechatOpenSDK (1.7.9)
   - WHC_AutoLayoutKit (2.7.2)
@@ -90,7 +90,7 @@ SPEC CHECKSUMS:
   CocoaAsyncSocket: 7eadd3f59e1a6c84e2aefc93e9ff7b55156fe174
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  IQKeyboardManager: 593ee99b88381f4b9ccb22bd680f22606351bd41
+  IQKeyboardManager: 83eae5318483a34eb2069ef413d195b97605232e
   KIZBehavior: 23c21df85fd82413bdc9196d4aee982a7d19d430
   KMNavigationBarTransition: b3fb8337f7a1e4542add07fd6c45fb9980794d59
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -99,9 +99,9 @@ SPEC CHECKSUMS:
   PYPhotoBrowser: 5f741373409c232137f12694d1bb2bf1a85da70b
   PYSearch: 6abe3721eb6a2f2a77f06a095b734cdb8faf3c81
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  SDCycleScrollView: e3ade90e9b3159bec04330b208fbfd81c3f3b671
+  SDCycleScrollView: d0fd5fe40a80918371fd8939214eb3be81033d83
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
-  TZImagePickerController: 086034156913375cb19c8e4103562f15322c3b36
+  TZImagePickerController: 5d2085b9a749210c3552d35ebe17a6a679438708
   UIBarButtonItem-Badge-Coding: 3f8e96f75f7d7c7516c1a1706b566892bf2db134
   WechatOpenSDK: 1fe7e3b07db860d6a936c3ff4a5aba6b890958d9
   WHC_AutoLayoutKit: 63c83f35be38d1836b046acdc0a101aa00d2b466

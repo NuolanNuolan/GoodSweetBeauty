@@ -432,7 +432,7 @@
 //    configration.scrollViewBackgroundColor = [UIColor whiteColor];
 //    configration.aligmentModeCenter = NO;
 //    configration.lineWidthEqualFontWidth = YES;
-//    configration.normalItemColor = RGB(51, 51, 51);
+//    configration.normalItemColor = GETFONTCOLOR;
 //    configration.selectedItemColor = GETMAINCOLOR;
 //    configration.lineColor = GETMAINCOLOR;
 //    configration.scrollMenu =NO;
@@ -485,7 +485,7 @@
 //        view.backgroundColor = [UIColor whiteColor];
 //        
 //        self.lab_detail = [UILabel new];
-//        [self.lab_detail setTextColor:RGB(51, 51, 51)];
+//        [self.lab_detail setTextColor:GETFONTCOLOR];
 //        [self.lab_detail setFont:[UIFont systemFontOfSize:18]];
 //        [self.lab_detail sizeToFit];
 //        [self.lab_detail setText:dataarr[i]];

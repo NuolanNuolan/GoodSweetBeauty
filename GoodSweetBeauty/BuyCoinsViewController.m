@@ -148,7 +148,7 @@
     UILabel *lab_coins = [UILabel new];
     [lab_coins setText:[NSString stringWithFormat:@" %@",coins]];
     [lab_coins setFont:[UIFont systemFontOfSize:15]];
-    [lab_coins setTextColor:RGB(51, 51, 51)];
+    [lab_coins setTextColor:GETFONTCOLOR];
     [lab_coins sizeToFit];
     
     [view_coins addSubview:image_view];
@@ -211,7 +211,7 @@
                     for (UIView *subview_view in subviews.subviews) {
                         
                         if ([[subview_view class]isSubclassOfClass:[UIImageView class]])  ((UIImageView *)subview_view).image = self.image1;
-                        else ((UILabel *)subview_view).textColor = RGB(51, 51, 51);
+                        else ((UILabel *)subview_view).textColor = GETFONTCOLOR;
                     }
                 }
             }

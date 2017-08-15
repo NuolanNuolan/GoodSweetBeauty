@@ -178,6 +178,10 @@
 		EAEF2CD41ED9223C003300A9 /* PostingTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAEF2CD21ED9223C003300A9 /* PostingTitleTableViewCell.xib */; };
 		EAEF2CD71ED94E6E003300A9 /* YouAnTextLinePositionModifier.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEF2CD61ED94E6E003300A9 /* YouAnTextLinePositionModifier.m */; };
 		EAEF2CDA1ED954DD003300A9 /* PostingImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEF2CD91ED954DD003300A9 /* PostingImageTableViewCell.m */; };
+		EAFA87231F41770B00697571 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFA87221F41770B00697571 /* SearchViewController.m */; };
+		EAFA87291F41959800697571 /* YouAnSearchMemberModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFA87281F41959800697571 /* YouAnSearchMemberModel.m */; };
+		EAFA872C1F4195F400697571 /* YouAnSearchThreadsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFA872B1F4195F400697571 /* YouAnSearchThreadsModel.m */; };
+		EAFA87301F42BCC800697571 /* SearchThreadsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EAFA872F1F42BCC800697571 /* SearchThreadsTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -523,6 +527,15 @@
 		EAEF2CD61ED94E6E003300A9 /* YouAnTextLinePositionModifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnTextLinePositionModifier.m; sourceTree = "<group>"; };
 		EAEF2CD81ED954DD003300A9 /* PostingImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostingImageTableViewCell.h; sourceTree = "<group>"; };
 		EAEF2CD91ED954DD003300A9 /* PostingImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostingImageTableViewCell.m; sourceTree = "<group>"; };
+		EAFA87211F41770B00697571 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		EAFA87221F41770B00697571 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		EAFA87271F41959800697571 /* YouAnSearchMemberModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnSearchMemberModel.h; sourceTree = "<group>"; };
+		EAFA87281F41959800697571 /* YouAnSearchMemberModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnSearchMemberModel.m; sourceTree = "<group>"; };
+		EAFA872A1F4195F400697571 /* YouAnSearchThreadsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YouAnSearchThreadsModel.h; sourceTree = "<group>"; };
+		EAFA872B1F4195F400697571 /* YouAnSearchThreadsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YouAnSearchThreadsModel.m; sourceTree = "<group>"; };
+		EAFA872E1F42BCC800697571 /* SearchThreadsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchThreadsTableViewCell.h; sourceTree = "<group>"; };
+		EAFA872F1F42BCC800697571 /* SearchThreadsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchThreadsTableViewCell.m; sourceTree = "<group>"; };
+		EAFA87321F42C4D600697571 /* PUBLIC_PCH.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PUBLIC_PCH.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1067,6 +1080,7 @@
 				EA9CF6191E80D3CD0050BA8B /* LaunchScreen.storyboard */,
 				EA9CF61C1E80D3CD0050BA8B /* Info.plist */,
 				EA9CF6401E80D9430050BA8B /* PrefixHeader.pch */,
+				EAFA87321F42C4D600697571 /* PUBLIC_PCH.h */,
 				EA9CF60B1E80D3CD0050BA8B /* Supporting Files */,
 			);
 			name = Tool;
@@ -1337,6 +1351,10 @@
 				EAE023831EDE7565009305A7 /* YouAnBBSDeatilModel.m */,
 				EAB6C89F1F2B2AD9007581CD /* YouAnBusinessCardModel.h */,
 				EAB6C8A01F2B2AD9007581CD /* YouAnBusinessCardModel.m */,
+				EAFA87271F41959800697571 /* YouAnSearchMemberModel.h */,
+				EAFA87281F41959800697571 /* YouAnSearchMemberModel.m */,
+				EAFA872A1F4195F400697571 /* YouAnSearchThreadsModel.h */,
+				EAFA872B1F4195F400697571 /* YouAnSearchThreadsModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -1344,6 +1362,7 @@
 		EAAE62B21EBDDCC700AB9280 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA872D1F42BCAE00697571 /* 搜索 */,
 				EA4C06011F0F5F2800539A16 /* 联系人 */,
 				EAE023851EDE8EF7009305A7 /* 帖子详情 */,
 				EAEF2CCC1ED9217A003300A9 /* 发帖及回复 */,
@@ -1355,6 +1374,7 @@
 		EAAE62B31EBDDCCA00AB9280 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				EAFA87201F4176E100697571 /* 搜索 */,
 				EAE0237E1EDD7C90009305A7 /* 帖子详情 */,
 				EA6371451ED835D6003E6BC3 /* 发帖AndSo on */,
 				EA6371291ED6DD2E003E6BC3 /* 主页扩展Controller */,
@@ -1507,6 +1527,24 @@
 				EA10A1601F2CF064000CF031 /* ChooseProductTableViewCell.xib */,
 			);
 			name = "发帖及回复";
+			sourceTree = "<group>";
+		};
+		EAFA87201F4176E100697571 /* 搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				EAFA87211F41770B00697571 /* SearchViewController.h */,
+				EAFA87221F41770B00697571 /* SearchViewController.m */,
+			);
+			name = "搜索";
+			sourceTree = "<group>";
+		};
+		EAFA872D1F42BCAE00697571 /* 搜索 */ = {
+			isa = PBXGroup;
+			children = (
+				EAFA872E1F42BCC800697571 /* SearchThreadsTableViewCell.h */,
+				EAFA872F1F42BCC800697571 /* SearchThreadsTableViewCell.m */,
+			);
+			name = "搜索";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1744,6 +1782,7 @@
 				EA52121B1F146389006EFD7F /* HistoryCoinsTableViewCell.m in Sources */,
 				EA4C06071F0F785100539A16 /* AtTitleheadview.m in Sources */,
 				EA9CF6101E80D3CD0050BA8B /* AppDelegate.m in Sources */,
+				EAFA872C1F4195F400697571 /* YouAnSearchThreadsModel.m in Sources */,
 				EA09A2621EC1AEAD00224DF5 /* MyPost_TwoTableViewCell.m in Sources */,
 				EA4332A61ED57E3500A65177 /* MSSBrowseBaseViewController.m in Sources */,
 				EA0913F41F2A3C5900A986B6 /* MesDeatilTableViewCell.m in Sources */,
@@ -1782,8 +1821,10 @@
 				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
 				EA343B6A1F1859F8001F1FB1 /* MesListTableViewCell.m in Sources */,
 				EA138CA31F34457D00C0BBD5 /* AppShareView.m in Sources */,
+				EAFA87291F41959800697571 /* YouAnSearchMemberModel.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */,
+				EAFA87231F41770B00697571 /* SearchViewController.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
 				EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */,
 				EA10A1661F2EC202000CF031 /* MycommentViewController.m in Sources */,
@@ -1809,6 +1850,7 @@
 				EAA5A2F91EF3CDCC002585C3 /* PPNetworkHelper.m in Sources */,
 				EA5211FF1F132CD6006EFD7F /* YouAnAtMeModel.m in Sources */,
 				EA63712D1ED7D0F0003E6BC3 /* CenterBaseViewController.m in Sources */,
+				EAFA87301F42BCC800697571 /* SearchThreadsTableViewCell.m in Sources */,
 				EA4C06001F0E9A1300539A16 /* BMChineseSort.m in Sources */,
 				EAB7816D1F39CD600027B2CB /* VersionInformationViewController.m in Sources */,
 				EAAE62BA1EBDDD6100AB9280 /* ToolsViewController.m in Sources */,

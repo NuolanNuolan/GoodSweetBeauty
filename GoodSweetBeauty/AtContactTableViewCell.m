@@ -54,7 +54,7 @@
 //    image_head.layer.cornerRadius = 20.0f;
     
     lab_name = [UILabel new];
-    [lab_name setTextColor:RGB(51, 51, 51)];
+    [lab_name setTextColor:GETFONTCOLOR];
     [lab_name setFont:[UIFont systemFontOfSize:15]];
     [lab_name sizeToFit];
     
