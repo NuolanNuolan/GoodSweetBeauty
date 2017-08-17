@@ -27,6 +27,9 @@
 @property(nonatomic,strong)UIView *view_line;
 @property(nonatomic,strong)UIView *view_line_two;
 
+//有安币数值lab
+@property(nonatomic,strong)UILabel *lab_coins;
+
 //page
 @property(nonatomic,assign)NSInteger page_coins;
 @property(nonatomic,assign)NSInteger page_record;
@@ -92,13 +95,13 @@
     btn.titleLabel.font = [UIFont systemFontOfSize:14];
     btn.frame = CGMAKE(ScreenWidth-100, 0, 100, 76);
     
-    UILabel *lab = [[UILabel alloc]initWithFrame:CGMAKE(42, 26.5, 300, 22.5)];
-    [lab setText:[NSString stringWithFormat:@"%ld",(long)self.conins]];
-    [lab setTextColor:[UIColor whiteColor]];
-    [lab setFont:[UIFont boldSystemFontOfSize:30]];
+    self.lab_coins = [[UILabel alloc]initWithFrame:CGMAKE(42, 26.5, 300, 22.5)];
+    [self.lab_coins setText:[NSString stringWithFormat:@"%ld",(long)self.conins]];
+    [self.lab_coins setTextColor:[UIColor whiteColor]];
+    [self.lab_coins setFont:[UIFont boldSystemFontOfSize:30]];
     [view_top addSubview:image_conis];
     [view_top addSubview:btn];
-    [view_top addSubview:lab];
+    [view_top addSubview:self.lab_coins];
     [self.view addSubview:view_top];
     
     UIView *view_btn = [[UIView alloc]initWithFrame:CGMAKE(0, 76, SCREEN_WIDTH, 44)];
@@ -351,6 +354,17 @@
                 
                 CoinsOneTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellone"];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.delegateSignal = [RACSubject subject];
+                @weakify(self);
+                [cell.delegateSignal subscribeNext:^(id x) {
+                    @strongify(self);
+                    MYLOG(@"点击了");
+                    if ([x[@"type"]isEqualToString:@"singin"]) {
+                        
+                        self.conins+=1;
+                        [self.lab_coins setText:[NSString stringWithFormat:@"%ld",(long)self.conins]];
+                    }
+                }];
                 return cell;
                 
             }

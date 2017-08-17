@@ -20,17 +20,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
-    for(NSString *fontFamilyName in [UIFont familyNames]) {
-        
-        NSLog(@"fontFamilyName:'%@'",fontFamilyName);
-        
-        for(NSString *fontName in [UIFont fontNamesForFamilyName:fontFamilyName]) {
-            
-            NSLog(@" font:'%@'",fontName); } NSLog(@"*****************************");
-    }
-    
-    
     [self ResRelated];
 //    [self GetMes:_MesModel];
     

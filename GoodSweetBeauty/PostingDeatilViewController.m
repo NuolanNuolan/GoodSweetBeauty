@@ -129,6 +129,7 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
     }
     
     @weakify(self);
+    MYLOG(@"帖子ID:%ld",(long)self.posting_id)
     [HttpEngine PostingDeatil:self.posting_id withdic:dic complete:^(BOOL success, id responseObject) {
         @strongify(self);
         [self.tableview.mj_header endRefreshing];
@@ -800,31 +801,32 @@ static NSString *const kMycommentsfatherCellIdentifier = @"kMycommentsfatherCell
         [BWCommon PushTo_Login:self];
         return;
     }
-    @weakify(self);
-    [ZFCWaveActivityIndicatorView show:self.view];
-    [HttpEngine BusinessCard:authid complete:^(BOOL success, id responseObject) {
-        @strongify(self);
-        [ZFCWaveActivityIndicatorView hid:self.view];
-        if (success) {
-            
-            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
-            
-            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
-            view.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:view animated:YES];
-            
-        }else{
-            
-            if (responseObject[@"msg"]) {
-                
-                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
-                
-            }else{
-                
-                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
-            }
-        }
-    }];
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:authid view:self];
+//    @weakify(self);
+//    [ZFCWaveActivityIndicatorView show:self.view];
+//    [HttpEngine BusinessCard:authid complete:^(BOOL success, id responseObject) {
+//        @strongify(self);
+//        [ZFCWaveActivityIndicatorView hid:self.view];
+//        if (success) {
+//            
+//            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+//            
+//            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
+//            view.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:view animated:YES];
+//            
+//        }else{
+//            
+//            if (responseObject[@"msg"]) {
+//                
+//                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+//                
+//            }else{
+//                
+//                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+//            }
+//        }
+//    }];
 }
 /**
  打赏

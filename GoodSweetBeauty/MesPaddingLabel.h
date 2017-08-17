@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MesPaddingLabel : UILabel
+@interface MesPaddingLabel : XXLinkLabel
 
 @property(nonatomic, assign) UIEdgeInsets edgeInsets;
 

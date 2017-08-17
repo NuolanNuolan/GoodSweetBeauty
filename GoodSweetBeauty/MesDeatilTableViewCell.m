@@ -15,7 +15,7 @@
 
     UIImageView *image_head;
     UIImageView *image_bg;
-    MesPaddingLabel *lab_mes;
+    XXLinkLabel *lab_mes;
     UILabel *lab_time;
     
     
@@ -47,16 +47,18 @@
         [lab_time sizeToFit];
         
         image_head = [[UIImageView alloc]initWithRoundingRectImageView];
+        image_head.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
+        [image_head addGestureRecognizer:tap];
         
-        
-//        image_bg = [[UIImageView alloc]initWithCornerRadiusAdvance:17 rectCornerType:UIRectCornerAllCorners];
         image_bg = [UIImageView new];
+        image_bg.userInteractionEnabled = YES;
         image_bg.layer.masksToBounds = YES;
         image_bg.layer.cornerRadius =17.0f;
         image_bg.backgroundColor = [UIColor whiteColor];
         
         
-        lab_mes = [MesPaddingLabel new];
+        lab_mes = [XXLinkLabel new];
         [lab_mes setTextColor:GETFONTCOLOR];
         [lab_mes setFont:[UIFont systemFontOfSize:16]];
         [lab_mes setNumberOfLines:0];
@@ -69,88 +71,72 @@
         [image_bg addSubview:lab_mes];
         [self.contentView addSubview:image_bg];
 
-        
-        
-        
         if ([reuseIdentifier isEqualToString:@"mesleft"]) {
             image_bg.backgroundColor = [UIColor whiteColor];
             lab_mes.textColor = GETFONTCOLOR;
-            [self LeftFrame];
             
         }else{
             image_bg.backgroundColor = GETMAINCOLOR;
             lab_mes.textColor = [UIColor whiteColor];
-//            image_bg.image = [UIImage imageNamed:@"Icon_mesbgtwo"];
-            [self RightFrame];
+            
         }
+        [self RightFrame];
     }
     return self;
-}
--(void)LeftFrame{
-  
-    lab_time.whc_TopSpace(15).whc_CenterX(0);
-    
-
-
-    
-    self.whc_TableViewWidth = self.whc_sw;
-    
 }
 -(void)RightFrame{
 
     lab_time.whc_TopSpace(15).whc_CenterX(0);
-//    image_head.whc_Size(40,40).whc_RightSpace(10);
-//    
-//    lab_mes.whc_LeftSpace(13).whc_TopSpace(13).whc_RightSpace(13).whc_BottomSpace(13);
-//    
-////    image_bg.whc_RightSpaceToView(10,image_head).whc_TopSpaceToView(10,lab_time).whc_WidthAuto().whc_HeightAuto().whc_CenterYToView(0,image_head);
-//    
-//    self.whc_CellBottomOffset = 10;
+
     self.whc_TableViewWidth = self.whc_sw;
     
 }
 
 -(void)SetModel:(YouAnPointMessageModel *)model{
 
-    if ([self.reuseIdentifier isEqualToString:@"mesleft"]) {
-        
-        lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm"];
-        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
-        
-        // 首先计算文本宽度和高度
-        CGRect rec = [model.content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-96, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} context:nil];
+    if (model) {
 
-        image_bg.frame = CGRectMake(60, 36, rec.size.width+26, rec.size.height+26);
-        
-        image_head.whc_Size(40,40).whc_LeftSpace(10).whc_CenterYToView(0,image_bg);
-        lab_mes.frame = CGRectMake(13, 13, rec.size.width, rec.size.height);
-        
-        
-        lab_mes.text = model.content;
-        
-//        lab_mes.attributedText = [BWCommon textWithStatus:model.content Atarr:nil font:[UIFont systemFontOfSize:16] LineSpacing:6 textColor:GETFONTCOLOR screenPadding:SCREEN_WIDTH-96];
-  
-    }
-    else{
-    
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm"];
-        [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+        
         // 首先计算文本宽度和高度
-        CGRect rec = [model.content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-96, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} context:nil];
+        CGRect rec = [model.content boundingRectWithSize:CGSizeMake(SCREEN_WIDTH-146, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16]} context:nil];
         
-        image_bg.frame = CGRectMake(SCREEN_WIDTH-60-(rec.size.width+26), 36, rec.size.width+26, rec.size.height+26);
-        
-        image_head.whc_Size(40,40).whc_RightSpace(10).whc_CenterYToView(0,image_bg);
+        if ([self.reuseIdentifier isEqualToString:@"mesleft"]) {
+            
+            
+            [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+            image_head.tag = model.from_member_id;
+            
+            image_bg.frame = CGRectMake(60, 36, rec.size.width+26, rec.size.height+26);
+            
+            image_head.whc_Size(40,40).whc_LeftSpace(10).whc_CenterYToView(0,image_bg);
+            
+            
+        }
+        else{
+            
+            [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.from_member.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+            image_bg.frame = CGRectMake(SCREEN_WIDTH-60-(rec.size.width+26), 36, rec.size.width+26, rec.size.height+26);
+            image_head.whc_Size(40,40).whc_RightSpace(10).whc_CenterYToView(0,image_bg);
+            
+            
+            
+            
+        }
         lab_mes.frame = CGRectMake(13, 13, rec.size.width, rec.size.height);
-        
-        
         lab_mes.text = model.content;
-        
-        
-        
-        
-        
-//        lab_mes.attributedText = [BWCommon textWithStatus:model.content Atarr:nil font:[UIFont systemFontOfSize:16] LineSpacing:6 textColor:[UIColor whiteColor] screenPadding:SCREEN_WIDTH-96];
+
     }
+}
+-(void)userdetail:(UITapGestureRecognizer *)tap{
+    
+    MYLOG(@"%ld",tap.view.tag);
+    
+    if (tap.view.tag!=0) {
+     
+        if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"UserDeatil",
+                                                                 @"value":[NSNumber numberWithInteger:tap.view.tag]}];
+    }
+    
 }
 @end

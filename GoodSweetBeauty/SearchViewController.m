@@ -12,6 +12,7 @@
 #import "YouAnSearchThreadsModel.h"
 #import "MyFansTableViewCell.h"
 #import "SearchThreadsTableViewCell.h"
+#import "PostingDeatilViewController.h"
 typedef NS_ENUM(NSUInteger, YouANSearchType) {
     
     YouAnStatusSearchUser,  ///< user
@@ -22,9 +23,11 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
 };
 
 
-@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+@interface SearchViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,UITextFieldDelegate>
 
 @property(nonatomic, assign) YouANSearchType type;
+
+@property(nonatomic,strong)YouAnBusinessCardModel * BusinessModel;
 
 //添加一个bool值判断是否展现查看更多用户按钮
 @property(nonatomic,assign)BOOL isShowMoreUser;
@@ -58,6 +61,8 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
 {
     [[UIApplication sharedApplication]setStatusBarStyle:UIStatusBarStyleDefault animated:NO];
     self.navigationController.navigationBar.barTintColor=[UIColor whiteColor];
+//    self.navigationController.navigationBar.barTintColor=GETMAINCOLOR;
+
     [self.navigationController.navigationBar setTintColor:GETMAINCOLOR];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:18],
                                                                       NSForegroundColorAttributeName:[UIColor blackColor]}];
@@ -91,6 +96,7 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
     self.text_search.layer.cornerRadius = 14.0f;
     self.text_search.backgroundColor = RGB(234, 235, 236);
     self.text_search.leftView = view_left;
+    self.text_search.delegate =self;
     self.text_search.leftViewMode = UITextFieldViewModeAlways;
     self.text_search.tintColor = GETMAINCOLOR;
     self.text_search.font = [UIFont systemFontOfSize:14];
@@ -102,15 +108,17 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
     [self.text_search setValue:font forKeyPath:@"_placeholderLabel.font"];
     self.text_search.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.text_search.returnKeyType =UIReturnKeySearch;
+    [self.text_search addTarget:self action:@selector(Text_Change:) forControlEvents:UIControlEventEditingChanged];
+    
     @weakify(self);
-    [[self.text_search rac_textSignal]subscribeNext:^(id x) {
-        @strongify(self);
-        [self SearchUsername:x];
-    }];
+//    [[self.text_search rac_textSignal]subscribeNext:^(id x) {
+//        @strongify(self);
+//        [self SearchUsername:x];
+//    }];
     [view addSubview:self.text_search];
     [self.navigationItem setTitleView:view];
     
-    self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGMAKE(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.tableview.backgroundColor=[UIColor clearColor];
@@ -130,6 +138,11 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
     }];
     
     
+    
+}
+-(void)Text_Change:(UITextField *)text{
+
+    [self SearchUsername:text.text];
     
 }
 -(void)Pop_view{
@@ -156,13 +169,15 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
 
     MYLOG(@"%@",search_key)
     self.str_keyword = search_key;
+    [PPNetworkHelper cancelRequestWithURL:[NSString stringWithFormat:@"%@/search/",ADDRESS_API]];
     if ([search_key isEqualToString:@""]) {
-        //如果为空 清空结果 取消网络请求
-        [PPNetworkHelper cancelRequestWithURL:[NSString stringWithFormat:@"%@/search/",ADDRESS_API]];
+        
         [self DeatilNoMoreData];
 
         
     }else{
+        
+        
         
         self.page_member = 1;
         self.page_threads = 1;
@@ -184,8 +199,6 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
         
         @strongify(self);
         if (success) {
-            
-            
             
             [self Deal_Member:page res:responseObject];
         }
@@ -574,20 +587,89 @@ typedef NS_ENUM(NSUInteger, YouANSearchType) {
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
 
-//    [self.text_search resignFirstResponder];
+    if (self.type == YouAnStatusSearchAll||self.type==YouAnStatusSearchUser||self.type==YouAnStatusSearchThreads) {
+
+        [self.text_search resignFirstResponder];
+    }
+    
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    MYLOG(@"%ld--%ld",(long)indexPath.section,(long)indexPath.row);
+    
+    switch (indexPath.section) {
+        case 0:{
+        
+            [self Click_UserDeail:indexPath.row];
+            
+        }
+            break;
+        case 1:{
+            
+            [self Click_Threads_Deail:indexPath.row];
+        }
+            break;
+    }
+    
+}
+/**
+ 处理点击的user
+ */
+-(void)Click_UserDeail:(NSInteger )row{
+
+    MemberResults *resmodel = self.arr_member[row];
+    
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:resmodel.id view:self];
+    
+//    @weakify(self);
+//    [ZFCWaveActivityIndicatorView show:self.view];
+//    [HttpEngine BusinessCard:resmodel.id complete:^(BOOL success, id responseObject) {
+//        @strongify(self);
+//        [ZFCWaveActivityIndicatorView hid:self.view];
+//        if (success) {
+//            
+//            self.BusinessModel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+//            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.BusinessModel];
+//            view.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:view animated:YES];
+//            
+//        }else{
+//            
+//            if (responseObject[@"msg"]) {
+//                
+//                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+//                
+//            }else{
+//                
+//                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+//            }
+//        }
+//    }];
+}
+/**
+ 处理点击的帖子
+ */
+-(void)Click_Threads_Deail:(NSInteger )row{
+    
+    ThreadsResults *resmodel = self.arr_threads[row];
+    PostingDeatilViewController *view = [PostingDeatilViewController new];
+    view.posting_id = resmodel.id;
+    [self.navigationController pushViewController:view animated:YES];
 }
 
 
 
 
 
+/**
+ return按键处理
+ */
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
 
-
-
-
-
-
-
+    
+    [textField resignFirstResponder];
+    return YES;
+}
 -(UIView *)view_head_member{
 
     if (!_view_head_member) {

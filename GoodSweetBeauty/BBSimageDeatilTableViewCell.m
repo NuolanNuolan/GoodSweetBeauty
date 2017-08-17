@@ -111,6 +111,7 @@
     [self SetFarmeimageview:Arr_image];
     
     
+    
 }
 
 //图片布局方法
@@ -130,15 +131,15 @@
         
         [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,images_model.image]] placeholderImage:[UIImage imageNamed:@"placeholderImage"]];
         //这里需要计算高度
-        CGSize image_size = [self Computationssize:images_model.size];
+        CGRect image_size = [self Computationssize:images_model.size];
         if (i==0) {
             
-            imageView.whc_LeftSpace(15).whc_RightSpace(15).whc_TopSpace(30).whc_Height(image_size.height);
+            imageView.whc_LeftSpace(15).whc_RightSpace(15).whc_TopSpace(30).whc_Height(image_size.size.height);
         }else{
             
             UIImageView *image_view = [self.contentView viewWithTag:i+100-1];
             
-            imageView.whc_LeftSpaceEqualView(image_view).whc_RightSpaceEqualView(image_view).whc_TopSpaceToView(5,image_view).whc_Height(image_size.height);
+            imageView.whc_LeftSpaceEqualView(image_view).whc_RightSpaceEqualView(image_view).whc_TopSpaceToView(5,image_view).whc_Height(image_size.size.height);
         }
     }
 
@@ -179,19 +180,8 @@
 /**
  这里计算高度
  */
--(CGSize )Computationssize:(NSString *)size{
-
-    //分割
-    //判断是否存在,
-    if ([BWCommon DoesItInclude:size withString:@","]) {
-        
-        NSArray *arr_size = [size componentsSeparatedByString:@","];
-        
-        return CGSizeMake(ScreenWidth-30, (ScreenWidth-30)*[arr_size[1] floatValue]/[arr_size[0] floatValue]);
-    }
-    return CGSizeMake(ScreenWidth-30, 166);
+-(CGRect )Computationssize:(NSString *)size{
     
-    
-    
+    return [BWCommon ImageSuchAsProportionwithsize:size withscreenWidth:ScreenWidth-30 withscreenHeight:ScreenHeight];
 }
 @end

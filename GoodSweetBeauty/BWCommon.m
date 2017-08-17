@@ -6,8 +6,6 @@
 //  Copyright © 2017年 YLL. All rights reserved.
 //
 
-//这是公有类
-
 #import "BWCommon.h"
 #import <ifaddrs.h>
 #import <arpa/inet.h>
@@ -427,6 +425,27 @@
         }
     }
 }
+/**
+ 图片等比例缩放
+ */
++(CGRect)ImageSuchAsProportionwithsize:(NSString *)size withscreenWidth:(CGFloat )screenWidth withscreenHeight:(CGFloat)screenHeight{
+    
+    //分割
+    //判断是否存在,
+    if ([BWCommon DoesItInclude:size withString:@","]) {
+        
+        NSArray *arr_size = [size componentsSeparatedByString:@","];
+     
+        CGFloat widthRatio = screenWidth / [arr_size[0] floatValue];
+        CGFloat heightRatio = screenHeight / [arr_size[1] floatValue];
+        CGFloat scale = MIN(widthRatio, heightRatio);
+        CGFloat width = scale * [arr_size[0] floatValue];
+        CGFloat height = scale * [arr_size[1] floatValue];
+        return CGRectMake((screenWidth - width) / 2, (screenHeight - height) / 2, width, height);
+    }
+    return CGRectMake(0, 0, screenWidth, (9*screenWidth)/16);
+    
+}
 + (CGSize)sizeWithString:(NSString *)str font:(UIFont *)font maxSize:(CGSize)maxSize
 {
     NSDictionary *dict = @{NSFontAttributeName : font};
@@ -475,9 +494,11 @@
     }
     
     NSMutableAttributedString *text = [[NSMutableAttributedString alloc] initWithString:string];
-    text.font = font;
-    text.color = textColor;
-    
+    /**
+     这里别设置font和color了 真机会有不显示颜色的BUG
+     */
+//    text.font = font;
+//    text.color = textColor;
     //使用正则匹配需要变颜色的文字
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:[NSString stringWithFormat:@"%@",highlightText] options:0 error:nil];
     NSArray *results = [regex matchesInString:string options:0 range:NSMakeRange(0, string.length)];
@@ -491,7 +512,6 @@
                          range:result.range];
         }
     }
-    
     //行间距
     NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
     
@@ -607,41 +627,40 @@
     [viewcontroller.navigationController pushViewController:view animated:YES];
     
 }
-+ (CGSize)neededSizeForPhoto:(CGSize )bubbleSize {
-    //bubbleSize  原尺寸
-    if (bubbleSize.width>ScreenWidth-30) {
-        
-    }
+
+/**
+ 跳到用户详情页 需要提供用户id 以及当前view
+ */
+-(void)PushTo_UserDeatil:(NSInteger)userid view:(UIViewController *)viewcontroller{
+
+    @weakify(self);
+    [ZFCWaveActivityIndicatorView show:viewcontroller.view];
+    [HttpEngine BusinessCard:userid complete:^(BOOL success, id responseObject) {
+        @strongify(self);
+        [ZFCWaveActivityIndicatorView hid:viewcontroller.view];
+        if (success) {
+
+            BusinessCardModel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+            UIViewController *view = [self UserDeatil:BusinessCardModel];
+            view.hidesBottomBarWhenPushed = YES;
+            [viewcontroller.navigationController pushViewController:view animated:YES];
+            
+        }else{
+            
+            if (responseObject[@"msg"]) {
+                
+                [MBProgressHUD showError:responseObject[@"msg"] toView:viewcontroller.view];
+                
+            }else{
+                
+                [MBProgressHUD showError:@"信息拉取失败" toView:viewcontroller.view];
+            }
+        }
+    }];
+
     
-    
-    
-    
-//    CGFloat maxWidth = ScreenWidth * 0.46;
-//    //限制最大宽度或高度
-//    CGFloat imageViewW = bubbleSize.width/2;
-//    CGFloat imageViewH = bubbleSize.height/2;
-//    CGFloat factor = 1.0f;
-//    if(imageViewW > imageViewH){
-//        if(imageViewW > maxWidth){
-//            factor = maxWidth/imageViewW;
-//            imageViewW = imageViewW*factor;
-//            imageViewH = imageViewH*factor;
-//        }
-//    }
-//    else{
-//        
-//        if(imageViewH > maxWidth){
-//            
-//            factor = maxWidth/imageViewH;
-//            imageViewW = MAX(imageViewW*factor,46.0);
-//            //限制宽度不能超过46.0
-//            imageViewH = imageViewH*factor;
-//        }
-//    }
-//    bubbleSize = CGSizeMake(imageViewW, imageViewH);
-    return bubbleSize;
 }
-    
+
 /**
  用户详情页
  */

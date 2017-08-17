@@ -11,5 +11,5 @@
 @interface CoinsOneTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *Sign_btn;
 - (IBAction)Sign_click:(UIButton *)sender;
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 @end

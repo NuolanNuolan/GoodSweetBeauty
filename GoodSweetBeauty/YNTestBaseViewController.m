@@ -390,31 +390,33 @@
         }
             break;
     }
-    @weakify(self);
-    [ZFCWaveActivityIndicatorView show:self.view];
-    [HttpEngine BusinessCard:_Bbsmodel.author_id complete:^(BOOL success, id responseObject) {
-        @strongify(self);
-        [ZFCWaveActivityIndicatorView hid:self.view];
-        if (success) {
-            
-            self.BusinessModel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
-            
-            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.BusinessModel];
-            view.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:view animated:YES];
-            
-        }else{
-        
-            if (responseObject[@"msg"]) {
-                
-                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
-                
-            }else{
-                
-                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
-            }
-        }
-    }];
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:_Bbsmodel.author_id view:self];
+    
+//    @weakify(self);
+//    [ZFCWaveActivityIndicatorView show:self.view];
+//    [HttpEngine BusinessCard:_Bbsmodel.author_id complete:^(BOOL success, id responseObject) {
+//        @strongify(self);
+//        [ZFCWaveActivityIndicatorView hid:self.view];
+//        if (success) {
+//            
+//            self.BusinessModel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+//            
+//            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.BusinessModel];
+//            view.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:view animated:YES];
+//            
+//        }else{
+//        
+//            if (responseObject[@"msg"]) {
+//                
+//                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+//                
+//            }else{
+//                
+//                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+//            }
+//        }
+//    }];
     
     
     

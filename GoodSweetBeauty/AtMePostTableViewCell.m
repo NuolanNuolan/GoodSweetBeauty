@@ -58,12 +58,17 @@
 
     image_head = [[UIImageView alloc]initWithRoundingRectImageView];;
     image_head.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
+    [image_head addGestureRecognizer:tap];
     
     lab_name = [UILabel new];
     [lab_name setTextColor:GETFONTCOLOR];
     [lab_name setFont:[UIFont systemFontOfSize:14]];
     lab_name.numberOfLines = 1;
+    lab_name.userInteractionEnabled =YES;
     [lab_name sizeToFit];
+    UITapGestureRecognizer *tap_username = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(userdetail:)];
+    [lab_name addGestureRecognizer:tap_username];
     
     image_isvip = [UIImageView new];
     
@@ -141,6 +146,8 @@
     if (model) {
      
         [image_head sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",ADDRESS_IMG,model.author_profile.avatar]] placeholderImage:[UIImage imageNamed:@"head"]];
+        image_head.tag = model.author_id;
+        lab_name.tag = model.author_id;
         lab_name.text = model.author;
         lab_time.text = [BWCommon TheTimeStamp:[NSString stringWithFormat:@"%ld",(long)model.created] withtype:@"MM-dd HH:mm:ss"];
         if (model.author_profile.vip==0) {
@@ -199,6 +206,14 @@
         lab_post_deatil.attributedText = [BWCommon textWithStatus:model.father.content Atarr:nil font:[UIFont systemFontOfSize:12] LineSpacing:3 textColor:RGB(132, 132, 132) screenPadding:ScreenWidth-110];
 
     }
+    
+}
+-(void)userdetail:(UITapGestureRecognizer *)tap{
+    
+    MYLOG(@"%ld",tap.view.tag);
+    
+    if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"UserDeatil",
+                                                             @"value":[NSNumber numberWithInteger:tap.view.tag]}];
     
 }
 @end

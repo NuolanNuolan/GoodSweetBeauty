@@ -202,6 +202,11 @@
     return cell;
     
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    _model = self.Arr_data[indexPath.row];
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:_model.id view:self];
+}
 //关注或者取关
 -(void)FollowOrCancelFollow:(NSString *)tag{
 

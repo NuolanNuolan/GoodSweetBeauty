@@ -219,7 +219,14 @@
     _model = self.Arr_data[indexPath.row];
     MesDeatilTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:_model.from_member_id==self.userid?@"mesright":@"mesleft"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    
+    @weakify(self);
+    cell.delegateSignal = [RACSubject subject];
+    [cell.delegateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        
+        [self PushUserDeail:x];
+        
+    }];
     [cell SetModel:_model];
     
     return cell;
@@ -306,5 +313,16 @@
             }
         }
     }];
+}
+/**
+ 跳转用户详情
+ */
+-(void)PushUserDeail:(NSDictionary *)dic{
+
+    if ([dic[@"type"]isEqualToString:@"UserDeatil"]) {
+        
+        [[BWCommon sharebwcommn]PushTo_UserDeatil:[dic[@"value"] integerValue] view:self];
+    }
+    
 }
 @end

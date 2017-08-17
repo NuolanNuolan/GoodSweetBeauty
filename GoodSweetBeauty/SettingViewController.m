@@ -148,6 +148,8 @@
         [userDefaults removeObjectForKey:key];
     }
     [userDefaults synchronize];
+    //取消所有的网络请求
+    [PPNetworkHelper cancelAllRequest];
     [self.navigationController popViewControllerAnimated:YES];
     
 }

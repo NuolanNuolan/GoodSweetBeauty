@@ -15,7 +15,6 @@
 #import "YouAnBBSDeatilModel.h"
 #import "YouAnMessageModel.h"
 #import "YouAnBusinessCardModel.h"
-#import "YouAnBusinessCardModel.h"
 
 #import<QuartzCore/QuartzCore.h>
 #import "LPActionSheet.h"
@@ -110,6 +109,8 @@
 
 //私信通知key
 #define NLETTERNAME @"NLETTERNAME"
+//私信时间的key
+#define NLETTTERTIMENAME @"NLETTTERTIMENAME"
 
 
 //测试接口地址

@@ -39,10 +39,14 @@
 
     lab_title = [UILabel new];
     lab_title.numberOfLines = 2;
+    [lab_title setTextColor:RGB(51, 51, 51)];
+    [lab_title setFont:[UIFont systemFontOfSize:17]];
     [lab_title sizeToFit];
     
     lab_deatil = [UILabel new];
     lab_deatil.numberOfLines =2;
+    [lab_deatil setTextColor:RGB(136, 136, 136)];
+    [lab_deatil setFont:[UIFont systemFontOfSize:14]];
     [lab_deatil sizeToFit];
     
     lab_time = [UILabel new];

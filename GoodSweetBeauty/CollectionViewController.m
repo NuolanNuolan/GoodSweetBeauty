@@ -20,6 +20,8 @@
 //page
 @property(nonatomic,assign)NSInteger page;
 
+@property(nonatomic,strong)YouAnBusinessCardModel *BusinessModel;
+
 @end
 
 @implementation CollectionViewController
@@ -63,11 +65,10 @@
         [self LoadDataWithpage:self.page];
         
     }];
+    
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         @strongify(self);
-        
         [self LoadDataWithpage:++self.page];
-        
     }];
     
 
@@ -139,6 +140,12 @@
     BBSPostTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:NSStringFromClass([BBSPostTableViewCell class])];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell SetRow:indexPath.section withmodel:self.Arr_data[indexPath.section]];
+    cell.delegateSignal = [RACSubject subject];
+    @weakify(self);
+    [cell.delegateSignal subscribeNext:^(id x) {
+        @strongify(self);
+        [self PushUserDetail:x];
+    }];
     
     return cell;
     
@@ -153,34 +160,41 @@
     view.posting_id = _model.id;
     view.hidesBottomBarWhenPushed =YES;
     [self.navigationController pushViewController:view animated:YES];
+}
+/**
+ 用户信息
+ */
+-(void)PushUserDetail:(NSString *)tag{
+
+    _model = self.Arr_data[[tag integerValue]];
     
-    
-//    PostingDeatilViewController *view = [PostingDeatilViewController new];
-//    switch (self.ynPageScrollViewController.pageIndex) {
-//        case 0:{
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:_model.author_id view:self];
+//    @weakify(self);
+//    [ZFCWaveActivityIndicatorView show:self.view];
+//    [HttpEngine BusinessCard:_model.author_id complete:^(BOOL success, id responseObject) {
+//        @strongify(self);
+//        [ZFCWaveActivityIndicatorView hid:self.view];
+//        if (success) {
 //            
-//            _Bbsmodel = self.Arr_back[indexPath.section];
-//            view.posting_id = _Bbsmodel.id;
+//            self.BusinessModel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+//            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.BusinessModel];
+//            view.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:view animated:YES];
 //            
+//        }else{
+//            
+//            if (responseObject[@"msg"]) {
+//                
+//                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+//                
+//            }else{
+//                
+//                [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+//            }
 //        }
-//            break;
-//        case 1:{
-//            _Bbsmodel = self.Arr_new[indexPath.section];
-//            view.posting_id = _Bbsmodel.id;
-//            
-//        }
-//            break;
-//        case 2:{
-//            
-//            _Bbsmodel = self.Arr_goods[indexPath.section];
-//            view.posting_id = _Bbsmodel.id;
-//        }
-//            break;
-//    }
-//    view.hidesBottomBarWhenPushed =YES;
-//    [self.navigationController pushViewController:view animated:YES];
+//    }];
+
     
 }
-
 
 @end

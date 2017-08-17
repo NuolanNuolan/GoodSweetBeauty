@@ -11,7 +11,7 @@
 
 @interface MesDeatilTableViewCell : UITableViewCell
 
-
+@property (nonatomic, strong) RACSubject *delegateSignal;
 
 -(void)SetModel:(YouAnPointMessageModel *)model ;
 

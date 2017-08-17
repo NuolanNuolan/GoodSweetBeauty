@@ -96,12 +96,16 @@
  */
 +(void)PushTo_Login:(UIViewController *)viewcontroller;
 
-+ (CGSize)neededSizeForPhoto:(CGSize )bubbleSize;
 
 /**
  用户详情页
  */
--(UIViewController *)UserDeatil:(YouAnBusinessCardModel *)model;
+//-(UIViewController *)UserDeatil:(YouAnBusinessCardModel *)model;
+
+/**
+ 跳到用户详情页 需要提供用户id 以及当前view
+ */
+-(void)PushTo_UserDeatil:(NSInteger)userid view:(UIViewController *)viewcontroller;
 /**
  搜索出来的帖子 富文本 文字变颜色
  */
@@ -113,5 +117,12 @@
                                      screenPadding:(CGFloat )padding
                                     ChangeColorStr:(NSString *)highlightText
                                              Color:(UIColor *)color;
+/**
+ 图片等比例缩放
+ */
++(CGRect)ImageSuchAsProportionwithsize:(NSString *)size withscreenWidth:(CGFloat )screenWidth withscreenHeight:(CGFloat)screenHeight;
+
+
+
 @end
 

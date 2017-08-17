@@ -24,13 +24,15 @@
 - (IBAction)Sign_click:(UIButton *)sender {
     
     //签到
-    
+    @weakify(self);
     [HttpEngine UserSignincomplete:^(BOOL success, id responseObject) {
-       
+        @strongify(self);
         MYLOG(@"%@",responseObject);
         if (success) {
             
             [MBProgressHUD showSuccess:responseObject[@"msg"]];
+            //通知到C
+            if (self.delegateSignal) [self.delegateSignal sendNext:@{@"type":@"singin"}];
             
         }else{
         

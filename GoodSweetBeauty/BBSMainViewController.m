@@ -89,7 +89,7 @@
     MYLOG(@"搜索");
     SearchViewController *searchview = [[SearchViewController alloc]init];
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:searchview];
-    //    viewLogin.navigationController.navigationBar.translucent = NO;
+    navigationController.navigationBar.translucent = NO;
     [[[UIApplication sharedApplication].delegate window].rootViewController presentViewController:navigationController animated:NO completion:^{
         
     }];

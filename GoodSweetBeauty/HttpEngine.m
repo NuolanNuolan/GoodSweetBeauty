@@ -18,9 +18,9 @@
     [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"username"] forKey:@"NAME"];
     //phone
     [[NSUserDefaults standardUserDefaults]setObject:[responseObjecct[@"user"] objectForKey:@"mobile"] forKey:@"PHONE"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
     //id
     [[NSUserDefaults standardUserDefaults]setInteger:[[responseObjecct[@"user"]objectForKey:@"id"] integerValue] forKey:@"USERID"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     //发出一个通知
     NSNotification *notification = [NSNotification notificationWithName:@"LOGINSUCCNOTIFI" object:nil];
     [[NSNotificationCenter defaultCenter] postNotification:notification];
@@ -163,16 +163,34 @@
     NSString*token=[[NSUserDefaults standardUserDefaults]objectForKey:@"TOKEN_KEY"];
     NSString*tokenStr=[NSString stringWithFormat:@"JWT %@",token];
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
-    [PPNetworkHelper GET:url parameters:nil success:^(id responseObject) {
-        
     
+    [PPNetworkHelper GET:url parameters:nil responseCache:^(id responseCache) {
+        
+        if (responseCache) {
+            
+            complete(YES,responseCache);
+        }
+        
+    } success:^(id responseObject) {
+        
         complete(YES,responseObject);
         
     } failure:^(NSError *error) {
         
         complete(NO,nil);
-        
     }];
+    
+    
+//    [PPNetworkHelper GET:url parameters:nil success:^(id responseObject) {
+//        
+//    
+//        complete(YES,responseObject);
+//        
+//    } failure:^(NSError *error) {
+//        
+//        complete(NO,nil);
+//        
+//    }];
     
 }
 //我的粉丝
@@ -584,6 +602,8 @@
     [PPNetworkHelper setValue:tokenStr forHTTPHeaderField:@"Authorization"];
     NSDictionary *dic = @{@"page":[NSNumber numberWithInteger:page]};
     [PPNetworkHelper GET:url parameters:dic success:^(id responseObject) {
+        
+//        GCD_AFTER(3, complete(YES,responseObject););
         
         complete(YES,responseObject);
         

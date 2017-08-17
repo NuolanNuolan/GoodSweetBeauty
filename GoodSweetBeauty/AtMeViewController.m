@@ -190,35 +190,40 @@
         NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:[dic[@"row"] integerValue]];
         [self.tableview.delegate respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)];
         [self.tableview.delegate tableView:self.tableview didSelectRowAtIndexPath:path];
+    }else if ([dic[@"type"]isEqualToString:@"UserDeatil"]){
+    
+        [self headimg:[dic[@"value"] integerValue]];
     }
 }
 //跳转
 -(void)headimg:(NSInteger )uid{
     
-    @weakify(self);
-    [ZFCWaveActivityIndicatorView show:self.view];
-    [HttpEngine BusinessCard:uid complete:^(BOOL success, id responseObject) {
-        @strongify(self);
-        [ZFCWaveActivityIndicatorView hid:self.view];
-        if (success) {
-            
-            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
-            
-            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
-            view.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:view animated:YES];
-            
-        }else{
-            if (responseObject[@"msg"]) {
-                
-                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
-                
-            }else{
-            
-               [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
-            }
-        }
-    }];
+    [[BWCommon sharebwcommn]PushTo_UserDeatil:uid view:self];
+    
+//    @weakify(self);
+//    [ZFCWaveActivityIndicatorView show:self.view];
+//    [HttpEngine BusinessCard:uid complete:^(BOOL success, id responseObject) {
+//        @strongify(self);
+//        [ZFCWaveActivityIndicatorView hid:self.view];
+//        if (success) {
+//            
+//            self.busmodel = [YouAnBusinessCardModel whc_ModelWithJson:responseObject];
+//            
+//            UIViewController *view = [[BWCommon sharebwcommn]UserDeatil:self.busmodel];
+//            view.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:view animated:YES];
+//            
+//        }else{
+//            if (responseObject[@"msg"]) {
+//                
+//                [MBProgressHUD showError:responseObject[@"msg"] toView:self.view];
+//                
+//            }else{
+//            
+//               [MBProgressHUD showError:@"信息拉取失败" toView:self.view];
+//            }
+//        }
+//    }];
 }
 
 
