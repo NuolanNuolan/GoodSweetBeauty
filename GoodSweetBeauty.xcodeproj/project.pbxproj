@@ -38,6 +38,8 @@
 		EA138C9F1F3441FA00C0BBD5 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EA138C9E1F3441FA00C0BBD5 /* libz.tbd */; };
 		EA138CA31F34457D00C0BBD5 /* AppShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA138CA21F34457D00C0BBD5 /* AppShareView.m */; };
 		EA15CB481EBF471200034741 /* MyPost_OneTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */; };
+		EA1F32F01F459F1F00E4FFB6 /* Exceptional_ListView.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1F32EF1F459F1F00E4FFB6 /* Exceptional_ListView.m */; };
+		EA1F32F31F46900600E4FFB6 /* ExceptionalTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EA1F32F21F46900600E4FFB6 /* ExceptionalTableViewCell.m */; };
 		EA26E3EE1ECEBF6F003D5F6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */; };
 		EA26E3F21ECEC792003D5F6C /* AtMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */; };
 		EA343B661F1856D5001F1FB1 /* MyImMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA343B651F1856D5001F1FB1 /* MyImMessagesViewController.m */; };
@@ -254,6 +256,10 @@
 		EA138CA21F34457D00C0BBD5 /* AppShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppShareView.m; sourceTree = "<group>"; };
 		EA15CB461EBF471200034741 /* MyPost_OneTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPost_OneTableViewCell.h; sourceTree = "<group>"; };
 		EA15CB471EBF471200034741 /* MyPost_OneTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPost_OneTableViewCell.m; sourceTree = "<group>"; };
+		EA1F32EE1F459F1F00E4FFB6 /* Exceptional_ListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exceptional_ListView.h; sourceTree = "<group>"; };
+		EA1F32EF1F459F1F00E4FFB6 /* Exceptional_ListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Exceptional_ListView.m; sourceTree = "<group>"; };
+		EA1F32F11F46900600E4FFB6 /* ExceptionalTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionalTableViewCell.h; sourceTree = "<group>"; };
+		EA1F32F21F46900600E4FFB6 /* ExceptionalTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionalTableViewCell.m; sourceTree = "<group>"; };
 		EA26E3ED1ECEBF6F003D5F6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EA26E3F01ECEC792003D5F6C /* AtMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AtMeViewController.h; sourceTree = "<group>"; };
 		EA26E3F11ECEC792003D5F6C /* AtMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AtMeViewController.m; sourceTree = "<group>"; };
@@ -722,6 +728,21 @@
 				EA138CA21F34457D00C0BBD5 /* AppShareView.m */,
 			);
 			name = Share;
+			sourceTree = "<group>";
+		};
+		EA1F32F41F46900D00E4FFB6 /* 打赏 */ = {
+			isa = PBXGroup;
+			children = (
+				EAA98A961EDFFBD300F294BE /* BBSExceptionalTableViewCell.h */,
+				EAA98A971EDFFBD300F294BE /* BBSExceptionalTableViewCell.m */,
+				EAA30B8A1EE3D4200074CE0C /* Exceptional_view.h */,
+				EAA30B8B1EE3D4200074CE0C /* Exceptional_view.m */,
+				EA1F32EE1F459F1F00E4FFB6 /* Exceptional_ListView.h */,
+				EA1F32EF1F459F1F00E4FFB6 /* Exceptional_ListView.m */,
+				EA1F32F11F46900600E4FFB6 /* ExceptionalTableViewCell.h */,
+				EA1F32F21F46900600E4FFB6 /* ExceptionalTableViewCell.m */,
+			);
+			name = "打赏";
 			sourceTree = "<group>";
 		};
 		EA26E3EF1ECEC783003D5F6C /* @我的 */ = {
@@ -1479,16 +1500,13 @@
 		EAE023851EDE8EF7009305A7 /* 帖子详情 */ = {
 			isa = PBXGroup;
 			children = (
+				EA1F32F41F46900D00E4FFB6 /* 打赏 */,
 				EAE023861EDE8F4B009305A7 /* BBSDeatilTableViewCell.h */,
 				EAE023871EDE8F4B009305A7 /* BBSDeatilTableViewCell.m */,
 				EAA98A901EDFF59100F294BE /* BBSTitleDeatilTableViewCell.h */,
 				EAA98A911EDFF59100F294BE /* BBSTitleDeatilTableViewCell.m */,
 				EAA98A931EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.h */,
 				EAA98A941EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m */,
-				EAA98A961EDFFBD300F294BE /* BBSExceptionalTableViewCell.h */,
-				EAA98A971EDFFBD300F294BE /* BBSExceptionalTableViewCell.m */,
-				EAA30B8A1EE3D4200074CE0C /* Exceptional_view.h */,
-				EAA30B8B1EE3D4200074CE0C /* Exceptional_view.m */,
 				EAA30B8D1EE5549F0074CE0C /* CommentsDeatilTableViewCell.h */,
 				EAA30B8E1EE5549F0074CE0C /* CommentsDeatilTableViewCell.m */,
 				EAA30B901EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.h */,
@@ -1819,11 +1837,13 @@
 				EA63710E1ED6C38A003E6BC3 /* YNTestThreeViewController.m in Sources */,
 				EAA30B921EE554AF0074CE0C /* CommentsDeatilFatherTableViewCell.m in Sources */,
 				EAA5DF4A1F0FCB45000A0D4B /* CustomTextField.m in Sources */,
+				EA1F32F01F459F1F00E4FFB6 /* Exceptional_ListView.m in Sources */,
 				EA343B6A1F1859F8001F1FB1 /* MesListTableViewCell.m in Sources */,
 				EA138CA31F34457D00C0BBD5 /* AppShareView.m in Sources */,
 				EAFA87291F41959800697571 /* YouAnSearchMemberModel.m in Sources */,
 				EAD926181ECD8D2D00B6048D /* HHHorizontalPagingView.m in Sources */,
 				EA52121F1F146527006EFD7F /* TimeHeaderFooterView.m in Sources */,
+				EA1F32F31F46900600E4FFB6 /* ExceptionalTableViewCell.m in Sources */,
 				EAFA87231F41770B00697571 /* SearchViewController.m in Sources */,
 				EA9483EC1EE9057800D3124A /* YouAnUserPosttingModel.m in Sources */,
 				EAA98A951EDFF8AE00F294BE /* BBSimageDeatilTableViewCell.m in Sources */,

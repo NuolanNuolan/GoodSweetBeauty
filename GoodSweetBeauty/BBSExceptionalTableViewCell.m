@@ -8,12 +8,15 @@
 
 #import "BBSExceptionalTableViewCell.h"
 #import "Exceptional_view.h"
+#import "Exceptional_ListView.h"
 @interface BBSExceptionalTableViewCell(){
 
     //打赏按钮
     UIButton *btn_exceptional;
     //打赏人数 金额
     UILabel *lab_count_amount;
+
+    
     //打赏人头像
     WHC_StackView  * stack_imageview;
     
@@ -21,8 +24,12 @@
     
     
 }
-@property(nonatomic,strong)NSMutableArray * arr_uid;
+//@property(nonatomic,strong)NSMutableArray * arr_uid;
 @property(nonatomic,strong)NSMutableArray * arr_imagehead;
+    //model数组
+@property(nonatomic,strong)NSMutableArray *arr_exceptionmodel;
+//总金额
+@property(nonatomic,assign)NSInteger balance;
 @end
 
 @implementation BBSExceptionalTableViewCell
@@ -51,6 +58,9 @@
         [lab_count_amount sizeToFit];
         
         stack_imageview = [WHC_StackView new];
+        stack_imageview.userInteractionEnabled =YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(Exceptional_list)];
+        [stack_imageview addGestureRecognizer:tap];
 //        stack_imageview.whc_Column = 10;               // 最大列
 //        stack_imageview.whc_Column
         stack_imageview.whc_Edge = UIEdgeInsetsZero;  // 内边距为0
@@ -79,21 +89,24 @@
         lab_count_amount.whc_TopSpaceToView(15,btn_exceptional).whc_CenterX(0);
         stack_imageview.whc_CenterX(0).whc_WidthAuto().whc_HeightAuto().whc_TopSpaceToView(15,lab_count_amount);
         
+        [self.arr_exceptionmodel removeAllObjects];
         [self.arr_imagehead removeAllObjects];
-        [self.arr_uid removeAllObjects];
-        NSInteger balance = 0;
+        self.balance = 0;
         for (Rewards *rewardsmodel in model.rewards) {
 //            if ((rewardsmodel.tid==rewardsmodel.pid)) {
                 
                 //有几个人
-                [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
+//                [self.arr_uid addObject:[NSString stringWithFormat:@"%ld",(long)rewardsmodel.uid]];
                 //总金额
-                balance+=rewardsmodel.coins ;
+                self.balance+=rewardsmodel.coins ;
                 //头像
                 [self.arr_imagehead addObject:rewardsmodel.profile.avatar];
+                //添加model
+                [self.arr_exceptionmodel addObject:rewardsmodel];
 //            }
         }
-        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_uid.count,(long)balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_uid.count] highlightTwoText:[NSString stringWithFormat:@"%ld",(long)balance] collor:GETMAINCOLOR];
+        lab_count_amount.attributedText = [self setupAttributeString:[NSString stringWithFormat:@"%lu人打赏了%ld有安币",(unsigned long)self.arr_exceptionmodel.count,(long)self.balance] highlightOneText:[NSString stringWithFormat:@"%lu",(unsigned long)self.arr_exceptionmodel.count] highlightTwoText:[NSString stringWithFormat:@"%ld",(long)self.balance] collor:GETMAINCOLOR];
+        
         [self ActionLayut];
     }else{
     
@@ -146,7 +159,30 @@
     }];
     [view show];
 }
+/**
+ 打赏列表
+ */
+-(void)Exceptional_list{
 
+    
+    if(![BWCommon islogin]){
+        [BWCommon PushTo_Login:[BWCommon Superview:self.contentView]];
+        return;
+    }
+    if (self.arr_exceptionmodel.count>0) {
+     
+        //需要传入具体的model
+        @weakify(self);
+        Exceptional_ListView *view = [Exceptional_ListView alertViewExceptional:self.arr_exceptionmodel.count withAmount:self.balance except_title:self.arr_exceptionmodel exceptionalblockclick:^(Exceptional_ListView *view, NSInteger userid) {
+            @strongify(self);
+            [view dismiss];
+            MYLOG(@"uid是%ld",(long)userid)
+            [[BWCommon sharebwcommn]PushTo_UserDeatil:userid view:[BWCommon Superview:self.contentView]];
+        }];
+        [view show];
+    }
+    
+}
 
 
 #pragma mark - 富文本部分颜色
@@ -166,15 +202,24 @@
         return [highlightText copy];
     }
 }
--(NSMutableArray *)arr_uid{
+-(NSMutableArray *)arr_exceptionmodel{
 
-
-    if (!_arr_uid) {
-        _arr_uid = [NSMutableArray arrayWithCapacity:0];
+    if (!_arr_exceptionmodel) {
+        
+        _arr_exceptionmodel =[NSMutableArray arrayWithCapacity:0];
         
     }
-    return _arr_uid;
+    return _arr_exceptionmodel;
 }
+//-(NSMutableArray *)arr_uid{
+//
+//
+//    if (!_arr_uid) {
+//        _arr_uid = [NSMutableArray arrayWithCapacity:0];
+//        
+//    }
+//    return _arr_uid;
+//}
 -(NSMutableArray *)arr_imagehead{
 
     if (!_arr_imagehead) {

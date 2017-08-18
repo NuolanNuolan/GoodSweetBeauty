@@ -45,7 +45,7 @@
     
     
     self.text_search = [[CustomTextField alloc]initWithFrame:CGMAKE(8, 8, ScreenWidth-16, 28)];
-    self.text_search.placeholder = @"搜索内容";
+    self.text_search.placeholder = @"输入气体中文名、英文名、化学式、CAS号";
     self.text_search.layer.masksToBounds =YES;
     self.text_search.layer.cornerRadius = 14.0f;
     self.text_search.backgroundColor = RGB(234, 235, 236);
